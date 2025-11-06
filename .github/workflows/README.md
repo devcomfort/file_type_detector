@@ -4,8 +4,8 @@ This directory contains CI/CD workflows for the project.
 
 ## Workflow Overview
 
-| Workflow         | Purpose           | Trigger                        | Required Secrets                         |
-| ----------------- | ----------------- | ------------------------------ | ---------------------------------------- |
+| Workflow           | Purpose                   | Trigger                         | Required Secrets                       |
+| ------------------ | ------------------------- | ------------------------------- | -------------------------------------- |
 | `pypi-release.yml` | Automatic PyPI deployment | Semantic Version change (X.Y.Z) | `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` |
 
 ---
@@ -56,10 +56,10 @@ GitHub Release creation
 
 ⚠️ **Must be configured:**
 
-| Secret Name          | Description            | Creation Location                               |
-| -------------------- | ---------------------- | ----------------------------------------------- |
-| `PYPI_API_TOKEN`     | PyPI API token         | https://pypi.org/manage/account/token/          |
-| `TESTPYPI_API_TOKEN` | TestPyPI API token     | https://test.pypi.org/manage/account/token/     |
+| Secret Name          | Description        | Creation Location                           |
+| -------------------- | ------------------ | ------------------------------------------- |
+| `PYPI_API_TOKEN`     | PyPI API token     | https://pypi.org/manage/account/token/      |
+| `TESTPYPI_API_TOKEN` | TestPyPI API token | https://test.pypi.org/manage/account/token/ |
 
 **Setup Instructions:** See `.github/workflows/SETUP.md`
 

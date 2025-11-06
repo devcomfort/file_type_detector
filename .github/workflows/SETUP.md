@@ -14,8 +14,8 @@ The following secrets are automatically provided by GitHub and **require no addi
 
 The following Secrets **must be configured** to use the `pypi-release.yml` workflow:
 
-| Secret Name          | Description                              | Required | Setup Location                    |
-| -------------------- | ---------------------------------------- | -------- | --------------------------------- |
+| Secret Name          | Description                              | Required   | Setup Location               |
+| -------------------- | ---------------------------------------- | ---------- | ---------------------------- |
 | `PYPI_API_TOKEN`     | PyPI API token (for production PyPI)     | ✅ Required | Settings → Secrets → Actions |
 | `TESTPYPI_API_TOKEN` | TestPyPI API token (for test deployment) | ✅ Required | Settings → Secrets → Actions |
 
@@ -39,10 +39,10 @@ For extending workflows with additional features:
 
 To receive notifications when deployment completes:
 
-| Secret Name           | Description                       |
-| --------------------- | --------------------------------- |
-| `SLACK_WEBHOOK_URL`   | Slack Incoming Webhook URL        |
-| `DISCORD_WEBHOOK_URL` | Discord Webhook URL               |
+| Secret Name           | Description                |
+| --------------------- | -------------------------- |
+| `SLACK_WEBHOOK_URL`   | Slack Incoming Webhook URL |
+| `DISCORD_WEBHOOK_URL` | Discord Webhook URL        |
 
 ## Workflow Permissions
 
