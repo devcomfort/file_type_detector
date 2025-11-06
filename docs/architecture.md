@@ -1,10 +1,10 @@
 # Architecture
 
-Understanding the internal architecture and design decisions of `file-type-infer`.
+Understanding the internal architecture and design decisions of `filetype-detector`.
 
 ## Overview
 
-`file-type-infer` follows an object-oriented design based on the Strategy pattern, where different inference algorithms are encapsulated as separate classes implementing a common interface.
+`filetype-detector` follows an object-oriented design based on the Strategy pattern, where different inference algorithms are encapsulated as separate classes implementing a common interface.
 
 ## Core Components
 
@@ -54,7 +54,7 @@ result = strategy(file_path)
 ## Module Structure
 
 ```
-file_type_infer/
+filetype_detector/
 ├── __init__.py
 ├── base_inferencer.py      # Abstract base class
 ├── lexical_inferencer.py   # Path-based inference
@@ -102,7 +102,7 @@ To add a custom inferencer:
 
 1. **Subclass BaseInferencer**:
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 
 class CustomInferencer(BaseInferencer):
     def infer(self, file_path: Union[Path, str]) -> str:
@@ -112,7 +112,7 @@ class CustomInferencer(BaseInferencer):
 
 2. **Add to Map** (optional):
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
 
 FILE_FORMAT_INFERENCER_MAP["custom"] = lambda path: CustomInferencer().infer(path)
 ```

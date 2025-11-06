@@ -3,7 +3,7 @@
 AI-powered file type detection using Google's Magika model.
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 ```
 
 ## Overview
@@ -40,7 +40,7 @@ Public API that returns only the file extension.
 **Examples:**
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 from pathlib import Path
 
 inferencer = MagikaInferencer()
@@ -74,7 +74,7 @@ Core implementation that returns both extension and confidence score.
 **Examples:**
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 from magika import PredictionMode
 
 inferencer = MagikaInferencer()
@@ -121,7 +121,7 @@ ext, score = inferencer.infer_with_score(
 ### Basic Usage
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 extension = inferencer.infer("script.py")
@@ -173,7 +173,7 @@ else:
 ### Error Handling
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 

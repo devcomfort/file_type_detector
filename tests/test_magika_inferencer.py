@@ -5,7 +5,7 @@ from unittest.mock import patch, MagicMock
 from magika import PredictionMode
 from loguru import logger
 
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 
 class TestMagikaInferencer:
@@ -109,7 +109,7 @@ class TestMagikaInferencer:
             inferencer.infer_with_score(str(temp_dir_path))
         logger.success(f"ValueError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.magika_inferencer.Magika")
+    @patch("filetype_detector.magika_inferencer.Magika")
     def test_infer_with_score_runtime_error(self, mock_magika_class, sample_text_file):
         """Test that RuntimeError is raised when Magika fails."""
         logger.debug("Testing RuntimeError when Magika fails (infer_with_score method)")
@@ -122,7 +122,7 @@ class TestMagikaInferencer:
             inferencer.infer_with_score(sample_text_file)
         logger.success(f"RuntimeError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.magika_inferencer.Magika")
+    @patch("filetype_detector.magika_inferencer.Magika")
     def test_infer_runtime_error_propagates(self, mock_magika_class, sample_text_file):
         """Test that RuntimeError from infer_with_score propagates through infer."""
         logger.debug("Testing RuntimeError propagation through infer method")
@@ -166,7 +166,7 @@ class TestMagikaInferencer:
         else:
             assert len(extension2) >= 0
 
-    @patch("file_type_infer.magika_inferencer.Magika")
+    @patch("filetype_detector.magika_inferencer.Magika")
     def test_infer_with_score_successful_flow(
         self, mock_magika_class, sample_text_file
     ):

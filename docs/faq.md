@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-Common questions and answers about `file-type-infer`.
+Common questions and answers about `filetype-detector`.
 
 ## General Questions
 
@@ -18,8 +18,8 @@ Common questions and answers about `file-type-infer`.
 Yes! You can chain inferencers or use them sequentially:
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 lexical = LexicalInferencer()
 magic = MagicInferencer()
@@ -54,7 +54,7 @@ Yes! You can implement caching:
 
 ```python
 from functools import lru_cache
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 class CachedMagicInferencer(MagicInferencer):
     @lru_cache(maxsize=1000)
@@ -94,7 +94,7 @@ Magika's API returns extensions as a list (e.g., `['py', 'pyi']`). The inference
 Yes, but only with `MagikaInferencer` directly:
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 extension, score = inferencer.infer_with_score("file.py")
@@ -149,7 +149,7 @@ Not directly, but you can wrap it:
 
 ```python
 import asyncio
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 async def async_detect(file_path):
     loop = asyncio.get_event_loop()
@@ -162,7 +162,7 @@ async def async_detect(file_path):
 Use batch processing with instance reuse:
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()  # Create once
 
@@ -176,7 +176,7 @@ for file_path in thousands_of_files:
 Yes! Subclass `BaseInferencer`:
 
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 
 class CustomInferencer(BaseInferencer):
     def infer(self, file_path):

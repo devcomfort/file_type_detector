@@ -26,7 +26,7 @@ Understanding performance characteristics of different inferencers and how to op
 - **Best for**: High-volume processing where extensions are trusted
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()
 
@@ -43,7 +43,7 @@ for file_path in large_file_list:
 - **Best for**: Content-based detection without AI overhead
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 
@@ -61,7 +61,7 @@ for file_path in file_list:
 - **Best for**: Highest accuracy, especially text files
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()  # Model loads here (~100-200ms)
 
@@ -80,7 +80,7 @@ for file_path in file_list:
 - **Best for**: General-purpose use with mixed file types
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()  # Magika model loads here
 
@@ -112,21 +112,21 @@ for file_path in files:
 
 **For high-volume processing with trusted extensions:**
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()  # Fastest
 ```
 
 **For content-based detection:**
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()  # Good balance
 ```
 
 **For mixed content (recommended):**
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()  # Optimizes automatically
 ```
@@ -137,7 +137,7 @@ For large batches, consider parallel processing:
 
 ```python
 from concurrent.futures import ThreadPoolExecutor
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 def detect_type(file_path: Path) -> tuple[str, str]:
@@ -158,7 +158,7 @@ with ThreadPoolExecutor(max_workers=4) as executor:
 If using MagikaInferencer sparingly:
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 class LazyMagikaInferencer:
     def __init__(self):
@@ -229,7 +229,7 @@ For repeated file type detection, consider caching:
 
 ```python
 from functools import lru_cache
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 class CachedMagicInferencer(MagicInferencer):
     @lru_cache(maxsize=1000)
@@ -247,7 +247,7 @@ Use Python's profiling tools to identify bottlenecks:
 
 ```python
 import cProfile
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 

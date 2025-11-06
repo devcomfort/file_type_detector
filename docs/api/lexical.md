@@ -3,7 +3,7 @@
 Fastest inferencer that extracts file extensions directly from file paths.
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 ```
 
 ## Overview
@@ -34,7 +34,7 @@ Infer the file format from the file path.
 **Examples:**
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 from pathlib import Path
 
 inferencer = LexicalInferencer()
@@ -54,7 +54,7 @@ extension = inferencer.infer('no_extension')  # Returns: ''
 ### Basic Usage
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()
 extension = inferencer.infer("document.pdf")

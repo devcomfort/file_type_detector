@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from loguru import logger
 
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 
 class TestCascadingInferencer:
@@ -49,7 +49,7 @@ class TestCascadingInferencer:
             inferencer.infer(str(temp_dir_path))
         logger.success(f"ValueError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_infer_runtime_error_no_mime_type(self, mock_magic, sample_text_file):
         """Test that RuntimeError is raised when MIME type cannot be determined."""
         logger.debug("Testing RuntimeError when MIME type cannot be determined")
@@ -61,8 +61,8 @@ class TestCascadingInferencer:
             inferencer.infer(sample_text_file)
         logger.success(f"RuntimeError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.mixture_inferencer.mimetypes.guess_extension")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.mimetypes.guess_extension")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_infer_runtime_error_no_extension(
         self, mock_magic, mock_guess_ext, sample_text_file
     ):
@@ -120,8 +120,8 @@ class TestCascadingInferencer:
         assert extension.startswith(".")
         # PDF files are not text/*, so should use Magic only
 
-    @patch("file_type_infer.mixture_inferencer.Magika")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.Magika")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_text_file_cascades_to_magika(
         self, mock_magic, mock_magika_class, sample_text_file
     ):
@@ -145,7 +145,7 @@ class TestCascadingInferencer:
         mock_magika.identify_path.assert_called_once()
         assert extension == ".txt"
 
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_non_text_file_does_not_use_magika(self, mock_magic, sample_pdf_file):
         """Test that non-text files do not use Magika."""
         logger.debug("Testing that non-text files skip Magika")
@@ -159,9 +159,9 @@ class TestCascadingInferencer:
         # Magika should not be used for non-text files
         assert extension.startswith(".")
 
-    @patch("file_type_infer.mixture_inferencer.Magika")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
-    @patch("file_type_infer.mixture_inferencer.mimetypes.guess_extension")
+    @patch("filetype_detector.mixture_inferencer.Magika")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.mimetypes.guess_extension")
     def test_magika_failure_falls_back_to_magic(
         self, mock_guess_ext, mock_magic, mock_magika_class, sample_text_file
     ):
@@ -184,9 +184,9 @@ class TestCascadingInferencer:
         # Verify Magika was attempted but failed
         mock_magika.identify_path.assert_called_once()
 
-    @patch("file_type_infer.mixture_inferencer.Magika")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
-    @patch("file_type_infer.mixture_inferencer.mimetypes.guess_extension")
+    @patch("filetype_detector.mixture_inferencer.Magika")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.mimetypes.guess_extension")
     def test_magika_empty_result_falls_back_to_magic(
         self, mock_guess_ext, mock_magic, mock_magika_class, sample_text_file
     ):
@@ -207,8 +207,8 @@ class TestCascadingInferencer:
         # Should fallback to Magic result
         assert extension == ".txt"
 
-    @patch("file_type_infer.mixture_inferencer.Magika")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.Magika")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_magika_extension_without_dot(
         self, mock_magic, mock_magika_class, sample_text_file
     ):
@@ -228,8 +228,8 @@ class TestCascadingInferencer:
         assert extension == ".py"
         assert extension.startswith(".")
 
-    @patch("file_type_infer.mixture_inferencer.Magika")
-    @patch("file_type_infer.mixture_inferencer.magic.from_file")
+    @patch("filetype_detector.mixture_inferencer.Magika")
+    @patch("filetype_detector.mixture_inferencer.magic.from_file")
     def test_magika_extension_as_string(
         self, mock_magic, mock_magika_class, sample_text_file
     ):

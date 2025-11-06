@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to `file-type-infer`! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to `filetype-detector`! This document provides guidelines and instructions for contributing.
 
 ## Development Setup
 
@@ -15,7 +15,7 @@ Thank you for your interest in contributing to `file-type-infer`! This document 
 1. **Clone the repository**:
 ```bash
 git clone <repository-url>
-cd file-type-infer
+cd filetype-detector
 ```
 
 2. **Install dependencies**:
@@ -83,7 +83,7 @@ pytest tests/ -v -s
 pytest tests/test_magic_inferencer.py -v
 
 # Run with coverage
-pytest tests/ --cov=src/file_type_infer --cov-report=html
+pytest tests/ --cov=src/filetype_detector --cov-report=html
 ```
 
 ### Code Quality
@@ -152,7 +152,7 @@ def infer(self, file_path: Union[Path, str]) -> str:
 
 1. **Create inferencer class**:
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 
 class MyInferencer(BaseInferencer):
     def infer(self, file_path: Union[Path, str]) -> str:

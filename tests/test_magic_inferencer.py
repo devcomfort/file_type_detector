@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 from loguru import logger
 
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 
 class TestMagicInferencer:
@@ -44,7 +44,7 @@ class TestMagicInferencer:
             inferencer.infer(str(temp_dir_path))
         logger.success(f"ValueError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.magic_inferencer.magic.from_file")
+    @patch("filetype_detector.magic_inferencer.magic.from_file")
     def test_infer_runtime_error_no_mime_type(self, mock_magic, sample_text_file):
         """Test that RuntimeError is raised when MIME type cannot be determined."""
         logger.debug("Testing RuntimeError when MIME type cannot be determined")
@@ -54,8 +54,8 @@ class TestMagicInferencer:
             inferencer.infer(sample_text_file)
         logger.success(f"RuntimeError correctly raised: {exc_info.value}")
 
-    @patch("file_type_infer.magic_inferencer.mimetypes.guess_extension")
-    @patch("file_type_infer.magic_inferencer.magic.from_file")
+    @patch("filetype_detector.magic_inferencer.mimetypes.guess_extension")
+    @patch("filetype_detector.magic_inferencer.magic.from_file")
     def test_infer_runtime_error_no_extension(
         self, mock_magic, mock_guess_ext, sample_text_file
     ):
@@ -97,7 +97,7 @@ class TestMagicInferencer:
         # May be .json or .txt depending on system
         assert extension.startswith(".")
 
-    @patch("file_type_infer.magic_inferencer.magic.from_file")
+    @patch("filetype_detector.magic_inferencer.magic.from_file")
     def test_infer_successful_flow(self, mock_magic, sample_text_file):
         """Test successful inference flow."""
         logger.debug("Testing successful inference flow with mocked magic")

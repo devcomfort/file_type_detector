@@ -3,7 +3,7 @@
 Centralized mapping for accessing inferencers by type-safe keys.
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
 ```
 
 ## Overview
@@ -36,7 +36,7 @@ FILE_FORMAT_INFERENCER_MAP: dict[InferencerType, Callable[[Union[Path, str]], st
 ### Basic Usage
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
 
 # Get lexical inferencer
 lexical = FILE_FORMAT_INFERENCER_MAP[None]
@@ -54,7 +54,7 @@ extension = magika("script.py")  # Returns: '.py'
 ### Type-Safe Usage
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 def process_file(file_path: str, method: InferencerType) -> str:
     """Process file with type-safe method selection."""
@@ -71,7 +71,7 @@ result3 = process_file("doc.pdf", "magika")   # ✅ Valid
 ### Dynamic Method Selection
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 def get_best_inferencer(file_type: str) -> InferencerType:
     """Select inferencer based on file type."""
@@ -90,7 +90,7 @@ extension = inferencer("file.txt")
 ### Configuration-Based Selection
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 from typing import Optional
 
 class FileTypeDetector:
@@ -162,7 +162,7 @@ extension = magika("script.py")  # Returns: '.py'
 The `InferencerType` ensures type safety:
 
 ```python
-from file_type_infer.inferencer import InferencerType
+from filetype_detector.inferencer import InferencerType
 
 # Valid types
 method1: InferencerType = "magic"    # ✅
@@ -193,7 +193,7 @@ method3: InferencerType = None       # ✅
 
 ```python
 import json
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 # config.json: {"inference_method": "magic"}
 with open("config.json") as f:
@@ -207,7 +207,7 @@ inferencer = FILE_FORMAT_INFERENCER_MAP[method]
 
 ```python
 import argparse
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 parser = argparse.ArgumentParser()
 parser.add_argument(

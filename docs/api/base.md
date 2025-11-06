@@ -5,7 +5,7 @@
 Abstract base class for all file type inferencers.
 
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 ```
 
 ### Description
@@ -40,7 +40,7 @@ Abstract method that must be implemented by all inferencer subclasses.
 **Example:**
 
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 from typing import Union
 from pathlib import Path
 
@@ -55,7 +55,7 @@ class CustomInferencer(BaseInferencer):
 To create a custom inferencer, subclass `BaseInferencer` and implement the `infer` method:
 
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 from typing import Union
 from pathlib import Path
 

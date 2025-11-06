@@ -1,10 +1,10 @@
-site_name: file-type-infer Documentation
+site_name: filetype-detector Documentation
 site_description: A Python library for detecting file types using multiple inference strategies
 site_author: devcomfort
-site_url: https://file-type-infer.readthedocs.io/
+site_url: https://filetype-detector.readthedocs.io/
 
-repo_name: file-type-infer
-repo_url: https://github.com/devcomfort/file-type-infer
+repo_name: filetype-detector
+repo_url: https://github.com/devcomfort/filetype-detector
 edit_uri: edit/main/docs/
 
 theme:

@@ -1,13 +1,13 @@
 # Examples
 
-Real-world examples demonstrating how to use `file-type-infer` effectively.
+Real-world examples demonstrating how to use `filetype-detector` effectively.
 
 ## Basic Examples
 
 ### Simple File Type Detection
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 extension = inferencer.infer("document.pdf")
@@ -17,7 +17,7 @@ print(f"File type: {extension}")  # Output: File type: .pdf
 ### Detecting Files Without Extensions
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 
@@ -29,7 +29,7 @@ print(f"Detected type: {extension}")  # Output: Detected type: .txt
 ### Detecting Wrong Extensions
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 
@@ -44,7 +44,7 @@ print(f"Actual type: {extension}, Confidence: {confidence:.2%}")
 ### Batch Processing with Error Handling
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 from typing import Dict
 
@@ -76,7 +76,7 @@ for file, ext in results.items():
 ### File Type Validator
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 from pathlib import Path
 
 def validate_file_type(file_path: Path, expected_extension: str) -> bool:
@@ -96,7 +96,7 @@ print(f"Is PDF: {is_pdf}")  # Output: Is PDF: True
 ### Confidence-Based Filtering
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 from magika import PredictionMode
 from pathlib import Path
 
@@ -125,7 +125,7 @@ if result:
 ### Directory Scanner
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 from collections import Counter
 
@@ -153,8 +153,8 @@ for ext, count in sorted(stats.items(), key=lambda x: -x[1]):
 ### Custom Inferencer Chain
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 from pathlib import Path
 
 def infer_with_fallback(file_path: Path) -> str:
@@ -177,7 +177,7 @@ print(f"Detected: {result}")
 ### Type-Safe File Router
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 from pathlib import Path
 from typing import Callable
 
@@ -213,7 +213,7 @@ router.route(Path("script.py"))     # Output: Processing Python: script.py
 ### Using CascadingInferencer for Mixed Content
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 def process_mixed_files(file_paths: list[Path]):
@@ -249,7 +249,7 @@ process_mixed_files(files)
 
 ```python
 import pandas as pd
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 def create_file_type_dataframe(directory: Path) -> pd.DataFrame:
@@ -281,7 +281,7 @@ print(df.groupby("extension").size())
 
 ```python
 from fastapi import FastAPI, HTTPException
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 app = FastAPI()

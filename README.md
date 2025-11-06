@@ -1,4 +1,4 @@
-# file-type-infer
+# filetype-detector
 
 A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, and AI-powered content analysis.
 
@@ -16,7 +16,7 @@ A Python library for detecting file types using multiple inference strategies, i
 ### Python Package
 
 ```bash
-pip install file-type-infer
+pip install filetype-detector
 ```
 
 Or using rye:
@@ -94,10 +94,10 @@ If the command works, `libmagic` is properly installed.
 
 ### Using the Inferencer Map (Recommended)
 
-The simplest way to use file-type-infer is through the centralized `FILE_FORMAT_INFERENCER_MAP`:
+The simplest way to use filetype-detector is through the centralized `FILE_FORMAT_INFERENCER_MAP`:
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
 from pathlib import Path
 
 # Lexical inference (fastest, extension-based)
@@ -118,10 +118,10 @@ extension = magika_infer("script.py")  # Returns extension detected by AI
 You can also use inferencer classes directly:
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
-from file_type_infer.magic_inferencer import MagicInferencer
-from file_type_infer.magika_inferencer import MagikaInferencer
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 # Lexical inferencer - extracts extension from path
 lexical = LexicalInferencer()
@@ -152,7 +152,7 @@ Fastest method that extracts file extensions directly from file paths. No conten
 **When to use**: When file extensions are known to be accurate or when you need maximum performance.
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()
 extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
@@ -166,7 +166,7 @@ Uses `python-magic` (libmagic) to detect file types based on magic numbers and f
 **When to use**: When you need content-based detection but don't need AI-level accuracy, or when working with binary files.
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 extension = inferencer.infer("file.dat")  # May return: '.pdf' (detected from content)
@@ -184,7 +184,7 @@ Uses Google's Magika AI model for advanced file type detection, especially effec
 **When to use**: When you need the highest accuracy, especially for text files, or when you need confidence scores.
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 
@@ -222,7 +222,7 @@ This approach optimizes performance by only using Magika (computationally expens
 **System Requirements**: Requires `libmagic` system library. See [Installation](#installation) section for OS-specific setup.
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 
@@ -241,7 +241,7 @@ extension = inferencer.infer("data.txt")  # May return: '.json' (from Magika)
 The library provides type-safe inference method selection:
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 def process_file(file_path: str, method: InferencerType) -> str:
     inferencer_func = FILE_FORMAT_INFERENCER_MAP[method]
@@ -287,7 +287,7 @@ result, score = magika.infer_with_score("data.txt")  # Returns: ('.json', 0.95)
 All inferencers raise appropriate exceptions:
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 
@@ -347,7 +347,7 @@ class BaseInferencer(ABC):
 You can create custom inferencers by subclassing `BaseInferencer`:
 
 ```python
-from file_type_infer.base_inferencer import BaseInferencer
+from filetype_detector.base_inferencer import BaseInferencer
 from typing import Union
 from pathlib import Path
 

@@ -4,7 +4,7 @@ import pytest
 from pathlib import Path
 from loguru import logger
 
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 
 class TestLexicalInferencer:

@@ -1,10 +1,10 @@
 # User Guide
 
-Comprehensive guide to using `file-type-infer` effectively.
+Comprehensive guide to using `filetype-detector` effectively.
 
 ## Overview
 
-`file-type-infer` provides four different inferencers, each optimized for different use cases:
+`filetype-detector` provides four different inferencers, each optimized for different use cases:
 
 1. **LexicalInferencer**: Fastest, extension-based
 2. **MagicInferencer**: Content-based using magic numbers
@@ -24,7 +24,7 @@ The fastest inferencer, extracts file extensions directly from file paths withou
 ### Example
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()
 
@@ -62,7 +62,7 @@ Requires `libmagic` system library. See [Getting Started](getting-started.md#sys
 ### Example
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 from pathlib import Path
 
 inferencer = MagicInferencer()
@@ -80,7 +80,7 @@ extension = inferencer.infer(Path("notes.txt"))  # Returns: '.txt'
 ### Error Handling
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 
@@ -108,7 +108,7 @@ Uses Google's Magika AI model for advanced file type detection, especially effec
 ### Example
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 from magika import PredictionMode
 
 inferencer = MagikaInferencer()
@@ -158,7 +158,7 @@ Requires `libmagic` system library. See [Getting Started](getting-started.md#sys
 ### Example
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 
@@ -177,7 +177,7 @@ extension = inferencer.infer("data.txt")  # Returns: '.json' (from Magika)
 The `FILE_FORMAT_INFERENCER_MAP` provides a centralized way to access inferencers:
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP, InferencerType
 
 # Type-safe selection
 def get_inferencer(method: InferencerType):
@@ -220,7 +220,7 @@ assert extension1 == extension2
 ### Processing Multiple Files
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 inferencer = CascadingInferencer()
@@ -240,7 +240,7 @@ def process_directory(directory: Path):
 ### Type-Safe File Processing
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 def process_with_method(file_path: str, method: InferencerType) -> str:
     inferencer_func = FILE_FORMAT_INFERENCER_MAP[method]

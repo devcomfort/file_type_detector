@@ -1,4 +1,4 @@
-# file-type-infer
+# filetype-detector
 
 A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, and AI-powered content analysis.
 
@@ -14,7 +14,7 @@ A Python library for detecting file types using multiple inference strategies, i
 ## Quick Start
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
 
 # Get an inferencer
 inferencer = FILE_FORMAT_INFERENCER_MAP["magic"]
@@ -26,7 +26,7 @@ extension = inferencer("document.pdf")  # Returns: '.pdf'
 ## Installation
 
 ```bash
-pip install file-type-infer
+pip install filetype-detector
 ```
 
 Or using rye:
@@ -42,7 +42,7 @@ rye sync
 Fastest method - extracts file extensions directly from paths.
 
 ```python
-from file_type_infer.lexical_inferencer import LexicalInferencer
+from filetype_detector.lexical_inferencer import LexicalInferencer
 
 inferencer = LexicalInferencer()
 extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
@@ -53,7 +53,7 @@ extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
 Uses libmagic for content-based file type detection.
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 extension = inferencer.infer("file_without_ext")  # Detects from content
@@ -64,7 +64,7 @@ extension = inferencer.infer("file_without_ext")  # Detects from content
 AI-powered detection with confidence scores.
 
 ```python
-from file_type_infer.magika_inferencer import MagikaInferencer
+from filetype_detector.magika_inferencer import MagikaInferencer
 
 inferencer = MagikaInferencer()
 extension = inferencer.infer("script.py")  # Returns: '.py'
@@ -76,7 +76,7 @@ extension, score = inferencer.infer_with_score("data.json")  # With confidence
 Smart two-stage approach - combines Magic and Magika for optimal performance.
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 extension = inferencer.infer("script.py")  # Uses Magic then Magika

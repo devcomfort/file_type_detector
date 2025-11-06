@@ -1,13 +1,13 @@
 # Getting Started
 
-This guide will help you get started with `file-type-infer` quickly.
+This guide will help you get started with `filetype-detector` quickly.
 
 ## Installation
 
 ### Using pip
 
 ```bash
-pip install file-type-infer
+pip install filetype-detector
 ```
 
 ### Using rye
@@ -94,10 +94,10 @@ If this command works, `libmagic` is properly installed and `MagicInferencer` wi
 
 ### Using the Inferencer Map
 
-The easiest way to use `file-type-infer` is through the centralized `FILE_FORMAT_INFERENCER_MAP`:
+The easiest way to use `filetype-detector` is through the centralized `FILE_FORMAT_INFERENCER_MAP`:
 
 ```python
-from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
 
 # Lexical inference (fastest)
 lexical = FILE_FORMAT_INFERENCER_MAP[None]
@@ -117,7 +117,7 @@ extension = magika("script.py")  # Returns: '.py'
 You can also use inferencer classes directly:
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 extension = inferencer.infer("document.pdf")
@@ -129,7 +129,7 @@ print(extension)  # Output: '.pdf'
 The library provides type hints for better IDE support:
 
 ```python
-from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
 
 def process_file(file_path: str, method: InferencerType) -> str:
     inferencer_func = FILE_FORMAT_INFERENCER_MAP[method]
@@ -155,7 +155,7 @@ result = process_file("doc.pdf", None)     # ✅ Valid
 For most use cases, use `CascadingInferencer`:
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 

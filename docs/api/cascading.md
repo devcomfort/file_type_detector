@@ -3,7 +3,7 @@
 Smart two-stage inference that combines Magic and Magika for optimal performance and accuracy.
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 ```
 
 ## Overview
@@ -46,7 +46,7 @@ Infer the file format using a cascading two-stage approach.
 **Examples:**
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 from pathlib import Path
 
 inferencer = CascadingInferencer()
@@ -87,7 +87,7 @@ Is text/* MIME type?
 ### Basic Usage
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 
@@ -118,7 +118,7 @@ for file_path in files:
 ### Error Handling
 
 ```python
-from file_type_infer.mixture_inferencer import CascadingInferencer
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
 inferencer = CascadingInferencer()
 

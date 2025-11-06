@@ -11,7 +11,7 @@ Available inference methods:
 - magic: Traditional libmagic-based MIME type detection with extension conversion
 
 Example:
-    >>> from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+    >>> from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
     >>>
     >>> # Type-safe usage with different strategies
     >>> def process_file(file_path: str, method: InferencerType) -> str:
@@ -77,7 +77,7 @@ Available methods:
 - `None`: Simple path-based extension extraction without content inference
 
 Example:
-    >>> from file_type_infer.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
+    >>> from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
     >>>
     >>> def process_file(file_path: str, method: InferencerType) -> str:
     ...     inferencer = FILE_FORMAT_INFERENCER_MAP[method]
@@ -129,7 +129,7 @@ Available keys and their meanings:
   score. This provides the most advanced content-based detection but may be slower.
 
 Example usage:
-    >>> from file_type_infer.inferencer import FILE_FORMAT_INFERENCER_MAP
+    >>> from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
     >>> 
     >>> # Get the lexical inferencer (fastest)
     >>> infer = FILE_FORMAT_INFERENCER_MAP[None]

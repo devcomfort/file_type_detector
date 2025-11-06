@@ -10,75 +10,89 @@
 #   universal: false
 
 -e file:.
+certifi==2025.10.5
+    # via requests
+cffi==2.0.0
+    # via cryptography
+charset-normalizer==3.4.4
+    # via requests
 click==8.3.0
     # via magika
-    # via mkdocs
 coloredlogs==15.0.1
     # via onnxruntime
+cryptography==46.0.3
+    # via secretstorage
+docutils==0.22.3
+    # via readme-renderer
 flatbuffers==25.9.23
     # via onnxruntime
-ghp-import==2.1.0
-    # via mkdocs
 humanfriendly==10.0
     # via coloredlogs
-iniconfig==2.3.0
-    # via pytest
-jinja2==3.1.6
-    # via mkdocs
-loguru==0.7.3
-    # via file-type-infer
+id==1.5.0
+    # via twine
+idna==3.11
+    # via requests
+jaraco-classes==3.4.0
+    # via keyring
+jaraco-context==6.0.1
+    # via keyring
+jaraco-functools==4.3.0
+    # via keyring
+jeepney==0.9.0
+    # via keyring
+    # via secretstorage
+keyring==25.6.0
+    # via twine
 magika==1.0.1
     # via file-type-infer
-markdown==3.10
-    # via mkdocs
-markupsafe==3.0.3
-    # via jinja2
-    # via mkdocs
-mergedeep==1.3.4
-    # via mkdocs
-    # via mkdocs-get-deps
-mkdocs==1.6.1
-    # via file-type-infer
-mkdocs-get-deps==0.2.0
-    # via mkdocs
+markdown-it-py==4.0.0
+    # via rich
+mdurl==0.1.2
+    # via markdown-it-py
+more-itertools==10.8.0
+    # via jaraco-classes
+    # via jaraco-functools
 mpmath==1.3.0
     # via sympy
+nh3==0.3.2
+    # via readme-renderer
 numpy==2.3.4
     # via magika
     # via onnxruntime
 onnxruntime==1.23.2
     # via magika
 packaging==25.0
-    # via mkdocs
     # via onnxruntime
-    # via pytest
-pathspec==0.12.1
-    # via mkdocs
-platformdirs==4.5.0
-    # via mkdocs-get-deps
-pluggy==1.6.0
-    # via pytest
+    # via twine
 protobuf==6.33.0
     # via onnxruntime
+pycparser==2.23
+    # via cffi
 pygments==2.19.2
-    # via pytest
-pytest==8.4.2
-    # via file-type-infer
-python-dateutil==2.9.0.post0
-    # via ghp-import
+    # via readme-renderer
+    # via rich
 python-dotenv==1.2.1
     # via magika
 python-magic==0.4.27
     # via file-type-infer
-pyyaml==6.0.3
-    # via mkdocs
-    # via mkdocs-get-deps
-    # via pyyaml-env-tag
-pyyaml-env-tag==1.1
-    # via mkdocs
-six==1.17.0
-    # via python-dateutil
+readme-renderer==44.0
+    # via twine
+requests==2.32.5
+    # via id
+    # via requests-toolbelt
+    # via twine
+requests-toolbelt==1.0.0
+    # via twine
+rfc3986==2.0.0
+    # via twine
+rich==14.2.0
+    # via twine
+secretstorage==3.4.0
+    # via keyring
 sympy==1.14.0
     # via onnxruntime
-watchdog==6.0.0
-    # via mkdocs
+twine==6.2.0
+    # via file-type-infer
+urllib3==2.5.0
+    # via requests
+    # via twine

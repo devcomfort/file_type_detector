@@ -3,7 +3,7 @@
 Content-based file type detection using python-magic (libmagic).
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 ```
 
 ## Overview
@@ -40,7 +40,7 @@ Infer file extension using python-magic and mimetypes.
 **Examples:**
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 from pathlib import Path
 
 inferencer = MagicInferencer()
@@ -57,7 +57,7 @@ extension = inferencer.infer(Path('notes.txt'))  # Returns: '.txt'
 ### Basic Usage
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 extension = inferencer.infer("document.pdf")
@@ -79,7 +79,7 @@ extension = inferencer.infer("file_without_ext")  # Returns detected type
 ### Error Handling
 
 ```python
-from file_type_infer.magic_inferencer import MagicInferencer
+from filetype_detector.magic_inferencer import MagicInferencer
 
 inferencer = MagicInferencer()
 
