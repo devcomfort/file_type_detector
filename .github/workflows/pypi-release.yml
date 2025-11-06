@@ -30,20 +30,20 @@ jobs:
       old-version: ${{ steps.check.outputs.old_version }}
       is-semantic: ${{ steps.check.outputs.is_semantic }}
     steps:
-      - name: Install Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-
-      - name: Checkout code manually
-        run: |
-          git clone https://github.com/${{ github.repository }}.git .
-          git checkout ${{ github.sha }}
-          git fetch --depth=2 || true
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check version and determine if should release
         id: check
         run: |
+          # Initialize outputs with default values
+          echo "should_release=false" >> $GITHUB_OUTPUT
+          echo "new_version=" >> $GITHUB_OUTPUT
+          echo "old_version=" >> $GITHUB_OUTPUT
+          echo "is_semantic=false" >> $GITHUB_OUTPUT
+          
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             if [ -n "${{ github.event.inputs.version }}" ]; then
               # Manual dispatch with specific version
@@ -57,8 +57,6 @@ jobs:
                 echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
                 echo "is_semantic=true" >> $GITHUB_OUTPUT
               else
-                echo "should_release=false" >> $GITHUB_OUTPUT
-                echo "is_semantic=false" >> $GITHUB_OUTPUT
                 echo "Error: Version must follow semantic versioning (X.Y.Z)"
                 exit 1
               fi
@@ -92,9 +90,6 @@ jobs:
               echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
               echo "old_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
               echo "is_semantic=true" >> $GITHUB_OUTPUT
-            else
-              echo "should_release=false" >> $GITHUB_OUTPUT
-              echo "is_semantic=false" >> $GITHUB_OUTPUT
             fi
           else
             # Automatic trigger on push
@@ -111,17 +106,9 @@ jobs:
                   echo "is_semantic=true" >> $GITHUB_OUTPUT
                   echo "Semantic version detected: $OLD_VERSION -> $NEW_VERSION"
                 else
-                  echo "should_release=false" >> $GITHUB_OUTPUT
-                  echo "is_semantic=false" >> $GITHUB_OUTPUT
                   echo "Warning: Version $NEW_VERSION does not follow semantic versioning (X.Y.Z format)"
                 fi
-              else
-                echo "should_release=false" >> $GITHUB_OUTPUT
-                echo "is_semantic=false" >> $GITHUB_OUTPUT
               fi
-            else
-              echo "should_release=false" >> $GITHUB_OUTPUT
-              echo "is_semantic=false" >> $GITHUB_OUTPUT
             fi
           fi
 
@@ -130,21 +117,13 @@ jobs:
     if: needs.check-version.outputs.should-release == 'true' && needs.check-version.outputs.is-semantic == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Install Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Checkout code manually
-        run: |
-          git clone https://github.com/${{ github.repository }}.git .
-          git checkout ${{ github.sha }}
-
-      - name: Install Python 3.11
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
-          python3.11 --version
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Install rye
         run: |
@@ -196,21 +175,13 @@ jobs:
     environment:
       name: testpypi
     steps:
-      - name: Install Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Checkout code manually
-        run: |
-          git clone https://github.com/${{ github.repository }}.git .
-          git checkout ${{ github.sha }}
-
-      - name: Install Python 3.11
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
-          python3.11 --version
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Install rye
         run: |
@@ -255,21 +226,13 @@ jobs:
     environment:
       name: pypi
     steps:
-      - name: Install Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Checkout code manually
-        run: |
-          git clone https://github.com/${{ github.repository }}.git .
-          git checkout ${{ github.sha }}
-
-      - name: Install Python 3.11
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
-          python3.11 --version
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Install rye
         run: |
