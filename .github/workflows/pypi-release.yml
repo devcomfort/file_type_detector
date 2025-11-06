@@ -30,10 +30,16 @@ jobs:
       old-version: ${{ steps.check.outputs.old_version }}
       is-semantic: ${{ steps.check.outputs.is_semantic }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
+      - name: Install Git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Checkout code manually
+        run: |
+          git clone https://github.com/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
+          git fetch --depth=2 || true
 
       - name: Check version and determine if should release
         id: check
@@ -124,13 +130,21 @@ jobs:
     if: needs.check-version.outputs.should-release == 'true' && needs.check-version.outputs.is-semantic == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Install Git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Checkout code manually
+        run: |
+          git clone https://github.com/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
+
+      - name: Install Python 3.11
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
+          python3.11 --version
 
       - name: Install rye
         run: |
@@ -148,27 +162,32 @@ jobs:
           export PATH="$HOME/.rye/shims:$PATH"
           rye sync
 
+      - name: Install build and test dependencies manually
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          # Activate rye virtual environment and install tools
+          source .venv/bin/activate || true
+          python3.11 -m pip install --upgrade pip
+          python3.11 -m pip install pytest>=8.4.2 build>=1.3.0 twine>=6.2.0
+
       - name: Run tests
         run: |
           export PATH="$HOME/.rye/shims:$PATH"
-          rye run pytest tests/ -v
+          source .venv/bin/activate || true
+          pytest tests/ -v || python3.11 -m pytest tests/ -v
 
       - name: Build package
         run: |
           export PATH="$HOME/.rye/shims:$PATH"
-          rye run python -m build
+          source .venv/bin/activate || true
+          python3.11 -m build || python -m build
 
       - name: Check package
         run: |
           export PATH="$HOME/.rye/shims:$PATH"
-          rye run twine check dist/*
+          source .venv/bin/activate || true
+          twine check dist/* || python3.11 -m twine check dist/*
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-packages
-          path: dist/*
-          retention-days: 1
 
   release-to-testpypi:
     needs: [check-version, build-and-test]
@@ -177,11 +196,44 @@ jobs:
     environment:
       name: testpypi
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-packages
-          path: dist/
+      - name: Install Git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Checkout code manually
+        run: |
+          git clone https://github.com/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
+
+      - name: Install Python 3.11
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
+          python3.11 --version
+
+      - name: Install rye
+        run: |
+          curl -sSf https://rye.astral.sh/get | bash
+          export PATH="$HOME/.rye/shims:$PATH"
+          echo "$HOME/.rye/shims" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          rye sync
+
+      - name: Install build dependencies manually
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          source .venv/bin/activate || true
+          python3.11 -m pip install --upgrade pip build>=1.3.0 twine>=6.2.0
+
+      - name: Build package
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          source .venv/bin/activate || true
+          python3.11 -m build || python -m build
 
       - name: Publish to TestPyPI
         env:
@@ -189,7 +241,8 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
         run: |
           export PATH="$HOME/.rye/shims:$PATH"
-          rye run twine upload --repository testpypi dist/* --verbose
+          source .venv/bin/activate || true
+          twine upload --repository testpypi dist/* --verbose || python3.11 -m twine upload --repository testpypi dist/* --verbose
 
       - name: Verify TestPyPI installation
         run: |
@@ -202,11 +255,44 @@ jobs:
     environment:
       name: pypi
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-packages
-          path: dist/
+      - name: Install Git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Checkout code manually
+        run: |
+          git clone https://github.com/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
+
+      - name: Install Python 3.11
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
+          python3.11 --version
+
+      - name: Install rye
+        run: |
+          curl -sSf https://rye.astral.sh/get | bash
+          export PATH="$HOME/.rye/shims:$PATH"
+          echo "$HOME/.rye/shims" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          rye sync
+
+      - name: Install build dependencies manually
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          source .venv/bin/activate || true
+          python3.11 -m pip install --upgrade pip build>=1.3.0 twine>=6.2.0
+
+      - name: Build package
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          source .venv/bin/activate || true
+          python3.11 -m build || python -m build
 
       - name: Publish to PyPI
         env:
@@ -214,28 +300,35 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           export PATH="$HOME/.rye/shims:$PATH"
-          rye run twine upload dist/* --verbose
+          source .venv/bin/activate || true
+          twine upload dist/* --verbose || python3.11 -m twine upload dist/* --verbose
+
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || sudo apt install curl -y
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ needs.check-version.outputs.new-version }}
-          name: Release v${{ needs.check-version.outputs.new-version }}
-          body: |
-            ## Release v${{ needs.check-version.outputs.new-version }}
-
-            Auto-generated release after version bump from ${{ needs.check-version.outputs.old-version }}.
-
-            ### Changes
-            - Version updated: ${{ needs.check-version.outputs.old-version }} → ${{ needs.check-version.outputs.new-version }}
-            - Package published to PyPI
-
-            ### Installation
-            ```bash
-            pip install filetype-detector==${{ needs.check-version.outputs.new-version }}
-            ```
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth login --with-token <<< "$GITHUB_TOKEN"
+          gh release create "v${{ needs.check-version.outputs.new-version }}" \
+            --title "Release v${{ needs.check-version.outputs.new-version }}" \
+            --notes "## Release v${{ needs.check-version.outputs.new-version }}
+
+          Auto-generated release after version bump from ${{ needs.check-version.outputs.old-version }}.
+
+          ### Changes
+          - Version updated: ${{ needs.check-version.outputs.old-version }} → ${{ needs.check-version.outputs.new-version }}
+          - Package published to PyPI
+
+          ### Installation
+          \`\`\`bash
+          pip install filetype-detector==${{ needs.check-version.outputs.new-version }}
+          \`\`\`"
 
