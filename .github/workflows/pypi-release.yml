@@ -38,11 +38,11 @@ jobs:
       - name: Check version and determine if should release
         id: check
         run: |
-          # Initialize outputs with default values
-          echo "should_release=false" >> $GITHUB_OUTPUT
-          echo "new_version=" >> $GITHUB_OUTPUT
-          echo "old_version=" >> $GITHUB_OUTPUT
-          echo "is_semantic=false" >> $GITHUB_OUTPUT
+          # Initialize variables with default values
+          SHOULD_RELEASE="false"
+          NEW_VERSION=""
+          OLD_VERSION=""
+          IS_SEMANTIC="false"
           
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             if [ -n "${{ github.event.inputs.version }}" ]; then
@@ -52,10 +52,8 @@ jobs:
               
               # Validate semantic version format
               if [[ "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                echo "should_release=true" >> $GITHUB_OUTPUT
-                echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-                echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
-                echo "is_semantic=true" >> $GITHUB_OUTPUT
+                SHOULD_RELEASE="true"
+                IS_SEMANTIC="true"
               else
                 echo "Error: Version must follow semantic versioning (X.Y.Z)"
                 exit 1
@@ -86,10 +84,9 @@ jobs:
               esac
               
               NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-              echo "should_release=true" >> $GITHUB_OUTPUT
-              echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-              echo "old_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-              echo "is_semantic=true" >> $GITHUB_OUTPUT
+              OLD_VERSION="$CURRENT_VERSION"
+              SHOULD_RELEASE="true"
+              IS_SEMANTIC="true"
             fi
           else
             # Automatic trigger on push
@@ -100,10 +97,8 @@ jobs:
               if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
                 # Validate semantic version format (X.Y.Z)
                 if [[ "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                  echo "should_release=true" >> $GITHUB_OUTPUT
-                  echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-                  echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
-                  echo "is_semantic=true" >> $GITHUB_OUTPUT
+                  SHOULD_RELEASE="true"
+                  IS_SEMANTIC="true"
                   echo "Semantic version detected: $OLD_VERSION -> $NEW_VERSION"
                 else
                   echo "Warning: Version $NEW_VERSION does not follow semantic versioning (X.Y.Z format)"
@@ -111,12 +106,40 @@ jobs:
               fi
             fi
           fi
+          
+          # Write outputs once at the end to avoid duplicates
+          echo "should_release=$SHOULD_RELEASE" >> $GITHUB_OUTPUT
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
+          echo "is_semantic=$IS_SEMANTIC" >> $GITHUB_OUTPUT
+          
+          # Debug output
+          echo "Debug - Outputs set:"
+          echo "  should_release: $SHOULD_RELEASE"
+          echo "  new_version: $NEW_VERSION"
+          echo "  old_version: $OLD_VERSION"
+          echo "  is_semantic: $IS_SEMANTIC"
+          
+      - name: Display outputs for debugging
+        run: |
+          echo "Job outputs will be:"
+          echo "  should-release: ${{ steps.check.outputs.should_release }}"
+          echo "  new-version: ${{ steps.check.outputs.new_version }}"
+          echo "  old-version: ${{ steps.check.outputs.old_version }}"
+          echo "  is-semantic: ${{ steps.check.outputs.is_semantic }}"
 
   build-and-test:
     needs: check-version
     if: needs.check-version.outputs.should-release == 'true' && needs.check-version.outputs.is-semantic == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Debug check-version outputs
+        run: |
+          echo "Received outputs from check-version:"
+          echo "  should-release: '${{ needs.check-version.outputs.should-release }}'"
+          echo "  is-semantic: '${{ needs.check-version.outputs.is-semantic }}'"
+          echo "  new-version: '${{ needs.check-version.outputs.new-version }}'"
+          echo "  old-version: '${{ needs.check-version.outputs.old-version }}'"
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -175,6 +198,13 @@ jobs:
     environment:
       name: testpypi
     steps:
+      - name: Debug check-version outputs
+        run: |
+          echo "Received outputs from check-version:"
+          echo "  should-release: '${{ needs.check-version.outputs.should-release }}'"
+          echo "  is-semantic: '${{ needs.check-version.outputs.is-semantic }}'"
+          echo "  new-version: '${{ needs.check-version.outputs.new-version }}'"
+          echo "  old-version: '${{ needs.check-version.outputs.old-version }}'"
       - name: Checkout code
         uses: actions/checkout@v4
 
