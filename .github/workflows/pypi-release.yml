@@ -133,24 +133,34 @@ jobs:
           python-version: '3.11'
 
       - name: Install rye
-        uses: rye/setup-rye@v1
-        with:
-          enable-cache: true
+        run: |
+          curl -sSf https://rye.astral.sh/get | bash
+          export PATH="$HOME/.rye/shims:$PATH"
+          echo "$HOME/.rye/shims" >> $GITHUB_PATH
+          
+      - name: Verify rye installation
+        run: |
+          export PATH="$HOME/.rye/shims:$PATH"
+          rye --version
 
       - name: Install dependencies
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye sync
 
       - name: Run tests
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye run pytest tests/ -v
 
       - name: Build package
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye run python -m build
 
       - name: Check package
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye run twine check dist/*
 
       - name: Upload artifacts
@@ -178,6 +188,7 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye run twine upload --repository testpypi dist/* --verbose
 
       - name: Verify TestPyPI installation
@@ -202,6 +213,7 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
+          export PATH="$HOME/.rye/shims:$PATH"
           rye run twine upload dist/* --verbose
 
       - name: Create GitHub Release
