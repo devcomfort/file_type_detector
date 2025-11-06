@@ -151,6 +151,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for git log analysis
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -202,22 +204,93 @@ jobs:
           && sudo apt update \
           && sudo apt install gh -y
 
+      - name: Generate release notes
+        id: generate-notes
+        run: |
+          PREV_VERSION="${{ needs.check-version.outputs.old-version }}"
+          CURRENT_VERSION="${{ needs.check-version.outputs.new-version }}"
+          
+          # Build release notes header
+          NOTES="## Release v$CURRENT_VERSION"$'\n\n'
+          NOTES+="Full Changelog: [\`v$PREV_VERSION\`...\`v$CURRENT_VERSION\`](https://github.com/${{ github.repository }}/compare/v$PREV_VERSION...v$CURRENT_VERSION)"$'\n\n'
+          
+          # Get commits between versions
+          COMMIT_RANGE="v$PREV_VERSION..HEAD"
+          if git rev-parse "v$PREV_VERSION" >/dev/null 2>&1; then
+            COMMIT_COUNT=$(git rev-list --count "$COMMIT_RANGE" 2>/dev/null || echo "0")
+          else
+            COMMIT_RANGE="HEAD~20..HEAD"
+            COMMIT_COUNT=$(git rev-list --count HEAD 2>/dev/null || echo "0")
+          fi
+          
+          if [ "$COMMIT_COUNT" -gt "0" ]; then
+            # Categorize commits by type (Conventional Commits)
+            FEATURES=$(git log --no-merges --pretty=format:"- %s" "$COMMIT_RANGE" 2>/dev/null | grep -i "^-\s*feat:" | sed 's/^-\s*feat:\s*/- /' | head -20 || echo "")
+            FIXES=$(git log --no-merges --pretty=format:"- %s" "$COMMIT_RANGE" 2>/dev/null | grep -i "^-\s*fix:" | sed 's/^-\s*fix:\s*/- /' | head -20 || echo "")
+            REFACTORS=$(git log --no-merges --pretty=format:"- %s" "$COMMIT_RANGE" 2>/dev/null | grep -iE "^-\s*(refactor|perf):" | sed -E 's/^-\s*(refactor|perf):\s*/- /' | head -20 || echo "")
+            DOCS=$(git log --no-merges --pretty=format:"- %s" "$COMMIT_RANGE" 2>/dev/null | grep -iE "^-\s*(docs|docs):" | sed -E 's/^-\s*(docs|docs):\s*/- /' | head -10 || echo "")
+            OTHERS=$(git log --no-merges --pretty=format:"- %s" "$COMMIT_RANGE" 2>/dev/null | grep -vE "^-\s*(feat|fix|refactor|perf|docs|style|test|build|ci|chore):" | head -10 || echo "")
+            
+            NOTES+="### What's Changed"$'\n\n'
+            
+            if [ -n "$FEATURES" ]; then
+              NOTES+="#### ✨ Features"$'\n'
+              echo "$FEATURES" | while IFS= read -r line; do
+                NOTES+="$line"$'\n'
+              done
+              NOTES+=$'\n'
+            fi
+            
+            if [ -n "$FIXES" ]; then
+              NOTES+="#### 🐛 Bug Fixes"$'\n'
+              echo "$FIXES" | while IFS= read -r line; do
+                NOTES+="$line"$'\n'
+              done
+              NOTES+=$'\n'
+            fi
+            
+            if [ -n "$REFACTORS" ]; then
+              NOTES+="#### 🔧 Refactoring & Performance"$'\n'
+              echo "$REFACTORS" | while IFS= read -r line; do
+                NOTES+="$line"$'\n'
+              done
+              NOTES+=$'\n'
+            fi
+            
+            if [ -n "$DOCS" ]; then
+              NOTES+="#### 📚 Documentation"$'\n'
+              echo "$DOCS" | while IFS= read -r line; do
+                NOTES+="$line"$'\n'
+              done
+              NOTES+=$'\n'
+            fi
+            
+            if [ -n "$OTHERS" ]; then
+              NOTES+="#### 📝 Other Changes"$'\n'
+              echo "$OTHERS" | while IFS= read -r line; do
+                NOTES+="$line"$'\n'
+              done
+              NOTES+=$'\n'
+            fi
+          fi
+          
+          NOTES+="### Installation"$'\n'
+          NOTES+='```bash'$'\n'
+          NOTES+="pip install filetype-detector==$CURRENT_VERSION"$'\n'
+          NOTES+='```'
+          
+          # Use delimiter to preserve multi-line content
+          {
+            echo 'notes<<DELIMITER'
+            echo "$NOTES"
+            echo 'DELIMITER'
+          } >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "v${{ needs.check-version.outputs.new-version }}" \
             --title "Release v${{ needs.check-version.outputs.new-version }}" \
-            --notes "## Release v${{ needs.check-version.outputs.new-version }}
-
-          Auto-generated release after version bump from ${{ needs.check-version.outputs.old-version }}.
-
-          ### Changes
-          - Version updated: ${{ needs.check-version.outputs.old-version }} → ${{ needs.check-version.outputs.new-version }}
-          - Package published to PyPI
-
-          ### Installation
-          \`\`\`bash
-          pip install filetype-detector==${{ needs.check-version.outputs.new-version }}
-          \`\`\`"
+            --notes "${{ steps.generate-notes.outputs.notes }}"
 
