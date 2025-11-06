@@ -18,6 +18,10 @@ flatbuffers==25.9.23
     # via onnxruntime
 humanfriendly==10.0
     # via coloredlogs
+iniconfig==2.3.0
+    # via pytest
+loguru==0.7.3
+    # via filetype-detector
 magika==1.0.1
     # via filetype-detector
 mpmath==1.3.0
@@ -29,8 +33,15 @@ onnxruntime==1.23.2
     # via magika
 packaging==25.0
     # via onnxruntime
+    # via pytest
+pluggy==1.6.0
+    # via pytest
 protobuf==6.33.0
     # via onnxruntime
+pygments==2.19.2
+    # via pytest
+pytest==8.4.2
+    # via filetype-detector
 python-dotenv==1.2.1
     # via magika
 python-magic==0.4.27
