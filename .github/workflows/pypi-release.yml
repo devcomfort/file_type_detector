@@ -164,31 +164,24 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install and setup rye
+      - name: Install rye
         env:
           RYE_INSTALL_OPTION: --yes
         run: |
           curl -sSf https://rye.astral.sh/get | bash < /dev/null
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-          # Setup rye environment for subsequent steps
-          if [ -f "$HOME/.rye/env" ]; then
-            cat "$HOME/.rye/env" >> $GITHUB_ENV
-          fi
-          # Verify installation
-          export PATH="$HOME/.rye/shims:$PATH"
-          rye --version
+          $HOME/.rye/shims/rye --version
 
       - name: Install dependencies
-        run: rye sync
+        run: $HOME/.rye/shims/rye sync
 
       - name: Run tests
-        run: rye run pytest tests/ -v
+        run: $HOME/.rye/shims/rye run pytest tests/ -v
 
       - name: Build package
-        run: rye run python -m build
+        run: $HOME/.rye/shims/rye run python -m build
 
       - name: Check package
-        run: rye run twine check dist/*
+        run: $HOME/.rye/shims/rye run twine check dist/*
 
 
   release-to-testpypi:
@@ -213,27 +206,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install and setup rye
+      - name: Install rye
         env:
           RYE_INSTALL_OPTION: --yes
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash < /dev/null
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-          if [ -f "$HOME/.rye/env" ]; then
-            cat "$HOME/.rye/env" >> $GITHUB_ENV
-          fi
+        run: curl -sSf https://rye.astral.sh/get | bash < /dev/null
 
       - name: Install dependencies
-        run: rye sync
+        run: $HOME/.rye/shims/rye sync
 
       - name: Build package
-        run: rye run python -m build
+        run: $HOME/.rye/shims/rye run python -m build
 
       - name: Publish to TestPyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
-        run: rye run twine upload --repository testpypi dist/* --verbose
+        run: $HOME/.rye/shims/rye run twine upload --repository testpypi dist/* --verbose
 
       - name: Verify TestPyPI installation
         run: |
@@ -254,27 +242,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install and setup rye
+      - name: Install rye
         env:
           RYE_INSTALL_OPTION: --yes
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash < /dev/null
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-          if [ -f "$HOME/.rye/env" ]; then
-            cat "$HOME/.rye/env" >> $GITHUB_ENV
-          fi
+        run: curl -sSf https://rye.astral.sh/get | bash < /dev/null
 
       - name: Install dependencies
-        run: rye sync
+        run: $HOME/.rye/shims/rye sync
 
       - name: Build package
-        run: rye run python -m build
+        run: $HOME/.rye/shims/rye run python -m build
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: rye run twine upload dist/* --verbose
+        run: $HOME/.rye/shims/rye run twine upload dist/* --verbose
 
       - name: Install GitHub CLI
         run: |
