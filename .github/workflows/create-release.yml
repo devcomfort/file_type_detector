@@ -76,24 +76,22 @@ jobs:
             PREV_VERSION=$(git tag --sort=-v:refname | head -n 1 | sed 's/^v//' || echo "unknown")
             CURRENT_VERSION="${{ steps.get-version.outputs.version }}"
             
-            NOTES="## Release v$CURRENT_VERSION
-
-Auto-generated release.
-
-### Changes
-- Version: $CURRENT_VERSION
-- Package available on PyPI
-
-### Installation
-\`\`\`bash
-pip install filetype-detector==$CURRENT_VERSION
-\`\`\`"
+            # Build notes using echo to avoid YAML parsing issues
+            NOTES="## Release v$CURRENT_VERSION"$'\n\n'
+            NOTES+="Auto-generated release."$'\n\n'
+            NOTES+="### Changes"$'\n'
+            NOTES+="- Version: $CURRENT_VERSION"$'\n'
+            NOTES+="- Package available on PyPI"$'\n\n'
+            NOTES+="### Installation"$'\n'
+            NOTES+='```bash'$'\n'
+            NOTES+="pip install filetype-detector==$CURRENT_VERSION"$'\n'
+            NOTES+='```'
           fi
           # Use delimiter to preserve multi-line content
           {
-            echo 'notes<<EOF'
+            echo 'notes<<DELIMITER'
             echo "$NOTES"
-            echo 'EOF'
+            echo 'DELIMITER'
           } >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
