@@ -174,19 +174,11 @@ extension = mimetypes.guess_extension(mime_type)
 
 ## Performance Characteristics
 
-### Text Files
-- **Magic detection**: ~1-5ms
-- **Magika detection**: ~5-10ms
-- **Total**: ~6-15ms per file
+- **Text files**: ~6-15ms per file (Magic + Magika)
+- **Binary files**: ~1-5ms per file (Magic only)
+- **Throughput**: 150-400 files/second (depends on text/binary ratio)
 
-### Binary Files
-- **Magic detection only**: ~1-5ms
-- **Total**: ~1-5ms per file
-
-### Overall Throughput
-- **Mixed content**: 150-400 files/second (depends on text/binary ratio)
-- **Text-heavy**: 100-200 files/second
-- **Binary-heavy**: 200-500 files/second
+See [User Guide](../user-guide.md#performance) for detailed optimization strategies.
 
 ## When to Use
 
@@ -208,14 +200,14 @@ extension = mimetypes.guess_extension(mime_type)
 
 ## Comparison
 
-| Aspect | CascadingInferencer | MagicInferencer | MagikaInferencer |
-|--------|-------------------|-----------------|------------------|
-| Text file accuracy | Highest (via Magika) | Medium | Highest |
-| Binary file accuracy | High (via Magic) | High | High |
-| Speed (text) | Medium | Fast | Slower |
-| Speed (binary) | Fast | Fast | Slower |
-| Memory | Medium | Low | High |
-| Use case | **Recommended default** | Binary-focused | Text-focused |
+| Aspect               | CascadingInferencer     | MagicInferencer | MagikaInferencer |
+| -------------------- | ----------------------- | --------------- | ---------------- |
+| Text file accuracy   | Highest (via Magika)    | Medium          | Highest          |
+| Binary file accuracy | High (via Magic)        | High            | High             |
+| Speed (text)         | Medium                  | Fast            | Slower           |
+| Speed (binary)       | Fast                    | Fast            | Slower           |
+| Memory               | Medium                  | Low             | High             |
+| Use case             | **Recommended default** | Binary-focused  | Text-focused     |
 
 ## Benefits
 
@@ -227,24 +219,7 @@ extension = mimetypes.guess_extension(mime_type)
 
 ## System Requirements
 
-`CascadingInferencer` requires both `libmagic` (system library) and `magika` (Python package).
-
-### libmagic Installation
-
-Install `libmagic` based on your operating system:
-
-- **Ubuntu/Debian**: `sudo apt-get install libmagic1`
-- **Fedora/RHEL/CentOS**: `sudo dnf install file-libs` (or `sudo yum install file-libs`)
-- **Arch Linux**: `sudo pacman -S file`
-- **macOS**: `brew install libmagic` or `sudo port install file`
-- **Windows**: `pip install python-magic-bin`
-- **Alpine Linux**: `apk add --no-cache file`
-
-See [MagicInferencer System Requirements](magic.md#system-requirements) for detailed installation instructions.
-
-### magika Installation
-
-`magika` is installed automatically with the Python package. No additional system dependencies required.
+`CascadingInferencer` requires both `libmagic` (system library) and `magika` (Python package). See [Getting Started](../getting-started.md#system-requirements) for installation instructions.
 
 ## Limitations
 

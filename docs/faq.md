@@ -6,30 +6,11 @@ Common questions and answers about `filetype-detector`.
 
 ### Which inferencer should I use?
 
-**For most use cases**: Use `CascadingInferencer` - it provides the best balance of performance and accuracy.
-
-**For specific needs**:
-- **Maximum speed**: `LexicalInferencer` (trusted extensions only)
-- **Content-based detection**: `MagicInferencer` (general purpose)
-- **Highest accuracy (text files)**: `MagikaInferencer` (with confidence scores)
+See the [User Guide](user-guide.md) for a comprehensive inferencer selection guide.
 
 ### Can I use multiple inferencers together?
 
-Yes! You can chain inferencers or use them sequentially:
-
-```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
-from filetype_detector.magic_inferencer import MagicInferencer
-
-lexical = LexicalInferencer()
-magic = MagicInferencer()
-
-def detect_with_fallback(file_path):
-    ext = lexical.infer(file_path)
-    if not ext:
-        ext = magic.infer(file_path)
-    return ext
-```
+Yes! You can chain inferencers or use them sequentially. See [User Guide](user-guide.md#custom-inferencer-chain) for patterns.
 
 ### What if a file doesn't have an extension?
 
@@ -37,51 +18,6 @@ def detect_with_fallback(file_path):
 - **MagicInferencer**: Detects from content, returns extension
 - **MagikaInferencer**: Detects from content, returns extension
 - **CascadingInferencer**: Detects from content, returns extension
-
-## Performance Questions
-
-### How fast is each inferencer?
-
-Approximate speeds (per file):
-- LexicalInferencer: < 0.001ms (fastest)
-- MagicInferencer: ~1-5ms (fast)
-- MagikaInferencer: ~5-10ms (slower, but accurate)
-- CascadingInferencer: ~1-6ms (balanced)
-
-### Can I cache results?
-
-Yes! You can implement caching:
-
-```python
-from functools import lru_cache
-from filetype_detector.magic_inferencer import MagicInferencer
-
-class CachedMagicInferencer(MagicInferencer):
-    @lru_cache(maxsize=1000)
-    def infer(self, file_path):
-        return super().infer(str(file_path))
-```
-
-### How much memory does Magika use?
-
-The Magika model uses approximately 50-100MB of memory when loaded. It's loaded once when `MagikaInferencer` is instantiated and stays in memory while the instance exists.
-
-## Accuracy Questions
-
-### How accurate is each method?
-
-- **LexicalInferencer**: Low accuracy (only reads extension)
-- **MagicInferencer**: High accuracy (content-based, ~95%+)
-- **MagikaInferencer**: Highest accuracy (AI-powered, ~99% for text files)
-- **CascadingInferencer**: High accuracy (combines both)
-
-### Which is best for text files?
-
-`MagikaInferencer` or `CascadingInferencer` - Magika excels at detecting specific text file types (Python, JavaScript, JSON, etc.).
-
-### Which is best for binary files?
-
-`MagicInferencer` or `CascadingInferencer` - both use Magic which is reliable for binary files.
 
 ## Technical Questions
 
@@ -114,75 +50,27 @@ It depends on the inferencer:
 
 ### Do I need system libraries?
 
-Yes, `MagicInferencer` and `CascadingInferencer` require the `libmagic` system library.
-
-**Installation by OS:**
-
-- **Ubuntu/Debian**: `sudo apt-get install libmagic1`
-- **Fedora/RHEL/CentOS**: `sudo dnf install file-libs` (or `sudo yum install file-libs`)
-- **Arch Linux**: `sudo pacman -S file`
-- **macOS**: `brew install libmagic` or `sudo port install file`
-- **Windows**: `pip install python-magic-bin` (requires special package)
-- **Alpine Linux**: `apk add --no-cache file`
-
-### How do I verify libmagic is installed?
-
-Run:
-```bash
-file --version
-```
-
-If it prints a version number (e.g., `file-5.x`), `libmagic` is installed correctly.
+Yes, `MagicInferencer` and `CascadingInferencer` require the `libmagic` system library. See [Getting Started](getting-started.md#system-requirements) for installation instructions.
 
 ### Can I use it without Magika?
 
 Yes! If you don't need AI-powered detection, you can use:
 - `LexicalInferencer` (no dependencies)
-- `MagicInferencer` (requires libmagic)
-- `CascadingInferencer` (requires both, but Magic-only for binaries)
+- `MagicInferencer` (requires libmagic only)
 
 ## Usage Questions
 
 ### Can I use it with asyncio?
 
-Not directly, but you can wrap it:
-
-```python
-import asyncio
-from filetype_detector.magic_inferencer import MagicInferencer
-
-async def async_detect(file_path):
-    loop = asyncio.get_event_loop()
-    inferencer = MagicInferencer()
-    return await loop.run_in_executor(None, inferencer.infer, file_path)
-```
+Not directly, but you can wrap it. See [User Guide](user-guide.md#examples) for async patterns.
 
 ### How do I process thousands of files?
 
-Use batch processing with instance reuse:
-
-```python
-from filetype_detector.mixture_inferencer import CascadingInferencer
-
-inferencer = CascadingInferencer()  # Create once
-
-for file_path in thousands_of_files:
-    extension = inferencer.infer(file_path)
-    # Process result
-```
+See [User Guide](user-guide.md#performance) for batch processing strategies and optimization tips.
 
 ### Can I extend the inferencers?
 
-Yes! Subclass `BaseInferencer`:
-
-```python
-from filetype_detector.base_inferencer import BaseInferencer
-
-class CustomInferencer(BaseInferencer):
-    def infer(self, file_path):
-        # Your logic
-        return ".custom"
-```
+Yes! See [Base Classes API](api/base.md#creating-custom-inferencers) for instructions on creating custom inferencers.
 
 ## Troubleshooting
 
@@ -214,24 +102,11 @@ Make sure:
 
 ## Best Practices
 
-### Do
-- ✅ Reuse inferencer instances
-- ✅ Handle exceptions properly
-- ✅ Use `CascadingInferencer` for general use
-- ✅ Cache results for repeated files
-- ✅ Use type hints for better IDE support
-
-### Don't
-- ❌ Create new inferencer instances in loops
-- ❌ Ignore exceptions
-- ❌ Use Magika for high-volume binary-only workflows
-- ❌ Assume extensions are always correct
-- ❌ Forget to install system dependencies
+See the [User Guide](user-guide.md#best-practices) for best practices and optimization tips.
 
 ## Getting Help
 
-1. Check the [User Guide](user-guide.md)
-2. Review [Examples](examples.md)
-3. Check [API Documentation](api/base.md)
-4. Open an issue on GitHub
+1. Check the [User Guide](user-guide.md) for comprehensive usage instructions, examples, and performance tips
+2. Check [API Documentation](api/base.md) for complete API reference
+3. Open an issue on GitHub for bugs or feature requests
 

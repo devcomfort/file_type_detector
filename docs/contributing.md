@@ -185,7 +185,7 @@ class TestMyInferencer:
 5. **Update documentation**:
    - Add to README.md
    - Create API documentation in `docs/api/`
-   - Add examples to `docs/examples.md`
+   - Add examples to `docs/user-guide.md`
 
 ### Adding Tests
 
@@ -276,7 +276,7 @@ git push origin feature/my-feature
 
 1. **Markdown files** in `docs/` directory
 2. **API docs** auto-generated from docstrings
-3. **Examples** in `docs/examples.md`
+3. **Examples** in `docs/user-guide.md`
 4. **README.md** for GitHub overview
 
 ### Adding API Documentation

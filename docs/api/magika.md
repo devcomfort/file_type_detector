@@ -201,6 +201,8 @@ except RuntimeError as e:
 - **Memory**: High (~50-100MB for model)
 - **Throughput**: 100-200 files/second
 
+See [User Guide](../user-guide.md#performance) for optimization tips.
+
 ## When to Use
 
 ✅ **Good for:**

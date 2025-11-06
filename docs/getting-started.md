@@ -92,24 +92,15 @@ If this command works, `libmagic` is properly installed and `MagicInferencer` wi
 
 ## Basic Usage
 
-### Using the Inferencer Map
+### Recommended: CascadingInferencer
 
-The easiest way to use `filetype-detector` is through the centralized `FILE_FORMAT_INFERENCER_MAP`:
+For most use cases, start with `CascadingInferencer` - it provides the best balance of performance and accuracy:
 
 ```python
-from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
-# Lexical inference (fastest)
-lexical = FILE_FORMAT_INFERENCER_MAP[None]
-extension = lexical("document.pdf")  # Returns: '.pdf'
-
-# Magic inference (content-based)
-magic = FILE_FORMAT_INFERENCER_MAP["magic"]
-extension = magic("file_without_ext")  # Returns detected type
-
-# Magika inference (AI-powered)
-magika = FILE_FORMAT_INFERENCER_MAP["magika"]
-extension = magika("script.py")  # Returns: '.py'
+inferencer = CascadingInferencer()
+extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
 ```
 
 ### Using Individual Inferencers
@@ -124,49 +115,21 @@ extension = inferencer.infer("document.pdf")
 print(extension)  # Output: '.pdf'
 ```
 
-### Type-Safe Usage
+### Using the Inferencer Map
 
-The library provides type hints for better IDE support:
-
-```python
-from filetype_detector.inferencer import InferencerType, FILE_FORMAT_INFERENCER_MAP
-
-def process_file(file_path: str, method: InferencerType) -> str:
-    inferencer_func = FILE_FORMAT_INFERENCER_MAP[method]
-    return inferencer_func(file_path)
-
-# Type-safe calls
-result = process_file("doc.pdf", "magic")  # ✅ Valid
-result = process_file("doc.pdf", None)     # ✅ Valid
-# result = process_file("doc.pdf", "invalid")  # ❌ Type error
-```
-
-## Choosing the Right Inferencer
-
-| Inferencer | Speed | Accuracy | Use Case |
-|------------|-------|----------|----------|
-| `LexicalInferencer` | Fastest | Low | When extensions are trusted |
-| `MagicInferencer` | Fast | High (binary) | General purpose, binary files |
-| `MagikaInferencer` | Slower | Highest (text) | Text files, need confidence scores |
-| `CascadingInferencer` | Balanced | High (all) | **Recommended default** |
-
-### Recommended Approach
-
-For most use cases, use `CascadingInferencer`:
+For type-safe method selection, use the centralized map:
 
 ```python
-from filetype_detector.mixture_inferencer import CascadingInferencer
+from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
 
-inferencer = CascadingInferencer()
-
-# Automatically uses Magic for binaries, Magika for text files
-extension = inferencer.infer("document.pdf")  # Fast Magic detection
-extension = inferencer.infer("script.py")      # Magic + Magika for precision
+magic = FILE_FORMAT_INFERENCER_MAP["magic"]
+extension = magic("file_without_ext")  # Returns detected type
 ```
+
+See the [User Guide](user-guide.md) for detailed usage instructions and [Inferencer Map](api/inferencer-map.md) for type-safe selection patterns.
 
 ## Next Steps
 
-- Read the [User Guide](user-guide.md) for detailed usage instructions
-- Check out [Examples](examples.md) for real-world use cases
-- Explore the [API Reference](api/base.md) for complete documentation
+- Read the [User Guide](user-guide.md) for comprehensive usage instructions, examples, and performance tips
+- Explore the [API Reference](api/base.md) for complete API documentation
 

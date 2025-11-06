@@ -57,10 +57,7 @@ plugins:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - User Guide:
-    - Guide: user-guide.md
-    - Examples: examples.md
-    - Performance: performance.md
+  - User Guide: user-guide.md
   - API Reference:
     - Base Classes: api/base.md
     - LexicalInferencer: api/lexical.md

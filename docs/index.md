@@ -14,13 +14,11 @@ A Python library for detecting file types using multiple inference strategies, i
 ## Quick Start
 
 ```python
-from filetype_detector.inferencer import FILE_FORMAT_INFERENCER_MAP
+from filetype_detector.mixture_inferencer import CascadingInferencer
 
-# Get an inferencer
-inferencer = FILE_FORMAT_INFERENCER_MAP["magic"]
-
-# Infer file type
-extension = inferencer("document.pdf")  # Returns: '.pdf'
+# Recommended: Use CascadingInferencer for best balance
+inferencer = CascadingInferencer()
+extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
 ```
 
 ## Installation
@@ -29,72 +27,21 @@ extension = inferencer("document.pdf")  # Returns: '.pdf'
 pip install filetype-detector
 ```
 
-Or using rye:
-
-```bash
-rye sync
-```
-
-## Available Inferencers
-
-### LexicalInferencer
-
-Fastest method - extracts file extensions directly from paths.
-
-```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
-
-inferencer = LexicalInferencer()
-extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
-```
-
-### MagicInferencer
-
-Uses libmagic for content-based file type detection.
-
-```python
-from filetype_detector.magic_inferencer import MagicInferencer
-
-inferencer = MagicInferencer()
-extension = inferencer.infer("file_without_ext")  # Detects from content
-```
-
-### MagikaInferencer
-
-AI-powered detection with confidence scores.
-
-```python
-from filetype_detector.magika_inferencer import MagikaInferencer
-
-inferencer = MagikaInferencer()
-extension = inferencer.infer("script.py")  # Returns: '.py'
-extension, score = inferencer.infer_with_score("data.json")  # With confidence
-```
-
-### CascadingInferencer
-
-Smart two-stage approach - combines Magic and Magika for optimal performance.
-
-```python
-from filetype_detector.mixture_inferencer import CascadingInferencer
-
-inferencer = CascadingInferencer()
-extension = inferencer.infer("script.py")  # Uses Magic then Magika
-```
+See [Getting Started](getting-started.md) for detailed installation instructions including system dependencies.
 
 ## Documentation
 
-- **[Getting Started](getting-started.md)** - Installation and quick examples
-- **[User Guide](user-guide.md)** - Detailed usage instructions
+- **[Getting Started](getting-started.md)** - Installation and basic usage
+- **[User Guide](user-guide.md)** - Comprehensive usage guide with examples and performance tips
 - **[API Reference](api/base.md)** - Complete API documentation
-- **[Examples](examples.md)** - Real-world usage examples
-- **[Performance](performance.md)** - Performance considerations
 
 ## Requirements
 
 - Python >= 3.8
-- python-magic >= 0.4.27
-- magika >= 1.0.1
+- python-magic >= 0.4.27 (for MagicInferencer and CascadingInferencer)
+- magika >= 1.0.1 (for MagikaInferencer and CascadingInferencer)
+
+See [Getting Started](getting-started.md#system-requirements) for system library installation instructions.
 
 ## License
 

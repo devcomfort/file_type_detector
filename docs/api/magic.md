@@ -106,6 +106,8 @@ except RuntimeError as e:
 - **Memory**: Low
 - **Throughput**: 200-500 files/second
 
+See [User Guide](../user-guide.md#performance) for optimization tips.
+
 ## When to Use
 
 ✅ **Good for:**
@@ -122,82 +124,7 @@ except RuntimeError as e:
 
 ## System Requirements
 
-The `MagicInferencer` requires the `libmagic` system library to be installed. This is a system-level dependency, not a Python package.
-
-### Installation by Operating System
-
-#### Ubuntu/Debian
-
-```bash
-sudo apt-get update
-sudo apt-get install libmagic1
-```
-
-#### Fedora/RHEL/CentOS
-
-```bash
-sudo dnf install file-libs
-# or for older versions:
-# sudo yum install file-libs
-```
-
-#### Arch Linux
-
-```bash
-sudo pacman -S file
-```
-
-#### macOS
-
-**Using Homebrew:**
-```bash
-brew install libmagic
-```
-
-**Using MacPorts:**
-```bash
-sudo port install file
-```
-
-#### Windows
-
-Windows requires the `python-magic-bin` package:
-
-```bash
-pip install python-magic-bin
-```
-
-Or download `libmagic` DLL manually from [file.exe Windows releases](https://github.com/julian-r/file-windows/releases).
-
-#### Alpine Linux
-
-Common in Docker containers:
-
-```bash
-apk add --no-cache file
-```
-
-### Verification
-
-Test if `libmagic` is installed:
-
-```bash
-file --version
-python -c "import magic; print(magic.__version__)"
-```
-
-If both commands succeed, `MagicInferencer` will work correctly.
-
-### Troubleshooting
-
-**"ImportError: cannot import name '_magic'"**
-
-This usually means:
-1. `libmagic` is not installed on your system
-2. Python can't find the `libmagic` library
-3. On Windows, you need `python-magic-bin` instead of `python-magic`
-
-**Solution**: Install the system library for your OS using the commands above.
+The `MagicInferencer` requires the `libmagic` system library. See [Getting Started](../getting-started.md#system-requirements) for installation instructions.
 
 ## Limitations
 
