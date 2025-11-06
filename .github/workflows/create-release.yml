@@ -1,0 +1,106 @@
+name: Create GitHub Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.2.0)'
+        required: true
+        type: string
+      title:
+        description: 'Release title (optional, defaults to "Release v{version}")'
+        required: false
+        type: string
+      notes:
+        description: 'Release notes (optional, auto-generated if not provided)'
+        required: false
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || sudo apt install curl -y
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
+
+      - name: Get version from input or pyproject.toml
+        id: get-version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=$(grep -E '^version\s*=' pyproject.toml | sed -E 's/version\s*=\s*["'\'']([^"'\'']+)["'\'']/\1/')
+          fi
+          
+          # Remove 'v' prefix if present
+          VERSION="${VERSION#v}"
+          
+          # Validate semantic version format
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Version must follow semantic versioning (X.Y.Z)"
+            echo "Received: $VERSION"
+            exit 1
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Prepare release title
+        id: prepare-title
+        run: |
+          if [ -n "${{ github.event.inputs.title }}" ]; then
+            TITLE="${{ github.event.inputs.title }}"
+          else
+            TITLE="Release v${{ steps.get-version.outputs.version }}"
+          fi
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+      - name: Prepare release notes
+        id: prepare-notes
+        run: |
+          if [ -n "${{ github.event.inputs.notes }}" ]; then
+            NOTES="${{ github.event.inputs.notes }}"
+          else
+            # Get previous version from git tags
+            PREV_VERSION=$(git tag --sort=-v:refname | head -n 1 | sed 's/^v//' || echo "unknown")
+            CURRENT_VERSION="${{ steps.get-version.outputs.version }}"
+            
+            NOTES="## Release v$CURRENT_VERSION
+
+Auto-generated release.
+
+### Changes
+- Version: $CURRENT_VERSION
+- Package available on PyPI
+
+### Installation
+\`\`\`bash
+pip install filetype-detector==$CURRENT_VERSION
+\`\`\`"
+          fi
+          # Use delimiter to preserve multi-line content
+          {
+            echo 'notes<<EOF'
+            echo "$NOTES"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.get-version.outputs.version }}" \
+            --title "${{ steps.prepare-title.outputs.title }}" \
+            --notes "${{ steps.prepare-notes.outputs.notes }}"
+

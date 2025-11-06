@@ -4,9 +4,10 @@ This directory contains CI/CD workflows for the project.
 
 ## Workflow Overview
 
-| Workflow           | Purpose                   | Trigger                         | Required Secrets                       |
-| ------------------ | ------------------------- | ------------------------------- | -------------------------------------- |
-| `pypi-release.yml` | Automatic PyPI deployment | Semantic Version change (X.Y.Z) | `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` |
+| Workflow              | Purpose                   | Trigger                         | Required Secrets                       |
+| --------------------- | ------------------------- | ------------------------------- | -------------------------------------- |
+| `pypi-release.yml`    | Automatic PyPI deployment | Semantic Version change (X.Y.Z) | `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` |
+| `create-release.yml`  | Manual GitHub Release     | workflow_dispatch (manual)      | None (uses GITHUB_TOKEN)               |
 
 ---
 
@@ -128,6 +129,55 @@ This allows you to require approval before deployment.
 
 - Run tests locally: `rye run pytest tests/ -v`
 - Ensure all tests pass
+
+---
+
+## create-release.yml
+
+Manually create a GitHub Release without deploying to PyPI.
+
+### Trigger
+
+**Manual Trigger Only**:
+- Execute via `workflow_dispatch` from GitHub Actions UI
+- Requires version input (e.g., `0.2.0`)
+
+### Usage
+
+1. Go to GitHub repository → **Actions** tab
+2. Select "Create GitHub Release"
+3. Click "Run workflow"
+4. Enter version number (e.g., `0.2.0`)
+5. Optionally enter custom title and release notes
+6. Execute
+
+### Inputs
+
+| Input     | Description                                    | Required | Default                             |
+| --------- | ---------------------------------------------- | -------- | ----------------------------------- |
+| `version` | Version to release (e.g., `0.2.0`)            | ✅ Yes   | -                                   |
+| `title`   | Release title                                  | ❌ No    | `Release v{version}`                 |
+| `notes`   | Release notes (markdown supported)             | ❌ No    | Auto-generated installation notes    |
+
+### Example
+
+```bash
+# Manual workflow dispatch
+# Version: 0.2.0
+# Title: (default) "Release v0.2.0"
+# Notes: (auto-generated)
+```
+
+### When to Use
+
+- ✅ Create release after manual PyPI deployment
+- ✅ Create release for pre-release versions
+- ✅ Create release with custom notes
+- ✅ Create release without deploying to PyPI
+
+### Permissions
+
+- `contents: write` - Required to create GitHub Release
 
 ---
 
