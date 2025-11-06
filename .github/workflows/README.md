@@ -4,42 +4,9 @@
 
 ## 워크플로우 개요
 
-| 워크플로우 | 목적 | 트리거 | 필요한 Secrets |
-|-----------|------|--------|---------------|
-| `update-lock-files.yml` | Lock 파일 업데이트 및 PR 생성 | `pyproject.toml` 버전 변경 | `GITHUB_TOKEN` (자동) |
-| `pypi-release.yml` | PyPI 자동 배포 | Semantic Version 변경 (X.Y.Z) | `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` |
-
----
-
-## update-lock-files.yml
-
-자동으로 dependency lock 파일을 업데이트하고 PR을 생성하는 워크플로우입니다.
-
-### 트리거 조건
-
-1. **자동 트리거**: `main` 브랜치에 `pyproject.toml`의 `version` 필드가 변경되면 자동 실행
-2. **수동 트리거**: GitHub Actions UI에서 `workflow_dispatch`로 수동 실행 가능
-
-### 동작 과정
-
-1. **버전 변경 감지**: `pyproject.toml`의 `version` 필드 변경 확인
-2. **Lock 파일 업데이트**: `rye sync`와 `rye lock`으로 lock 파일 업데이트
-3. **변경사항 확인**: lock 파일에 실제 변경이 있는지 확인
-4. **브랜치 및 커밋 생성**: 새로운 브랜치에 변경사항 커밋
-5. **PR 생성**: 자동으로 Pull Request 생성 (자세한 PR 메시지 포함)
-
-### PR 메시지 구성
-
-- 버전 정보 (이전 → 새 버전)
-- 변경된 패키지 목록
-- Lock 파일 diff
-- 체크리스트
-- 자동 생성 표시
-
-### 필요한 권한
-
-- `contents: write` - 브랜치 생성 및 커밋
-- `pull-requests: write` - PR 생성
+| 워크플로우         | 목적             | 트리거                        | 필요한 Secrets                         |
+| ------------------ | ---------------- | ----------------------------- | -------------------------------------- |
+| `pypi-release.yml` | PyPI 자동 배포   | Semantic Version 변경 (X.Y.Z) | `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` |
 
 ---
 
@@ -89,9 +56,9 @@ GitHub Release 생성
 
 ⚠️ **반드시 설정해야 합니다:**
 
-| Secret 이름 | 설명 | 생성 위치 |
-|------------|------|----------|
-| `PYPI_API_TOKEN` | PyPI API 토큰 | https://pypi.org/manage/account/token/ |
+| Secret 이름          | 설명              | 생성 위치                                   |
+| -------------------- | ----------------- | ------------------------------------------- |
+| `PYPI_API_TOKEN`     | PyPI API 토큰     | https://pypi.org/manage/account/token/      |
 | `TESTPYPI_API_TOKEN` | TestPyPI API 토큰 | https://test.pypi.org/manage/account/token/ |
 
 **설정 방법:** `.github/workflows/SETUP.md` 참조
@@ -163,6 +130,34 @@ GitHub Environments를 사용하여 배포 전 승인을 설정할 수 있습니
 
 ---
 
+## Lock 파일 관리
+
+Dependency lock 파일(`requirements.lock`, `requirements-dev.lock`)은 개발자가 수동으로 업데이트합니다.
+
+### Lock 파일 업데이트 방법
+
+```bash
+# 의존성 동기화 및 lock 파일 업데이트
+rye sync
+rye lock
+
+# 변경사항 확인
+git diff requirements*.lock
+
+# 변경사항 커밋
+git add requirements.lock requirements-dev.lock
+git commit -m "chore: Update lock files"
+```
+
+### 언제 업데이트해야 하나요?
+
+- `pyproject.toml`의 의존성 버전 변경 시
+- 새로운 의존성 추가 시
+- 기존 의존성 제거 시
+- `rye sync` 실행 후 lock 파일이 변경된 경우
+
+---
+
 ## 공통 고려사항
 
 ### 장점
@@ -170,12 +165,14 @@ GitHub Environments를 사용하여 배포 전 승인을 설정할 수 있습니
 - ✅ 자동화로 인한 실수 방지
 - ✅ 일관된 배포 프로세스
 - ✅ 변경사항 추적 용이
+- ✅ Lock 파일을 수동으로 관리하여 변경사항을 명확히 파악 가능
 
 ### 주의사항
 
 - ⚠️ Semantic Version만 자동 배포됨 (pre-release는 수동 배포 필요)
 - ⚠️ Secrets 설정이 반드시 필요함 (`pypi-release.yml` 사용 시)
 - ⚠️ 배포 후에는 PyPI에서 패키지를 삭제할 수 없음 (버전 업데이트 필요)
+- ⚠️ Lock 파일은 수동으로 업데이트해야 하므로 의존성 변경 시 주의 필요
 
 ### 개선 가능 사항
 

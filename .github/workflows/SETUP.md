@@ -31,31 +31,13 @@
 - **TestPyPI 토큰**: https://test.pypi.org/manage/account/token/
 - Scope: "Entire account" 선택
 
-## 향후 확장 시 필요한 Secrets
+### 선택적 Secrets (알림 통합 등)
 
-워크플로우를 확장하여 다음 기능을 추가할 경우, GitHub Secrets에 다음 값들을 설정해야 합니다:
-
-### PyPI 배포 자동화 (선택사항)
-
-만약 자동으로 PyPI 배포까지 포함하고 싶다면:
-
-| Secret 이름          | 설명              | 예시                  |
-| -------------------- | ----------------- | --------------------- |
-| `PYPI_API_TOKEN`     | PyPI API 토큰     | `pypi-AgEIcHlwaS5...` |
-| `TESTPYPI_API_TOKEN` | TestPyPI API 토큰 | `pypi-AgENdGVzdC5...` |
-
-**설정 방법:**
-1. GitHub 저장소 → Settings → Secrets and variables → Actions
-2. "New repository secret" 클릭
-3. Name과 Value 입력
-
-⚠️ **보안 주의사항**: 
-- 토큰은 절대 코드에 직접 작성하지 마세요
-- Secrets에만 저장하고 워크플로우에서 `${{ secrets.SECRET_NAME }}` 형식으로 참조하세요
+워크플로우를 확장하여 다음 기능을 추가할 경우:
 
 ### Slack/Discord 알림 (선택사항)
 
-PR 생성 시 알림을 받고 싶다면:
+배포 완료 시 알림을 받고 싶다면:
 
 | Secret 이름           | 설명                       |
 | --------------------- | -------------------------- |
@@ -66,31 +48,29 @@ PR 생성 시 알림을 받고 싶다면:
 
 워크플로우가 정상 작동하려면 다음 권한이 필요합니다:
 
-- ✅ `contents: write` - 브랜치 생성 및 커밋 (워크플로우에 이미 포함됨)
-- ✅ `pull-requests: write` - PR 생성 (워크플로우에 이미 포함됨)
-
-이 권한들은 `update-lock-files.yml`의 `permissions` 섹션에 이미 설정되어 있습니다.
+- ✅ `contents: read` - 코드 읽기 (`pypi-release.yml`에 포함됨)
+- ✅ `contents: write` - GitHub Release 생성 (`pypi-release.yml`에 포함됨)
 
 ## 워크플로우 테스트
 
 워크플로우가 정상 작동하는지 테스트하려면:
 
-1. **수동 실행 테스트:**
+1. **수동 실행 테스트 (PyPI Release):**
    - GitHub 저장소 → Actions 탭
-   - "Update Lock Files After Release" 선택
+   - "PyPI Release" 선택
    - "Run workflow" 클릭
-   - 버전 번호 입력 (선택사항)
+   - Release type 선택 (patch/minor/major) 또는 버전 직접 입력
    - 실행
 
-2. **자동 트리거 테스트:**
+2. **자동 트리거 테스트 (Semantic Version 변경):**
    ```bash
-   # pyproject.toml에서 버전 변경
+   # pyproject.toml에서 Semantic Version으로 변경
    # 예: 0.1.0 → 0.1.1
    git add pyproject.toml
    git commit -m "chore: Bump version to 0.1.1"
    git push origin main
    
-   # 워크플로우가 자동으로 실행되어 PR 생성됨
+   # 워크플로우가 자동으로 실행되어 PyPI에 배포됨
    ```
 
 ## 문제 해결
@@ -102,7 +82,7 @@ PR 생성 시 알림을 받고 싶다면:
    - "Allow all actions and reusable workflows" 선택
 
 2. **워크플로우 파일 위치 확인**
-   - `.github/workflows/update-lock-files.yml` 경로가 정확한지 확인
+   - `.github/workflows/pypi-release.yml` 경로가 정확한지 확인
 
 3. **브랜치 보호 규칙 확인**
    - Settings → Branches
@@ -113,11 +93,12 @@ PR 생성 시 알림을 받고 싶다면:
 - 워크플로우의 `permissions` 섹션 확인
 - 저장소 Settings → Actions → General → "Workflow permissions" 확인
 
-### PR이 생성되지 않는 경우
+### 배포가 실패하는 경우
 
-- Lock 파일에 실제 변경이 있는지 확인
+- Semantic Version 형식인지 확인 (X.Y.Z)
+- `PYPI_API_TOKEN`, `TESTPYPI_API_TOKEN` Secret이 올바르게 설정되었는지 확인
 - GitHub Actions 로그 확인 (Actions 탭에서 실행 결과 클릭)
-- 브랜치 이름 충돌 여부 확인 (동일한 버전으로 이미 PR이 있는 경우)
+- 테스트가 모두 통과하는지 확인
 
 ## 참고 자료
 
