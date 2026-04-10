@@ -78,6 +78,54 @@ def sample_csv(fixtures_dir):
     return fixtures_dir / "sample.csv"
 
 
+@pytest.fixture
+def sample_pptx(fixtures_dir):
+    """Return path to sample PowerPoint 2007+ file."""
+    return fixtures_dir / "sample.pptx"
+
+
+@pytest.fixture
+def sample_ppt(fixtures_dir):
+    """Return path to sample PowerPoint 97-2003 file."""
+    return fixtures_dir / "sample.ppt"
+
+
+@pytest.fixture
+def sample_docx(fixtures_dir):
+    """Return path to sample Word 2007+ file."""
+    return fixtures_dir / "sample.docx"
+
+
+@pytest.fixture
+def sample_doc(fixtures_dir):
+    """Return path to sample Word 97-2003 file."""
+    return fixtures_dir / "sample.doc"
+
+
+@pytest.fixture
+def sample_xlsx(fixtures_dir):
+    """Return path to sample Excel 2007+ file."""
+    return fixtures_dir / "sample.xlsx"
+
+
+@pytest.fixture
+def sample_xls(fixtures_dir):
+    """Return path to sample Excel 97-2003 file."""
+    return fixtures_dir / "sample.xls"
+
+
+@pytest.fixture
+def sample_hwp(fixtures_dir):
+    """Return path to sample HWP (Hangul Word Processor) file."""
+    return fixtures_dir / "sample.hwp"
+
+
+@pytest.fixture
+def sample_hwpx(fixtures_dir):
+    """Return path to sample HWPX (Hangul Word Processor XML) file."""
+    return fixtures_dir / "sample.hwpx"
+
+
 def pytest_runtest_teardown(item, nextitem):
     """Log after each test completes."""
     logger.success(f"✅ Completed test: {item.name}")
