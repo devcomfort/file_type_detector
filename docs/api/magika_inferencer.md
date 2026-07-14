@@ -3,7 +3,7 @@
 AI-powered file type detection using Google's Magika model.
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 ```
 
 ## Overview
@@ -19,9 +19,9 @@ class MagikaInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> str`
+### `infer(file_path: Union[Path, str]) -> FileType`
 
-Public API that returns only the file extension.
+Returns the detected file type as a `FileType` instance.
 
 **Parameters:**
 
@@ -29,7 +29,7 @@ Public API that returns only the file extension.
 
 **Returns:**
 
-- `str`: File extension with leading dot (e.g., `'.pdf'`, `'.txt'`). The exact format depends on Magika's output format.
+- `FileType`: A frozen dataclass with `extensions` and `mime_types` tuples based on Magika's prediction.
 
 **Raises:**
 
@@ -40,16 +40,18 @@ Public API that returns only the file extension.
 **Examples:**
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 from pathlib import Path
 
 inferencer = MagikaInferencer()
 
 # String path
-extension = inferencer.infer('document.pdf')  # Returns: '.pdf'
+ft = inferencer.infer('document.pdf')
+'.pdf' in ft.extensions  # True
 
 # Path object
-extension = inferencer.infer(Path('notes.txt'))  # Returns: '.txt'
+ft = inferencer.infer(Path('notes.txt'))
+'.txt' in ft.extensions  # True
 ```
 
 ### `infer_with_score(file_path: Union[Path, str], prediction_mode: PredictionMode = PredictionMode.MEDIUM_CONFIDENCE) -> Tuple[str, float]`
@@ -74,7 +76,7 @@ Core implementation that returns both extension and confidence score.
 **Examples:**
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 from magika import PredictionMode
 
 inferencer = MagikaInferencer()
@@ -121,11 +123,12 @@ ext, score = inferencer.infer_with_score(
 ### Basic Usage
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
-extension = inferencer.infer("script.py")
-print(extension)  # Output: '.py'
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions  # True
+ft.mime_types            # ('text/x-python',) or similar
 ```
 
 ### With Confidence Scores
@@ -142,17 +145,15 @@ print(f"Type: {extension}, Confidence: {confidence:.2%}")
 ```python
 inferencer = MagikaInferencer()
 
-# Python file
-ext = inferencer.infer("script.py")  # Returns: '.py'
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions   # True
 
-# JavaScript file
-ext = inferencer.infer("code.js")    # Returns: '.js'
+ft = inferencer.infer("code.js")
+'.js' in ft.extensions   # True
 
-# JSON file (even with wrong extension)
-ext = inferencer.infer("data.txt")   # May return: '.json'
-
-# INI configuration
-ext = inferencer.infer("config.ini") # Returns: '.ini'
+# JSON data in a .txt file
+ft = inferencer.infer("data.txt")
+'.json' in ft.extensions  # Possibly True
 ```
 
 ### Filtering by Confidence
@@ -173,7 +174,7 @@ else:
 ### Error Handling
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
 
@@ -249,10 +250,11 @@ Magika returns extensions in different formats. The `MagikaInferencer` normalize
 | Confidence scores | Yes | No | No |
 | Memory usage | High | Low | Minimal |
 
-## Limitations
+## Known Limitations
 
-1. **Model size**: Requires ~50-100MB memory
-2. **Load time**: Initial model load takes 100-200ms
-3. **Performance**: Slower than Magic-based detection
-4. **Return format**: May return list format (handled automatically)
+1. **HWP not supported**: HWP (Hangul Word Processor) is not in Magika's training data. `infer()` returns a `FileType` with empty `extensions` and `mime_types`.
+2. **ZIP-based formats misclassified**: HWPX, ODF, ePub, and other ZIP-wrapped formats may be misidentified (e.g., HWPX is sometimes classified as `.epub`) because Magika does not inspect the internal XML structure.
+3. **Binary formats vs. text formats**: The advantage over `MagicInferencer` is strongest for text files. For mainstream binary formats (PDF, PNG, ZIP), the two inferencers typically agree.
+4. **Model size**: Requires ~50-100MB memory
+5. **Load time**: Initial model load takes 100-200ms per new instance
 

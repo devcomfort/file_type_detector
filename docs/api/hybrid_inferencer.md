@@ -3,7 +3,7 @@
 Smart two-stage inference that combines Magic and Magika for optimal performance and accuracy.
 
 ```python
-from filetype_detector.hybrid_inferencer import HybridInferencer
+from filetype_detector import HybridInferencer
 ```
 
 ## Overview
@@ -25,7 +25,7 @@ class HybridInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> str`
+### `infer(file_path: Union[Path, str]) -> FileType`
 
 Infer the file format using a hybrid two-stage approach.
 
@@ -35,7 +35,7 @@ Infer the file format using a hybrid two-stage approach.
 
 **Returns:**
 
-- `str`: File extension with leading dot (e.g., `'.pdf'`, `'.txt'`, `'.py'`, `'.json'`). For text files, returns the more specific type detected by Magika when available.
+- `FileType`: A frozen dataclass with `extensions` and `mime_types` tuples. For text files, reflects the more specific type detected by Magika when available.
 
 **Raises:**
 
@@ -46,19 +46,21 @@ Infer the file format using a hybrid two-stage approach.
 **Examples:**
 
 ```python
-from filetype_detector.hybrid_inferencer import HybridInferencer
+from filetype_detector import HybridInferencer
 from pathlib import Path
 
 inferencer = HybridInferencer()
 
-# Text file - uses Magic then Magika
-extension = inferencer.infer('script.py')  # Returns: '.py'
+# Text file: Magic detects text/plain, Magika refines to .py
+ft = inferencer.infer('script.py')
+'.py' in ft.extensions   # True
 
-# Binary file - uses Magic only
-extension = inferencer.infer('document.pdf')  # Returns: '.pdf'
+# Binary file: Magic result only
+ft = inferencer.infer('document.pdf')
+'.pdf' in ft.extensions  # True
 
-# JSON with wrong extension
-extension = inferencer.infer('data.txt')  # May return: '.json'
+# JSON data in a .txt file
+ft = inferencer.infer('data.txt')  # Magika may return .json
 ```
 
 ## Inference Flow
@@ -87,15 +89,17 @@ Is text/* MIME type?
 ### Basic Usage
 
 ```python
-from filetype_detector.hybrid_inferencer import HybridInferencer
+from filetype_detector import HybridInferencer
 
 inferencer = HybridInferencer()
 
-# Text file - automatically uses Magika
-extension = inferencer.infer("script.py")  # Returns: '.py'
+# Text file: automatically uses Magika
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions   # True
 
-# Binary file - uses Magic only
-extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
+# Binary file: uses Magic only
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
 ```
 
 ### Mixed File Types
@@ -111,14 +115,14 @@ files = [
 ]
 
 for file_path in files:
-    extension = inferencer.infer(file_path)
-    print(f"{file_path}: {extension}")
+    ft = inferencer.infer(file_path)
+    print(f"{file_path}: {ft.extensions}")
 ```
 
 ### Error Handling
 
 ```python
-from filetype_detector.hybrid_inferencer import HybridInferencer
+from filetype_detector import HybridInferencer
 
 inferencer = HybridInferencer()
 
@@ -214,6 +218,13 @@ See [Examples and Patterns](../user-guide.md#performance) for detailed optimizat
 1. **Intelligent routing**: Automatically chooses best method per file type
 2. **Performance optimized**: Only uses expensive Magika for text files
 3. **Best accuracy**: Combines strengths of both methods
+
+## Known Limitations
+
+- **ZIP-based formats**: HWPX, ODF, ePub, and other ZIP-wrapped formats are detected as `text/...` only if the ZIP happens to unpack as text, which is unlikely. They fall through to Magic and are returned as `application/zip`. Magika is not applied.
+- **HWP**: Magic correctly identifies HWP; Magika is not called for binary files, so this works correctly via the Magic path.
+- **Compound Document formats**: Legacy Office formats (`.doc`, `.ppt`, `.xls`) are binary, so Magic handles them. Multiple extensions may appear in `ft.extensions` because the MIME type is shared across formats.
+- **Magika only helps for `text/*`**: Files that Magic classifies as binary are never sent to Magika, even if Magika could provide a more specific label.
 4. **Robust fallback**: Handles Magika failures gracefully
 5. **Single interface**: One inferencer for all use cases
 

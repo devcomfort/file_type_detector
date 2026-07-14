@@ -8,29 +8,42 @@ Quick answers and troubleshooting notes for `filetype-detector`.
 
 See [Choose an Inferencer](how-to/choose-an-inferencer.md) for a task-based recommendation guide.
 
+### How accurate is this library?
+
+Across 598 tested file formats:
+
+| Strategy | Accuracy |
+|----------|:--------:|
+| Lexical (extension only) | 19.4% |
+| Magic (libmagic) | 59.9% |
+| Magika (Google AI) | 62.5% |
+| **Hybrid (Magic + Magika)** | **74.2%** |
+
+See [Accuracy Benchmarks](reference/accuracy-benchmarks.md) for per-format data and methodology.
+
 ### Can I use multiple inferencers together?
 
 Yes. You can chain inferencers or use them sequentially. See [Examples and Patterns](user-guide.md#custom-inferencer-chain) for a concrete fallback pattern.
 
 ### What if a file doesn't have an extension?
 
-- **LexicalInferencer**: Returns empty string `''`
-- **MagicInferencer**: Detects from content, returns extension
-- **MagikaInferencer**: Detects from content, returns extension
-- **HybridInferencer**: Detects from content, returns extension
+- **LexicalInferencer**: Raises `ValueError`
+- **MagicInferencer**: Detects content and returns a `FileType`
+- **MagikaInferencer**: Detects content and returns a `FileType`
+- **HybridInferencer**: Detects content and returns a `FileType`
 
 ## Technical Questions
 
 ### Why does Magika return a list sometimes?
 
-Magika's API returns extensions as a list (e.g., `['py', 'pyi']`). The inferencers automatically extract the first extension and format it with a leading dot.
+Magika can report multiple extensions. `MagikaInferencer.infer()` normalizes all of them into `FileType.extensions`; `infer_with_score()` returns the first extension with its confidence score.
 
 ### Can I get confidence scores?
 
 Yes, but only with `MagikaInferencer` directly:
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
 extension, score = inferencer.infer_with_score("file.py")
@@ -41,7 +54,7 @@ Note: `AutoInferencer(backend="magika")` doesn't support scores.
 ### What happens if detection fails?
 
 It depends on the inferencer:
-- **LexicalInferencer**: Returns empty string for no extension
+- **LexicalInferencer**: Raises `ValueError` when the path has no extension
 - **MagicInferencer**: Raises `RuntimeError` if MIME type cannot be determined
 - **MagikaInferencer**: Raises `RuntimeError` if Magika fails
 - **HybridInferencer**: Falls back to Magic result if Magika fails
@@ -52,11 +65,13 @@ It depends on the inferencer:
 
 Yes, `MagicInferencer` and `HybridInferencer` require the `libmagic` system library. See [Getting Started](getting-started.md#system-requirements) for installation instructions.
 
-### Can I use it without Magika?
+### Can I avoid loading the Magika model?
 
-Yes! If you don't need AI-powered detection, you can use:
-- `LexicalInferencer` (no dependencies)
-- `MagicInferencer` (requires libmagic only)
+Yes. Select a backend that does not invoke Magika:
+- `LexicalInferencer` (no file I/O)
+- `MagicInferencer` (requires the `libmagic` system library)
+
+Magika remains an installation dependency in the current package metadata.
 
 ## Usage Questions
 

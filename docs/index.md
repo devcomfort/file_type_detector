@@ -58,11 +58,14 @@
 
 ## Quick Start
 
+Content-based backends require the supplied path to reference an existing file.
+
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer
+from filetype_detector import AutoInferencer
 
 inferencer = AutoInferencer(backend="hybrid")
-extension = inferencer.infer("document.pdf")
+file_type = inferencer.infer("document.pdf")
+'.pdf' in file_type.extensions  # True
 ```
 
 ## Quick Decision Guide
@@ -127,8 +130,9 @@ extension = inferencer.infer("document.pdf")
 
 ## Requirements
 
-- Python >= 3.8
+- Python >= 3.10
 - python-magic >= 0.4.27 for MagicInferencer and HybridInferencer
 - magika >= 1.0.1 for MagikaInferencer and HybridInferencer
+- rich >= 14.2.0 and textual >= 8.2.8 for the terminal demo
 
 See [Getting Started](getting-started.md#system-requirements) for platform-specific system library installation instructions.

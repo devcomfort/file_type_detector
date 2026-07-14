@@ -18,11 +18,23 @@ If you're using rye for dependency management:
 rye sync
 ```
 
+### Interactive terminal demo
+
+Browse any directory with a live filename filter and side-by-side strategy
+results:
+
+```bash
+filetype-detector-demo path/to/files
+```
+
+`python -m filetype_detector path/to/files` launches the same interface. Omit
+the directory to browse the current working directory.
+
 ## System Requirements
 
 ### Python
 
-- Python >= 3.8
+- Python >= 3.10
 
 ### System Libraries
 
@@ -96,11 +108,14 @@ If this command works, `libmagic` is properly installed and `MagicInferencer` wi
 
 For most use cases, start with `AutoInferencer(backend="hybrid")` - it provides a single entry point with the same balanced behavior as `HybridInferencer`:
 
+Content-based backends require the supplied path to reference an existing file.
+
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer
+from filetype_detector import AutoInferencer
 
 inferencer = AutoInferencer(backend="hybrid")
-extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
+file_type = inferencer.infer("document.pdf")
+'.pdf' in file_type.extensions  # True
 ```
 
 ### Using Individual Inferencers
@@ -108,11 +123,11 @@ extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
 You can also use inferencer classes directly:
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-extension = inferencer.infer("document.pdf")
-print(extension)  # Output: '.pdf'
+file_type = inferencer.infer("document.pdf")
+print(file_type.extensions)  # Output: ('.pdf',)
 ```
 
 ### Using AutoInferencer
@@ -120,10 +135,11 @@ print(extension)  # Output: '.pdf'
 For type-safe backend selection, use `AutoInferencer`:
 
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer
+from filetype_detector import AutoInferencer
 
 magic = AutoInferencer(backend="magic")
-extension = magic.infer("file_without_ext")  # Returns detected type
+file_type = magic.infer("file_without_ext")
+print(file_type.extensions)
 ```
 
 See [Examples and Patterns](user-guide.md) for longer examples and [AutoInferencer](api/auto_inferencer.md) for backend selection details.

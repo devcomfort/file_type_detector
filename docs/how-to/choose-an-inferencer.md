@@ -5,13 +5,17 @@ This guide helps you choose the right inferencer for your workload.
 ## Recommended Default
 
 Start with `AutoInferencer(backend="hybrid")`.
-It gives you one stable entry point and delegates to `HybridInferencer`, which uses Magic for all files and Magika only when text detection benefits from it.
+It gives you one stable entry point and delegates to `HybridInferencer`, which uses Magic for all files and Magika when Magic returns a generic or ambiguous type. Across 598 test formats, Hybrid achieves **74.2% accuracy** — a 14.3 percentage-point improvement over Magic alone. [See benchmark data →](../reference/accuracy-benchmarks.md)
+
+Content-based examples below assume that each supplied path is an existing file.
 
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer
+from filetype_detector import AutoInferencer
 
 inferencer = AutoInferencer(backend="hybrid")
-extension = inferencer.infer("document.pdf")
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
+ft.mime_types             # ('application/pdf',)
 ```
 
 ## Quick Decision Guide
@@ -31,10 +35,14 @@ extension = inferencer.infer("document.pdf")
 Use it when file extensions are already trustworthy and performance matters more than correction.
 
 ```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector import LexicalInferencer
 
 inferencer = LexicalInferencer()
-extension = inferencer.infer("report.pdf")
+ft = inferencer.infer("report.pdf")
+'.pdf' in ft.extensions  # True
+
+# No extension
+inferencer.infer("makefile")  # Raises ValueError
 ```
 
 ## `MagicInferencer`
@@ -42,10 +50,12 @@ extension = inferencer.infer("report.pdf")
 Use it when file content matters and you want a lightweight, rule-based detector.
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-extension = inferencer.infer("file_without_ext")
+ft = inferencer.infer("file_without_ext")
+ft.extensions  # e.g. ('.pdf',) based on content
+ft.mime_types  # e.g. ('application/pdf',)
 ```
 
 ## `MagikaInferencer`
@@ -53,9 +63,13 @@ extension = inferencer.infer("file_without_ext")
 Use it when you need finer distinctions between text-based formats or confidence scores.
 
 ```python
-from filetype_detector.magika_inferencer import MagikaInferencer
+from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions  # True
+
+# Confidence score (returns str + float, not FileType)
 extension, score = inferencer.infer_with_score("data.json")
 ```
 
@@ -64,11 +78,24 @@ extension, score = inferencer.infer_with_score("data.json")
 Use it when your workload mixes binary and text files and you want one strong default.
 
 ```python
-from filetype_detector.hybrid_inferencer import HybridInferencer
+from filetype_detector import HybridInferencer
 
 inferencer = HybridInferencer()
-extension = inferencer.infer("script.py")
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions  # True
 ```
+
+## Known Limitations
+
+| Inferencer | Limitation |
+|------------|------------|
+| `Lexical` | Trusts a present extension; missing extensions raise `ValueError` |
+| `Magic` | `text/plain` covers many text formats; `.py`, `.json`, `.csv` all look the same |
+| `Magic` | Compound Document formats (`.doc`, `.ppt`, `.xls`) share a MIME type — multiple extension candidates returned |
+| `Magika` | HWP not in training data — returns empty `FileType` |
+| `Magika` | ZIP-based formats (HWPX, ODF, ePub) may be misclassified (e.g., HWPX → `.epub`) |
+| `Magika` | Advantage over Magic is strongest for text files; binary accuracy is comparable |
+| `Hybrid` | Magika activates only for `text/*` and other ambiguous MIME types; precise Magic results bypass it |
 
 ## Rule of Thumb
 

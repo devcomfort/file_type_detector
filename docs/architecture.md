@@ -15,8 +15,8 @@ All inferencers inherit from `BaseInferencer`, which defines the common interfac
 ```python
 class BaseInferencer(ABC):
     @abstractmethod
-    def infer(self, file_path: Union[Path, str]) -> str:
-        """Infer file format from path."""
+    def infer(self, file_path: Union[Path, str]) -> FileType:
+        """Infer a file type and return extensions with MIME types."""
         raise NotImplementedError
 ```
 
@@ -56,43 +56,53 @@ result = strategy.infer(file_path)
 ```
 filetype_detector/
 ├── __init__.py
-├── base_inferencer.py      # Abstract base class
-├── lexical_inferencer.py   # Path-based inference
-├── magic_inferencer.py     # libmagic-based inference
-├── magika_inferencer.py    # AI-powered inference
-├── hybrid_inferencer.py   # Hybrid inference
-└── auto_inferencer.py      # Unified backend selector
+├── __main__.py             # Lazy launcher for the terminal UI
+├── auto_inferencer.py      # Unified backend selector
+├── demo.py                 # Textual file browser and strategy comparison
+├── core/
+│   ├── base_inferencer.py  # Abstract interface and path validation
+│   └── file_type.py        # Immutable result type
+└── strategies/
+    ├── lexical_inferencer.py
+    ├── magic_inferencer.py
+    ├── magika_inferencer.py
+    └── hybrid_inferencer.py
 ```
+
+`__main__.py` imports the Textual interface only after validating CLI
+arguments, keeping `--help` and argument errors fast.
 
 ## Data Flow
 
 ### LexicalInferencer
 
 ```
-File Path → Path.suffix → Lowercase → Extension
+File Path → Path.suffix → Lowercase → FileType
 ```
 
 ### MagicInferencer
 
 ```
-File Path → Validation → magic.from_file() → MIME Type → 
-mimetypes.guess_extension() → Extension
+File Path → Validation → magic.from_file() → MIME Type →
+FileType.from_mimetype()
 ```
 
 ### MagikaInferencer
 
 ```
-File Path → Validation → Magika.identify_path() → 
-result.output.extensions → Format → Extension
+File Path → Validation → Magika.identify_path() →
+Extensions + MIME Type → FileType
 ```
 
 ### HybridInferencer
 
 ```
-File Path → Validation → Magic Detection → 
-Is text/*? → Yes: Magika Detection → Extension
-            No: Magic Result → Extension
+File Path → Validation → Magic Detection →
+Is text/* or ambiguous MIME? → Yes: Magika Detection → FileType
+                               No: Magic Result → FileType
 ```
+
+The two-stage design is validated by benchmark data: across 598 formats, Magika improves Magic's generic or wrong result for **177 formats**, while Magic covers most formats for which Magika returns no result. [See accuracy benchmarks →](reference/accuracy-benchmarks.md)
 
 ## Extension Points
 
@@ -102,12 +112,12 @@ To add a custom inferencer:
 
 1. **Subclass BaseInferencer**:
 ```python
-from filetype_detector.base_inferencer import BaseInferencer
+from filetype_detector import BaseInferencer, FileType
 
 class CustomInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> str:
-        # Your logic here
-        return ".custom"
+    def infer(self, file_path: Union[Path, str]) -> FileType:
+        # Build the shared result type so every strategy has the same contract.
+        return FileType.from_extension(".custom")
 ```
 
 2. **Register in `AutoInferencer`** (optional):
@@ -120,11 +130,13 @@ _BACKEND_MAP["custom"] = CustomInferencer
 
 ## Error Handling Strategy
 
-All inferencers follow a consistent error handling pattern:
+Content-based inferencers use the shared path validator. `LexicalInferencer`
+does not access the filesystem; it raises `ValueError` when the supplied path
+has no extension.
 
-1. **FileNotFoundError**: File doesn't exist
-2. **ValueError**: Path is not a file (e.g., is a directory)
-3. **RuntimeError**: Detection logic failure
+1. **FileNotFoundError**: A content-based inferencer cannot find the file
+2. **ValueError**: The path is not a file, or a lexical path has no extension
+3. **RuntimeError**: Detection logic fails
 
 ```python
 # Common pattern across inferencers
@@ -154,14 +166,16 @@ This ensures:
 
 ### Return Types
 
-All inferencers return `str` (extension with dot prefix) for consistency, except `MagikaInferencer.infer_with_score()` which returns `Tuple[str, float]`.
+All `infer()` implementations return `FileType`, which carries `extensions`
+and `mime_types` tuples. `MagikaInferencer.infer_with_score()` is the one
+specialized helper that returns `tuple[str, float]`.
 
 ## Performance Considerations
 
 ### Lazy Evaluation
 
-- Magika model loads only when `MagikaInferencer` is instantiated
-- No pre-loading of models or libraries
+- Magika models load on the first inference that needs them
+- Binary-only `HybridInferencer` workloads never load Magika
 
 ### Instance Reuse
 
@@ -171,20 +185,20 @@ All inferencers are designed to be reused:
 # Good - reuse instance
 inferencer = MagicInferencer()
 for file in files:
-    extension = inferencer.infer(file)
+    file_type = inferencer.infer(file)
 
 # Bad - creates new instance each time
 for file in files:
     inferencer = MagicInferencer()  # Don't do this
-    extension = inferencer.infer(file)
+    file_type = inferencer.infer(file)
 ```
 
 ### Hybrid Optimization
 
 `HybridInferencer` optimizes by:
-- Only loading Magika model once
-- Skipping Magika for binary files
-- Caching Magic results per file
+- Loading one Magika model lazily per inferencer instance
+- Skipping Magika for MIME types that Magic identifies precisely
+- Falling back to Magic when Magika fails or has low confidence
 
 ## Testing Architecture
 
@@ -200,10 +214,9 @@ tests/
 ```
 
 **Key Testing Patterns:**
-- Fixtures for sample files
-- Mocking for unit tests
-- Real files for integration tests
-- Loguru for test logging
+- Canonical fixture files for format coverage
+- Temporary files for input and error boundaries
+- Behavior-focused assertions against public results
 
 ## Future Extensibility
 

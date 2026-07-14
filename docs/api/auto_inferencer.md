@@ -3,7 +3,7 @@
 Unified interface for selecting an inferencer backend with a single class.
 
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer, BackendType
+from filetype_detector import AutoInferencer, BackendType
 ```
 
 ## Overview
@@ -27,12 +27,18 @@ BackendType = Literal["lexical", "magic", "magika", "hybrid"]
 
 ## Basic Usage
 
+Content-based backends require the supplied path to reference an existing regular file.
+
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer
+from filetype_detector import AutoInferencer
 
 inferencer = AutoInferencer(backend="magic")
-extension = inferencer.infer("file_without_ext")
+ft = inferencer.infer("file_without_ext")
+ft.extensions   # e.g. ('.pdf',) based on content
+ft.mime_types   # e.g. ('application/pdf',)
 ```
+
+`infer()` always returns a `FileType` instance regardless of the backend.
 
 ## Backend Selection
 
@@ -42,7 +48,8 @@ Fastest option. Extracts the extension from the path without reading file conten
 
 ```python
 inferencer = AutoInferencer(backend="lexical")
-extension = inferencer.infer("document.pdf")  # Returns: '.pdf'
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
 ```
 
 ### `backend="magic"`
@@ -51,7 +58,8 @@ Uses libmagic through `python-magic` to infer the type from file content.
 
 ```python
 inferencer = AutoInferencer(backend="magic")
-extension = inferencer.infer("file.dat")
+ft = inferencer.infer("file.dat")
+ft.extensions  # e.g. ('.pdf',) based on content
 ```
 
 ### `backend="magika"`
@@ -60,19 +68,21 @@ Uses Google's Magika model for content-based detection.
 
 ```python
 inferencer = AutoInferencer(backend="magika")
-extension = inferencer.infer("script.py")
+ft = inferencer.infer("script.py")
+'.py' in ft.extensions  # True
 ```
 
-`AutoInferencer` returns only the extension. If you also need confidence scores,
-use `MagikaInferencer` directly.
+`AutoInferencer` returns a `FileType`. If you also need confidence scores,
+use `MagikaInferencer` directly via `infer_with_score()`.
 
 ### `backend="hybrid"`
 
-Uses `HybridInferencer`, which runs Magic first and applies Magika only to text files.
+Uses `HybridInferencer`, which runs Magic first and applies Magika to generic or ambiguous results.
 
 ```python
 inferencer = AutoInferencer(backend="hybrid")
-extension = inferencer.infer("document.pdf")
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
 ```
 
 This is the recommended default when you want a good balance between performance and accuracy.
@@ -80,9 +90,9 @@ This is the recommended default when you want a good balance between performance
 ## Example: Configuration-Based Selection
 
 ```python
-from filetype_detector.auto_inferencer import AutoInferencer, BackendType
+from filetype_detector import AutoInferencer, BackendType, FileType
 
-def detect(file_path: str, backend: BackendType = "hybrid") -> str:
+def detect(file_path: str, backend: BackendType = "hybrid") -> FileType:
     inferencer = AutoInferencer(backend=backend)
     return inferencer.infer(file_path)
 ```
@@ -93,7 +103,7 @@ def detect(file_path: str, backend: BackendType = "hybrid") -> str:
 from pathlib import Path
 from typing import Callable
 
-from filetype_detector.auto_inferencer import AutoInferencer, BackendType
+from filetype_detector import AutoInferencer, BackendType
 
 
 class FileRouter:
@@ -105,11 +115,12 @@ class FileRouter:
         self.handlers[extension] = handler
 
     def route(self, file_path: Path):
-        extension = self.inferencer.infer(file_path)
-        handler = self.handlers.get(extension)
-
-        if handler:
-            return handler(file_path)
+        ft = self.inferencer.infer(file_path)
+        # Check each detected extension against registered handlers
+        for ext in ft.extensions:
+            handler = self.handlers.get(ext)
+            if handler:
+                return handler(file_path)
         return None
 ```
 
@@ -117,7 +128,7 @@ class FileRouter:
 
 `AutoInferencer.infer()` forwards the behavior of the selected backend.
 
-- `backend="lexical"`: Returns an empty string when the path has no extension
+- `backend="lexical"`: Raises `ValueError` when the path has no extension
 - `backend="magic"`, `"magika"`, `"hybrid"`: May raise `FileNotFoundError`, `ValueError`, or `RuntimeError`
 
 ## When to Use Direct Inferencer Classes

@@ -20,12 +20,21 @@
 
 	[Open architecture](../architecture.md)
 
+- __Accuracy Verification__
+
+	---
+
+	Review empirical benchmark data across 598 file formats — Magic (59.9%), Magika (62.5%), Hybrid (74.2%).
+
+	[Open verification data](../reference/accuracy-benchmarks.md)
+
 </div>
 
 ## Start Here
 
 - Read [Inference Strategies](inference-strategies.md) first if you are deciding between lexical, magic, magika, and hybrid.
 - Read [Architecture](../architecture.md) if you plan to extend the library or contribute code.
+- Read [Accuracy Benchmarks](../reference/accuracy-benchmarks.md) for the empirical data that supports these strategy recommendations.
 
 ## What This Section Gives You
 

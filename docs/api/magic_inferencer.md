@@ -3,7 +3,7 @@
 Content-based file type detection using python-magic (libmagic).
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 ```
 
 ## Overview
@@ -19,7 +19,7 @@ class MagicInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> str`
+### `infer(file_path: Union[Path, str]) -> FileType`
 
 Infer file extension using python-magic and mimetypes.
 
@@ -29,7 +29,7 @@ Infer file extension using python-magic and mimetypes.
 
 **Returns:**
 
-- `str`: File extension with leading dot (e.g., `'.pdf'`, `'.txt'`). Never returns an empty string as `RuntimeError` is raised if the MIME type cannot be converted to an extension.
+- `FileType`: A frozen dataclass with `extensions` and `mime_types` tuples derived from the detected MIME type.
 
 **Raises:**
 
@@ -40,16 +40,18 @@ Infer file extension using python-magic and mimetypes.
 **Examples:**
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 from pathlib import Path
 
 inferencer = MagicInferencer()
 
 # String path
-extension = inferencer.infer('document.pdf')  # Returns: '.pdf'
+ft = inferencer.infer('document.pdf')
+'.pdf' in ft.extensions  # True
 
 # Path object
-extension = inferencer.infer(Path('notes.txt'))  # Returns: '.txt'
+ft = inferencer.infer(Path('notes.txt'))
+'.txt' in ft.extensions  # True
 ```
 
 ## Usage Examples
@@ -57,11 +59,12 @@ extension = inferencer.infer(Path('notes.txt'))  # Returns: '.txt'
 ### Basic Usage
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-extension = inferencer.infer("document.pdf")
-print(extension)  # Output: '.pdf'
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
+ft.mime_types             # ('application/pdf',)
 ```
 
 ### Detecting Files with Wrong Extensions
@@ -70,16 +73,17 @@ print(extension)  # Output: '.pdf'
 inferencer = MagicInferencer()
 
 # File named .txt but contains JSON
-extension = inferencer.infer("data.txt")  # May return: '.json'
+ft = inferencer.infer("data.txt")  # extensions may include '.json'
 
 # File without extension
-extension = inferencer.infer("file_without_ext")  # Returns detected type
+ft = inferencer.infer("file_without_ext")
+ft.extensions  # e.g. ('.pdf',) based on actual content
 ```
 
 ### Error Handling
 
 ```python
-from filetype_detector.magic_inferencer import MagicInferencer
+from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
 
@@ -128,9 +132,9 @@ The `MagicInferencer` requires the `libmagic` system library. See [Getting Start
 
 ## Limitations
 
-1. **MIME type conversion**: Some MIME types may not map to extensions cleanly
-2. **Text file specificity**: May return generic `text/plain` for various text files
-3. **Performance**: Slower than lexical inference due to file I/O
+1. **Text file specificity**: Files detected as `text/plain` return a generic `FileType` — Python, JSON, and CSV files all look the same. Use `MagikaInferencer` or `HybridInferencer` when you need to distinguish between text formats.
+2. **Compound Document formats**: Legacy Office formats (`.doc`, `.ppt`, `.xls`) share the same Compound Document container, so `from_mimetype` may return multiple extension candidates.
+3. **MIME-to-extension mapping is OS-dependent**: The `mimetypes` module reads OS MIME databases, so the same input can return different extensions on different systems.
 
 ## Common MIME Types
 

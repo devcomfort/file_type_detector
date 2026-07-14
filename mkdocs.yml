@@ -1,10 +1,10 @@
 site_name: filetype-detector Documentation
 site_description: A Python library for detecting file types using multiple inference strategies
 site_author: devcomfort
-site_url: https://filetype-detector.readthedocs.io/
+site_url: https://devcomfort-labs.github.io/file_type_detector/
 
-repo_name: filetype-detector
-repo_url: https://github.com/devcomfort/filetype-detector
+repo_name: devcomfort/file_type_detector
+repo_url: https://github.com/devcomfort/file_type_detector
 edit_uri: edit/main/docs/
 
 theme:
@@ -69,6 +69,7 @@ nav:
     - Examples and Patterns: user-guide.md
   - Reference:
     - Overview: reference/index.md
+    - Accuracy Benchmarks: reference/accuracy-benchmarks.md
     - BaseInferencer: api/base_inferencer.md
     - AutoInferencer: api/auto_inferencer.md
     - LexicalInferencer: api/lexical_inferencer.md

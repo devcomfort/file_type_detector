@@ -68,6 +68,14 @@
 
 	[Open FAQ](../faq.md)
 
+- __Accuracy Benchmarks__
+
+	---
+
+	Empirical verification data: 598 formats tested across Magic, Magika, Hybrid, and Lexical.
+
+	[Open benchmarks](accuracy-benchmarks.md)
+
 </div>
 
 ## When to Leave Reference

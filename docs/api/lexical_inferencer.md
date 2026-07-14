@@ -3,7 +3,7 @@
 Fastest inferencer that extracts file extensions directly from file paths.
 
 ```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector import LexicalInferencer
 ```
 
 ## Overview
@@ -19,7 +19,7 @@ class LexicalInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> str`
+### `infer(file_path: Union[Path, str]) -> FileType`
 
 Infer the file format from the file path.
 
@@ -29,24 +29,26 @@ Infer the file format from the file path.
 
 **Returns:**
 
-- `str`: File extension in lowercase with leading dot (e.g., `'.txt'`, `'.pdf'`). Returns an empty string if the file has no extension.
+- `FileType`: A frozen dataclass with `extensions` and `mime_types` tuples. Raises `ValueError` if the path has no extension.
 
 **Examples:**
 
 ```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector import LexicalInferencer
 from pathlib import Path
 
 inferencer = LexicalInferencer()
 
 # String path
-extension = inferencer.infer('document.pdf')  # Returns: '.pdf'
+ft = inferencer.infer('document.pdf')
+'.pdf' in ft.extensions  # True
 
 # Path object
-extension = inferencer.infer(Path('data.txt'))  # Returns: '.txt'
+ft = inferencer.infer(Path('data.txt'))
+'.txt' in ft.extensions  # True
 
 # No extension
-extension = inferencer.infer('no_extension')  # Returns: ''
+inferencer.infer('no_extension')  # Raises ValueError
 ```
 
 ## Usage Examples
@@ -54,11 +56,12 @@ extension = inferencer.infer('no_extension')  # Returns: ''
 ### Basic Usage
 
 ```python
-from filetype_detector.lexical_inferencer import LexicalInferencer
+from filetype_detector import LexicalInferencer
 
 inferencer = LexicalInferencer()
-extension = inferencer.infer("document.pdf")
-print(extension)  # Output: '.pdf'
+ft = inferencer.infer("document.pdf")
+'.pdf' in ft.extensions  # True
+ft.mime_types             # ('application/pdf',)
 ```
 
 ### Case Insensitive
@@ -67,9 +70,10 @@ The inferencer automatically converts extensions to lowercase:
 
 ```python
 inferencer = LexicalInferencer()
-extension1 = inferencer.infer("FILE.PDF")      # Returns: '.pdf'
-extension2 = inferencer.infer("file.pdf")     # Returns: '.pdf'
-extension3 = inferencer.infer("File.Pdf")     # Returns: '.pdf'
+ft1 = inferencer.infer("FILE.PDF")
+ft2 = inferencer.infer("file.pdf")
+'.pdf' in ft1.extensions  # True
+'.pdf' in ft2.extensions  # True
 ```
 
 ### Multiple Dots
@@ -78,17 +82,26 @@ When filenames contain multiple dots, returns the last extension:
 
 ```python
 inferencer = LexicalInferencer()
-extension1 = inferencer.infer("file.tar.gz")           # Returns: '.gz'
-extension2 = inferencer.infer("backup.2024.01.01.txt") # Returns: '.txt'
+ft1 = inferencer.infer("file.tar.gz")
+'.gz' in ft1.extensions   # True
 ```
 
 ### Files Without Extensions
 
+Paths without a suffix are invalid lexical inputs:
+
 ```python
 inferencer = LexicalInferencer()
-extension1 = inferencer.infer("no_extension")  # Returns: ''
-extension2 = inferencer.infer(".hidden")       # Returns: ''
-extension3 = inferencer.infer("")               # Returns: ''
+
+try:
+    inferencer.infer("no_extension")
+except ValueError:
+    print("No extension detected")
+
+try:
+    inferencer.infer(".hidden")
+except ValueError:
+    print("No extension detected")
 ```
 
 ## Performance
@@ -114,22 +127,24 @@ extension3 = inferencer.infer("")               # Returns: ''
 
 ## Limitations
 
-1. **Cannot detect wrong extensions**: A file named `document.pdf` will return `'.pdf'` even if it's actually a Word document
-2. **Returns empty string for no extension**: Files without extensions return `''`
+1. **Cannot detect wrong extensions**: A file named `document.pdf` will return a `FileType` with `.pdf` even if it's actually a Word document
+2. **Missing extension error**: Paths without extensions raise `ValueError`
 3. **No content analysis**: Pure path-based detection only
 
 ## Error Handling
 
-The `LexicalInferencer` does not raise exceptions (except for invalid input types). It will return an empty string for files without extensions, which should be handled by the caller.
+`LexicalInferencer` does not access the filesystem. It accepts path-like strings
+whether or not the file exists, but raises `ValueError` when the path has no
+extension.
 
 ```python
 inferencer = LexicalInferencer()
-extension = inferencer.infer("file_without_ext")
 
-if not extension:
-    # Handle files without extension
-    print("No extension detected")
+try:
+    file_type = inferencer.infer("file_without_ext")
+except ValueError as error:
+    print(error)
 else:
-    print(f"Extension: {extension}")
+    print(file_type.extensions)
 ```
 

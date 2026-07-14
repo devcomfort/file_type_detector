@@ -7,7 +7,7 @@ This guide covers the development workflow, project conventions, and documentati
 
 ### Prerequisites
 
-- Python >= 3.8
+- Python >= 3.10
 - rye (recommended) or pip/venv
 - Git
 
@@ -121,7 +121,7 @@ mkdocs build  # Build static site
 Use numpy-style docstrings:
 
 ```python
-def infer(self, file_path: Union[Path, str]) -> str:
+def infer(self, file_path: Union[Path, str]) -> FileType:
     """Infer the file format from a path.
 
     Parameters
@@ -131,8 +131,8 @@ def infer(self, file_path: Union[Path, str]) -> str:
 
     Returns
     -------
-    str
-        File extension with leading dot.
+    FileType
+        Inferred extensions and MIME types.
 
     Raises
     ------
@@ -153,12 +153,12 @@ def infer(self, file_path: Union[Path, str]) -> str:
 
 1. **Create inferencer class**:
 ```python
-from filetype_detector.base_inferencer import BaseInferencer
+from filetype_detector import BaseInferencer, FileType
 
 class MyInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> str:
-        # Implementation
-        return ".ext"
+    def infer(self, file_path: Union[Path, str]) -> FileType:
+        # Return the common result type used by every inferencer.
+        return FileType.from_extension(".ext")
 ```
 
 2. **Register in `auto_inferencer.py`** (optional):
@@ -196,18 +196,17 @@ Follow existing test patterns:
 1. **Use fixtures** from `conftest.py`
 2. **Mock external dependencies** when appropriate
 3. **Test error cases** (FileNotFoundError, ValueError, RuntimeError)
-4. **Use loguru** for test logging
-5. **Include docstrings** explaining what each test does
+4. **Name tests after observable behavior**
+5. **Keep assertions deterministic and focused on the public contract**
 
 Example:
 ```python
-def test_infer_with_string_path(self, sample_text_file):
-    """Test inferring extension from string path."""
-    logger.debug(f"Testing with file: {sample_text_file}")
+def test_infer_accepts_string_path(sample_text_file):
     inferencer = MagicInferencer()
-    extension = inferencer.infer(str(sample_text_file))
-    logger.success(f"Result: {extension}")
-    assert extension == ".txt"
+
+    file_type = inferencer.infer(str(sample_text_file))
+
+    assert ".txt" in file_type.extensions
 ```
 
 ## Commit Guidelines
@@ -306,6 +305,8 @@ Aim for high test coverage:
 - All public methods tested
 - Error cases covered
 - Edge cases handled
+
+The full test suite covers **598 canonical file formats** across all four inference strategies. See the [Accuracy Benchmarks](reference/accuracy-benchmarks.md) for per-format data and verification methodology.
 
 ## Questions?
 

@@ -10,11 +10,11 @@ Every inferencer implements the same `infer` method.
 from pathlib import Path
 from typing import Union
 
-from filetype_detector.base_inferencer import BaseInferencer
+from filetype_detector import BaseInferencer, FileType
 
 
 class MyInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> str:
+    def infer(self, file_path: Union[Path, str]) -> FileType:
         path_obj = Path(file_path)
 
         if not path_obj.exists():
@@ -22,7 +22,7 @@ class MyInferencer(BaseInferencer):
         if not path_obj.is_file():
             raise ValueError(f"Path is not a file: {path_obj}")
 
-        return ".custom"
+        return FileType.from_extension(".custom")
 ```
 
 ## 2. Use It Directly
@@ -31,7 +31,8 @@ You do not need to register a backend if direct construction is enough.
 
 ```python
 inferencer = MyInferencer()
-extension = inferencer.infer("sample.dat")
+ft = inferencer.infer("sample.dat")
+'.custom' in ft.extensions  # True
 ```
 
 ## 3. Register It in `AutoInferencer`
