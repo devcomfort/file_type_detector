@@ -2,19 +2,6 @@ name: PyPI Release
 
 on:
   workflow_dispatch:
-    inputs:
-      release_type:
-        description: 'Release type (patch/minor/major)'
-        required: false
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
-      version:
-        description: 'Specific version to release (e.g., 0.1.1)'
-        required: false
-        type: string
   push:
     branches:
       - main
@@ -37,6 +24,8 @@ jobs:
 
       - name: Check version and determine if should release
         id: check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           # Initialize variables with default values
           SHOULD_RELEASE="false"
@@ -44,65 +33,19 @@ jobs:
           OLD_VERSION=""
           IS_SEMANTIC="false"
           
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            if [ -n "${{ github.event.inputs.version }}" ]; then
-              # Manual dispatch with specific version
-              NEW_VERSION="${{ github.event.inputs.version }}"
-              OLD_VERSION=$(grep -E '^version\s*=' pyproject.toml | sed -E 's/version\s*=\s*["'\'']([^"'\'']+)["'\'']/\1/')
-              
-              # Validate semantic version format
-              if [[ "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                SHOULD_RELEASE="true"
-                IS_SEMANTIC="true"
-              else
-                echo "Error: Version must follow semantic versioning (X.Y.Z)"
-                exit 1
-              fi
-            elif [ -n "${{ github.event.inputs.release_type }}" ]; then
-              # Manual dispatch with release type
-              RELEASE_TYPE="${{ github.event.inputs.release_type }}"
-              CURRENT_VERSION=$(grep -E '^version\s*=' pyproject.toml | sed -E 's/version\s*=\s*["'\'']([^"'\'']+)["'\'']/\1/')
-              
-              IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
-              MAJOR=${VERSION_PARTS[0]}
-              MINOR=${VERSION_PARTS[1]}
-              PATCH=${VERSION_PARTS[2]}
-              
-              case "$RELEASE_TYPE" in
-                major)
-                  MAJOR=$((MAJOR + 1))
-                  MINOR=0
-                  PATCH=0
-                  ;;
-                minor)
-                  MINOR=$((MINOR + 1))
-                  PATCH=0
-                  ;;
-                patch)
-                  PATCH=$((PATCH + 1))
-                  ;;
-              esac
-              
-              NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          if [ "$EVENT_NAME" == "workflow_dispatch" ]; then
+            CURRENT_VERSION=$(grep -E '^version\s*=' pyproject.toml | sed -E 's/version\s*=\s*["'\'']([^"'\'']+)["'\'']/\1/')
+
+            if [[ "$CURRENT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              NEW_VERSION="$CURRENT_VERSION"
               OLD_VERSION="$CURRENT_VERSION"
               SHOULD_RELEASE="true"
               IS_SEMANTIC="true"
+              echo "Using pyproject.toml version for release: $CURRENT_VERSION"
             else
-              # Manual dispatch without inputs - use current version from pyproject.toml
-              echo "Warning: workflow_dispatch executed without inputs. Using current version from pyproject.toml"
-              CURRENT_VERSION=$(grep -E '^version\s*=' pyproject.toml | sed -E 's/version\s*=\s*["'\'']([^"'\'']+)["'\'']/\1/')
-              
-              if [[ "$CURRENT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                NEW_VERSION="$CURRENT_VERSION"
-                OLD_VERSION="$CURRENT_VERSION"
-                SHOULD_RELEASE="true"
-                IS_SEMANTIC="true"
-                echo "Using current version for release: $CURRENT_VERSION"
-              else
-                echo "Error: Current version '$CURRENT_VERSION' does not follow semantic versioning (X.Y.Z)"
-                echo "Please specify a valid version using 'version' input or 'release_type' input"
-                exit 1
-              fi
+              echo "Error: Current version '$CURRENT_VERSION' does not follow semantic versioning (X.Y.Z)"
+              echo "Set a valid version in pyproject.toml before dispatching a release"
+              exit 1
             fi
           else
             # Automatic trigger on push
@@ -124,10 +67,12 @@ jobs:
           fi
           
           # Write outputs once at the end to avoid duplicates
-          echo "should_release=$SHOULD_RELEASE" >> $GITHUB_OUTPUT
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
-          echo "is_semantic=$IS_SEMANTIC" >> $GITHUB_OUTPUT
+          {
+            echo "should_release=$SHOULD_RELEASE"
+            echo "new_version=$NEW_VERSION"
+            echo "old_version=$OLD_VERSION"
+            echo "is_semantic=$IS_SEMANTIC"
+          } >> "$GITHUB_OUTPUT"
           
           # Debug output
           echo "Debug - Outputs set:"
@@ -162,34 +107,119 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libmagic1
 
-      - name: Setup Rye
-        uses: eifinger/setup-rye@v4
-
-      - name: Install dependencies
-        run: rye sync
+      - name: Install locked dependencies
+        run: |
+          python -m pip install -r requirements-dev.lock
+          python -m pip install --no-deps -e .
 
       - name: Run tests
-        run: rye run pytest tests/ -v
+        run: python -m pytest
 
       - name: Build package
-        run: rye run python -m build
+        run: python -m build
 
       - name: Check package
-        run: rye run twine check dist/*
+        run: python -m twine check dist/*
+
+      - name: Verify built version and wheel import
+        env:
+          EXPECTED_VERSION: ${{ needs.check-version.outputs.new-version }}
+        run: |
+          python - <<'PY'
+          import glob
+          import os
+          import zipfile
+          from email.parser import BytesParser
+
+          wheels = glob.glob("dist/*.whl")
+          assert len(wheels) == 1, f"Expected one wheel, found: {wheels}"
+
+          with zipfile.ZipFile(wheels[0]) as archive:
+              metadata_files = [
+                  name for name in archive.namelist()
+                  if name.endswith(".dist-info/METADATA")
+              ]
+              assert len(metadata_files) == 1, metadata_files
+              metadata = BytesParser().parsebytes(archive.read(metadata_files[0]))
+
+          actual_version = metadata["Version"]
+          expected_version = os.environ["EXPECTED_VERSION"]
+          assert actual_version == expected_version, (
+              f"Built version {actual_version!r} does not match "
+              f"release version {expected_version!r}"
+          )
+          print(f"Verified built version: {actual_version}")
+          PY
+
+          python -m venv --clear /tmp/filetype-detector-wheel-smoke
+          /tmp/filetype-detector-wheel-smoke/bin/python -m pip install --force-reinstall dist/*.whl
+          cd /tmp
+          /tmp/filetype-detector-wheel-smoke/bin/python - <<'PY'
+          import os
+          from importlib.metadata import version
+          from pathlib import Path
+
+          import filetype_detector
+          from filetype_detector import AutoInferencer
+
+          package_path = Path(filetype_detector.__file__).resolve()
+          smoke_root = Path("/tmp/filetype-detector-wheel-smoke")
+          assert smoke_root in package_path.parents, package_path
+          assert version("filetype-detector") == os.environ["EXPECTED_VERSION"]
+          assert AutoInferencer("lexical").infer("report.PDF").extensions == (".pdf",)
+          print(f"Imported wheel package from {package_path}")
+          PY
 
       - name: Publish to TestPyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
-        run: rye run twine upload --repository testpypi dist/* --verbose
+        run: python -m twine upload --repository testpypi dist/* --verbose
 
       - name: Verify TestPyPI installation
+        env:
+          EXPECTED_VERSION: ${{ needs.check-version.outputs.new-version }}
         run: |
-          pip install --index-url https://test.pypi.org/simple/ --no-deps filetype-detector==${{ needs.check-version.outputs.new-version }} || true
+          python -m venv --clear /tmp/filetype-detector-testpypi-smoke
+          mkdir -p /tmp/filetype-detector-testpypi-dist
+          for attempt in 1 2 3 4 5; do
+            if /tmp/filetype-detector-testpypi-smoke/bin/python -m pip download \
+              --index-url https://test.pypi.org/simple/ \
+              --no-cache-dir \
+              --no-deps \
+              --only-binary=:all: \
+              --dest /tmp/filetype-detector-testpypi-dist \
+              "filetype-detector==$EXPECTED_VERSION"; then
+              break
+            fi
+
+            if [ "$attempt" -eq 5 ]; then
+              echo "TestPyPI package was not available after 5 attempts"
+              exit 1
+            fi
+
+            echo "Waiting for TestPyPI propagation (attempt $attempt/5)"
+            sleep 15
+          done
+          /tmp/filetype-detector-testpypi-smoke/bin/python -m pip install /tmp/filetype-detector-testpypi-dist/*.whl
+          cd /tmp
+          /tmp/filetype-detector-testpypi-smoke/bin/python - <<'PY'
+          import os
+          from importlib.metadata import version
+          from pathlib import Path
+
+          import filetype_detector
+
+          package_path = Path(filetype_detector.__file__).resolve()
+          smoke_root = Path("/tmp/filetype-detector-testpypi-smoke")
+          assert smoke_root in package_path.parents, package_path
+          assert version("filetype-detector") == os.environ["EXPECTED_VERSION"]
+          print(f"Imported TestPyPI package from {package_path}")
+          PY
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: rye run twine upload dist/* --verbose
+        run: python -m twine upload dist/* --verbose
 
