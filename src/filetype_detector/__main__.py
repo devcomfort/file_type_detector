@@ -1,61 +1,64 @@
-"""Main entry point for filetype_detector comparison tests."""
+"""Command-line entrypoint for the interactive terminal demo."""
 
+from __future__ import annotations
+
+import argparse
+from collections.abc import Callable, Sequence
 from pathlib import Path
-from tabulate import tabulate
 
-from .lexical_inferencer import LexicalInferencer
-from .magic_inferencer import MagicInferencer
-from .magika_inferencer import MagikaInferencer
-from .hybrid_inferencer import HybridInferencer
+DemoRunner = Callable[[Path, int], None]
 
 
-def main():
-    """Compare all inferencer implementations on fixture files."""
-    print("=== FileType Detector Comparison ===\n")
+def _positive_integer(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("must be at least 1")
+    return parsed
 
-    # fixtures 디렉토리 경로
-    fixtures_dir = Path(__file__).parent.parent.parent / "tests" / "fixtures"
 
-    # 사용 가능한 샘플 파일들
-    sample_files = sorted(fixtures_dir.glob("sample.*"))
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="filetype-detector-demo",
+        description="Explore file-type inference results in an interactive terminal UI.",
+    )
+    parser.add_argument(
+        "directory",
+        nargs="?",
+        type=Path,
+        default=Path.cwd(),
+        help="directory to browse (default: current directory)",
+    )
+    parser.add_argument(
+        "--limit",
+        type=_positive_integer,
+        default=1_000,
+        help="maximum files to index (default: 1000)",
+    )
+    return parser
 
-    if not sample_files:
-        print(f"Error: No sample files found in {fixtures_dir}")
-        return
 
-    # Inferencer 인스턴스 생성
-    inferencers = {
-        "Lexical": LexicalInferencer(),
-        "Magic": MagicInferencer(),
-        "Magika": MagikaInferencer(),
-        "Hybrid": HybridInferencer(),
-    }
+def _load_runner() -> DemoRunner:
+    from .demo import run_demo
 
-    # 테이블 데이터 수집
-    table_data = []
+    return run_demo
 
-    for file_path in sample_files:
-        row = [file_path.name]
 
-        for inferencer_name, inferencer in inferencers.items():
-            try:
-                ft = inferencer.infer(file_path)
-                # 확장자들을 간단히 표시
-                ext_str = ", ".join(ft.extensions) if ft.extensions else "—"
-                # MIME 타입도 함께 표시
-                mime_str = ft.mime_types[0] if ft.mime_types else "—"
-                result = f"{ext_str}\n({mime_str})"
-                row.append(result)
-            except Exception as e:
-                row.append(f"❌ {type(e).__name__}")
+def main(argv: Sequence[str] | None = None) -> int:
+    """Parse CLI arguments and launch the Textual demo."""
+    parser = _build_parser()
+    arguments = parser.parse_args(argv)
+    directory = arguments.directory.expanduser().resolve()
 
-        table_data.append(row)
+    if not directory.exists():
+        parser.error(f"directory does not exist: {directory}")
+    if not directory.is_dir():
+        parser.error(f"not a directory: {directory}")
 
-    # 테이블 출력
-    headers = ["File"] + list(inferencers.keys())
-    print(tabulate(table_data, headers=headers, tablefmt="grid"))
-    print()
+    runner = _load_runner()
+
+    runner(directory, arguments.limit)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
