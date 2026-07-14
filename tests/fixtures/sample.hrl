@@ -1,0 +1,1 @@
+-record(state, {name :: string(), value :: integer()}).

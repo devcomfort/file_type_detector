@@ -1,0 +1,4 @@
+// Sample Rust file (duplicate of .rs for coverage)
+fn main() {
+    println!("Hello, World!");
+}

@@ -1,0 +1,4 @@
+circuit Sample :
+  module Sample :
+    input clock : Clock
+    input reset : UInt<1>

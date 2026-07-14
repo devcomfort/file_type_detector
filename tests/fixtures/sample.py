@@ -1,10 +1,8 @@
-"""Sample Python file for testing."""
+#!/usr/bin/env python3
+"""Sample."""
 
-
-def hello_world():
-    """Print hello world."""
-    print("Hello, World!")
-
+def main():
+    print("Hello")
 
 if __name__ == "__main__":
-    hello_world()
+    main()

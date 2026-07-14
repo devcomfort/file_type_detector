@@ -1,0 +1,2 @@
+/mob/sample
+	desc = "Sample"

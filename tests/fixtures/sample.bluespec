@@ -1,0 +1,5 @@
+package Sample;
+interface Ifc;
+   method Action hello();
+endinterface
+endpackage

@@ -1,0 +1,13 @@
+From: <Saved by Browser>
+Subject: Sample
+Date: Mon, 1 Jan 2024 00:00:00 +0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart"
+
+------=_NextPart
+Content-Type: text/html; charset="utf-8"
+
+<html><body><h1>Hello</h1></body></html>
+------=_NextPart--

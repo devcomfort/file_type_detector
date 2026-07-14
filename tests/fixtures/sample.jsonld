@@ -1,0 +1,5 @@
+{
+  "@context": "https://json-ld.org/contexts/person.jsonld",
+  "@id": "http://example.org/sample",
+  "name": "Sample"
+}

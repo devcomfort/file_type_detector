@@ -1,151 +1,147 @@
-"""Pytest configuration and fixtures for file type inference tests."""
+"""Pytest configuration and fixtures for file type inference tests.
+
+Provides essential fixtures for path resolution and temporary files.
+Canonical fixture truth lives in ``tests/truth/canonical_fixtures.json``
+and is consumed by the individual strategy test modules.
+"""
 
 import tempfile
 import pytest
 from pathlib import Path
-from loguru import logger
-import sys
 
 
-# Configure loguru for tests
-logger.remove()  # Remove default handler
-logger.add(
-    sys.stderr,
-    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
-    level="DEBUG",
-    colorize=True,
-)
-
-
-@pytest.fixture(autouse=True)
-def setup_logging():
-    """Setup logging for each test."""
-    logger.info("=" * 80)
-    yield
-    logger.info("=" * 80)
-
-
-def pytest_runtest_setup(item):
-    """Log before each test starts."""
-    logger.info(f"🧪 Starting test: {item.name}")
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
+TRUTH_DIR = Path(__file__).parent / "truth"
 
 
 @pytest.fixture
 def fixtures_dir():
-    """Return path to test fixtures directory."""
-    return Path(__file__).parent / "fixtures"
+    """Return path to test fixtures directory.
+
+    Returns
+    -------
+    Path
+        Absolute path to the ``tests/fixtures/`` directory.
+    """
+    return FIXTURES_DIR
+
+
+def sample_path(ext):
+    """Resolve a sample fixture path by extension.
+
+    Parameters
+    ----------
+    ext : str
+        File extension **without** leading dot (e.g. ``'pdf'``, ``'json'``).
+
+    Returns
+    -------
+    Path
+        Path to ``sample.{ext}`` in the fixtures directory.
+    """
+    return FIXTURES_DIR / f"sample.{ext}"
+
+
+def fixture_path(ext: str) -> Path:
+    """Resolve a canonical fixture file by extension (without dot).
+
+    Parameters
+    ----------
+    ext : str
+        File extension **without** leading dot (e.g. ``'pdf'``, ``'json'``).
+
+    Returns
+    -------
+    Path
+        Absolute path to ``sample.{ext}`` in the fixtures directory.
+    """
+    return FIXTURES_DIR / f"sample.{ext}"
+
+
+def fixture_path_from_name(filename: str) -> Path:
+    """Resolve a canonical fixture file by full filename.
+
+    Parameters
+    ----------
+    filename : str
+        Full filename (e.g. ``'sample.pdf'``, ``'sample.py'``).
+
+    Returns
+    -------
+    Path
+        Absolute path to the fixture file in the fixtures directory.
+    """
+    return FIXTURES_DIR / filename
+
+
+def load_canonical_fixtures():
+    """Load canonical fixture truth from ``tests/truth/canonical_fixtures.json``.
+
+    Returns
+    -------
+    dict
+        Parsed JSON contents of the canonical fixtures truth file.
+    """
+    import json
+
+    return json.loads((TRUTH_DIR / "canonical_fixtures.json").read_text())
+
+
+def load_tool_snapshots():
+    """Load tool snapshots from ``tests/truth/tool_snapshots.json``.
+
+    Returns
+    -------
+    dict
+        Parsed JSON contents of the tool snapshots file.
+    """
+    import json
+
+    return json.loads((TRUTH_DIR / "tool_snapshots.json").read_text())
 
 
 @pytest.fixture
 def sample_pdf(fixtures_dir):
-    """Return path to sample PDF file."""
-    return fixtures_dir / "sample.pdf"
+    return sample_path("pdf")
 
 
 @pytest.fixture
 def sample_json(fixtures_dir):
-    """Return path to sample JSON file."""
-    return fixtures_dir / "sample.json"
+    return sample_path("json")
 
 
 @pytest.fixture
 def sample_txt(fixtures_dir):
-    """Return path to sample text file."""
-    return fixtures_dir / "sample.txt"
-
-
-@pytest.fixture
-def sample_md(fixtures_dir):
-    """Return path to sample Markdown file."""
-    return fixtures_dir / "sample.md"
+    return sample_path("txt")
 
 
 @pytest.fixture
 def sample_py(fixtures_dir):
-    """Return path to sample Python file."""
-    return fixtures_dir / "sample.py"
-
-
-@pytest.fixture
-def sample_xml(fixtures_dir):
-    """Return path to sample XML file."""
-    return fixtures_dir / "sample.xml"
-
-
-@pytest.fixture
-def sample_csv(fixtures_dir):
-    """Return path to sample CSV file."""
-    return fixtures_dir / "sample.csv"
-
-
-@pytest.fixture
-def sample_pptx(fixtures_dir):
-    """Return path to sample PowerPoint 2007+ file."""
-    return fixtures_dir / "sample.pptx"
-
-
-@pytest.fixture
-def sample_ppt(fixtures_dir):
-    """Return path to sample PowerPoint 97-2003 file."""
-    return fixtures_dir / "sample.ppt"
-
-
-@pytest.fixture
-def sample_docx(fixtures_dir):
-    """Return path to sample Word 2007+ file."""
-    return fixtures_dir / "sample.docx"
-
-
-@pytest.fixture
-def sample_doc(fixtures_dir):
-    """Return path to sample Word 97-2003 file."""
-    return fixtures_dir / "sample.doc"
-
-
-@pytest.fixture
-def sample_xlsx(fixtures_dir):
-    """Return path to sample Excel 2007+ file."""
-    return fixtures_dir / "sample.xlsx"
-
-
-@pytest.fixture
-def sample_xls(fixtures_dir):
-    """Return path to sample Excel 97-2003 file."""
-    return fixtures_dir / "sample.xls"
-
-
-@pytest.fixture
-def sample_hwp(fixtures_dir):
-    """Return path to sample HWP (Hangul Word Processor) file."""
-    return fixtures_dir / "sample.hwp"
-
-
-@pytest.fixture
-def sample_hwpx(fixtures_dir):
-    """Return path to sample HWPX (Hangul Word Processor XML) file."""
-    return fixtures_dir / "sample.hwpx"
-
-
-def pytest_runtest_teardown(item, nextitem):
-    """Log after each test completes."""
-    logger.success(f"✅ Completed test: {item.name}")
-
-
-def pytest_runtest_call(item):
-    """Log when test is being called."""
-    logger.debug(f"🔍 Running test: {item.name}")
+    return sample_path("py")
 
 
 @pytest.fixture
 def temp_dir():
-    """Create a temporary directory for test files."""
+    """Create a temporary directory for test files.
+
+    Yields
+    ------
+    Path
+        Path to a temporary directory that is cleaned up after the test.
+    """
     with tempfile.TemporaryDirectory() as tmpdir:
         yield Path(tmpdir)
 
 
 @pytest.fixture
 def sample_text_file(temp_dir):
-    """Create a sample text file for testing."""
+    """Create a minimal text file for testing.
+
+    Returns
+    -------
+    Path
+        Path to a ``test.txt`` file containing ``"This is a test file."``.
+    """
     file_path = temp_dir / "test.txt"
     file_path.write_text("This is a test file.")
     return file_path
@@ -153,8 +149,13 @@ def sample_text_file(temp_dir):
 
 @pytest.fixture
 def sample_pdf_file(temp_dir):
-    """Create a minimal PDF file for testing."""
-    # Minimal valid PDF content
+    """Create a minimal PDF file for testing.
+
+    Returns
+    -------
+    Path
+        Path to a minimal valid PDF file.
+    """
     pdf_content = b"%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n>>\nendobj\nxref\n0 1\ntrailer\n<<\n/Root 1 0 R\n>>\n%%EOF"
     file_path = temp_dir / "test.pdf"
     file_path.write_bytes(pdf_content)
@@ -163,7 +164,13 @@ def sample_pdf_file(temp_dir):
 
 @pytest.fixture
 def sample_python_file(temp_dir):
-    """Create a sample Python file for testing."""
+    """Create a minimal Python file for testing.
+
+    Returns
+    -------
+    Path
+        Path to a ``test.py`` file containing a simple print statement.
+    """
     file_path = temp_dir / "test.py"
     file_path.write_text('print("Hello, World!")')
     return file_path
@@ -171,21 +178,71 @@ def sample_python_file(temp_dir):
 
 @pytest.fixture
 def sample_json_file(temp_dir):
-    """Create a sample JSON file for testing."""
+    """Create a minimal JSON file for testing.
+
+    Returns
+    -------
+    Path
+        Path to a ``test.json`` file containing ``{"key": "value"}``.
+    """
     file_path = temp_dir / "test.json"
     file_path.write_text('{"key": "value"}')
     return file_path
 
 
 @pytest.fixture
-def sample_empty_file(temp_dir):
-    """Create an empty file for testing."""
-    file_path = temp_dir / "empty"
-    file_path.touch()
-    return file_path
+def temp_dir_path(temp_dir):
+    """Return a directory path (not a file) for testing ValueError.
+
+    Returns
+    -------
+    Path
+        The temporary directory itself.
+    """
+    return temp_dir
+
+
+def pytest_addoption(parser):
+    """Register custom CLI options for pytest.
+
+    Parameters
+    ----------
+    parser : pytest.Parser
+        The pytest parser instance.
+    """
+    parser.addoption(
+        "--fixture-dir",
+        action="store",
+        default=None,
+        help="Additional directory containing sample.* fixture files.",
+    )
 
 
 @pytest.fixture
-def temp_dir_path(temp_dir):
-    """Return a directory path (not a file) for testing ValueError."""
-    return temp_dir
+def all_sample_files(fixtures_dir, pytestconfig):
+    """Collect all sample fixture files from the default and optional custom directory.
+
+    This fixture auto-discovers ``sample.*`` files, enabling tests to run
+    against any file placed in the fixtures directory without code changes.
+
+    Parameters
+    ----------
+    fixtures_dir : Path
+        Default fixtures directory.
+    pytestconfig : pytest.Config
+        Pytest configuration for reading ``--fixture-dir`` option.
+
+    Returns
+    -------
+    list[Path]
+        Sorted list of all discovered sample fixture files.
+    """
+    files = sorted(fixtures_dir.glob("sample.*"))
+
+    extra_dir = pytestconfig.getoption("--fixture-dir", default=None)
+    if extra_dir:
+        extra_path = Path(extra_dir)
+        if extra_path.is_dir():
+            files.extend(sorted(extra_path.glob("sample.*")))
+
+    return files

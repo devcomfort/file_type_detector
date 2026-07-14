@@ -214,3 +214,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Canonical fixtures intentionally include normally ignored artifact suffixes.
+!tests/fixtures/sample.*

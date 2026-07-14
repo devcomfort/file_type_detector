@@ -1,0 +1,5 @@
+import chisel3._
+
+class Sample extends Module {
+  val io = IO(new Bundle {})
+}

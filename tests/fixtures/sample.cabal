@@ -1,0 +1,6 @@
+cabal-version: 3.0
+name: sample
+version: 1.0.0
+executable sample
+  main-is: Main.hs
+  build-depends: base >=4.14

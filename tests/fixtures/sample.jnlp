@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<jnlp spec="1.0+" codebase="http://example.com/" href="sample.jnlp">
+  <information>
+    <title>Sample</title>
+    <vendor>Sample</vendor>
+  </information>
+  <resources>
+    <j2se version="1.8+"/>
+    <jar href="sample.jar"/>
+  </resources>
+  <application-desc main-class="Main"/>
+</jnlp>
