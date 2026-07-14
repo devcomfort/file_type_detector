@@ -92,7 +92,7 @@ jobs:
   build-test-release:
     needs: check-version
     if: needs.check-version.outputs.should-release == 'true' && needs.check-version.outputs.is-semantic == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -102,10 +102,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install system dependencies
+      - name: Install and verify system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libmagic1
+          sudo apt-get install -y file libmagic1
+          libmagic_version="$(file --version | head -n 1)"
+          echo "libmagic version: $libmagic_version"
+          test "$libmagic_version" = "file-5.41"
 
       - name: Install locked dependencies
         run: |

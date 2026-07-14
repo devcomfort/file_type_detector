@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.10', '3.11', '3.12', '3.13']
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
       - name: Checkout code
@@ -33,10 +33,13 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.lock
 
-      - name: Install system dependencies
+      - name: Install and verify system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libmagic1
+          sudo apt-get install -y file libmagic1
+          libmagic_version="$(file --version | head -n 1)"
+          echo "libmagic version: $libmagic_version"
+          test "$libmagic_version" = "file-5.41"
 
       - name: Install locked dependencies
         run: |

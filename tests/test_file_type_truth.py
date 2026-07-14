@@ -1,7 +1,7 @@
-"""Tests for FileType contract under deterministic mimetypes initialization.
+"""Tests for FileType with host-specific MIME configuration disabled.
 
-This module ensures all FileType methods behave deterministically regardless
-of host OS MIME databases by initializing mimetypes with an empty file list.
+``mimetypes.init(files=[])`` excludes host files, while built-in mappings still
+follow the running Python version.
 """
 
 import mimetypes
@@ -126,17 +126,13 @@ class TestDeterministicBehavior:
         ft2 = FileType.from_mimetype("application/pdf")
         assert ".pdf" in ft2.extensions
 
-    def test_no_os_specific_mime(self):
-        """Verify that .go, .yaml, .toml return empty MIME (not in mimetypes defaults)"""
-        # Note: .rs is mapped to 'application/rls-services+xml' in built-in mimetypes
-        ft_go = FileType.from_extension(".go")
-        assert ft_go.mime_types == ()
+    def test_uses_python_mime_table_without_os_files(self):
+        """Mappings match the running Python standard library."""
+        for ext in [".go", ".yaml", ".toml"]:
+            mime, _ = mimetypes.guess_type(f"file{ext}", strict=False)
+            expected_mime_types = (mime,) if mime else ()
 
-        ft_yaml = FileType.from_extension(".yaml")
-        assert ft_yaml.mime_types == ()
-
-        ft_toml = FileType.from_extension(".toml")
-        assert ft_toml.mime_types == ()
+            assert FileType.from_extension(ext).mime_types == expected_mime_types
 
     def test_mimetypes_reset(self):
         """After resetting mimetypes, results are consistent"""
