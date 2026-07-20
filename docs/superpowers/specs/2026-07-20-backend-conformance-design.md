@@ -38,7 +38,7 @@ A difference in any observed semantic result marks the current project output as
 
 ### Success criteria
 
-- Every inventory record has a fixture path, SHA-256 checksum, probe extension, Ground Truth, provenance, and four backend observations per collected platform.
+- Every inventory record has a fixture path, SHA-256 checksum, probe extension, reviewed Ground Truth, provenance, and four backend observations per collected platform.
 - The aggregate job rejects a missing platform artifact, an invalid inventory checksum, or an incomplete observation matrix.
 - The report separates Ground Truth correctness, backend availability, raw-value differences, and semantic cross-platform divergence.
 - The report can answer, with counts and row-level evidence, whether any backend is platform-dependent for the measured inventory.
@@ -61,13 +61,16 @@ An extension alone does not identify a file format reliably. The inventory there
     "extensions": [".7z"]
   },
   "provenance": "Generated via Python archive library (zipfile/tarfile/bz2/lzma)",
+  "ground_truth_review": {"status": "verified"},
   "backends": ["lexical", "magic", "magika", "hybrid"]
 }
 ```
 
 A suffix counts as covered only when at least one inventory record supplies all of these fields. If the same suffix has distinct valid content formats, the inventory contains a separate record for each fixture. The report shows both record coverage and unique-suffix coverage.
 
-The current canonical fixture data is migration input, not a competing source of truth. The current tool snapshot is historical drift data and will not decide correctness after the inventory cutover.
+The current canonical fixture data is candidate migration input, not a competing source of truth. A checksum proves fixture stability, not that the declared MIME type or extension is correct. The importer must validate every candidate's original suffix, probe extension, provenance, and declared Ground Truth before promotion. Detector output must never create or correct Ground Truth because that would make the test circular.
+
+`backend_inventory.json` contains only records whose `ground_truth_review.status` is `verified`. Conflicting or ambiguous records remain in `tests/truth/backend_inventory_candidates.json` with `needs_review` status, a stated conflict, and no conformance observation. For example, the current candidate corpus declares `.txt` for `sample.aiff` and `.mp4` for `sample.avif`; neither record can enter the authoritative inventory unchanged. The current tool snapshot is historical drift data and will not decide correctness after the inventory cutover.
 
 ## 🔍 Result model and evaluation
 
@@ -142,12 +145,13 @@ The aggregate step produces these outputs for every complete run:
 | `backend-conformance.md` | Tables, counts, divergence rows, and Mermaid graphs | Maintainers and pull-request review |
 | GitHub Actions job summary | Headline counts and report artifact links | CI readers |
 
-The Markdown report contains four fixed sections:
+The Markdown report contains five fixed sections:
 
-1. **Execution matrix**: runner, Python, libmagic, Magika, and model versions.
-2. **Ground Truth correctness**: evaluated, correct, incorrect, no-result, and error counts and rates for every OS × backend pair.
-3. **Cross-platform divergence**: Ubuntu/macOS, Ubuntu/Windows, and macOS/Windows difference counts and rates by backend, split into raw-only and semantic differences.
-4. **Evidence rows**: every semantic divergence, Ground Truth mismatch, no-result, and error with expected and observed values.
+1. **Inventory review**: candidate, verified, unresolved, and excluded record and suffix counts; every unresolved record lists its conflict and provenance.
+2. **Execution matrix**: runner, Python, libmagic, Magika, and model versions.
+3. **Ground Truth correctness**: evaluated, correct, incorrect, no-result, and error counts and rates for every OS × backend pair.
+4. **Cross-platform divergence**: Ubuntu/macOS, Ubuntu/Windows, and macOS/Windows difference counts and rates by backend, split into raw-only and semantic differences.
+5. **Evidence rows**: every semantic divergence, Ground Truth mismatch, no-result, and error with expected and observed values.
 
 The generated report includes a `xychart-beta` Mermaid graph for Ground Truth mismatches by backend and OS, and a second graph for semantic divergences by backend. Each graph uses only values calculated by the aggregate job; the design document does not pre-populate synthetic measurements.
 
@@ -157,7 +161,7 @@ The suite separates pure validation from platform execution.
 
 | Component | Responsibility | Tests |
 | --- | --- | --- |
-| Inventory loader | Parse schema, enforce uniqueness, verify checksums | Unit tests with invalid and duplicate entries |
+| Inventory loader | Parse schema, enforce uniqueness, verify checksums, and reject unreviewed records | Unit tests with invalid, duplicate, conflicting, and unreviewed entries |
 | Probe stager | Materialize a path with the declared suffix | Unit tests for aliases and cleanup |
 | Backend collector | Execute one backend in a new process and serialize observation | Integration tests with a small fixture subset |
 | Evaluator | Apply Ground Truth and divergence rules | Unit tests for matches, mismatches, no-result, errors, and ordering-only differences |
@@ -209,11 +213,11 @@ The initial report may show that current production output is platform-dependent
 
 Native `libmagic` packaging is the highest implementation risk, especially on Windows. The implementation must select a supported distribution, pin its version, record it in every observation, and treat load failure as a visible coverage failure. A backend's absence must never be presented as correctness.
 
-The inventory creates a maintained support boundary. Adding a suffix requires a valid fixture, checksum, Ground Truth, and provenance. This adds contribution work, but it prevents an unsupported suffix from being counted as verified.
+The inventory creates a maintained support boundary. Adding a suffix requires a valid fixture, checksum, reviewed Ground Truth, and provenance. This adds contribution work, but it prevents an unsupported or ambiguous suffix from being counted as verified.
 
 ## ✍️ Implementation sequence
 
-1. Define and validate the inventory schema, then migrate the existing canonical fixture corpus into explicit extension-and-content records.
+1. Import the current corpus into candidate records, run a per-record Ground Truth review, and promote only verified entries into the authoritative inventory.
 2. Build the fresh-process collector and evaluator with unit tests before adding the full matrix.
 3. Add the aggregate renderer and verify its report with fixture observation files.
 4. Add the dedicated GitHub Actions workflow, provision native dependencies, and collect the first complete three-platform report.
