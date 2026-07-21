@@ -29,6 +29,7 @@ _RUNTIME_FIELDS = (
     "filetype_detector",
     "python_magic",
     "libmagic",
+    "libmagic_distribution",
     "magika",
     "magika_model",
 )
@@ -677,6 +678,7 @@ def _render_execution_matrix(rows: Sequence[Mapping[str, object]]) -> list[str]:
         "Python",
         "filetype-detector",
         "libmagic",
+        "libmagic distribution",
         "Magika package",
         "Magika model",
     )
@@ -687,6 +689,7 @@ def _render_execution_matrix(rows: Sequence[Mapping[str, object]]) -> list[str]:
         "python",
         "filetype_detector",
         "libmagic",
+        "libmagic_distribution",
         "magika",
         "magika_model",
     )

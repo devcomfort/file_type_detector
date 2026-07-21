@@ -76,6 +76,7 @@ def _observation(
             "filetype_detector": "1.0.0",
             "python_magic": "0.4.27",
             "libmagic": "546",
+            "libmagic_distribution": "test:libmagic=5.46",
             "magika": "0.6.1",
             "magika_model": "standard_v3_3",
         },
@@ -300,6 +301,8 @@ def test_aggregate_command_writes_deterministic_cross_platform_reports(
         "## Evidence rows",
     ):
         assert heading in markdown
+    assert "libmagic distribution" in markdown
+    assert "test:libmagic=5.46" in markdown
     assert "sample / magic" in markdown
     assert "sample / lexical" in markdown
     assert (
@@ -427,6 +430,49 @@ def test_aggregate_command_rejects_invalid_observation_schema_before_writing(
 
     assert completed.returncode == 2
     assert "observation runtime libmagic must be present" in completed.stderr
+    assert not output_dir.exists()
+
+
+# Q. Does an artifact missing its selected libmagic distribution fail before output?
+def test_aggregate_command_rejects_missing_libmagic_distribution_before_writing(
+    tmp_path: Path,
+) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    output_dir = tmp_path / "reports"
+    ubuntu = [
+        _observation(backend=backend, runner_label="ubuntu-test")
+        for backend in ("lexical", "magic", "magika", "hybrid")
+    ]
+    runtime = ubuntu[0]["runtime"]
+    assert isinstance(runtime, dict)
+    runtime.pop("libmagic_distribution")
+
+    completed = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                _write_artifact(tmp_path / "ubuntu.json", ubuntu),
+                _write_artifact(
+                    tmp_path / "macos.json",
+                    [
+                        _observation(backend=backend, runner_label="macos-test")
+                        for backend in ("lexical", "magic", "magika", "hybrid")
+                    ],
+                ),
+            ],
+            output_dir=output_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 2
+    assert (
+        "observation runtime libmagic_distribution must be present" in completed.stderr
+    )
     assert not output_dir.exists()
 
 

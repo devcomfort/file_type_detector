@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import hashlib
 import platform
 import subprocess
@@ -247,6 +248,7 @@ def _runtime_info() -> dict[str, str | None]:
         "filetype_detector": _package_version("filetype-detector"),
         "python_magic": _package_version("python-magic"),
         "libmagic": _libmagic_version(),
+        "libmagic_distribution": os.getenv("LIBMAGIC_DISTRIBUTION") or None,
         "magika": magika_module or _package_version("magika"),
         "magika_model": magika_model,
     }

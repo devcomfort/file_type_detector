@@ -158,11 +158,15 @@ def _write_reviewed_inventory(root: Path) -> tuple[Path, Path]:
 
 
 def test_collect_command_uses_fresh_worker_and_writes_observations(
-    tmp_path: Path,
+    monkeypatch, tmp_path: Path
 ) -> None:
     candidates, inventory = _write_reviewed_inventory(tmp_path)
     output = tmp_path / "observations.json"
     repository_root = Path(__file__).parents[2]
+    monkeypatch.setenv(
+        "LIBMAGIC_DISTRIBUTION",
+        "python-magic-bin==0.4.14",
+    )
 
     completed = subprocess.run(
         [
@@ -215,9 +219,20 @@ def test_collect_command_uses_fresh_worker_and_writes_observations(
         "filetype_detector",
         "python_magic",
         "libmagic",
+        "libmagic_distribution",
         "magika",
         "magika_model",
     }
+    assert lexical["runtime"]["libmagic_distribution"] == "python-magic-bin==0.4.14"
+
+
+# Q. Can a local collection remain schema-valid without CI dependency metadata?
+def test_runtime_info_uses_null_distribution_outside_ci(monkeypatch) -> None:
+    from scripts.conformance import collector
+
+    monkeypatch.delenv("LIBMAGIC_DISTRIBUTION", raising=False)
+
+    assert collector._runtime_info()["libmagic_distribution"] is None
 
 
 def test_collect_observation_preserves_backend_failure_without_fallback(
