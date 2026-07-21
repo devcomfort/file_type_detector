@@ -697,3 +697,42 @@ def test_aggregate_command_rejects_unknown_output_fields_before_writing(
     assert completed.returncode == 2
     assert "observation raw_output has unknown fields: unexpected" in completed.stderr
     assert not output_dir.exists()
+
+
+# Q. Does a collector row require nullable result fields to be present explicitly?
+def test_aggregate_command_rejects_missing_nullable_result_field_before_writing(
+    tmp_path: Path,
+) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    output_dir = tmp_path / "reports"
+    ubuntu = [
+        _observation(backend=backend, runner_label="ubuntu-test")
+        for backend in ("lexical", "magic", "magika", "hybrid")
+    ]
+    ubuntu[0].pop("error")
+
+    completed = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                _write_artifact(tmp_path / "ubuntu.json", ubuntu),
+                _write_artifact(
+                    tmp_path / "macos.json",
+                    [
+                        _observation(backend=backend, runner_label="macos-test")
+                        for backend in ("lexical", "magic", "magika", "hybrid")
+                    ],
+                ),
+            ],
+            output_dir=output_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 2
+    assert "observation error must be present" in completed.stderr
+    assert not output_dir.exists()

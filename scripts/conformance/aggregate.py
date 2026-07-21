@@ -253,6 +253,14 @@ def _validate_runtime(value: object) -> None:
 
 
 def _validate_result_fields(observation: Mapping[str, object]) -> None:
+    required_fields = ("status", "raw_output", "semantic_output", "error", "evaluation")
+    missing_fields = sorted(
+        field for field in required_fields if field not in observation
+    )
+    if missing_fields:
+        raise AggregateValidationError(
+            f"observation {', '.join(missing_fields)} must be present"
+        )
     status = observation.get("status")
     if status not in _OBSERVATION_STATUSES:
         raise AggregateValidationError(
