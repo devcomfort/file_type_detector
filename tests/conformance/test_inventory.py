@@ -115,16 +115,23 @@ def test_reports_unresolved_legacy_extension_conflicts(tmp_path: Path) -> None:
     assert summary["candidate_count"] == 2
     assert summary["verified_count"] == 0
     assert summary["unresolved_count"] == 2
+    assert summary["candidate_suffix_count"] == 2
+    assert summary["verified_suffix_count"] == 0
+    assert summary["unresolved_suffix_count"] == 2
+    assert summary["excluded_count"] == 0
+    assert summary["excluded_suffix_count"] == 0
     assert summary["unresolved"] == [
         {
             "id": "sample-aiff",
             "reason": "Filename suffix conflicts with legacy declared extension",
+            "provenance": "Legacy declaration awaiting independent review",
             "mimes": ["application/x-test"],
             "extensions": [".txt"],
         },
         {
             "id": "sample-avif",
             "reason": "Filename suffix conflicts with legacy declared extension",
+            "provenance": "Legacy declaration awaiting independent review",
             "mimes": ["application/x-test"],
             "extensions": [".mp4"],
         },
@@ -150,9 +157,10 @@ def test_reports_noncanonical_legacy_claims_pending_review(tmp_path: Path) -> No
         {
             "id": "sample-R",
             "reason": "Filename suffix conflicts with legacy declared extension",
+            "provenance": "Legacy declaration awaiting independent review",
             "mimes": ["application/CDFV2"],
             "extensions": [".R"],
-        }
+        },
     ]
 
 

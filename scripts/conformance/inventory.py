@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from datetime import date
 import hashlib
 import json
@@ -55,21 +55,44 @@ def review_summary(
         {
             "id": record.id,
             "reason": record.ground_truth_review.reason,
+            "provenance": record.provenance,
             "mimes": list(record.ground_truth.mimes),
             "extensions": list(record.ground_truth.extensions),
         }
         for record in candidates
         if record.ground_truth_review.status == "needs_review"
     ]
-    verified_count = sum(
-        record.ground_truth_review.status == "verified" for record in candidates
-    )
+    verified = [
+        record
+        for record in candidates
+        if record.ground_truth_review.status == "verified"
+    ]
+    excluded = [
+        record
+        for record in candidates
+        if record.ground_truth_review.status == "excluded"
+    ]
     return {
         "candidate_count": len(candidates),
-        "verified_count": verified_count,
+        "candidate_suffix_count": _unique_suffix_count(candidates),
+        "verified_count": len(verified),
+        "verified_suffix_count": _unique_suffix_count(verified),
         "unresolved_count": len(unresolved),
+        "unresolved_suffix_count": _unique_suffix_count(
+            [
+                record
+                for record in candidates
+                if record.ground_truth_review.status == "needs_review"
+            ]
+        ),
+        "excluded_count": len(excluded),
+        "excluded_suffix_count": _unique_suffix_count(excluded),
         "unresolved": unresolved,
     }
+
+
+def _unique_suffix_count(records: Sequence[InventoryRecord]) -> int:
+    return len({record.probe_extension for record in records})
 
 
 def _load_document(path: Path, *, root: Path, role: str) -> tuple[InventoryRecord, ...]:
