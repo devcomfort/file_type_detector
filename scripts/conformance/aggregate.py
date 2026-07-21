@@ -288,11 +288,11 @@ def _validate_result_fields(observation: Mapping[str, object]) -> None:
         ):
             raise AggregateValidationError("semantic_output must normalize raw_output")
         if status == "no_result":
-            if any(raw_output.values()) or any(semantic_output.values()):
+            if raw_mimes or raw_extensions:
                 raise AggregateValidationError(
                     "no_result observations must have empty outputs"
                 )
-        elif not any(raw_output.values()):
+        elif not raw_mimes and not raw_extensions:
             raise AggregateValidationError(
                 "ok observations must contain at least one output value"
             )
@@ -302,6 +302,11 @@ def _validate_result_fields(observation: Mapping[str, object]) -> None:
 def _validate_output(value: object, *, field: str) -> None:
     if not isinstance(value, dict):
         raise AggregateValidationError(f"observation {field} must be an object")
+    unknown_fields = sorted(set(value).difference({"mime_types", "extensions"}))
+    if unknown_fields:
+        raise AggregateValidationError(
+            f"observation {field} has unknown fields: {', '.join(unknown_fields)}"
+        )
     for tuple_field in ("mime_types", "extensions"):
         tuple_value = value.get(tuple_field)
         if not isinstance(tuple_value, list) or any(
