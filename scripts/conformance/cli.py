@@ -1,10 +1,11 @@
-"""Command-line commands for seeding and reviewing conformance inventory data."""
+"""Command-line commands for seeding, reviewing, and promoting conformance inventory data."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+from datetime import date
 from pathlib import Path
 import re
 from typing import Sequence
@@ -26,11 +27,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "seed":
             _seed_candidates(args.source, args.output, root=args.root)
             return 0
-        return _review_candidates(
+        if args.command == "review":
+            return _review_candidates(
+                args.candidates,
+                args.inventory,
+                root=args.root,
+                require_complete=args.require_complete,
+            )
+        return _promote_candidates(
             args.candidates,
             args.inventory,
             root=args.root,
-            require_complete=args.require_complete,
+            ids=args.ids,
+            all_clean=args.all_clean,
+            reviewer=args.reviewer,
+            evidence=args.evidence,
+            review_date=args.date,
+            fix_extensions=args.fix_extensions,
         )
     except InventoryValidationError as error:
         parser.error(str(error))
@@ -39,7 +52,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Seed and review backend Ground Truth conformance inventory data."
+        description="Seed, review, and promote backend Ground Truth conformance inventory data."
     )
     commands = parser.add_subparsers(dest="command", required=True)
 
@@ -55,6 +68,34 @@ def _build_parser() -> argparse.ArgumentParser:
     review.add_argument("--inventory", type=Path, required=True)
     review.add_argument("--root", type=Path, required=True)
     review.add_argument("--require-complete", action="store_true")
+
+    promote = commands.add_parser(
+        "promote",
+        help="Promote reviewed candidates to verified and update the authoritative inventory.",
+    )
+    promote.add_argument("--candidates", type=Path, required=True)
+    promote.add_argument("--inventory", type=Path, required=True)
+    promote.add_argument("--root", type=Path, required=True)
+    promote.add_argument("--reviewer", type=str, required=True)
+    promote.add_argument("--date", type=str, default=date.today().isoformat())
+    promote.add_argument("--evidence", type=str, nargs="*", default=[])
+    promote.add_argument(
+        "--fix-extensions",
+        action="store_true",
+        help="Ensure probe_extension is included in declared extensions for all conflicting records before promoting.",
+    )
+    target = promote.add_mutually_exclusive_group(required=True)
+    target.add_argument(
+        "--all-clean",
+        action="store_true",
+        help="Promote every candidate where probe_extension matches a declared extension.",
+    )
+    target.add_argument(
+        "--ids",
+        type=str,
+        nargs="+",
+        help="Promote specific candidate record ids.",
+    )
     return parser
 
 
@@ -205,6 +246,149 @@ def _review_candidates(
     print(json.dumps(summary, indent=2, sort_keys=True))
     if require_complete and summary["unresolved_count"]:
         return 2
+    return 0
+
+
+def _promote_candidates(
+    candidates_path: Path,
+    inventory_path: Path,
+    *,
+    root: Path,
+    ids: list[str] | None,
+    all_clean: bool,
+    reviewer: str,
+    evidence: list[str],
+    review_date: str,
+    fix_extensions: bool,
+) -> int:
+    """Promote selected candidates to verified and sync the authoritative inventory."""
+    candidates_payload = _read_json_object(candidates_path, "candidate inventory")
+    inventory_payload = _read_json_object(inventory_path, "authoritative inventory")
+
+    raw_records = candidates_payload.get("records")
+    if not isinstance(raw_records, list):
+        raise InventoryValidationError("candidate inventory records must be a list")
+    records: list[dict[str, object]] = list(raw_records)
+
+    # Ensure probe_extension is included in declared extensions for conflicting records
+    fixed: list[str] = []
+    if fix_extensions:
+        for record in records:
+            record_id = _require_string(record.get("id"), "record id")
+            review = _require_mapping(
+                record.get("ground_truth_review", {}), f"{record_id} review"
+            )
+            if review.get("status") != "needs_review":
+                continue
+            probe = _require_string(
+                record.get("probe_extension"), f"{record_id} probe_extension"
+            )
+            gt = _require_mapping(
+                record.get("ground_truth", {}), f"{record_id} ground_truth"
+            )
+            declared = _require_string_list(
+                gt.get("extensions"), f"{record_id} extensions"
+            )
+            if probe not in declared:
+                gt["extensions"] = declared + [probe]
+                review["reason"] = (
+                    f"Extension corrected: fixture probe extension {probe} added to "
+                    f"legacy declared extensions {declared}; independent Ground Truth review required"
+                )
+                fixed.append(record_id)
+
+    # Build promotion set
+    promote_ids: set[str]
+    if ids is not None:
+        promote_ids = set(ids)
+    else:
+        promote_ids = {
+            r["id"]
+            for r in records
+            if isinstance(r, dict)
+            and r.get("probe_extension")
+            in _require_string_list(
+                _require_mapping(r.get("ground_truth", {}), "ground_truth").get(
+                    "extensions"
+                ),
+                "extensions",
+            )
+        }
+
+    promoted: list[str] = []
+    skipped: list[str] = []
+    verified_records: list[dict[str, object]] = []
+
+    for record in records:
+        record_id = _require_string(record.get("id"), "record id")
+        if record_id not in promote_ids:
+            review = _require_mapping(
+                record.get("ground_truth_review", {}), f"{record_id} review"
+            )
+            if review.get("status") == "verified":
+                verified_records.append(record)
+            continue
+
+        current_review = _require_mapping(
+            record.get("ground_truth_review", {}), f"{record_id} review"
+        )
+        current_status = current_review.get("status")
+        if current_status == "verified":
+            skipped.append(record_id)
+            verified_records.append(record)
+            continue
+
+        provenance = _require_string(
+            record.get("provenance"), f"{record_id} provenance"
+        )
+        combined_evidence = [provenance] + list(evidence)
+
+        # Normalize MIME types and extensions to lowercase (contract requires canonical form for verified records)
+        gt = _require_mapping(
+            record.get("ground_truth", {}), f"{record_id} ground_truth"
+        )
+        gt["mime_types"] = [
+            m.lower()
+            for m in _require_string_list(
+                gt.get("mime_types"), f"{record_id} mime_types"
+            )
+        ]
+        gt["extensions"] = [
+            ext.lower()
+            for ext in _require_string_list(
+                gt.get("extensions"), f"{record_id} extensions"
+            )
+        ]
+
+        record["ground_truth_review"] = {
+            "status": "verified",
+            "reviewed_by": reviewer,
+            "reviewed_at": review_date,
+            "evidence": combined_evidence,
+        }
+        promoted.append(record_id)
+        verified_records.append(record)
+
+    # Write updated candidates
+    candidates_payload["records"] = records
+    candidates_path.write_text(
+        json.dumps(candidates_payload, indent=2) + "\n", encoding="utf-8"
+    )
+
+    # Write updated inventory
+    inventory_payload["records"] = verified_records
+    inventory_path.write_text(
+        json.dumps(inventory_payload, indent=2) + "\n", encoding="utf-8"
+    )
+
+    # Validate
+    summary = review_summary(candidates_path, inventory_path, root=root)
+    print(json.dumps(summary, indent=2, sort_keys=True))
+    print(f"\nPromoted: {len(promoted)}")
+    if fixed:
+        print(f"Extensions fixed: {len(fixed)}")
+    if skipped:
+        print(f"Already verified (skipped): {len(skipped)}")
     return 0
 
 
