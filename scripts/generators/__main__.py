@@ -17,8 +17,8 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import list_generators, list_extensions, list_sources
-from .base import BaseGenerator
+from . import list_extensions, list_generators, list_sources
+from .base import BaseGenerator, fixture_filename
 
 
 def write_sources_manifest(output_dir: Path) -> None:
@@ -31,10 +31,16 @@ def write_sources_manifest(output_dir: Path) -> None:
             cat_map[ext] = cat
 
     # Scan disk for all sample.* fixtures
+    registered_fixture_names = {fixture_filename(ext): ext for ext in sources}
     disk_exts: dict[str, Path] = {}
-    for f in sorted(output_dir.glob("sample.*")):
-        ext = f.name.replace("sample.", "")
-        disk_exts[ext] = f
+    for path in sorted(output_dir.glob("sample.*")):
+        registered_ext = registered_fixture_names.get(path.name)
+        disk_ext = (
+            registered_ext
+            if registered_ext is not None
+            else path.name.removeprefix("sample.")
+        )
+        disk_exts[disk_ext] = path
 
     # Categorize: fixtures with registered generators vs. discovered-only
     registered: dict[str, str] = {}
@@ -78,7 +84,7 @@ def write_sources_manifest(output_dir: Path) -> None:
 
     for ext in sorted(registered):
         cat = cat_map.get(ext, "unknown")
-        lines.append(f"- `sample.{ext}` ({cat}): {registered[ext]}")
+        lines.append(f"- `{fixture_filename(ext)}` ({cat}): {registered[ext]}")
 
     if discovered:
         lines.append("")
@@ -97,7 +103,9 @@ def write_sources_manifest(output_dir: Path) -> None:
         for ext in sorted(discovered):
             path = discovered[ext]
             size = path.stat().st_size
-            lines.append(f"- `sample.{ext}` ({size:,} bytes): external: existing fixture (no registered generator)")
+            lines.append(
+                f"- `{path.name}` ({size:,} bytes): external: existing fixture (no registered generator)"
+            )
         lines.append("")
 
     lines.append("")
@@ -105,7 +113,9 @@ def write_sources_manifest(output_dir: Path) -> None:
     lines.append("")
 
     (output_dir / "SOURCES.md").write_text("\n".join(lines))
-    print(f"  Wrote SOURCES.md ({len(registered)} registered, {len(discovered)} discovered, {len(disk_exts)} total)")
+    print(
+        f"  Wrote SOURCES.md ({len(registered)} registered, {len(discovered)} discovered, {len(disk_exts)} total)"
+    )
 
 
 def get_all_generators() -> list[BaseGenerator]:
@@ -134,37 +144,44 @@ def main():
         help="Specific extensions to generate (without dot, e.g., png jpg gif)",
     )
     parser.add_argument(
-        "--list", "-l",
+        "--list",
+        "-l",
         action="store_true",
         help="List all available extensions",
     )
     parser.add_argument(
-        "--list-by-category", "-L",
+        "--list-by-category",
+        "-L",
         action="store_true",
         help="List extensions grouped by category",
     )
     parser.add_argument(
-        "--category", "-c",
+        "--category",
+        "-c",
         type=str,
         help="Generate all extensions in a category",
     )
     parser.add_argument(
-        "--all", "-a",
+        "--all",
+        "-a",
         action="store_true",
         help="Generate all supported formats",
     )
     parser.add_argument(
-        "--force", "-f",
+        "--force",
+        "-f",
         action="store_true",
         help="Overwrite existing files",
     )
     parser.add_argument(
-        "--sources", "-s",
+        "--sources",
+        "-s",
         action="store_true",
         help="Write SOURCES.md manifest to output directory",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         type=Path,
         default=Path(__file__).parent.parent.parent / "tests" / "fixtures",
         help="Output directory (default: tests/fixtures/)",
@@ -230,7 +247,7 @@ def main():
             failed += 1
             continue
 
-        path = args.output / f"sample.{ext}"
+        path = args.output / fixture_filename(ext)
         if path.exists() and not args.force:
             skipped += 1
             continue
