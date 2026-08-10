@@ -1,0 +1,2 @@
+# Ground Truth hashes require fixture bytes to survive cross-platform checkouts unchanged.
+tests/fixtures/** -text
