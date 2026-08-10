@@ -6,13 +6,13 @@ and asserts meaningful semantic correctness — not just "returned something."
 
 import pytest
 
-from tests.conftest import load_canonical_fixtures, load_tool_snapshots
 from filetype_detector.strategies import (
+    HybridInferencer,
     LexicalInferencer,
     MagicInferencer,
     MagikaInferencer,
-    HybridInferencer,
 )
+from tests.conftest import load_canonical_fixtures, load_tool_snapshots
 
 CANONICAL = load_canonical_fixtures()
 SNAPSHOTS = load_tool_snapshots()
@@ -27,15 +27,45 @@ _FIXTURE_PREFIX = "tests/fixtures/sample."
 # Selected at roughly regular intervals within each category for spread.
 _REPRESENTATIVE = [
     # magic_correct — Magic returns the correct specific MIME.
-    "7z", "doc", "gif", "java", "mov", "pgp", "svg",
+    "7z",
+    "doc",
+    "gif",
+    "java",
+    "mov",
+    "pgp",
+    "svg",
     # magic_wrong — Magic returns a specific but incorrect MIME.
-    "3gp", "class", "exe", "jar", "mid", "py", "tsx",
+    "3gp",
+    "class",
+    "exe",
+    "jar",
+    "mid",
+    "py",
+    "tsx",
     # magika_improves — Magic returns generic; Magika provides specifics.
-    "CBL", "chisel", "f95", "mli", "pro", "srt", "vba",
+    "uppercase.CBL",
+    "chisel",
+    "f95",
+    "mli",
+    "pro",
+    "srt",
+    "vba",
     # both_generic — Neither Magic nor Magika provides a specific MIME.
-    "CPY", "bf", "csproj", "glsl", "ixx", "metal", "pt",
+    "uppercase.CPY",
+    "bf",
+    "csproj",
+    "glsl",
+    "ixx",
+    "metal",
+    "pt",
     # magika_fails — Magika returns empty; only Magic is available.
-    "arc", "dcm", "dockerfile", "lha", "lzh", "oga", "opus",
+    "arc",
+    "dcm",
+    "dockerfile",
+    "lha",
+    "lzh",
+    "oga",
+    "opus",
 ]
 
 
@@ -51,7 +81,7 @@ class TestLexicalSmoke:
     def test_lexical_returns_filename_extension(self, ext: str) -> None:
         ft = LexicalInferencer().infer(_fp(ext))
         got_lower = {e.lower() for e in ft.extensions}
-        expected_lower = f".{ext.lower()}"
+        expected_lower = f".{ext.rsplit('.', maxsplit=1)[-1].lower()}"
         assert expected_lower in got_lower, (
             f"Lexical({ext}): expected {expected_lower} in {ft.extensions}"
         )
@@ -99,9 +129,7 @@ class TestHybridSmoke:
     def test_hybrid_returns_result(self, ext: str) -> None:
         fixture_path = _fp(ext)
         ft = HybridInferencer().infer(fixture_path)
-        assert ft.extensions or ft.mime_types, (
-            f"Hybrid({ext}): returned empty result"
-        )
+        assert ft.extensions or ft.mime_types, f"Hybrid({ext}): returned empty result"
 
     @pytest.mark.parametrize("ext", _REPRESENTATIVE, ids=lambda e: e)
     def test_hybrid_preserves_correct_mime(self, ext: str) -> None:

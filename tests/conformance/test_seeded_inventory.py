@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from pathlib import Path
 
 from scripts.conformance.inventory import load_verified_inventory, review_summary
-
 
 _PROJECT_ROOT = Path(__file__).parents[2]
 _LEGACY_PATH = _PROJECT_ROOT / "tests" / "truth" / "canonical_fixtures.json"
@@ -45,6 +45,21 @@ def test_checked_in_candidates_cover_all_legacy_fixtures() -> None:
     assert summary["verified_count"] == len(legacy["fixtures"])
     assert summary["unresolved_count"] == 0
     assert len(collected) == len(legacy["fixtures"])
+
+
+# Q. Can every reviewed fixture be checked out and discovered on every supported OS?
+def test_checked_in_fixture_paths_are_portable_and_discoverable() -> None:
+    candidates = json.loads(_CANDIDATES_PATH.read_text(encoding="utf-8"))["records"]
+    fixture_paths = [record["fixture"] for record in candidates]
+    path_counts = Counter(path.casefold() for path in fixture_paths)
+    collisions = sorted(path for path, count in path_counts.items() if count > 1)
+    discovered_paths = {
+        path.relative_to(_PROJECT_ROOT).as_posix()
+        for path in (_PROJECT_ROOT / "tests" / "fixtures").glob("sample.*")
+    }
+
+    assert collisions == []
+    assert discovered_paths == set(fixture_paths)
 
 
 # Q. Do known legacy contradictions retain only the reviewed fixture extension?

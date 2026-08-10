@@ -2091,7 +2091,7 @@
     },
     {
       "id": "sample-CBL",
-      "fixture": "tests/fixtures/sample.CBL",
+      "fixture": "tests/fixtures/sample.uppercase.CBL",
       "sha256": "b94547a0e1651f696efbf7bffe47700f6739ba2fba8470d564cc1851bd99a6ce",
       "probe_extension": ".cbl",
       "ground_truth": {
@@ -2126,7 +2126,7 @@
     },
     {
       "id": "sample-COB",
-      "fixture": "tests/fixtures/sample.COB",
+      "fixture": "tests/fixtures/sample.uppercase.COB",
       "sha256": "b94547a0e1651f696efbf7bffe47700f6739ba2fba8470d564cc1851bd99a6ce",
       "probe_extension": ".cob",
       "ground_truth": {
@@ -2161,7 +2161,7 @@
     },
     {
       "id": "sample-F90",
-      "fixture": "tests/fixtures/sample.F90",
+      "fixture": "tests/fixtures/sample.uppercase.F90",
       "sha256": "e505c52c6338c4e0f3515ca58f442f55f7d14d4acf2070cd92f3daf73dc287a8",
       "probe_extension": ".f90",
       "ground_truth": {
@@ -2194,7 +2194,7 @@
     },
     {
       "id": "sample-P",
-      "fixture": "tests/fixtures/sample.P",
+      "fixture": "tests/fixtures/sample.uppercase.P",
       "sha256": "2813b8d3b7e26e50ba9bf83feeda83372bf99d6982883078525e212cdacc5c95",
       "probe_extension": ".p",
       "ground_truth": {
@@ -2224,7 +2224,7 @@
     },
     {
       "id": "sample-R",
-      "fixture": "tests/fixtures/sample.R",
+      "fixture": "tests/fixtures/sample.uppercase.R",
       "sha256": "4a93b45feb02b571abdbb4623580d70de4349b959ac8f095b6b241a3ae6dbcd8",
       "probe_extension": ".r",
       "ground_truth": {
@@ -5243,7 +5243,7 @@
     },
     {
       "id": "sample-S",
-      "fixture": "tests/fixtures/sample.S",
+      "fixture": "tests/fixtures/sample.uppercase.S",
       "sha256": "366abaabcf0ab33773b50befbb3c07c14079231b396c6459f6ddf4a41f118545",
       "probe_extension": ".s",
       "ground_truth": {
@@ -9149,7 +9149,7 @@
     },
     {
       "id": "sample-CPY",
-      "fixture": "tests/fixtures/sample.CPY",
+      "fixture": "tests/fixtures/sample.uppercase.CPY",
       "sha256": "ea5dbd522fd35574425f8db33364034da873cd877d62ab7789b4376f6df12d0a",
       "probe_extension": ".cpy",
       "ground_truth": {

@@ -2600,7 +2600,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.CBL",
+      "path": "tests/fixtures/sample.uppercase.CBL",
       "canonical_mime": "text/x-cobol",
       "canonical_extensions": [
         ".cbl",
@@ -2659,7 +2659,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.COB",
+      "path": "tests/fixtures/sample.uppercase.COB",
       "canonical_mime": "text/x-cobol",
       "canonical_extensions": [
         ".cbl",
@@ -2718,7 +2718,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.F90",
+      "path": "tests/fixtures/sample.uppercase.F90",
       "canonical_mime": "text/x-fortran",
       "canonical_extensions": [
         ".f90",
@@ -2771,7 +2771,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.P",
+      "path": "tests/fixtures/sample.uppercase.P",
       "canonical_mime": "text/x-prolog",
       "canonical_extensions": [
         ".pl",
@@ -2821,7 +2821,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.R",
+      "path": "tests/fixtures/sample.uppercase.R",
       "canonical_mime": "text/x-R",
       "canonical_extensions": [
         ".R"
@@ -7331,7 +7331,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.S",
+      "path": "tests/fixtures/sample.uppercase.S",
       "canonical_mime": "text/x-asm",
       "canonical_extensions": [
         ".s",
@@ -11833,7 +11833,7 @@
       }
     },
     {
-      "path": "tests/fixtures/sample.CPY",
+      "path": "tests/fixtures/sample.uppercase.CPY",
       "canonical_mime": "text/x-cobol",
       "canonical_extensions": [
         ".cpy",
