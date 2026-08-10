@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import csv
 import itertools
 import json
@@ -34,6 +35,16 @@ _RUNTIME_FIELDS = (
     "magika_model",
 )
 _EVALUATION_FIELDS = ("mime_match", "extension_match", "overall_match")
+_BASELINE_KEY_FIELDS = (
+    "runner_label",
+    "architecture",
+    "inventory_id",
+    "probe_extension",
+    "backend",
+)
+_BASELINE_OBSERVATION_FIELDS = frozenset(
+    (*_BASELINE_KEY_FIELDS, "status", "semantic_output")
+)
 
 
 def aggregate_artifacts(
@@ -43,6 +54,7 @@ def aggregate_artifacts(
     root: Path,
     input_paths: Sequence[Path],
     expected_runner_labels: Sequence[str],
+    baseline_path: Path | None = None,
 ) -> dict[str, object]:
     """Validate and order collector artifacts before rendering reports."""
     records = load_verified_inventory(candidates_path, inventory_path, root=root)
@@ -55,6 +67,16 @@ def aggregate_artifacts(
     )
     expected_pair_set = set(expected_pairs)
     artifacts = [_load_artifact(path) for path in input_paths]
+    inventory_sha256 = _file_digest(inventory_path)
+    for path, artifact in zip(input_paths, artifacts, strict=True):
+        artifact_digest = _require_text(
+            artifact.get("inventory_sha256"), f"artifact {path} inventory digest"
+        )
+        if artifact_digest != inventory_sha256:
+            raise AggregateValidationError(
+                f"artifact {path} inventory digest does not match "
+                "the authoritative inventory"
+            )
     artifact_labels = [_artifact_runner_label(artifact) for artifact in artifacts]
     _validate_runner_artifacts(
         artifact_labels,
@@ -83,11 +105,167 @@ def aggregate_artifacts(
         inventory_path=inventory_path,
         root=root,
     )
+    candidate_baseline = _build_candidate_baseline(
+        observations,
+        records=records,
+        inventory_sha256=inventory_sha256,
+    )
+    summary["baseline"] = _compare_baseline(
+        candidate_baseline,
+        baseline_path=baseline_path,
+    )
     return {
         "schema_version": 1,
         "observations": observations,
         "summary": summary,
+        "_candidate_baseline": candidate_baseline,
     }
+
+
+def _build_candidate_baseline(
+    observations: Sequence[Mapping[str, object]],
+    *,
+    records: Sequence[InventoryRecord],
+    inventory_sha256: str,
+) -> dict[str, object]:
+    records_by_id = {record.id: record for record in records}
+    rows: list[dict[str, object]] = []
+    for observation in observations:
+        inventory_id = _require_text(
+            observation.get("inventory_id"), "baseline inventory_id"
+        )
+        record = records_by_id[inventory_id]
+        platform = _mapping(observation["platform"])
+        semantic_output = observation["semantic_output"]
+        rows.append(
+            {
+                "runner_label": _require_text(
+                    platform.get("runner_label"), "baseline runner_label"
+                ),
+                "architecture": _require_text(
+                    platform.get("architecture"), "baseline architecture"
+                ),
+                "inventory_id": inventory_id,
+                "probe_extension": record.probe_extension,
+                "backend": _require_text(
+                    observation.get("backend"), "baseline backend"
+                ),
+                "status": _require_text(observation.get("status"), "baseline status"),
+                "semantic_output": semantic_output,
+            }
+        )
+    return {
+        "schema_version": 1,
+        "inventory_sha256": inventory_sha256,
+        "observations": rows,
+    }
+
+
+def _compare_baseline(
+    candidate: Mapping[str, object],
+    *,
+    baseline_path: Path | None,
+) -> dict[str, object]:
+    if baseline_path is None:
+        return {"status": "candidate", "change_count": 0, "changes": []}
+
+    baseline_payload = _load_artifact(baseline_path)
+    baseline_rows = _baseline_rows(baseline_payload)
+    candidate_rows = _baseline_rows(candidate)
+    baseline_by_key = {_baseline_key(row): row for row in baseline_rows}
+    candidate_by_key = {_baseline_key(row): row for row in candidate_rows}
+    baseline_digest = _require_text(
+        baseline_payload.get("inventory_sha256"), "baseline inventory digest"
+    )
+    candidate_digest = _require_text(
+        candidate.get("inventory_sha256"), "candidate inventory digest"
+    )
+    changes: list[dict[str, object]] = []
+    if baseline_digest != candidate_digest:
+        changes.append(
+            {
+                "kind": "inventory_changed",
+                "key": None,
+                "baseline": baseline_digest,
+                "current": candidate_digest,
+            }
+        )
+    for key in sorted(set(baseline_by_key) | set(candidate_by_key)):
+        baseline_row = baseline_by_key.get(key)
+        candidate_row = candidate_by_key.get(key)
+        if baseline_row is None:
+            kind = "new"
+        elif candidate_row is None:
+            kind = "missing"
+        elif baseline_row == candidate_row:
+            continue
+        else:
+            kind = "changed"
+        changes.append(
+            {
+                "kind": kind,
+                "key": dict(zip(_BASELINE_KEY_FIELDS, key, strict=True)),
+                "baseline": baseline_row,
+                "current": candidate_row,
+            }
+        )
+    return {
+        "status": "drift" if changes else "match",
+        "change_count": len(changes),
+        "changes": changes,
+    }
+
+
+def _baseline_rows(payload: Mapping[str, object]) -> list[Mapping[str, object]]:
+    raw_rows = payload["observations"]
+    assert isinstance(raw_rows, list)
+    rows: list[Mapping[str, object]] = []
+    seen: set[tuple[str, ...]] = set()
+    for raw_row in raw_rows:
+        if not isinstance(raw_row, dict):
+            raise AggregateValidationError("baseline observation must be an object")
+        fields = frozenset(raw_row)
+        if fields != _BASELINE_OBSERVATION_FIELDS:
+            missing = sorted(_BASELINE_OBSERVATION_FIELDS - fields)
+            unknown = sorted(fields - _BASELINE_OBSERVATION_FIELDS)
+            raise AggregateValidationError(
+                "baseline observation fields must match the schema; "
+                f"missing={missing}, unknown={unknown}"
+            )
+        status = _require_text(raw_row.get("status"), "baseline status")
+        if status not in _OBSERVATION_STATUSES:
+            raise AggregateValidationError(
+                f"baseline status must be one of {sorted(_OBSERVATION_STATUSES)}"
+            )
+        semantic_output = raw_row.get("semantic_output")
+        if semantic_output is None:
+            if status != "error":
+                raise AggregateValidationError(
+                    "baseline semantic_output may be null only for error status"
+                )
+        else:
+            _validate_output(semantic_output, field="baseline semantic_output")
+        key = _baseline_key(raw_row)
+        if key in seen:
+            raise AggregateValidationError(f"duplicate baseline observation key: {key}")
+        seen.add(key)
+        rows.append(raw_row)
+    return rows
+
+
+def _baseline_key(row: Mapping[str, object]) -> tuple[str, ...]:
+    return tuple(
+        _require_text(row.get(field), f"baseline {field}")
+        for field in _BASELINE_KEY_FIELDS
+    )
+
+
+def _file_digest(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        for chunk in iter(lambda: source.read(64 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _expected_runner_labels(labels: Sequence[str]) -> tuple[str, ...]:
@@ -481,7 +659,7 @@ def _cross_platform_divergence(
             for pair in pairs:
                 observation_a = observations_by_runner[runner_a][pair]
                 observation_b = observations_by_runner[runner_b][pair]
-                row = {
+                row: dict[str, object] = {
                     "runner_a": runner_a,
                     "runner_b": runner_b,
                     "inventory_id": pair[0],
@@ -563,19 +741,28 @@ def write_reports(
     output_dir: Path,
     records: Sequence[InventoryRecord],
 ) -> None:
-    """Write the three deterministic evidence report formats."""
+    """Write deterministic evidence reports and a first-run candidate baseline."""
     output_dir.mkdir(parents=True, exist_ok=True)
+    public_result = dict(result)
+    candidate_baseline = public_result.pop("_candidate_baseline")
     (output_dir / "backend-conformance.json").write_text(
-        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        json.dumps(public_result, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    observations = result["observations"]
+    observations = public_result["observations"]
     assert isinstance(observations, list)
     _write_csv(output_dir / "backend-conformance.csv", observations)
     (output_dir / "backend-conformance.md").write_text(
-        render_markdown(result, records=records),
+        render_markdown(public_result, records=records),
         encoding="utf-8",
     )
+    summary = _mapping(public_result["summary"])
+    baseline = _mapping(summary["baseline"])
+    if baseline["status"] == "candidate":
+        (output_dir / "candidate-baseline.json").write_text(
+            json.dumps(candidate_baseline, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
 
 
 def _write_csv(path: Path, observations: Sequence[object]) -> None:
@@ -621,12 +808,13 @@ def render_markdown(
     *,
     records: Sequence[InventoryRecord],
 ) -> str:
-    """Render the review, execution, correctness, divergence, and evidence sections."""
+    """Render the review, execution, correctness, divergence, and baseline sections."""
     summary = _mapping(result["summary"])
     inventory_review = _mapping(summary["inventory_review"])
     execution_matrix = _list_of_mappings(summary["execution_matrix"])
     correctness = _list_of_mappings(summary["ground_truth_correctness"])
     divergence = _mapping(summary["cross_platform_divergence"])
+    baseline = _mapping(summary["baseline"])
     semantic_rows = _list_of_mappings(divergence["semantic_divergences"])
     raw_only_rows = _list_of_mappings(divergence["raw_only_differences"])
     pair_summaries = _list_of_mappings(divergence["by_runner_pair"])
@@ -642,6 +830,8 @@ def render_markdown(
     lines.extend(["", "## Cross-platform divergence", ""])
     lines.extend(_render_divergence(pair_summaries, semantic_rows, raw_only_rows))
     lines.extend(_render_divergence_chart(semantic_rows, records))
+    lines.extend(["", "## Baseline", ""])
+    lines.extend(_render_baseline(baseline))
     lines.extend(["", "## Evidence rows", ""])
     lines.extend(
         _render_evidence_rows(
@@ -651,6 +841,21 @@ def render_markdown(
         )
     )
     return "\n".join(lines) + "\n"
+
+
+def _render_baseline(baseline: Mapping[str, object]) -> list[str]:
+    status = baseline["status"]
+    if status == "candidate":
+        return [
+            "No reviewed baseline was supplied. "
+            "`candidate-baseline.json` was generated for review."
+        ]
+    if status == "match":
+        return ["The reviewed baseline matches every semantic observation."]
+    changes = _list_of_mappings(baseline["changes"])
+    lines = [f"Semantic baseline drift: {len(changes)} change(s).", ""]
+    lines.extend(f"- {_json(change)}" for change in changes)
+    return lines
 
 
 def _render_inventory_review(review: Mapping[str, object]) -> list[str]:
@@ -910,6 +1115,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--input", type=Path, action="append", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--baseline", type=Path)
     parser.add_argument(
         "--expected-runner-label",
         action="append",
@@ -930,6 +1136,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             root=args.root,
             input_paths=args.input,
             expected_runner_labels=args.expected_runner_labels,
+            baseline_path=args.baseline,
         )
         records = load_verified_inventory(
             args.candidates,
@@ -939,7 +1146,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         write_reports(result, output_dir=args.output_dir, records=records)
     except (AggregateValidationError, InventoryValidationError) as error:
         parser.error(str(error))
-    return 0
+    summary = _mapping(result["summary"])
+    baseline = _mapping(summary["baseline"])
+    return 2 if baseline["status"] == "drift" else 0
 
 
 if __name__ == "__main__":

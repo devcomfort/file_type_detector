@@ -82,7 +82,7 @@ def _build_parser() -> argparse.ArgumentParser:
     promote.add_argument(
         "--fix-extensions",
         action="store_true",
-        help="Ensure probe_extension is included in declared extensions for all conflicting records before promoting.",
+        help="Replace conflicting legacy extensions with the fixture probe extension before promoting.",
     )
     target = promote.add_mutually_exclusive_group(required=True)
     target.add_argument(
@@ -270,7 +270,8 @@ def _promote_candidates(
         raise InventoryValidationError("candidate inventory records must be a list")
     records: list[dict[str, object]] = list(raw_records)
 
-    # Ensure probe_extension is included in declared extensions for conflicting records
+    # A conflicting legacy declaration is not an alias. The fixture suffix is the
+    # reviewed fact used to repair the candidate before promotion.
     fixed: list[str] = []
     if fix_extensions:
         for record in records:
@@ -290,10 +291,11 @@ def _promote_candidates(
                 gt.get("extensions"), f"{record_id} extensions"
             )
             if probe not in declared:
-                gt["extensions"] = declared + [probe]
+                gt["extensions"] = [probe]
                 review["reason"] = (
-                    f"Extension corrected: fixture probe extension {probe} added to "
-                    f"legacy declared extensions {declared}; independent Ground Truth review required"
+                    f"Extension corrected: contradictory legacy declarations "
+                    f"{declared} replaced with fixture probe extension {probe}; "
+                    "independent Ground Truth review required"
                 )
                 fixed.append(record_id)
 
@@ -303,7 +305,7 @@ def _promote_candidates(
         promote_ids = set(ids)
     else:
         promote_ids = {
-            r["id"]
+            _require_string(r.get("id"), "record id")
             for r in records
             if isinstance(r, dict)
             and r.get("probe_extension")

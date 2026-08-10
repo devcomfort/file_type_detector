@@ -123,7 +123,11 @@ def collect_inventory(
                     backend=backend,
                 )
             )
-    return {"schema_version": 1, "observations": observations}
+    return {
+        "schema_version": 1,
+        "inventory_sha256": _file_digest(inventory_path),
+        "observations": observations,
+    }
 
 
 def _collect_in_worker(
@@ -187,7 +191,7 @@ def _error_observation(
     if inventory_id is None:
         raise ValueError("An error observation requires an inventory ID")
     ground_truth = record.ground_truth if record is not None else None
-    empty_output = {"mime_types": [], "extensions": []}
+    empty_output: dict[str, list[str]] = {"mime_types": [], "extensions": []}
     return {
         "inventory_id": inventory_id,
         "backend": backend,

@@ -87,8 +87,12 @@ jobs:
         shell: bash
         run: |
           brew install libmagic
+          prefix="$(brew --prefix libmagic)"
           version="$(brew list --versions libmagic | cut -d' ' -f2)"
           test -n "$version"
+          test -f "$prefix/share/misc/magic.mgc"
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$prefix/lib" >> "$GITHUB_ENV"
+          echo "MAGIC=$prefix/share/misc/magic.mgc" >> "$GITHUB_ENV"
           echo "LIBMAGIC_DISTRIBUTION=homebrew:libmagic=$version" >> "$GITHUB_ENV"
           echo "Selected macOS libmagic distribution: homebrew:libmagic=$version"
 
@@ -107,6 +111,11 @@ jobs:
           if ($version -ne "0.4.14") { throw "Expected python-magic-bin 0.4.14, got $version" }
           "LIBMAGIC_DISTRIBUTION=python-magic-bin==$version" >> $env:GITHUB_ENV
           Write-Host "Selected Windows libmagic distribution: python-magic-bin==$version"
+
+      - name: Prove selected libmagic works
+        shell: bash
+        run: |
+          python -c "import magic; result = magic.from_file('tests/fixtures/sample.pdf'); assert result; print(result)"
 
       - name: Require complete independently reviewed inventory
         shell: bash
@@ -164,9 +173,13 @@ jobs:
           path: conformance-artifacts
           merge-multiple: true
 
-      - name: Aggregate report-only conformance evidence
+      - name: Aggregate and compare backend conformance evidence
         shell: bash
         run: |
+          baseline_args=()
+          if [[ -f tests/truth/backend_conformance_baseline.json ]]; then
+            baseline_args=(--baseline tests/truth/backend_conformance_baseline.json)
+          fi
           python -m scripts.conformance.aggregate \
             --candidates "$CANDIDATES" \
             --inventory "$INVENTORY" \
@@ -177,7 +190,8 @@ jobs:
             --output-dir reports \
             --expected-runner-label ubuntu-x64 \
             --expected-runner-label macos-x64 \
-            --expected-runner-label windows-x64
+            --expected-runner-label windows-x64 \
+            "${baseline_args[@]}"
 
       - name: Publish report to job summary
         shell: bash

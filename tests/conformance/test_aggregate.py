@@ -92,9 +92,23 @@ def _observation(
     }
 
 
+def _complete_observations(runner_label: str) -> list[dict[str, object]]:
+    return [
+        _observation(backend=backend, runner_label=runner_label)
+        for backend in ("lexical", "magic", "magika", "hybrid")
+    ]
+
+
 def _write_artifact(path: Path, observations: list[dict[str, object]]) -> Path:
+    inventory = path.parent / "inventory.json"
     path.write_text(
-        json.dumps({"schema_version": 1, "observations": observations}),
+        json.dumps(
+            {
+                "schema_version": 1,
+                "inventory_sha256": sha256(inventory.read_bytes()).hexdigest(),
+                "observations": observations,
+            }
+        ),
         encoding="utf-8",
     )
     return path
@@ -107,6 +121,7 @@ def _aggregate_command(
     root: Path,
     inputs: list[Path],
     output_dir: Path,
+    baseline: Path | None = None,
 ) -> list[str]:
     command = [
         sys.executable,
@@ -131,6 +146,8 @@ def _aggregate_command(
             "macos-test",
         ]
     )
+    if baseline is not None:
+        command.extend(["--baseline", str(baseline)])
     return command
 
 
@@ -735,4 +752,280 @@ def test_aggregate_command_rejects_missing_nullable_result_field_before_writing(
 
     assert completed.returncode == 2
     assert "observation error must be present" in completed.stderr
+    assert not output_dir.exists()
+
+
+# Q. Does a first matrix run emit a deterministic reviewable candidate baseline?
+def test_aggregate_emits_candidate_baseline_when_no_baseline_exists(
+    tmp_path: Path,
+) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    output_dir = tmp_path / "reports"
+    completed = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                _write_artifact(
+                    tmp_path / "ubuntu.json",
+                    _complete_observations("ubuntu-test"),
+                ),
+                _write_artifact(
+                    tmp_path / "macos.json",
+                    _complete_observations("macos-test"),
+                ),
+            ],
+            output_dir=output_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    baseline = json.loads(
+        (output_dir / "candidate-baseline.json").read_text(encoding="utf-8")
+    )
+    assert baseline["schema_version"] == 1
+    assert len(baseline["observations"]) == 8
+    assert baseline["observations"][0] == {
+        "architecture": "x86_64",
+        "backend": "lexical",
+        "inventory_id": "sample",
+        "probe_extension": ".txt",
+        "runner_label": "ubuntu-test",
+        "semantic_output": {
+            "extensions": [".txt"],
+            "mime_types": ["text/plain"],
+        },
+        "status": "ok",
+    }
+    report = json.loads(
+        (output_dir / "backend-conformance.json").read_text(encoding="utf-8")
+    )
+    assert report["summary"]["baseline"] == {
+        "change_count": 0,
+        "changes": [],
+        "status": "candidate",
+    }
+    markdown = (output_dir / "backend-conformance.md").read_text(encoding="utf-8")
+    assert "## Baseline" in markdown
+    assert "candidate-baseline.json" in markdown
+
+
+# Q. Does an unchanged matrix match the reviewed baseline?
+def test_aggregate_accepts_exact_semantic_baseline_match(tmp_path: Path) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    inputs = [
+        _write_artifact(
+            tmp_path / "ubuntu.json",
+            _complete_observations("ubuntu-test"),
+        ),
+        _write_artifact(
+            tmp_path / "macos.json",
+            _complete_observations("macos-test"),
+        ),
+    ]
+    initial_dir = tmp_path / "initial"
+    initial = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=inputs,
+            output_dir=initial_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+    assert initial.returncode == 0, initial.stderr
+
+    verified_dir = tmp_path / "verified"
+    verified = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=inputs,
+            output_dir=verified_dir,
+            baseline=initial_dir / "candidate-baseline.json",
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert verified.returncode == 0, verified.stderr
+    report = json.loads(
+        (verified_dir / "backend-conformance.json").read_text(encoding="utf-8")
+    )
+    assert report["summary"]["baseline"] == {
+        "change_count": 0,
+        "changes": [],
+        "status": "match",
+    }
+    assert not (verified_dir / "candidate-baseline.json").exists()
+
+
+# Q. Does semantic drift write complete reports and fail with exit status 2?
+def test_aggregate_fails_on_semantic_baseline_drift_after_writing_reports(
+    tmp_path: Path,
+) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    original_inputs = [
+        _write_artifact(
+            tmp_path / "ubuntu.json",
+            _complete_observations("ubuntu-test"),
+        ),
+        _write_artifact(
+            tmp_path / "macos.json",
+            _complete_observations("macos-test"),
+        ),
+    ]
+    initial_dir = tmp_path / "initial"
+    initial = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=original_inputs,
+            output_dir=initial_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+    assert initial.returncode == 0, initial.stderr
+
+    changed_macos = _complete_observations("macos-test")
+    changed_macos[0]["raw_output"] = {
+        "mime_types": ["text/plain"],
+        "extensions": [".md"],
+    }
+    changed_macos[0]["semantic_output"] = {
+        "mime_types": ["text/plain"],
+        "extensions": [".md"],
+    }
+    changed_macos[0]["evaluation"] = {
+        "mime_match": True,
+        "extension_match": False,
+        "overall_match": False,
+    }
+    changed_dir = tmp_path / "changed"
+    changed = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                original_inputs[0],
+                _write_artifact(tmp_path / "macos-changed.json", changed_macos),
+            ],
+            output_dir=changed_dir,
+            baseline=initial_dir / "candidate-baseline.json",
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert changed.returncode == 2, changed.stderr
+    report = json.loads(
+        (changed_dir / "backend-conformance.json").read_text(encoding="utf-8")
+    )
+    assert report["summary"]["baseline"]["status"] == "drift"
+    assert report["summary"]["baseline"]["change_count"] == 1
+    assert report["summary"]["baseline"]["changes"][0]["kind"] == "changed"
+    assert (changed_dir / "backend-conformance.csv").is_file()
+    assert (changed_dir / "backend-conformance.md").is_file()
+
+
+# Q. Does raw-only ordering and spelling variation remain baseline-compatible?
+def test_aggregate_ignores_raw_only_baseline_changes(tmp_path: Path) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    ubuntu = _complete_observations("ubuntu-test")
+    macos = _complete_observations("macos-test")
+    initial_inputs = [
+        _write_artifact(tmp_path / "ubuntu.json", ubuntu),
+        _write_artifact(tmp_path / "macos.json", macos),
+    ]
+    initial_dir = tmp_path / "initial"
+    initial = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=initial_inputs,
+            output_dir=initial_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+    assert initial.returncode == 0, initial.stderr
+
+    macos[0]["raw_output"] = {
+        "mime_types": ["TEXT/PLAIN", "text/plain"],
+        "extensions": ["TXT", ".txt"],
+    }
+    verified_dir = tmp_path / "verified"
+    verified = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                initial_inputs[0],
+                _write_artifact(tmp_path / "macos-raw-only.json", macos),
+            ],
+            output_dir=verified_dir,
+            baseline=initial_dir / "candidate-baseline.json",
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert verified.returncode == 0, verified.stderr
+    report = json.loads(
+        (verified_dir / "backend-conformance.json").read_text(encoding="utf-8")
+    )
+    assert report["summary"]["baseline"]["status"] == "match"
+
+
+# Q. Does aggregation reject observations collected from different reviewed facts?
+def test_aggregate_rejects_stale_inventory_digest(tmp_path: Path) -> None:
+    candidates, inventory = _write_reviewed_inventory(tmp_path)
+    stale_path = _write_artifact(
+        tmp_path / "stale.json",
+        _complete_observations("ubuntu-test"),
+    )
+    stale_payload = json.loads(stale_path.read_text(encoding="utf-8"))
+    stale_payload["inventory_sha256"] = "0" * 64
+    stale_path.write_text(json.dumps(stale_payload), encoding="utf-8")
+    output_dir = tmp_path / "reports"
+
+    completed = subprocess.run(
+        _aggregate_command(
+            candidates=candidates,
+            inventory=inventory,
+            root=tmp_path,
+            inputs=[
+                stale_path,
+                _write_artifact(
+                    tmp_path / "macos.json",
+                    _complete_observations("macos-test"),
+                ),
+            ],
+            output_dir=output_dir,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 2
+    assert "inventory digest" in completed.stderr
     assert not output_dir.exists()

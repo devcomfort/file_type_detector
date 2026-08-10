@@ -194,6 +194,7 @@ def test_collect_command_uses_fresh_worker_and_writes_observations(
     assert completed.stderr == ""
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload["schema_version"] == 1
+    assert payload["inventory_sha256"] == sha256(inventory.read_bytes()).hexdigest()
     assert [item["backend"] for item in payload["observations"]] == [
         "lexical",
         "magic",

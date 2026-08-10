@@ -239,3 +239,60 @@ def test_review_requires_no_unresolved_candidates(
     assert summary["candidate_count"] == 2
     assert summary["verified_count"] == 0
     assert summary["unresolved_count"] == 2
+
+
+# Q. Does fix-extensions replace contradictory legacy aliases before promotion?
+def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
+    tmp_path: Path,
+) -> None:
+    source = _write_legacy_truth(tmp_path)
+    candidates_path = tmp_path / "backend_inventory_candidates.json"
+    inventory_path = tmp_path / "backend_inventory.json"
+    inventory_path.write_text(
+        json.dumps({"schema_version": 1, "records": []}), encoding="utf-8"
+    )
+    assert (
+        main(
+            [
+                "seed",
+                "--source",
+                str(source),
+                "--output",
+                str(candidates_path),
+                "--root",
+                str(tmp_path),
+            ]
+        )
+        == 0
+    )
+    candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
+    candidates["records"][0]["ground_truth"]["extensions"] = [".txt", ".mp4"]
+    candidates_path.write_text(json.dumps(candidates), encoding="utf-8")
+
+    assert (
+        main(
+            [
+                "promote",
+                "--candidates",
+                str(candidates_path),
+                "--inventory",
+                str(inventory_path),
+                "--root",
+                str(tmp_path),
+                "--reviewer",
+                "fixture-reviewer",
+                "--date",
+                "2026-08-11",
+                "--evidence",
+                "format-spec.example",
+                "--fix-extensions",
+                "--all-clean",
+            ]
+        )
+        == 0
+    )
+
+    promoted_candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
+    promoted_inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+    assert promoted_candidates["records"][0]["ground_truth"]["extensions"] == [".bin"]
+    assert promoted_inventory["records"][0]["ground_truth"]["extensions"] == [".bin"]

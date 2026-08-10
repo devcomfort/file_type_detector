@@ -41,7 +41,6 @@
           "audio/x-aiff"
         ],
         "extensions": [
-          ".txt",
           ".aiff"
         ]
       },
@@ -72,8 +71,6 @@
           "audio/basic"
         ],
         "extensions": [
-          ".bplist",
-          ".plist",
           ".au"
         ]
       },
@@ -134,7 +131,6 @@
           "image/avif"
         ],
         "extensions": [
-          ".mp4",
           ".avif"
         ]
       },
@@ -347,7 +343,6 @@
           "image/vnd.dwg"
         ],
         "extensions": [
-          ".txt",
           ".dwg"
         ]
       },
@@ -378,7 +373,6 @@
           "message/rfc822"
         ],
         "extensions": [
-          ".txt",
           ".eml"
         ]
       },
@@ -439,7 +433,6 @@
           "application/postscript"
         ],
         "extensions": [
-          ".ps",
           ".eps"
         ]
       },
@@ -500,7 +493,6 @@
           "audio/flac"
         ],
         "extensions": [
-          ".bmp",
           ".flac"
         ]
       },
@@ -622,7 +614,6 @@
           "image/heic"
         ],
         "extensions": [
-          ".mp4",
           ".heic"
         ]
       },
@@ -1051,7 +1042,6 @@
           "audio/midi"
         ],
         "extensions": [
-          ".mid",
           ".midi"
         ]
       },
@@ -1384,9 +1374,6 @@
           "application/pgp-encrypted"
         ],
         "extensions": [
-          ".pem",
-          ".pub",
-          ".gpg",
           ".pgp"
         ]
       },
@@ -1751,7 +1738,6 @@
           "image/tiff"
         ],
         "extensions": [
-          ".bmp",
           ".tif"
         ]
       },
@@ -1782,7 +1768,6 @@
           "image/tiff"
         ],
         "extensions": [
-          ".bmp",
           ".tiff"
         ]
       },
@@ -1843,7 +1828,6 @@
           "text/vcard"
         ],
         "extensions": [
-          ".ics",
           ".vcard"
         ]
       },
@@ -1964,7 +1948,6 @@
           "image/x-xcf"
         ],
         "extensions": [
-          ".txt",
           ".xcf"
         ]
       },
@@ -2086,7 +2069,6 @@
           "application/zstd"
         ],
         "extensions": [
-          ".csv",
           ".zst"
         ]
       },
@@ -2220,9 +2202,6 @@
           "text/x-prolog"
         ],
         "extensions": [
-          ".pl",
-          ".pro",
-          ".p",
           ".p"
         ]
       },
@@ -2253,7 +2232,6 @@
           "text/x-r"
         ],
         "extensions": [
-          ".r",
           ".r"
         ]
       },
@@ -2284,7 +2262,6 @@
           "text/x-msdos-batch"
         ],
         "extensions": [
-          ".bat",
           ".aff"
         ]
       },
@@ -2376,7 +2353,6 @@
           "text/x-vhdl"
         ],
         "extensions": [
-          ".vhd",
           ".bluespec"
         ]
       },
@@ -2438,8 +2414,6 @@
           "application/x-yaml"
         ],
         "extensions": [
-          ".yml",
-          ".yaml",
           ".cabal"
         ]
       },
@@ -2470,7 +2444,6 @@
           "application/x-rust"
         ],
         "extensions": [
-          ".rs",
           ".cairo"
         ]
       },
@@ -2568,7 +2541,6 @@
           "application/x-scala"
         ],
         "extensions": [
-          ".scala",
           ".chisel"
         ]
       },
@@ -2761,9 +2733,6 @@
           "application/x-pem-file"
         ],
         "extensions": [
-          ".pem",
-          ".pub",
-          ".gpg",
           ".crt"
         ]
       },
@@ -3201,7 +3170,6 @@
           "text/coffeescript"
         ],
         "extensions": [
-          ".coffee",
           ".litcoffee"
         ]
       },
@@ -3262,7 +3230,6 @@
           "text/x-julia"
         ],
         "extensions": [
-          ".jl",
           ".lock"
         ]
       },
@@ -3480,8 +3447,6 @@
           "text/x-python"
         ],
         "extensions": [
-          ".py",
-          ".pyi",
           ".mojo"
         ]
       },
@@ -3512,7 +3477,6 @@
           "application/x-rust"
         ],
         "extensions": [
-          ".rs",
           ".move"
         ]
       },
@@ -3575,7 +3539,6 @@
           "text/x-golang"
         ],
         "extensions": [
-          ".go",
           ".odin"
         ]
       },
@@ -3606,9 +3569,6 @@
           "text/x-prolog"
         ],
         "extensions": [
-          ".pl",
-          ".pro",
-          ".p",
           ".p"
         ]
       },
@@ -3639,7 +3599,6 @@
           "text/x-perl"
         ],
         "extensions": [
-          ".pl",
           ".p6"
         ]
       },
@@ -3732,8 +3691,6 @@
           "application/x-yaml"
         ],
         "extensions": [
-          ".yml",
-          ".yaml",
           ".pbtxt"
         ]
       },
@@ -3796,7 +3753,6 @@
           "text/x-perl"
         ],
         "extensions": [
-          ".pl",
           ".pl6"
         ]
       },
@@ -3827,7 +3783,6 @@
           "text/x-perl"
         ],
         "extensions": [
-          ".pl",
           ".pm6"
         ]
       },
@@ -3951,7 +3906,6 @@
           "text/x-r"
         ],
         "extensions": [
-          ".r",
           ".r"
         ]
       },
@@ -3982,7 +3936,6 @@
           "text/x-perl"
         ],
         "extensions": [
-          ".pl",
           ".raku"
         ]
       },
@@ -4013,7 +3966,6 @@
           "text/x-perl"
         ],
         "extensions": [
-          ".pl",
           ".raku6"
         ]
       },
@@ -4134,7 +4086,6 @@
           "application/x-rust"
         ],
         "extensions": [
-          ".rs",
           ".rust"
         ]
       },
@@ -4195,10 +4146,6 @@
           "text/x-lisp"
         ],
         "extensions": [
-          ".lisp",
-          ".lsp",
-          ".l",
-          ".cl",
           ".scm"
         ]
       },
@@ -4259,7 +4206,6 @@
           "application/sla"
         ],
         "extensions": [
-          ".stl",
           ".snap"
         ]
       },
@@ -4350,10 +4296,6 @@
           "text/x-lisp"
         ],
         "extensions": [
-          ".lisp",
-          ".lsp",
-          ".l",
-          ".cl",
           ".ss"
         ]
       },
@@ -4475,8 +4417,6 @@
           "application/x-yaml"
         ],
         "extensions": [
-          ".yml",
-          ".yaml",
           ".textpb"
         ]
       },
@@ -4507,8 +4447,6 @@
           "application/x-yaml"
         ],
         "extensions": [
-          ".yml",
-          ".yaml",
           ".textproto"
         ]
       },
@@ -4539,7 +4477,6 @@
           "text/x-hcl"
         ],
         "extensions": [
-          ".hcl",
           ".tf"
         ]
       },
@@ -4787,9 +4724,6 @@
           "text/vbscript"
         ],
         "extensions": [
-          ".vbs",
-          ".vba",
-          ".vb",
           ".vbe"
         ]
       },
@@ -5012,7 +4946,6 @@
           "image/bmp"
         ],
         "extensions": [
-          ".bmp",
           ".wad"
         ]
       },
@@ -5380,7 +5313,6 @@
           "application/pdf"
         ],
         "extensions": [
-          ".pdf",
           ".ai"
         ]
       },
@@ -5411,7 +5343,6 @@
           "application/zip"
         ],
         "extensions": [
-          ".zip",
           ".apk"
         ]
       },
@@ -5472,9 +5403,6 @@
           "application/x-pem-file"
         ],
         "extensions": [
-          ".pem",
-          ".pub",
-          ".gpg",
           ".asc"
         ]
       },
@@ -5598,8 +5526,6 @@
           "text/x-tex"
         ],
         "extensions": [
-          ".tex",
-          ".sty",
           ".aux"
         ]
       },
@@ -5630,7 +5556,6 @@
           "video/mp4"
         ],
         "extensions": [
-          ".mp4",
           ".avifs"
         ]
       },
@@ -5661,8 +5586,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".ax"
         ]
       },
@@ -5785,9 +5708,6 @@
           "application/javascript"
         ],
         "extensions": [
-          ".js",
-          ".mjs",
-          ".cjs",
           ".cjsx"
         ]
       },
@@ -5980,8 +5900,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".cpl"
         ]
       },
@@ -6104,9 +6022,6 @@
           "application/typescript"
         ],
         "extensions": [
-          ".ts",
-          ".mts",
-          ".cts",
           ".ctsx"
         ]
       },
@@ -6137,8 +6052,6 @@
           "application/octet-stream"
         ],
         "extensions": [
-          ".sqlite",
-          ".sqlite3",
           ".db"
         ]
       },
@@ -6231,8 +6144,6 @@
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ],
         "extensions": [
-          ".docx",
-          ".docm",
           ".dotx"
         ]
       },
@@ -6383,7 +6294,6 @@
           "text/plain"
         ],
         "extensions": [
-          ".exs",
           ".ex"
         ]
       },
@@ -6507,7 +6417,6 @@
           "text/xml"
         ],
         "extensions": [
-          ".xml",
           ".gpx"
         ]
       },
@@ -6727,7 +6636,6 @@
           "video/mp4"
         ],
         "extensions": [
-          ".mp4",
           ".heics"
         ]
       },
@@ -6758,7 +6666,6 @@
           "video/mp4"
         ],
         "extensions": [
-          ".mp4",
           ".heif"
         ]
       },
@@ -6789,7 +6696,6 @@
           "video/mp4"
         ],
         "extensions": [
-          ".mp4",
           ".heifs"
         ]
       },
@@ -6820,8 +6726,6 @@
           "text/html"
         ],
         "extensions": [
-          ".aspx",
-          ".asp",
           ".hta"
         ]
       },
@@ -6852,7 +6756,6 @@
           "application/epub+zip"
         ],
         "extensions": [
-          ".epub",
           ".hwpx"
         ]
       },
@@ -6943,7 +6846,6 @@
           "text/x-twig"
         ],
         "extensions": [
-          ".twig",
           ".j2"
         ]
       },
@@ -6974,7 +6876,6 @@
           "application/zip"
         ],
         "extensions": [
-          ".zip",
           ".jar"
         ]
       },
@@ -7005,7 +6906,6 @@
           "text/x-twig"
         ],
         "extensions": [
-          ".twig",
           ".jinja"
         ]
       },
@@ -7036,7 +6936,6 @@
           "text/x-twig"
         ],
         "extensions": [
-          ".twig",
           ".jinja2"
         ]
       },
@@ -7067,7 +6966,6 @@
           "text/xml"
         ],
         "extensions": [
-          ".xml",
           ".jnlp"
         ]
       },
@@ -7160,9 +7058,6 @@
           "application/javascript"
         ],
         "extensions": [
-          ".js",
-          ".mjs",
-          ".cjs",
           ".jsx"
         ]
       },
@@ -7223,7 +7118,6 @@
           "text/x-shellscript"
         ],
         "extensions": [
-          ".sh",
           ".ksh"
         ]
       },
@@ -7474,7 +7368,6 @@
           "application/zip"
         ],
         "extensions": [
-          ".zip",
           ".maff"
         ]
       },
@@ -7565,9 +7458,6 @@
           "application/javascript"
         ],
         "extensions": [
-          ".js",
-          ".mjs",
-          ".cjs",
           ".mjsx"
         ]
       },
@@ -7659,9 +7549,6 @@
           "application/typescript"
         ],
         "extensions": [
-          ".ts",
-          ".mts",
-          ".cts",
           ".mtsx"
         ]
       },
@@ -7722,7 +7609,6 @@
           "application/zip"
         ],
         "extensions": [
-          ".zip",
           ".nupkg"
         ]
       },
@@ -7815,8 +7701,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".ocx"
         ]
       },
@@ -8027,7 +7911,6 @@
           "text/gettext-translation"
         ],
         "extensions": [
-          ".po",
           ".pot"
         ]
       },
@@ -8240,8 +8123,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".rll"
         ]
       },
@@ -8272,7 +8153,6 @@
           "application/sla"
         ],
         "extensions": [
-          ".stl",
           ".rpm"
         ]
       },
@@ -8333,10 +8213,6 @@
           "application/gzip"
         ],
         "extensions": [
-          ".gz",
-          ".gzip",
-          ".tgz",
-          ".tar.gz",
           ".rz"
         ]
       },
@@ -8399,8 +8275,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".scr"
         ]
       },
@@ -8521,8 +8395,6 @@
           "application/x-dosexec"
         ],
         "extensions": [
-          ".exe",
-          ".dll",
           ".sys"
         ]
       },
@@ -8585,7 +8457,6 @@
           "image/bmp"
         ],
         "extensions": [
-          ".bmp",
           ".tga"
         ]
       },
@@ -8649,9 +8520,6 @@
           "application/typescript"
         ],
         "extensions": [
-          ".ts",
-          ".mts",
-          ".cts",
           ".tsx"
         ]
       },
@@ -8712,8 +8580,6 @@
           "application/x-coff"
         ],
         "extensions": [
-          ".obj",
-          ".o",
           ".ttf"
         ]
       },
@@ -8774,8 +8640,6 @@
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ],
         "extensions": [
-          ".docx",
-          ".docm",
           ".vdw"
         ]
       },
@@ -8836,8 +8700,6 @@
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ],
         "extensions": [
-          ".docx",
-          ".docm",
           ".vsdm"
         ]
       },
@@ -8868,8 +8730,6 @@
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ],
         "extensions": [
-          ".docx",
-          ".docm",
           ".vsdx"
         ]
       },
@@ -9177,7 +9037,6 @@
           "application/zip"
         ],
         "extensions": [
-          ".zip",
           ".xpi"
         ]
       },
@@ -9208,7 +9067,6 @@
           "text/xml"
         ],
         "extensions": [
-          ".xml",
           ".xsd"
         ]
       },

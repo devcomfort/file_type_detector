@@ -47,15 +47,14 @@ def test_checked_in_candidates_cover_all_legacy_fixtures() -> None:
     assert len(collected) == len(legacy["fixtures"])
 
 
-# Q. Do known legacy contradictions have corrected extensions after fix-extensions promotion?
+# Q. Do known legacy contradictions retain only the reviewed fixture extension?
 def test_known_conflicts_corrected_and_7z_provenance_preserved() -> None:
     candidates = json.loads(_CANDIDATES_PATH.read_text(encoding="utf-8"))["records"]
     by_id = {record["id"]: record for record in candidates}
 
-    # Previously conflicting records now have probe extension added to declared list
-    assert by_id["sample-aiff"]["ground_truth"]["extensions"] == [".txt", ".aiff"]
-    assert by_id["sample-avif"]["ground_truth"]["extensions"] == [".mp4", ".avif"]
-    # All records are verified after batch promotion
+    assert by_id["sample-aiff"]["ground_truth"]["extensions"] == [".aiff"]
+    assert by_id["sample-au"]["ground_truth"]["extensions"] == [".au"]
+    assert by_id["sample-avif"]["ground_truth"]["extensions"] == [".avif"]
     assert by_id["sample-aiff"]["ground_truth_review"]["status"] == "verified"
     assert by_id["sample-avif"]["ground_truth_review"]["status"] == "verified"
     # Clean record promoted with corrected provenance
