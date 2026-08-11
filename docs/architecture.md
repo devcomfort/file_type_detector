@@ -102,7 +102,7 @@ Is text/* or ambiguous MIME? → Yes: Magika Detection → FileType
                                No: Magic Result → FileType
 ```
 
-The two-stage design is validated by benchmark data: across 598 formats, Magika improves Magic's generic or wrong result for **177 formats**, while Magic covers most formats for which Magika returns no result. [See accuracy benchmarks →](reference/accuracy-benchmarks.md)
+The two-stage design keeps Magic's result unless text or an ambiguous MIME opens the Magika refinement path. The [backend conformance report](reference/backend-conformance.md) records this behavior separately for each supported runtime.
 
 ## Extension Points
 

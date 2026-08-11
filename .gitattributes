@@ -1,0 +1,3 @@
+# Ground Truth hashes require reviewed bytes to survive cross-platform checkouts unchanged.
+tests/fixtures/** -text
+tests/truth/*.json -text

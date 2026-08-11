@@ -1,9 +1,4 @@
-"""Pytest configuration and fixtures for file type inference tests.
-
-Provides essential fixtures for path resolution and temporary files.
-Canonical fixture truth lives in ``tests/truth/canonical_fixtures.json``
-and is consumed by the individual strategy test modules.
-"""
+"""Pytest configuration and fixtures for file type inference tests."""
 
 import tempfile
 import pytest
@@ -11,7 +6,6 @@ from pathlib import Path
 
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
-TRUTH_DIR = Path(__file__).parent / "truth"
 
 
 @pytest.fixture
@@ -40,64 +34,6 @@ def sample_path(ext):
         Path to ``sample.{ext}`` in the fixtures directory.
     """
     return FIXTURES_DIR / f"sample.{ext}"
-
-
-def fixture_path(ext: str) -> Path:
-    """Resolve a canonical fixture file by extension (without dot).
-
-    Parameters
-    ----------
-    ext : str
-        File extension **without** leading dot (e.g. ``'pdf'``, ``'json'``).
-
-    Returns
-    -------
-    Path
-        Absolute path to ``sample.{ext}`` in the fixtures directory.
-    """
-    return FIXTURES_DIR / f"sample.{ext}"
-
-
-def fixture_path_from_name(filename: str) -> Path:
-    """Resolve a canonical fixture file by full filename.
-
-    Parameters
-    ----------
-    filename : str
-        Full filename (e.g. ``'sample.pdf'``, ``'sample.py'``).
-
-    Returns
-    -------
-    Path
-        Absolute path to the fixture file in the fixtures directory.
-    """
-    return FIXTURES_DIR / filename
-
-
-def load_canonical_fixtures():
-    """Load canonical fixture truth from ``tests/truth/canonical_fixtures.json``.
-
-    Returns
-    -------
-    dict
-        Parsed JSON contents of the canonical fixtures truth file.
-    """
-    import json
-
-    return json.loads((TRUTH_DIR / "canonical_fixtures.json").read_text())
-
-
-def load_tool_snapshots():
-    """Load tool snapshots from ``tests/truth/tool_snapshots.json``.
-
-    Returns
-    -------
-    dict
-        Parsed JSON contents of the tool snapshots file.
-    """
-    import json
-
-    return json.loads((TRUTH_DIR / "tool_snapshots.json").read_text())
 
 
 @pytest.fixture

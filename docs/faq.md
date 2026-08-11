@@ -10,16 +10,13 @@ See [Choose an Inferencer](how-to/choose-an-inferencer.md) for a task-based reco
 
 ### How accurate is this library?
 
-Across 598 tested file formats:
+There is no runtime-independent percentage. Lexical MIME data, libmagic, and
+Magika can return different results as their platform packages and models
+change. The conformance matrix evaluates each backend against reviewed MIME and
+extension alternatives on Linux, macOS, and Windows.
 
-| Strategy | Accuracy |
-|----------|:--------:|
-| Lexical (extension only) | 19.4% |
-| Magic (libmagic) | 59.9% |
-| Magika (Google AI) | 62.5% |
-| **Hybrid (Magic + Magika)** | **74.2%** |
-
-See [Accuracy Benchmarks](reference/accuracy-benchmarks.md) for per-format data and methodology.
+See [Backend Conformance](reference/backend-conformance.md) to read the latest
+workflow report with its exact runtime versions.
 
 ### Can I use multiple inferencers together?
 

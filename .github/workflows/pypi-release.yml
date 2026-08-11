@@ -173,11 +173,36 @@ jobs:
           print(f"Imported wheel package from {package_path}")
           PY
 
+      - name: Upload release distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-distributions
+          path: dist/*
+          if-no-files-found: error
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    needs:
+      - check-version
+      - build-test-release
+    if: needs.build-test-release.result == 'success'
+    runs-on: ubuntu-22.04
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/filetype-detector
+    permissions:
+      id-token: write
+    steps:
+      - name: Download release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-distributions
+          path: dist
+
       - name: Publish to TestPyPI
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
-        run: python -m twine upload --repository testpypi dist/* --verbose
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
 
       - name: Verify TestPyPI installation
         env:
@@ -220,9 +245,24 @@ jobs:
           print(f"Imported TestPyPI package from {package_path}")
           PY
 
-      - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: python -m twine upload dist/* --verbose
+  publish-pypi:
+    name: Publish to PyPI
+    needs:
+      - check-version
+      - publish-testpypi
+    if: needs.publish-testpypi.result == 'success'
+    runs-on: ubuntu-22.04
+    environment:
+      name: pypi
+      url: https://pypi.org/p/filetype-detector
+    permissions:
+      id-token: write
+    steps:
+      - name: Download release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-distributions
+          path: dist
 
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

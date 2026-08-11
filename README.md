@@ -1,24 +1,20 @@
 # filetype-detector
 
-[![Formats Tested](https://img.shields.io/badge/formats-598%20tested-brightgreen)]()
-[![Magic](https://img.shields.io/badge/magic-59.9%25-blue)]()
-[![Magika](https://img.shields.io/badge/magika-62.5%25-green)]()
-[![Hybrid](https://img.shields.io/badge/hybrid-74.2%25-purple)]()
+[![CI](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml)
+[![Backend conformance](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
 
 A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, and AI-powered content analysis.
 
-## Accuracy
+## Backend Conformance
 
-| Metric | Value |
-|--------|-------|
-| Magic (libmagic) correct | **59.9%** |
-| Magika (Google AI) correct | **62.5%** |
-| Hybrid (runtime strategy) | **74.2%** |
-| Total file formats | **598** |
+Backend behavior is checked against independently reviewed MIME and extension
+facts on Linux, macOS, and Windows. The report preserves raw detector output,
+normalized semantic output, runtime versions, correctness, and cross-platform
+divergence. It does not reduce runtime-dependent behavior to one static
+percentage.
 
-![Accuracy Venn Diagram](docs/diagrams/accuracy-venn.svg)
-
-> Generated from 598 canonical fixtures. See [Accuracy Benchmarks](docs/reference/accuracy-benchmarks.md) for per-format data.
+See [Backend Conformance](docs/reference/backend-conformance.md) for the
+methodology, latest workflow artifact, and reproduction commands.
 
 ## Features
 
@@ -317,54 +313,65 @@ For detailed usage examples, error handling, and advanced patterns, see the [doc
 
 ## Testing
 
-### Truth data
+### Reviewed Ground Truth
 
-Canonical fixture truth lives in `tests/truth/canonical_fixtures.json`.
-Tool snapshots (version-pinned per-inferencer results) live in
-`tests/truth/tool_snapshots.json`.
+Candidate review data lives in
+`tests/truth/backend_inventory_candidates.json`. Collectors evaluate only the
+matching verified records in `tests/truth/backend_inventory.json`. The reviewed
+three-platform semantic baseline lives in
+`tests/truth/backend_conformance_baseline.json`.
 
-Regenerate truth data after adding fixtures:
-
-```bash
-# Rebuild tool snapshots from canonical fixtures
-rye run python scripts/generate_truth_data.py
-
-# Check that existing snapshots match without overwriting
-rye run python scripts/generate_truth_data.py --check
-```
-
-### Accuracy suites
-
-Cross-suite smoke test (representative sample across all 598 canonical fixtures):
+Validate the inventory pair before collecting observations:
 
 ```bash
-rye run python -m pytest tests/test_file_type_truth.py tests/test_fixture_coverage.py -v
+rye run python -m scripts.conformance.cli review \
+  --candidates tests/truth/backend_inventory_candidates.json \
+  --inventory tests/truth/backend_inventory.json \
+  --root . \
+  --require-complete
 ```
 
-Per-inferencer accuracy (semantic + snapshot contracts):
+### Conformance Tests
+
+Run the inventory, collector, evaluator, report, and baseline contracts:
 
 ```bash
-rye run python -m pytest tests/test_accuracy_magic.py tests/test_accuracy_magika.py tests/test_accuracy_hybrid.py -v
+rye run python -m pytest tests/conformance -q
 ```
 
-Delegation correctness (AutoInferencer matches direct inferencer):
+The dedicated
+[Backend conformance workflow](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+collects fresh-process observations on Ubuntu, macOS, and Windows. See the
+[Backend Conformance reference](docs/reference/backend-conformance.md) for
+local collection and aggregation commands.
+
+### Behavior Tests
+
+Delegation correctness:
 
 ```bash
 rye run python -m pytest tests/test_auto_inferencer.py -v
 ```
 
-Behavior tests (control flow, mocks, error handling):
+Inferencer control flow, errors, and fallbacks:
 
 ```bash
 rye run python -m pytest tests/test_magic_inferencer.py tests/test_magika_inferencer.py tests/test_hybrid_inferencer.py -v
 ```
 
-### Full verification
-
-One command to run the complete verification pipeline — truth check, all tests, lint, and type-check:
+### Full Verification
 
 ```bash
-rye sync && rye run python scripts/generate_truth_data.py --check && rye run python -m pytest && rye run ruff check src tests scripts examples && rye run mypy src/filetype_detector/ --ignore-missing-imports
+rye sync && \
+rye run python -m scripts.conformance.cli review \
+  --candidates tests/truth/backend_inventory_candidates.json \
+  --inventory tests/truth/backend_inventory.json \
+  --root . \
+  --require-complete && \
+rye run python -m pytest && \
+rye run ruff check src tests scripts examples && \
+rye run mypy src/filetype_detector scripts/conformance --ignore-missing-imports && \
+rye run mkdocs build --strict
 ```
 
 ## Architecture

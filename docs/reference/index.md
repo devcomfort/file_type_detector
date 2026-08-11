@@ -68,13 +68,13 @@
 
 	[Open FAQ](../faq.md)
 
-- __Accuracy Benchmarks__
+- __Backend Conformance__
 
 	---
 
-	Empirical verification data: 598 formats tested across Magic, Magika, Hybrid, and Lexical.
+	Reviewed Ground Truth, runtime matrix, semantic baseline, and report lifecycle.
 
-	[Open benchmarks](accuracy-benchmarks.md)
+	[Open conformance reference](backend-conformance.md)
 
 </div>
 

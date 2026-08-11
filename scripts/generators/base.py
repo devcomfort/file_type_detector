@@ -3,6 +3,15 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+_CASE_VARIANT_EXTENSIONS = frozenset({"CBL", "COB", "CPY", "F90", "P", "R", "S"})
+
+
+def fixture_filename(ext: str) -> str:
+    """Return a fixture name that is unique on case-insensitive filesystems."""
+    if ext in _CASE_VARIANT_EXTENSIONS:
+        return f"sample.uppercase.{ext}"
+    return f"sample.{ext}"
+
 
 class BaseGenerator(ABC):
     """Abstract base class for fixture file generators.
@@ -54,7 +63,9 @@ class BaseGenerator(ABC):
         """
         ...
 
-    def create_fixture(self, output_dir: Path, ext: str, force: bool = False) -> Path | None:
+    def create_fixture(
+        self, output_dir: Path, ext: str, force: bool = False
+    ) -> Path | None:
         """Create a fixture file in the output directory.
 
         Parameters
@@ -71,7 +82,7 @@ class BaseGenerator(ABC):
         Path | None
             Path to created file, or None if skipped.
         """
-        path = output_dir / f"sample.{ext}"
+        path = output_dir / fixture_filename(ext)
         if path.exists() and not force:
             return None
 

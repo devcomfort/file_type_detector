@@ -244,11 +244,13 @@ Magika returns extensions in different formats. The `MagikaInferencer` normalize
 
 | Aspect | MagikaInferencer | MagicInferencer | LexicalInferencer |
 |--------|-----------------|-----------------|-------------------|
-| Text file accuracy | Highest (~99%) | Medium | Low (extension only) |
-| Binary file accuracy | High | High | Low (extension only) |
+| Text detection | Learned labels and confidence | libmagic MIME database | Filename MIME database |
+| Binary detection | Model-dependent | libmagic signatures | Filename MIME database |
 | Speed | Slower | Fast | Fastest |
 | Confidence scores | Yes | No | No |
 | Memory usage | High | Low | Minimal |
+
+Compare actual results for each supported runtime in the [backend conformance report](../reference/backend-conformance.md).
 
 ## Known Limitations
 

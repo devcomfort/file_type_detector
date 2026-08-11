@@ -5,7 +5,7 @@ This guide helps you choose the right inferencer for your workload.
 ## Recommended Default
 
 Start with `AutoInferencer(backend="hybrid")`.
-It gives you one stable entry point and delegates to `HybridInferencer`, which uses Magic for all files and Magika when Magic returns a generic or ambiguous type. Across 598 test formats, Hybrid achieves **74.2% accuracy** — a 14.3 percentage-point improvement over Magic alone. [See benchmark data →](../reference/accuracy-benchmarks.md)
+It gives you one stable entry point and delegates to `HybridInferencer`, which uses Magic for all files and consults Magika when Magic returns text or an ambiguous type. Check the [backend conformance report](../reference/backend-conformance.md) against your target runtime rather than relying on one cross-platform percentage.
 
 Content-based examples below assume that each supplied path is an existing file.
 
