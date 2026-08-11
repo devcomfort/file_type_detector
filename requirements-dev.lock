@@ -196,7 +196,7 @@ onnxruntime==1.23.2 ; sys_platform != 'win32'
     # via magika
 opencv-python-headless==4.13.0.92
     # via filetype-detector (pyproject.toml)
-packaging==25.0
+packaging==26.3
     # via
     #   build
     #   mkdocs
@@ -298,7 +298,7 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==14.2.0
+rich==15.0.0
     # via
     #   filetype-detector (pyproject.toml)
     #   textual
@@ -324,7 +324,7 @@ tomli==2.4.1 ; python_full_version < '3.11'
     #   build
     #   mypy
     #   pytest
-twine==6.2.0
+twine==7.0.0
     # via filetype-detector (pyproject.toml)
 typing-extensions==4.15.0
     # via
