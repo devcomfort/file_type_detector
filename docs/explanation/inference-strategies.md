@@ -54,7 +54,7 @@ Instead of importing a different class for each strategy, callers can keep one p
 
 Choose `lexical` when names are reliable, `magic` when content validation matters, `magika` when text precision matters, and `hybrid` when you want one strong default for mixed workloads.
 
-**Why Hybrid is the recommended default**: Across 598 tested formats, Magic alone achieves 59.9% accuracy and Magika alone 62.5%. The Hybrid strategy reaches **74.2%** by using Magika to improve 177 generic or wrong Magic results. [See the full benchmark data →](../reference/accuracy-benchmarks.md)
+**Why Hybrid is the recommended default**: it preserves Magic's content result unless text or an ambiguous MIME makes Magika useful, then falls back when Magika has no result. The [backend conformance report](../reference/backend-conformance.md) verifies that control flow against reviewed facts for each supported runtime.
 
 If you want the API details for each class, go to [Reference Overview](../reference/index.md).
 If you want to apply the strategies to a concrete task, go to [How-to Guides](../how-to/index.md).

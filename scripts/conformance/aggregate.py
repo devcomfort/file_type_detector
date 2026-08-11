@@ -808,7 +808,7 @@ def render_markdown(
     *,
     records: Sequence[InventoryRecord],
 ) -> str:
-    """Render the review, execution, correctness, divergence, and baseline sections."""
+    """Render review, runtime, correctness, divergence, baseline, and reproduction."""
     summary = _mapping(result["summary"])
     inventory_review = _mapping(summary["inventory_review"])
     execution_matrix = _list_of_mappings(summary["execution_matrix"])
@@ -832,6 +832,8 @@ def render_markdown(
     lines.extend(_render_divergence_chart(semantic_rows, records))
     lines.extend(["", "## Baseline", ""])
     lines.extend(_render_baseline(baseline))
+    lines.extend(["", "## Reproduce", ""])
+    lines.extend(_render_reproduction())
     lines.extend(["", "## Evidence rows", ""])
     lines.extend(
         _render_evidence_rows(
@@ -841,6 +843,49 @@ def render_markdown(
         )
     )
     return "\n".join(lines) + "\n"
+
+
+def _render_reproduction() -> list[str]:
+    return [
+        "Validate the reviewed inventory:",
+        "",
+        "```bash",
+        "python -m scripts.conformance.cli review \\",
+        "  --candidates tests/truth/backend_inventory_candidates.json \\",
+        "  --inventory tests/truth/backend_inventory.json \\",
+        "  --root . \\",
+        "  --require-complete",
+        "```",
+        "",
+        "Collect one platform artifact after installing its native libmagic runtime:",
+        "",
+        "```bash",
+        "LIBMAGIC_DISTRIBUTION='<distribution>' \\",
+        "python -m scripts.conformance.collector collect \\",
+        "  --candidates tests/truth/backend_inventory_candidates.json \\",
+        "  --inventory tests/truth/backend_inventory.json \\",
+        "  --root . \\",
+        "  --runner-label '<runner-label>' \\",
+        "  --output 'backend-conformance-<platform>.json'",
+        "```",
+        "",
+        "Aggregate the three supported runner artifacts against the reviewed baseline:",
+        "",
+        "```bash",
+        "python -m scripts.conformance.aggregate \\",
+        "  --candidates tests/truth/backend_inventory_candidates.json \\",
+        "  --inventory tests/truth/backend_inventory.json \\",
+        "  --root . \\",
+        "  --input backend-conformance-ubuntu.json \\",
+        "  --input backend-conformance-macos.json \\",
+        "  --input backend-conformance-windows.json \\",
+        "  --output-dir reports \\",
+        "  --baseline tests/truth/backend_conformance_baseline.json \\",
+        "  --expected-runner-label ubuntu-x64 \\",
+        "  --expected-runner-label macos-x64 \\",
+        "  --expected-runner-label windows-x64",
+        "```",
+    ]
 
 
 def _render_baseline(baseline: Mapping[str, object]) -> list[str]:

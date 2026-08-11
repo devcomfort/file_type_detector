@@ -306,7 +306,7 @@ Aim for high test coverage:
 - Error cases covered
 - Edge cases handled
 
-The full test suite covers **598 canonical file formats** across all four inference strategies. See the [Accuracy Benchmarks](reference/accuracy-benchmarks.md) for per-format data and verification methodology.
+The conformance suite evaluates every verified inventory record across all four inference strategies. See [Backend Conformance](reference/backend-conformance.md) for the review, runtime, and baseline methodology.
 
 ## Questions?
 

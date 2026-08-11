@@ -812,6 +812,17 @@ def test_aggregate_emits_candidate_baseline_when_no_baseline_exists(
     markdown = (output_dir / "backend-conformance.md").read_text(encoding="utf-8")
     assert "## Baseline" in markdown
     assert "candidate-baseline.json" in markdown
+    assert "## Inventory review" in markdown
+    assert "| Unresolved |" in markdown
+    assert "| Excluded |" in markdown
+    assert "## Execution matrix" in markdown
+    assert "libmagic distribution" in markdown
+    assert "## Ground Truth correctness" in markdown
+    assert "## Evidence rows" in markdown
+    assert "## Reproduce" in markdown
+    assert "python -m scripts.conformance.cli review" in markdown
+    assert "python -m scripts.conformance.collector collect" in markdown
+    assert "python -m scripts.conformance.aggregate" in markdown
 
 
 # Q. Does an unchanged matrix match the reviewed baseline?

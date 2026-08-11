@@ -69,7 +69,7 @@ nav:
     - Examples and Patterns: user-guide.md
   - Reference:
     - Overview: reference/index.md
-    - Accuracy Benchmarks: reference/accuracy-benchmarks.md
+    - Backend Conformance: reference/backend-conformance.md
     - BaseInferencer: api/base_inferencer.md
     - AutoInferencer: api/auto_inferencer.md
     - LexicalInferencer: api/lexical_inferencer.md

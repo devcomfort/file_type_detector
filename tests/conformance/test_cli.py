@@ -16,7 +16,7 @@ def _write_legacy_truth(root: Path) -> Path:
     (fixture_dir / "sample.bin").write_bytes(b"sample fixture")
     (fixture_dir / "other.txt").write_bytes(b"other fixture")
 
-    source = root / "canonical_fixtures.json"
+    source = root / "legacy_source.json"
     source.write_text(
         json.dumps(
             {
@@ -95,7 +95,7 @@ def test_seed_distinguishes_case_sensitive_fixture_names(tmp_path: Path) -> None
     fixture_dir.mkdir(parents=True)
     (fixture_dir / "sample.CBL").write_bytes(b"uppercase fixture")
     (fixture_dir / "sample.cbl").write_bytes(b"lowercase fixture")
-    source = tmp_path / "canonical_fixtures.json"
+    source = tmp_path / "legacy_source.json"
     source.write_text(
         json.dumps(
             {
@@ -148,7 +148,7 @@ def test_seed_disambiguates_punctuation_collisions(tmp_path: Path) -> None:
     fixture_dir.mkdir(parents=True)
     (fixture_dir / "sample.c").write_bytes(b"c fixture")
     (fixture_dir / "sample.c++").write_bytes(b"c++ fixture")
-    source = tmp_path / "canonical_fixtures.json"
+    source = tmp_path / "legacy_source.json"
     source.write_text(
         json.dumps(
             {

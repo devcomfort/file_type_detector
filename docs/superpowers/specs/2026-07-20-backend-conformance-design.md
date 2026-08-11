@@ -231,5 +231,5 @@ The inventory creates a maintained support boundary. Adding a suffix requires a 
 ## 🔗 Related project material
 
 - [Inference strategy explanation](../../explanation/inference-strategies.md)
-- [Current accuracy benchmarks](../../reference/accuracy-benchmarks.md)
+- [Current backend conformance](../../reference/backend-conformance.md)
 - [Current architecture](../../architecture.md)

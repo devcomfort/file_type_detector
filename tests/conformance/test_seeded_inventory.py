@@ -1,4 +1,4 @@
-"""Tests for the checked-in legacy candidate inventory."""
+"""Tests for the checked-in reviewed backend inventory."""
 
 from __future__ import annotations
 
@@ -9,17 +9,16 @@ from pathlib import Path
 from scripts.conformance.inventory import load_verified_inventory, review_summary
 
 _PROJECT_ROOT = Path(__file__).parents[2]
-_LEGACY_PATH = _PROJECT_ROOT / "tests" / "truth" / "canonical_fixtures.json"
 _CANDIDATES_PATH = (
     _PROJECT_ROOT / "tests" / "truth" / "backend_inventory_candidates.json"
 )
 _INVENTORY_PATH = _PROJECT_ROOT / "tests" / "truth" / "backend_inventory.json"
 
 
-# Q. Do checked-in candidates cover every legacy fixture and reflect current review progress?
-def test_checked_in_candidates_cover_all_legacy_fixtures() -> None:
-    legacy = json.loads(_LEGACY_PATH.read_text(encoding="utf-8"))
+# Q. Are all checked-in candidates represented by verified authoritative records?
+def test_checked_in_candidates_are_fully_verified() -> None:
     candidates = json.loads(_CANDIDATES_PATH.read_text(encoding="utf-8"))
+    candidate_records = candidates["records"]
 
     summary = review_summary(
         _CANDIDATES_PATH,
@@ -33,18 +32,13 @@ def test_checked_in_candidates_cover_all_legacy_fixtures() -> None:
     )
 
     assert candidates["schema_version"] == 1
-    assert len(candidates["records"]) == len(legacy["fixtures"])
-    assert {record["fixture"] for record in candidates["records"]} == {
-        fixture["path"] for fixture in legacy["fixtures"]
-    }
-    assert len({record["id"] for record in candidates["records"]}) == len(
-        candidates["records"]
-    )
-    # All candidates promoted to verified via batch review
-    assert summary["candidate_count"] == len(legacy["fixtures"])
-    assert summary["verified_count"] == len(legacy["fixtures"])
+    assert len({record["id"] for record in candidate_records}) == len(candidate_records)
+    assert summary["candidate_count"] == len(candidate_records)
+    assert summary["verified_count"] == len(candidate_records)
     assert summary["unresolved_count"] == 0
-    assert len(collected) == len(legacy["fixtures"])
+    assert {record.id for record in collected} == {
+        record["id"] for record in candidate_records
+    }
 
 
 # Q. Can every reviewed fixture be checked out and discovered on every supported OS?
@@ -62,7 +56,7 @@ def test_checked_in_fixture_paths_are_portable_and_discoverable() -> None:
     assert discovered_paths == set(fixture_paths)
 
 
-# Q. Do known legacy contradictions retain only the reviewed fixture extension?
+# Q. Do reviewed conflict corrections retain only each fixture's probe extension?
 def test_known_conflicts_corrected_and_7z_provenance_preserved() -> None:
     candidates = json.loads(_CANDIDATES_PATH.read_text(encoding="utf-8"))["records"]
     by_id = {record["id"]: record for record in candidates}
