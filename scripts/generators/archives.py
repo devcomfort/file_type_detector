@@ -1,15 +1,14 @@
-"""Archive format generators."""
+"""Archive fixture generators with byte-reproducible output."""
 
+from io import BytesIO
 import bz2
-import gzip
+import lz4.frame
 import struct
 import tarfile
 import zipfile
-from io import BytesIO
-
-import lz4.frame
 import zstandard
 
+from ._deterministic import write_zip_str, gzip_compress_det
 from .base import BaseGenerator
 from . import register
 
@@ -21,10 +20,36 @@ class ArchiveGenerator(BaseGenerator):
     @property
     def extensions(self) -> list[str]:
         return [
-            "zip", "tar", "gz", "tgz", "bz2", "tbz2", "xz", "lz", "lz4",
-            "zst", "7z", "xpi", "jar", "apk", "gzip", "nupkg", "maff",
-            "tar.gz", "tar.bz2", "rz",
-            "arc", "lha", "lrz", "lzh", "pkg", "rpm", "snap", "wad", "xar", "z",
+            "zip",
+            "tar",
+            "gz",
+            "tgz",
+            "bz2",
+            "tbz2",
+            "xz",
+            "lz",
+            "lz4",
+            "zst",
+            "7z",
+            "xpi",
+            "jar",
+            "apk",
+            "gzip",
+            "nupkg",
+            "maff",
+            "tar.gz",
+            "tar.bz2",
+            "rz",
+            "arc",
+            "lha",
+            "lrz",
+            "lzh",
+            "pkg",
+            "rpm",
+            "snap",
+            "wad",
+            "xar",
+            "z",
         ]
 
     @property
@@ -104,7 +129,7 @@ class ArchiveGenerator(BaseGenerator):
     def _create_zip(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("hello.txt", "Hello, World!\n")
+            write_zip_str(zf, "hello.txt", "Hello, World!\n")
         return buf.getvalue()
 
     def _create_tar(self) -> bytes:
@@ -117,20 +142,19 @@ class ArchiveGenerator(BaseGenerator):
         return buf.getvalue()
 
     def _create_gz(self) -> bytes:
-        buf = BytesIO()
-        with gzip.GzipFile(fileobj=buf, mode="wb") as f:
-            f.write(b"Hello, World!\n")
-        return buf.getvalue()
+        return gzip_compress_det(b"Hello, World!\n")
 
     def _create_bz2(self) -> bytes:
         return bz2.compress(b"Hello, World!\n")
 
     def _create_xz(self) -> bytes:
         import lzma
+
         return lzma.compress(b"Hello, World!\n")
 
     def _create_lz(self) -> bytes:
         import lzma
+
         return lzma.compress(b"Hello, World!\n", format=lzma.FORMAT_ALONE)
 
     def _create_lz4(self) -> bytes:
@@ -142,6 +166,7 @@ class ArchiveGenerator(BaseGenerator):
 
     def _create_7z(self) -> bytes:
         import py7zr
+
         buf = BytesIO()
         with py7zr.SevenZipFile(buf, "w") as archive:
             archive.writestr(b"Hello, World!\n", "hello.txt")
@@ -150,20 +175,21 @@ class ArchiveGenerator(BaseGenerator):
     def _create_nupkg(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("sample.nuspec", '<?xml version="1.0"?><package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"><metadata><id>Sample</id><version>1.0.0</version><description>Sample package</description></metadata></package>')
+            write_zip_str(
+                zf,
+                "sample.nuspec",
+                '<?xml version="1.0"?><package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"><metadata><id>Sample</id><version>1.0.0</version><description>Sample package</description></metadata></package>',
+            )
         return buf.getvalue()
 
     def _create_maff(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("index.html", "<html><body>Sample</body></html>")
+            write_zip_str(zf, "index.html", "<html><body>Sample</body></html>")
         return buf.getvalue()
 
     def _create_rz(self) -> bytes:
-        buf = BytesIO()
-        with gzip.GzipFile(fileobj=buf, mode='wb') as f:
-            f.write(b"Hello, World!\n")
-        return buf.getvalue()
+        return gzip_compress_det(b"Hello, World!\n")
 
     def _create_arc(self) -> bytes:
         return b"\x1a" + b"\x00" * 20
