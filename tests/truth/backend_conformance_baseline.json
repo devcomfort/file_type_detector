@@ -1,0 +1,1754 @@
+{
+  "inventory_sha256": "96bb8c9dd8e2de2683512beeaad33138bd012c986eb04272ecf9b0df4c38f78d",
+  "observations": [
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif",
+          ".hif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".mp4"
+        ],
+        "mime_types": [
+          "video/mp4"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif",
+          ".hif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cap",
+          ".dmp",
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap",
+          ".pcapng"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cap",
+          ".dmp",
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".deploy",
+          ".dll",
+          ".exe",
+          ".msp",
+          ".msu",
+          ".o",
+          ".obj",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet",
+          ".pqt"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet",
+          ".pqt"
+        ],
+        "mime_types": [
+          "application/vnd.apache.parquet"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": [
+          "application/gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz",
+          ".gzip",
+          ".tar.gz",
+          ".tgz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": [
+          "application/gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer"
+        ],
+        "mime_types": [
+          "application/pkix-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".deploy",
+          ".dll",
+          ".exe",
+          ".msp",
+          ".msu",
+          ".o",
+          ".obj",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "ubuntu-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".mp4"
+        ],
+        "mime_types": [
+          "video/mp4"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cap",
+          ".dmp",
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap",
+          ".pcapng"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cap",
+          ".dmp",
+          ".pcap"
+        ],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.apache.parquet"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet",
+          ".pqt"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.apache.parquet"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz",
+          ".gzip",
+          ".tar.gz",
+          ".tgz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "lexical",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer"
+        ],
+        "mime_types": [
+          "application/pkix-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magic",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".bpk",
+          ".deploy",
+          ".dist",
+          ".distz",
+          ".dll",
+          ".dms",
+          ".dump",
+          ".elc",
+          ".exe",
+          ".lrf",
+          ".mar",
+          ".mobipocket-ebook",
+          ".o",
+          ".obj",
+          ".pkg",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "magika",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "x86_64",
+      "backend": "hybrid",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "macos-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".7z"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-7z",
+      "probe_extension": ".7z",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-7z-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".avif"
+        ],
+        "mime_types": [
+          "image/avif"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".dll",
+          ".exe",
+          ".o",
+          ".obj",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".mp4"
+        ],
+        "mime_types": [
+          "video/mp4"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-avif",
+      "probe_extension": ".avif",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".mp4"
+        ],
+        "mime_types": [
+          "video/mp4"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".pcap",
+          ".pcapng"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-pcap",
+      "probe_extension": ".pcap",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/vnd.tcpdump.pcap"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite",
+      "probe_extension": ".sqlite",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".sqlite",
+          ".sqlite3"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-sqlite3",
+      "probe_extension": ".sqlite3",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [],
+        "mime_types": [
+          "application/x-sqlite3"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/x-zip-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/x-zip-compressed"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-zip",
+      "probe_extension": ".zip",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".zip"
+        ],
+        "mime_types": [
+          "application/zip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".dll",
+          ".exe",
+          ".o",
+          ".obj",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet",
+          ".pqt"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-parquet",
+      "probe_extension": ".parquet",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".parquet",
+          ".pqt"
+        ],
+        "mime_types": [
+          "application/vnd.apache.parquet"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": [
+          "application/x-gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz",
+          ".gzip",
+          ".tar.gz",
+          ".tgz"
+        ],
+        "mime_types": []
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-gz",
+      "probe_extension": ".gz",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".gz"
+        ],
+        "mime_types": [
+          "application/x-gzip"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "lexical",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magic",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".a",
+          ".bin",
+          ".dll",
+          ".exe",
+          ".o",
+          ".obj",
+          ".so"
+        ],
+        "mime_types": [
+          "application/octet-stream"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "magika",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    },
+    {
+      "architecture": "AMD64",
+      "backend": "hybrid",
+      "inventory_id": "sample-cer",
+      "probe_extension": ".cer",
+      "runner_label": "windows-x64",
+      "semantic_output": {
+        "extensions": [
+          ".cer",
+          ".crt",
+          ".der"
+        ],
+        "mime_types": [
+          "application/x-x509-ca-cert"
+        ]
+      },
+      "status": "ok"
+    }
+  ],
+  "schema_version": 1
+}
