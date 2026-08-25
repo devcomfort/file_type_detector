@@ -23410,8 +23410,7 @@
      "application/vnd.tcpdump.pcap"
     ],
     "extensions": [
-     ".pcap",
-     ".pcapng"
+     ".pcap"
     ]
    },
    "provenance": "Generated via scapy/pcap library",
@@ -23457,11 +23456,6 @@
       "extension": ".pcap",
       "authority": "IANA pcap registration",
       "reference": "https://www.iana.org/assignments/media-types/application/vnd.tcpdump.pcap"
-     },
-     {
-      "extension": ".pcapng",
-      "authority": "PCAPng specification",
-      "reference": "https://pcapng.github.io/pcapng/"
      }
     ]
    }
@@ -23668,7 +23662,6 @@
      "application/vnd.apache.parquet"
     ],
     "extensions": [
-     ".pqt",
      ".parquet"
     ]
    },
@@ -23712,11 +23705,6 @@
     ],
     "extension_claims": [
      {
-      "extension": ".pqt",
-      "authority": "Apache Parquet legacy extension",
-      "reference": "https://parquet.apache.org/docs/"
-     },
-     {
       "extension": ".parquet",
       "authority": "Apache Parquet",
       "reference": "https://parquet.apache.org/docs/"
@@ -23739,13 +23727,8 @@
    },
    "provenance": "Generated via sqlite3 library",
    "ground_truth_review": {
-    "status": "verified",
-    "reviewed_by": "fixture-curation-batch",
-    "reviewed_at": "2026-08-24",
-    "evidence": [
-     "IANA vnd.sqlite3 registration (HTTP 200 verified)",
-     "sqlite3 PRAGMA integrity_check = ok"
-    ]
+    "status": "excluded",
+    "reason": "extension .db lacks registered MIME mapping; /etc/mime.types maps only .sqlite/.sqlite3"
    },
    "backends": [
     "lexical",
@@ -23859,13 +23842,8 @@
    },
    "provenance": "Generated from format specification (minimal valid content)",
    "ground_truth_review": {
-    "status": "verified",
-    "reviewed_by": "fixture-curation-batch",
-    "reviewed_at": "2026-07-21",
-    "evidence": [
-     "Generated from format specification (minimal valid content)",
-     "scripts/generators/"
-    ]
+    "status": "excluded",
+    "reason": "extension .gzip lacks registered MIME mapping evidence; RFC 6713 registers application/gzip but does not list .gzip as an extension"
    },
    "backends": [
     "lexical",

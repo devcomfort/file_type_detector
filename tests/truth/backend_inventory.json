@@ -131,8 +131,7 @@
      "application/vnd.tcpdump.pcap"
     ],
     "extensions": [
-     ".pcap",
-     ".pcapng"
+     ".pcap"
     ]
    },
    "provenance": "Generated via scapy/pcap library",
@@ -178,11 +177,6 @@
       "extension": ".pcap",
       "authority": "IANA pcap registration",
       "reference": "https://www.iana.org/assignments/media-types/application/vnd.tcpdump.pcap"
-     },
-     {
-      "extension": ".pcapng",
-      "authority": "PCAPng specification",
-      "reference": "https://pcapng.github.io/pcapng/"
      }
     ]
    }
@@ -389,7 +383,6 @@
      "application/vnd.apache.parquet"
     ],
     "extensions": [
-     ".pqt",
      ".parquet"
     ]
    },
@@ -433,11 +426,6 @@
     ],
     "extension_claims": [
      {
-      "extension": ".pqt",
-      "authority": "Apache Parquet legacy extension",
-      "reference": "https://parquet.apache.org/docs/"
-     },
-     {
       "extension": ".parquet",
       "authority": "Apache Parquet",
       "reference": "https://parquet.apache.org/docs/"
@@ -465,66 +453,6 @@
     "reviewed_at": "2026-07-21",
     "evidence": [
      "Generated via Python archive library (zipfile/tarfile/bz2/lzma)",
-     "scripts/generators/"
-    ]
-   },
-   "backends": [
-    "lexical",
-    "magic",
-    "magika",
-    "hybrid"
-   ],
-   "source_integrity": {
-    "kind": "generated",
-    "generator_symbol": "scripts.generators",
-    "recipe_hash": "a5dddc2aba51f3fb7e4ab64f6e410d1031e452118e757f5e1e977cbd94b2d2c2",
-    "tier": "exact-byte"
-   },
-   "format_validity": {
-    "status": "verified",
-    "validator": "gzip-decompress-roundtrip",
-    "evidence": [
-     "\\x1f\\x8b magic + gunzip success"
-    ]
-   },
-   "content_identifiability": null,
-   "ground_truth_evidence": {
-    "mime_claims": [
-     {
-      "mime_type": "application/gzip",
-      "authority": "RFC 6713",
-      "reference": "https://datatracker.ietf.org/doc/html/rfc6713"
-     }
-    ],
-    "extension_claims": [
-     {
-      "extension": ".gz",
-      "authority": "RFC 6713",
-      "reference": "https://datatracker.ietf.org/doc/html/rfc6713"
-     }
-    ]
-   }
-  },
-  {
-   "id": "sample-gzip",
-   "fixture": "tests/fixtures/sample.gzip",
-   "sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
-   "probe_extension": ".gzip",
-   "ground_truth": {
-    "mime_types": [
-     "application/gzip"
-    ],
-    "extensions": [
-     ".gz"
-    ]
-   },
-   "provenance": "Generated from format specification (minimal valid content)",
-   "ground_truth_review": {
-    "status": "verified",
-    "reviewed_by": "fixture-curation-batch",
-    "reviewed_at": "2026-07-21",
-    "evidence": [
-     "Generated from format specification (minimal valid content)",
      "scripts/generators/"
     ]
    },
@@ -623,66 +551,6 @@
       "extension": ".cer",
       "authority": "RFC 2585 Section 4",
       "reference": "https://datatracker.ietf.org/doc/html/rfc2585"
-     }
-    ]
-   }
-  },
-  {
-   "id": "sample-db",
-   "fixture": "tests/fixtures/sample.db",
-   "sha256": "aaaf395db88cfcdcd66ffdff597fab7b52c5424d4c67e3e06dbe0c32a3ec5669",
-   "probe_extension": ".db",
-   "ground_truth": {
-    "mime_types": [
-     "application/vnd.sqlite3"
-    ],
-    "extensions": [
-     ".db"
-    ]
-   },
-   "provenance": "Generated via sqlite3 library",
-   "ground_truth_review": {
-    "status": "verified",
-    "reviewed_by": "fixture-curation-batch",
-    "reviewed_at": "2026-08-24",
-    "evidence": [
-     "IANA vnd.sqlite3 registration (HTTP 200 verified)",
-     "sqlite3 PRAGMA integrity_check = ok"
-    ]
-   },
-   "backends": [
-    "lexical",
-    "magic",
-    "magika",
-    "hybrid"
-   ],
-   "source_integrity": {
-    "kind": "generated",
-    "generator_symbol": "scripts.generators",
-    "recipe_hash": "a5dddc2aba51f3fb7e4ab64f6e410d1031e452118e757f5e1e977cbd94b2d2c2",
-    "tier": "exact-byte"
-   },
-   "format_validity": {
-    "status": "verified",
-    "validator": "sqlite3-integrity-check",
-    "evidence": [
-     "PRAGMA integrity_check = ok"
-    ]
-   },
-   "content_identifiability": null,
-   "ground_truth_evidence": {
-    "mime_claims": [
-     {
-      "mime_type": "application/vnd.sqlite3",
-      "authority": "SQLite database file format",
-      "reference": "https://www.sqlite.org/fileformat2.html"
-     }
-    ],
-    "extension_claims": [
-     {
-      "extension": ".db",
-      "authority": "SQLite format",
-      "reference": "https://www.sqlite.org/fileformat2.html"
      }
     ]
    }

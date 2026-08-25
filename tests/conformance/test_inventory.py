@@ -184,7 +184,7 @@ def test_rejects_authoritative_record_without_verified_candidate(
 ) -> None:
     fixture = tmp_path / "sample.aiff"
     fixture.write_bytes(b"aiff fixture")
-    candidate = _needs_review_record(fixture, "sample-aiff", ".txt")
+    candidate = _needs_review_record(fixture, "sample-aiff", ".aiff")
     authoritative = deepcopy(candidate)
     authoritative["ground_truth_review"] = {
         "status": "verified",

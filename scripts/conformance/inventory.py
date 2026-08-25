@@ -168,6 +168,12 @@ def _parse_record(
     )
     backends = _parse_backends(record.get("backends"), f"{record_id} backends")
 
+    if review.status == "verified" and probe_extension not in ground_truth.extensions:
+        raise InventoryValidationError(
+            f"verified record {record_id!r}: probe_extension "
+            f"{probe_extension!r} must appear in ground_truth.extensions"
+        )
+
     source_integrity = None
     format_validity = None
     ground_truth_evidence = None
