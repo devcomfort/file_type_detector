@@ -3003,7 +3003,7 @@
   {
    "id": "sample-cer",
    "fixture": "tests/fixtures/sample.cer",
-   "sha256": "430e29cc321e78ff81644ed99dfe4e1d746ec7830dbd91f80da41bd23d5be0a8",
+   "sha256": "2752b0697baff0d52e016c9e2dca8a7dd9ff7b257079944230e791c4c063ed1d",
    "probe_extension": ".cer",
    "ground_truth": {
     "mime_types": [
@@ -23403,7 +23403,7 @@
   {
    "id": "sample-pcap",
    "fixture": "tests/fixtures/sample.pcap",
-   "sha256": "cdf249cccf40fa7f92608306e1b96cb003a4c39df69329cb44487db595de7d80",
+   "sha256": "df7dfcfc975b4d3def140276b27d904dddf07255c8fa1e7a72bb4ff0be504970",
    "probe_extension": ".pcap",
    "ground_truth": {
     "mime_types": [
@@ -23595,7 +23595,7 @@
   {
    "id": "sample-zip",
    "fixture": "tests/fixtures/sample.zip",
-   "sha256": "5859c248fe7d2d349012717faa85d6eb79ad8077ed6161e68f9a072f4a1a786d",
+   "sha256": "b40fa01ecb935e1d2e383935acc0e2ff5dd66fb2705ea83523ec86352a54834f",
    "probe_extension": ".zip",
    "ground_truth": {
     "mime_types": [
@@ -23770,7 +23770,7 @@
   {
    "id": "sample-gz",
    "fixture": "tests/fixtures/sample.gz",
-   "sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
+   "sha256": "5e4fd9f7e93b32fd70fda5d0132c5aa26a5dd9c6178d2b76e9bc5ed0518946fb",
    "probe_extension": ".gz",
    "ground_truth": {
     "mime_types": [
