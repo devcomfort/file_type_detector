@@ -14,7 +14,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 from google.protobuf import descriptor_pb2
 from onnx import TensorProto, helper
-from scapy.all import Ether, IP, wrpcap
+from scapy.all import Ether, IP
 
 from ._deterministic import write_zip_str
 from .base import BaseGenerator
