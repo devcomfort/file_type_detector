@@ -23373,7 +23373,7 @@
     "kind": "generated",
     "generator_symbol": "scripts.generators",
     "recipe_hash": "a5dddc2aba51f3fb7e4ab64f6e410d1031e452118e757f5e1e977cbd94b2d2c2",
-    "tier": "exact-byte"
+    "tier": "pinned-sha-roundtrip"
    },
    "format_validity": {
     "status": "verified",
