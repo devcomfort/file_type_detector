@@ -382,7 +382,7 @@ def test_collect_command_rejects_blank_runner_label(tmp_path: Path) -> None:
 
 def test_collect_command_rejects_empty_authoritative_inventory(tmp_path: Path) -> None:
     candidates, inventory = _write_reviewed_inventory(tmp_path)
-    empty_document = json.dumps({"schema_version": 1, "records": []})
+    empty_document = json.dumps({"schema_version": 2, "records": []})
     candidates.write_text(empty_document, encoding="utf-8")
     inventory.write_text(empty_document, encoding="utf-8")
     output = tmp_path / "observations.json"

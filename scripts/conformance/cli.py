@@ -117,7 +117,7 @@ def _seed_candidates(source: Path, output: Path, *, root: Path) -> None:
 
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
-        json.dumps({"schema_version": 1, "records": records}, indent=2) + "\n",
+        json.dumps({"schema_version": 2, "records": records}, indent=2) + "\n",
         encoding="utf-8",
     )
 
@@ -299,7 +299,9 @@ def _promote_candidates(
                 )
                 fixed.append(record_id)
 
-    # Build promotion set
+    # Build promotion set, excluding records fixed in this call (two-phase contract:
+    # --fix-extensions corrects aliases but does NOT promote; a separate call
+    # with fresh evidence promotes).
     promote_ids: set[str]
     if ids is not None:
         promote_ids = set(ids)
@@ -316,6 +318,11 @@ def _promote_candidates(
                 "extensions",
             )
         }
+
+    # Two-phase contract: --fix-extensions corrects aliases but does NOT
+    # promote in the same call. Fixed records stay needs_review until a
+    # separate promote call with fresh evidence runs.
+    promote_ids.difference_update(fixed)
 
     promoted: list[str] = []
     skipped: list[str] = []
@@ -371,6 +378,26 @@ def _promote_candidates(
         promoted.append(record_id)
         verified_records.append(record)
 
+    # Pre-write validation: every promoted record must carry all three truth axes
+    for rec in verified_records:
+        rid = rec.get("id", "?")
+        si = rec.get("source_integrity")
+        if not si:
+            raise InventoryValidationError(
+                f"cannot promote {rid!r}: source_integrity axis missing; "
+                "add provenance data or exclude this record"
+            )
+        fv = rec.get("format_validity")
+        if not fv or fv.get("status") != "verified":
+            raise InventoryValidationError(
+                f"cannot promote {rid!r}: format_validity must be verified; "
+                "run an independent parser validator first"
+            )
+        if not rec.get("ground_truth_evidence"):
+            raise InventoryValidationError(
+                f"cannot promote {rid!r}: ground_truth_evidence missing; "
+                "every claimed MIME/extension needs authority + reference"
+            )
     # Write updated candidates
     candidates_payload["records"] = records
     candidates_path.write_text(

@@ -66,7 +66,7 @@ def test_seed_writes_all_legacy_records_as_needs_review(tmp_path: Path) -> None:
     )
     candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
 
-    assert candidates["schema_version"] == 1
+    assert candidates["schema_version"] == 2
     assert [record["id"] for record in candidates["records"]] == [
         "sample-bin",
         "other-txt",
@@ -204,7 +204,7 @@ def test_review_requires_no_unresolved_candidates(
     candidates_path = tmp_path / "backend_inventory_candidates.json"
     inventory_path = tmp_path / "backend_inventory.json"
     inventory_path.write_text(
-        json.dumps({"schema_version": 1, "records": []}), encoding="utf-8"
+        json.dumps({"schema_version": 2, "records": []}), encoding="utf-8"
     )
     main(
         [
@@ -249,7 +249,7 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
     candidates_path = tmp_path / "backend_inventory_candidates.json"
     inventory_path = tmp_path / "backend_inventory.json"
     inventory_path.write_text(
-        json.dumps({"schema_version": 1, "records": []}), encoding="utf-8"
+        json.dumps({"schema_version": 2, "records": []}), encoding="utf-8"
     )
     assert (
         main(
@@ -266,8 +266,45 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
         == 0
     )
     candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
-    candidates["records"][0]["ground_truth"]["extensions"] = [".txt", ".mp4"]
+    rec = candidates["records"][0]
+    assert rec["id"] == "sample-bin"
+    rec["ground_truth"]["extensions"] = [".txt", ".mp4"]
     candidates_path.write_text(json.dumps(candidates), encoding="utf-8")
+
+    # Two-phase contract: --fix-extensions corrects aliases but does NOT promote.
+    # Fixed records stay needs_review; a separate call with fresh evidence promotes.
+    result = main(
+        [
+            "promote",
+            "--candidates",
+            str(candidates_path),
+            "--inventory",
+            str(inventory_path),
+            "--root",
+            str(tmp_path),
+            "--reviewer",
+            "fixture-reviewer",
+            "--date",
+            "2026-08-11",
+            "--evidence",
+            "format-spec.example",
+            "--fix-extensions",
+        ]
+    )
+    # sample-bin was fixed but NOT promoted (two-phase contract)
+    updated = json.loads(candidates_path.read_text(encoding="utf-8"))
+    fixed_rec = next(r for r in updated["records"] if r["id"] == "sample-bin")
+    assert fixed_rec["ground_truth"]["extensions"] == [".bin"]
+    assert fixed_rec["ground_truth_review"]["status"] == "needs_review"
+
+    # Phase 2: add axes and mark verified, then promote
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    _add_v2_axes(fixed_rec)
+    fixed_rec["ground_truth_review"]["status"] = "verified"
+    fixed_rec["ground_truth_review"]["reviewed_by"] = "fixture-reviewer"
+    fixed_rec["ground_truth_review"]["reviewed_at"] = "2026-08-11"
+    candidates_path.write_text(json.dumps(updated), encoding="utf-8")
 
     assert (
         main(
@@ -285,14 +322,14 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
                 "2026-08-11",
                 "--evidence",
                 "format-spec.example",
-                "--fix-extensions",
-                "--all-clean",
+                "--ids",
+                "sample-bin",
             ]
         )
         == 0
     )
 
-    promoted_candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
     promoted_inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
-    assert promoted_candidates["records"][0]["ground_truth"]["extensions"] == [".bin"]
+    assert len(promoted_inventory["records"]) == 1
+    assert promoted_inventory["records"][0]["id"] == "sample-bin"
     assert promoted_inventory["records"][0]["ground_truth"]["extensions"] == [".bin"]

@@ -101,10 +101,8 @@ def _unique_suffix_count(records: Sequence[InventoryRecord]) -> int:
 def _load_document(path: Path, *, root: Path, role: str) -> tuple[InventoryRecord, ...]:
     payload = _load_json(path)
     version = payload.get("schema_version")
-    if version not in (1, 2):
-        raise InventoryValidationError(
-            f"{role} inventory must use schema_version 1 or 2"
-        )
+    if version != 2:
+        raise InventoryValidationError(f"{role} inventory must use schema_version 2")
 
     records_payload = payload.get("records")
     if not isinstance(records_payload, list):
