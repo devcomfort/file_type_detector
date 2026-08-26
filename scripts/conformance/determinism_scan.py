@@ -1,7 +1,6 @@
 """Slow determinism scan: separate generate calls 2.1s apart to cross the
 1-second localtime boundary that fast same-process double-runs miss."""
 
-import json
 import sys
 import time
 
