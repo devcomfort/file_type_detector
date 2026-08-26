@@ -380,3 +380,70 @@ def test_promote_atomic_on_missing_axes(tmp_path: Path) -> None:
 
     assert candidates_path.read_bytes() == candidates_before
     assert inventory_path.read_bytes() == inventory_before
+
+
+# Q. Does promote leave files untouched when evidence has extra MIME claims?
+def test_promote_atomic_on_extra_evidence_claims(tmp_path: Path) -> None:
+    source = _write_legacy_truth(tmp_path)
+    candidates_path = tmp_path / "backend_inventory_candidates.json"
+    inventory_path = tmp_path / "backend_inventory.json"
+    inventory_path.write_text(
+        json.dumps({"schema_version": 2, "records": []}), encoding="utf-8"
+    )
+    main(
+        [
+            "seed",
+            "--source",
+            str(source),
+            "--output",
+            str(candidates_path),
+            "--root",
+            str(tmp_path),
+        ]
+    )
+
+    # Add axes with an extra MIME claim not present in GT
+    candidates = json.loads(candidates_path.read_text(encoding="utf-8"))
+    rec = candidates["records"][0]
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    axes = complete_v2_record(rec)
+    rec["source_integrity"] = axes["source_integrity"]
+    rec["format_validity"] = axes["format_validity"]
+    rec["ground_truth_evidence"] = axes["ground_truth_evidence"]
+    rec["ground_truth_evidence"]["mime_claims"].append(
+        {
+            "mime_type": "application/x-fabricated-extra",
+            "authority": "fabricated source",
+            "reference": "https://fake.example/extra",
+        }
+    )
+    candidates_path.write_text(json.dumps(candidates), encoding="utf-8")
+
+    cand_before = candidates_path.read_bytes()
+    inv_before = inventory_path.read_bytes()
+
+    with pytest.raises(SystemExit) as exc_info:
+        main(
+            [
+                "promote",
+                "--candidates",
+                str(candidates_path),
+                "--inventory",
+                str(inventory_path),
+                "--root",
+                str(tmp_path),
+                "--reviewer",
+                "test",
+                "--date",
+                "2026-08-24",
+                "--evidence",
+                "https://example.test",
+                "--ids",
+                "sample-bin",
+            ]
+        )
+    assert exc_info.value.code == 2
+
+    assert candidates_path.read_bytes() == cand_before
+    assert inventory_path.read_bytes() == inv_before
