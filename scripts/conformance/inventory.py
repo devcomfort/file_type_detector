@@ -145,9 +145,25 @@ def _parse_record(
         root=root,
         record_id=record_id,
     )
-    probe_extension = _parse_extension(
-        record.get("probe_extension"), f"{record_id} probe_extension"
-    )
+    probe_filename_raw = record.get("probe_filename")
+    if probe_filename_raw is not None:
+        probe_extension = None
+        probe_filename = _require_string(
+            probe_filename_raw, f"{record_id} probe_filename"
+        )
+        if re.search(r"[/\\]|\.\.", probe_filename):
+            raise InventoryValidationError(
+                f"{record_id} probe_filename must not contain path separators"
+            )
+    elif record.get("probe_extension") is not None:
+        probe_extension = _parse_extension(
+            record.get("probe_extension"), f"{record_id} probe_extension"
+        )
+        probe_filename = None
+    else:
+        raise InventoryValidationError(
+            f"{record_id}: exactly one of probe_extension or probe_filename must be set"
+        )
     provenance = _require_string(record.get("provenance"), f"{record_id} provenance")
     review = _parse_review(
         _require_mapping(
@@ -224,6 +240,7 @@ def _parse_record(
         id=record_id,
         fixture=fixture,
         probe_extension=probe_extension,
+        probe_filename=probe_filename,
         ground_truth=ground_truth,
         provenance=provenance,
         ground_truth_review=review,
