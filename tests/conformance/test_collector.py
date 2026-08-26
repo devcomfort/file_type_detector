@@ -151,9 +151,12 @@ def _write_reviewed_inventory(root: Path) -> tuple[Path, Path]:
         },
         "backends": ["lexical", "magic", "magika", "hybrid"],
     }
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    record = complete_v2_record(record)
     candidates = root / "candidates.json"
     inventory = root / "inventory.json"
-    payload = {"schema_version": 1, "records": [record]}
+    payload = {"schema_version": 2, "records": [record]}
     candidates.write_text(json.dumps(payload), encoding="utf-8")
     inventory.write_text(json.dumps(payload), encoding="utf-8")
     return candidates, inventory
