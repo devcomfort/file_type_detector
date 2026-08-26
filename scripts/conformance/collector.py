@@ -29,7 +29,10 @@ class CollectionValidationError(ValueError):
 def stage_probe(record: InventoryRecord, *, root: Path) -> Iterator[Path]:
     """Copy a reviewed fixture to a temporary path with its declared suffix."""
     with TemporaryDirectory(prefix="filetype-conformance-") as directory:
-        probe = Path(directory, f"probe{record.probe_extension}")
+        if record.probe_filename:
+            probe = Path(directory, record.probe_filename)
+        else:
+            probe = Path(directory, f"probe{record.probe_extension}")
         copyfile(root / record.fixture.path, probe)
         if _file_digest(probe) != record.fixture.sha256:
             raise ValueError(
