@@ -35,12 +35,7 @@ class GroundTruthReview:
 
 @dataclass(frozen=True)
 class SourceIntegrity:
-    """Provenance of the fixture bytes (truth axis 1).
-
-    ``external`` records carry an immutable upstream URL + commit and a
-    verified git blob SHA. ``generated`` records carry the generator symbol
-    and a recipe hash, plus which gate tier applies.
-    """
+    """Provenance of the fixture bytes (truth axis 1)."""
 
     kind: str  # "external" | "generated"
     origin_url: str | None = None
@@ -62,11 +57,7 @@ class FormatValidity:
 
 @dataclass(frozen=True)
 class GroundTruthEvidence:
-    """Structured authority mapping for each GT claim (truth axis 3).
-
-    Every claimed MIME type must carry an authority name and reference;
-    extensions inherit the MIME evidence or carry an explicit note.
-    """
+    """Structured authority mapping for each GT claim (truth axis 3)."""
 
     mime_claims: tuple[Mapping[str, str], ...]
     extension_claims: tuple[Mapping[str, str], ...] = ()
@@ -88,6 +79,7 @@ class InventoryRecord:
     provenance: str
     ground_truth_review: GroundTruthReview
     backends: tuple[str, ...]
+    probe_filename: str | None = None
     source_integrity: SourceIntegrity | None = None
     format_validity: FormatValidity | None = None
     ground_truth_evidence: GroundTruthEvidence | None = None
