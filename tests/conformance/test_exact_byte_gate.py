@@ -19,6 +19,7 @@ if sys_path not in __import__("sys").path:
 from scripts.generators.certificates import CertificateGenerator  # noqa: E402
 from scripts.generators.archives import ArchiveGenerator  # noqa: E402
 from scripts.generators.data_formats import DataFormatGenerator  # noqa: E402
+from scripts.generators.code_formats import CodeFormatGenerator  # noqa: E402
 
 _TIER2 = {"sample-7z", "sample-dxf", "sample-stl"}
 
@@ -33,7 +34,13 @@ def _manifest():
 
 def _generators():
     gens = {}
-    for cls in (CertificateGenerator, ArchiveGenerator, DataFormatGenerator):
+
+    for cls in (
+        CertificateGenerator,
+        ArchiveGenerator,
+        DataFormatGenerator,
+        CodeFormatGenerator,
+    ):
         inst = cls()
         for ext in inst.extensions:
             try:
