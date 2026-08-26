@@ -8,7 +8,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-au": {
@@ -17,7 +19,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-avi": {
@@ -26,7 +30,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bmp": {
@@ -35,7 +41,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-csv": {
@@ -44,7 +52,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-deb": {
@@ -67,7 +77,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-doc": {
@@ -76,7 +88,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-docx": {
@@ -85,7 +99,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dwg": {
@@ -108,7 +124,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-eot": {
@@ -131,7 +149,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-epub": {
@@ -140,7 +160,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-flac": {
@@ -149,7 +171,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-flv": {
@@ -158,7 +182,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gif": {
@@ -167,7 +193,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-h5": {
@@ -176,7 +204,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-heic": {
@@ -185,7 +215,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-htm": {
@@ -194,7 +226,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-html": {
@@ -203,7 +237,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hwp": {
@@ -212,7 +248,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ico": {
@@ -221,7 +259,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ics": {
@@ -230,7 +270,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-iso": {
@@ -253,7 +295,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jp2": {
@@ -262,7 +306,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jpeg": {
@@ -271,7 +317,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jpg": {
@@ -280,7 +328,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-json": {
@@ -289,7 +339,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jxl": {
@@ -298,7 +350,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mht": {
@@ -307,7 +361,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-midi": {
@@ -316,7 +372,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mkv": {
@@ -325,7 +383,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mov": {
@@ -334,7 +394,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mp3": {
@@ -343,7 +405,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mp4": {
@@ -352,7 +416,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-odp": {
@@ -361,7 +427,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ods": {
@@ -370,7 +438,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-odt": {
@@ -379,7 +449,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-patch": {
@@ -388,7 +460,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pdf": {
@@ -397,7 +471,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pgp": {
@@ -406,7 +482,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pl": {
@@ -415,7 +493,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-png": {
@@ -424,7 +504,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ppt": {
@@ -433,7 +515,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pptx": {
@@ -442,7 +526,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ps": {
@@ -451,7 +537,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-psd": {
@@ -460,7 +548,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-svg": {
@@ -469,7 +559,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tar": {
@@ -478,7 +570,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tex": {
@@ -487,7 +581,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tif": {
@@ -496,7 +592,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tiff": {
@@ -505,7 +603,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-torrent": {
@@ -514,7 +614,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vcard": {
@@ -523,7 +625,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wav": {
@@ -532,7 +636,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-webm": {
@@ -541,7 +647,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-webp": {
@@ -550,7 +658,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xcf": {
@@ -559,7 +669,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xls": {
@@ -568,7 +680,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xlsx": {
@@ -577,7 +691,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-zst": {
@@ -586,7 +702,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-CBL": {
@@ -595,7 +713,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-COB": {
@@ -604,7 +724,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-F90": {
@@ -613,7 +735,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-P": {
@@ -622,7 +746,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-R": {
@@ -631,7 +757,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-aff": {
@@ -640,7 +768,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-asp": {
@@ -649,7 +779,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bib": {
@@ -658,7 +790,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bluespec": {
@@ -667,7 +801,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bplist": {
@@ -676,7 +812,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cabal": {
@@ -685,7 +823,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cairo": {
@@ -694,7 +834,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cbl": {
@@ -703,7 +845,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cer": {
@@ -712,7 +856,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-chisel": {
@@ -721,7 +867,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cjs": {
@@ -730,7 +878,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cmake": {
@@ -739,7 +889,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cob": {
@@ -748,7 +900,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-coffee": {
@@ -757,7 +911,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cpy": {
@@ -766,7 +922,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-crt": {
@@ -775,7 +933,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-css": {
@@ -784,7 +944,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cts": {
@@ -793,7 +955,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-der": {
@@ -802,7 +966,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dmg": {
@@ -825,7 +991,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-f03": {
@@ -834,7 +1002,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-f90": {
@@ -843,7 +1013,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-f95": {
@@ -852,7 +1024,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-go": {
@@ -861,7 +1035,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gradle": {
@@ -870,7 +1046,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hcl": {
@@ -879,7 +1057,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hrl": {
@@ -888,7 +1068,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-js": {
@@ -897,7 +1079,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-litcoffee": {
@@ -906,7 +1090,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lnk": {
@@ -929,7 +1115,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-markdown": {
@@ -938,7 +1126,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-matlab": {
@@ -947,7 +1137,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-md": {
@@ -956,7 +1148,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mjs": {
@@ -965,7 +1159,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ml": {
@@ -974,7 +1170,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mli": {
@@ -983,7 +1181,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mojo": {
@@ -992,7 +1192,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-move": {
@@ -1001,7 +1203,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mts": {
@@ -1010,7 +1214,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-odin": {
@@ -1019,7 +1225,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-p": {
@@ -1028,7 +1236,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-p6": {
@@ -1037,7 +1247,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pas": {
@@ -1046,7 +1258,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pbtxt": {
@@ -1055,7 +1269,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pem": {
@@ -1064,7 +1280,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pl6": {
@@ -1073,7 +1291,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pm6": {
@@ -1082,7 +1302,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pp": {
@@ -1091,7 +1313,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pro": {
@@ -1100,7 +1324,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-proto": {
@@ -1109,7 +1335,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-r": {
@@ -1118,7 +1346,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-raku": {
@@ -1127,7 +1357,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-raku6": {
@@ -1136,7 +1368,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-reg": {
@@ -1145,7 +1379,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rs": {
@@ -1154,7 +1390,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rst": {
@@ -1163,7 +1401,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rust": {
@@ -1172,7 +1412,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-scala": {
@@ -1181,7 +1423,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-scm": {
@@ -1190,7 +1434,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-scss": {
@@ -1199,7 +1445,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-snap": {
@@ -1208,7 +1456,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sql": {
@@ -1217,7 +1467,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-srt": {
@@ -1226,7 +1478,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ss": {
@@ -1235,7 +1489,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sty": {
@@ -1244,7 +1500,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-swift": {
@@ -1253,7 +1511,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tcl": {
@@ -1262,7 +1522,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-textpb": {
@@ -1271,7 +1533,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-textproto": {
@@ -1280,7 +1544,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tf": {
@@ -1289,7 +1555,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-toml": {
@@ -1298,7 +1566,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tsv": {
@@ -1307,7 +1577,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-twig": {
@@ -1316,7 +1588,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-url": {
@@ -1325,7 +1599,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-v": {
@@ -1334,7 +1610,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vb": {
@@ -1343,7 +1621,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vba": {
@@ -1352,7 +1632,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vbe": {
@@ -1361,7 +1643,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vbs": {
@@ -1370,7 +1654,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-verilog": {
@@ -1379,7 +1665,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vh": {
@@ -1388,7 +1676,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vhd": {
@@ -1397,7 +1687,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vlg": {
@@ -1406,7 +1698,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vtt": {
@@ -1415,7 +1709,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wad": {
@@ -1424,7 +1720,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wasm": {
@@ -1433,7 +1731,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-webvtt": {
@@ -1442,7 +1742,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-woff2": {
@@ -1465,7 +1767,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-yar": {
@@ -1474,7 +1778,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-yara": {
@@ -1483,7 +1789,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-yml": {
@@ -1492,7 +1800,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-zig": {
@@ -1501,7 +1811,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-3gp": {
@@ -1510,7 +1822,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-S": {
@@ -1519,7 +1833,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-aac": {
@@ -1528,7 +1844,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ai": {
@@ -1537,7 +1855,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-apk": {
@@ -1546,7 +1866,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-arj": {
@@ -1569,7 +1891,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-asf": {
@@ -1578,7 +1902,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-asm": {
@@ -1587,7 +1913,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-aspx": {
@@ -1596,7 +1924,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-aux": {
@@ -1605,7 +1935,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-avifs": {
@@ -1614,7 +1946,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ax": {
@@ -1623,7 +1957,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bat": {
@@ -1632,7 +1968,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bz2": {
@@ -1641,7 +1979,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bzl": {
@@ -1650,7 +1990,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cjsx": {
@@ -1659,7 +2001,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cl": {
@@ -1668,7 +2012,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-class": {
@@ -1677,7 +2023,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-clj": {
@@ -1686,7 +2034,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cljr": {
@@ -1695,7 +2045,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cljs": {
@@ -1704,7 +2056,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cpl": {
@@ -1713,7 +2067,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-crx": {
@@ -1736,7 +2092,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-csx": {
@@ -1745,7 +2103,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ctsx": {
@@ -1754,7 +2114,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dll": {
@@ -1777,7 +2139,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dotx": {
@@ -1786,7 +2150,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dxf": {
@@ -1795,7 +2161,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "pinned-sha-roundtrip"
    }
   },
   "sample-dylib": {
@@ -1804,7 +2172,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-elf": {
@@ -1813,7 +2183,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-erb": {
@@ -1822,7 +2194,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ex": {
@@ -1831,7 +2205,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-exe": {
@@ -1854,7 +2230,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gpg": {
@@ -1863,7 +2241,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gpx": {
@@ -1872,7 +2252,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-groovy": {
@@ -1881,7 +2263,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-handlebars": {
@@ -1890,7 +2274,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hbs": {
@@ -1899,7 +2285,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hdf5": {
@@ -1908,7 +2296,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-heics": {
@@ -1917,7 +2307,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-heif": {
@@ -1926,7 +2318,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-heifs": {
@@ -1935,7 +2329,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hta": {
@@ -1944,7 +2340,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hwpx": {
@@ -1953,7 +2351,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-icns": {
@@ -1962,7 +2362,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ipynb": {
@@ -1971,7 +2373,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-j2": {
@@ -1980,7 +2384,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jar": {
@@ -1989,7 +2395,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jinja": {
@@ -1998,7 +2406,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jinja2": {
@@ -2007,7 +2417,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jnlp": {
@@ -2016,7 +2428,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jsonl": {
@@ -2025,7 +2439,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jsonld": {
@@ -2034,7 +2450,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jsx": {
@@ -2043,7 +2461,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ko": {
@@ -2052,7 +2472,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ksh": {
@@ -2061,7 +2483,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-l": {
@@ -2070,7 +2494,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lisp": {
@@ -2079,7 +2505,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lsp": {
@@ -2088,7 +2516,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lz": {
@@ -2097,7 +2527,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lz4": {
@@ -2106,7 +2538,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-m": {
@@ -2115,7 +2549,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-m4": {
@@ -2124,7 +2560,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-maff": {
@@ -2133,7 +2571,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-makefile": {
@@ -2142,7 +2582,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mid": {
@@ -2151,7 +2593,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mjsx": {
@@ -2160,7 +2604,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mm": {
@@ -2169,7 +2615,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-msi": {
@@ -2192,7 +2640,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-npz": {
@@ -2201,7 +2651,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-nupkg": {
@@ -2210,7 +2662,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-o": {
@@ -2219,7 +2673,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-obj": {
@@ -2228,7 +2684,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ocx": {
@@ -2237,7 +2695,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-one": {
@@ -2260,7 +2720,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-php": {
@@ -2269,7 +2731,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pkg": {
@@ -2278,7 +2742,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-plist": {
@@ -2287,7 +2753,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-po": {
@@ -2296,7 +2764,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pot": {
@@ -2305,7 +2775,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pptm": {
@@ -2314,7 +2786,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-py": {
@@ -2323,7 +2797,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rar": {
@@ -2346,7 +2822,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rdf": {
@@ -2355,7 +2833,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rlib": {
@@ -2364,7 +2844,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rll": {
@@ -2373,7 +2855,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rpm": {
@@ -2382,7 +2866,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rtf": {
@@ -2391,7 +2877,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-rz": {
@@ -2400,7 +2888,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-s": {
@@ -2409,7 +2899,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-scr": {
@@ -2418,7 +2910,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sh": {
@@ -2427,7 +2921,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-smali": {
@@ -2436,7 +2932,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-so": {
@@ -2445,7 +2943,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sys": {
@@ -2454,7 +2954,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tbz2": {
@@ -2463,7 +2965,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tga": {
@@ -2472,7 +2976,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tgz": {
@@ -2481,7 +2987,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-tsx": {
@@ -2490,7 +2998,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ttc": {
@@ -2499,7 +3009,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ttf": {
@@ -2508,7 +3020,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vcxproj": {
@@ -2517,7 +3031,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vdw": {
@@ -2526,7 +3042,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vsd": {
@@ -2549,7 +3067,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vsdx": {
@@ -2558,7 +3078,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vue": {
@@ -2567,7 +3089,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wma": {
@@ -2576,7 +3100,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wmv": {
@@ -2585,7 +3111,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xar": {
@@ -2594,7 +3122,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xht": {
@@ -2603,7 +3133,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xhtml": {
@@ -2612,7 +3144,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xlsb": {
@@ -2621,7 +3155,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xlsm": {
@@ -2630,7 +3166,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xml": {
@@ -2639,7 +3177,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xpi": {
@@ -2648,7 +3188,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xsd": {
@@ -2657,7 +3199,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-xz": {
@@ -2666,7 +3210,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-z": {
@@ -2675,7 +3221,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-CPY": {
@@ -2684,7 +3232,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-a68": {
@@ -2693,7 +3243,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-abnf": {
@@ -2702,7 +3254,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-agda": {
@@ -2711,7 +3265,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-aidl": {
@@ -2720,7 +3276,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-au3": {
@@ -2729,7 +3287,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-awk": {
@@ -2738,7 +3298,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-b": {
@@ -2747,7 +3309,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bdf": {
@@ -2756,7 +3320,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bf": {
@@ -2765,7 +3331,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-bfm": {
@@ -2774,7 +3342,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-brf": {
@@ -2783,7 +3353,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-c--5ca8f6bccf8a": {
@@ -2792,7 +3364,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-c--97d41896bede": {
@@ -2801,7 +3375,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cab": {
@@ -2824,7 +3400,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cc": {
@@ -2833,7 +3411,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cpp": {
@@ -2842,7 +3422,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cppm": {
@@ -2851,7 +3433,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-csproj": {
@@ -2860,7 +3444,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-cxx": {
@@ -2869,7 +3455,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dart": {
@@ -2878,7 +3466,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dhall": {
@@ -2887,7 +3477,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dm": {
@@ -2896,7 +3488,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dmigd": {
@@ -2905,7 +3499,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-elm": {
@@ -2914,7 +3510,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-firrtl": {
@@ -2923,7 +3521,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gemspec": {
@@ -2932,7 +3532,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gleam": {
@@ -2941,7 +3543,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-glsl": {
@@ -2950,7 +3554,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-h--ee32746c8083": {
@@ -2959,7 +3565,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-h--3edb0bf45f4b": {
@@ -2968,7 +3576,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hh": {
@@ -2977,7 +3587,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hlsl": {
@@ -2986,7 +3598,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hpp": {
@@ -2995,7 +3609,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hs": {
@@ -3004,7 +3620,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-hxx": {
@@ -3013,7 +3631,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-idr": {
@@ -3022,7 +3642,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ini": {
@@ -3031,7 +3653,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ixx": {
@@ -3040,7 +3664,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jl": {
@@ -3049,7 +3675,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-kt": {
@@ -3058,7 +3686,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-kts": {
@@ -3067,7 +3697,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lean": {
@@ -3076,7 +3708,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lhs": {
@@ -3085,7 +3719,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lua": {
@@ -3094,7 +3730,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-m2t": {
@@ -3103,7 +3741,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-m3u": {
@@ -3112,7 +3752,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-m3u8": {
@@ -3121,7 +3763,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-metal": {
@@ -3130,7 +3774,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-mlir": {
@@ -3139,7 +3785,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-nix": {
@@ -3148,7 +3796,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-npy": {
@@ -3157,7 +3807,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-onnx": {
@@ -3166,7 +3818,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pb": {
@@ -3175,7 +3829,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pickle": {
@@ -3184,7 +3840,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pkl": {
@@ -3193,7 +3851,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-protobuf": {
@@ -3202,7 +3862,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ps1": {
@@ -3211,7 +3873,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pt": {
@@ -3220,7 +3884,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pth": {
@@ -3229,7 +3895,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pub": {
@@ -3238,7 +3906,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-purs": {
@@ -3247,7 +3917,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pyi": {
@@ -3256,7 +3928,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-roc": {
@@ -3265,7 +3939,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sgml": {
@@ -3274,7 +3950,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sol": {
@@ -3283,7 +3961,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-spv": {
@@ -3292,7 +3972,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sum": {
@@ -3301,7 +3983,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-text": {
@@ -3310,7 +3994,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ts": {
@@ -3319,7 +4005,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-txt": {
@@ -3328,7 +4016,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-vim": {
@@ -3337,7 +4027,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-wgsl": {
@@ -3346,7 +4038,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-arc": {
@@ -3355,7 +4049,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-chm": {
@@ -3378,7 +4074,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dex": {
@@ -3387,7 +4085,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-dockerfile": {
@@ -3396,7 +4096,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-jng": {
@@ -3405,7 +4107,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lha": {
@@ -3414,7 +4118,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lrz": {
@@ -3423,7 +4129,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-lzh": {
@@ -3432,7 +4140,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-odex": {
@@ -3441,7 +4151,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-oga": {
@@ -3450,7 +4162,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ogg": {
@@ -3459,7 +4173,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-opus": {
@@ -3468,7 +4184,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pcapng": {
@@ -3477,7 +4195,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pyc": {
@@ -3486,7 +4206,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pyo": {
@@ -3495,7 +4217,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-qoi": {
@@ -3504,7 +4228,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-stl": {
@@ -3513,7 +4239,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "pinned-sha-roundtrip"
    }
   },
   "sample-swf": {
@@ -3522,7 +4250,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-woff": {
@@ -3531,7 +4261,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-3dm": {
@@ -6297,7 +7029,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "pinned-sha-roundtrip"
    }
   },
   "sample-avif": {
@@ -6306,7 +7040,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-pcap": {
@@ -6315,7 +7051,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-sqlite": {
@@ -6324,7 +7062,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "pinned-sha-roundtrip"
    }
   },
   "sample-sqlite3": {
@@ -6333,7 +7073,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "pinned-sha-roundtrip"
    }
   },
   "sample-zip": {
@@ -6342,7 +7084,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-parquet": {
@@ -6351,7 +7095,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-db": {
@@ -6360,7 +7106,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gz": {
@@ -6369,7 +7117,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-gzip": {
@@ -6378,7 +7128,9 @@
    "status": "verified",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-avro": {
@@ -6387,7 +7139,9 @@
    "status": "excluded",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators"
+    "generator": "scripts.generators",
+    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf",
+    "tier": "exact-byte"
    }
   },
   "sample-ahk": {
@@ -6396,7 +7150,9 @@
    "probe_extension": ".ahk",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators.code_formats.CodeFormatGenerator._ahk"
+    "generator": "scripts.generators.code_formats.CodeFormatGenerator._ahk",
+    "recipe_hash": "bd5da4bd967bd12ab255f1380569fbaffd5cb59bb3f3540d884c3d7e3a196f16",
+    "tier": "exact-byte"
    }
   }
  },
