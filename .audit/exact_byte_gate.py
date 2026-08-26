@@ -9,7 +9,7 @@ import json
 import os
 import sys
 
-ROOT = "/mnt/workspace/projects/file_type_detector-backend-conformance"
+ROOT = os.getcwd()
 sys.path.insert(0, ROOT)
 
 failures = []
