@@ -289,6 +289,8 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
             "--evidence",
             "format-spec.example",
             "--fix-extensions",
+            "--ids",
+            "sample-bin",
         ]
     )
     # sample-bin was fixed but NOT promoted (two-phase contract)
@@ -300,10 +302,10 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
     # Phase 2: add axes and mark verified, then promote
     from tests.conformance._inventory_factory import complete_v2_record
 
-    _add_v2_axes(fixed_rec)
-    fixed_rec["ground_truth_review"]["status"] = "verified"
-    fixed_rec["ground_truth_review"]["reviewed_by"] = "fixture-reviewer"
-    fixed_rec["ground_truth_review"]["reviewed_at"] = "2026-08-11"
+    axes = complete_v2_record(fixed_rec)
+    fixed_rec["source_integrity"] = axes["source_integrity"]
+    fixed_rec["format_validity"] = axes["format_validity"]
+    fixed_rec["ground_truth_evidence"] = axes["ground_truth_evidence"]
     candidates_path.write_text(json.dumps(updated), encoding="utf-8")
 
     assert (
