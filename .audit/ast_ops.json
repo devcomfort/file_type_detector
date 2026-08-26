@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {"pat": "zf.writestr($NAME, $MIME, compress_type=zipfile.ZIP_STORED)",
+     "out": "write_zip_str(\n                zf, $NAME, $MIME, compress_type=zipfile.ZIP_STORED\n            )"},
+    {"pat": "zf.writestr($A, $B)",
+     "out": "write_zip_str(zf, $A, $B)"}
+  ],
+  "paths": [
+    "/mnt/workspace/projects/file_type_detector-backend-conformance/scripts/generators/documents.py",
+    "/mnt/workspace/projects/file_type_detector-backend-conformance/scripts/generators/data_formats.py"
+  ]
+}

@@ -6,10 +6,8 @@ Also validates that source_manifest.json sha256 matches inventory sha256.
 
 import hashlib
 import json
-import os
 from pathlib import Path
 
-import pytest
 
 _PROJECT_ROOT = Path(__file__).parents[2]
 sys_path = str(_PROJECT_ROOT)

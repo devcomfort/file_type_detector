@@ -1,0 +1,128 @@
+diff --git a/scripts/generators/data_formats.py b/scripts/generators/data_formats.py
+index e0765a2..be49f4c 100644
+--- a/scripts/generators/data_formats.py
++++ b/scripts/generators/data_formats.py
+@@ -27,9 +27,25 @@ class DataFormatGenerator(BaseGenerator):
+     @property
+     def extensions(self) -> list[str]:
+         return [
+-            "sqlite", "sqlite3", "db", "parquet", "avro", "protobuf", "pb",
+-            "h5", "hdf5", "npy", "npz", "onnx", "pickle", "pkl", "pt", "pth",
+-            "pcap", "stl", "dcm",
++            "sqlite",
++            "sqlite3",
++            "db",
++            "parquet",
++            "avro",
++            "protobuf",
++            "pb",
++            "h5",
++            "hdf5",
++            "npy",
++            "npz",
++            "onnx",
++            "pickle",
++            "pkl",
++            "pt",
++            "pth",
++            "pcap",
++            "stl",
++            "dcm",
+         ]
+ 
+     @property
+@@ -87,6 +103,7 @@ class DataFormatGenerator(BaseGenerator):
+     def _create_sqlite(self) -> bytes:
+         import tempfile
+         import os
++
+         fd, tmp_path = tempfile.mkstemp(suffix=".db")
+         os.close(fd)
+         try:
+@@ -110,10 +127,18 @@ class DataFormatGenerator(BaseGenerator):
+         schema = {
+             "type": "record",
+             "name": "Sample",
+-            "fields": [{"name": "id", "type": "int"}, {"name": "name", "type": "string"}],
++            "fields": [
++                {"name": "id", "type": "int"},
++                {"name": "name", "type": "string"},
++            ],
+         }
+         buf = BytesIO()
+-        fastavro.writer(buf, schema, [{"id": 1, "name": "test"}])
++        fastavro.writer(
++            buf,
++            schema,
++            [{"id": 1, "name": "test"}],
++            sync_marker=b"\x00" * 16,
++        )
+         return buf.getvalue()
+ 
+     def _create_protobuf(self) -> bytes:
+@@ -136,10 +161,12 @@ class DataFormatGenerator(BaseGenerator):
+ 
+     def _create_npy(self) -> bytes:
+         return (
+-            b"\x93NUMPY" + struct.pack("<BB", 1, 0)
++            b"\x93NUMPY"
++            + struct.pack("<BB", 1, 0)
+             + struct.pack("<H", 10)
+             + b"{'descr': '<f8', 'fortran_order': False, 'shape': (1,), }"
+-            + b"\n" + struct.pack("<d", 1.0)
++            + b"\n"
++            + struct.pack("<d", 1.0)
+         )
+ 
+     def _create_npz(self) -> bytes:
+@@ -169,22 +196,23 @@ class DataFormatGenerator(BaseGenerator):
+         return buf.getvalue()
+ 
+     def _create_pcap(self) -> bytes:
+-        import tempfile
+-        import os
++        import io
++
++        from scapy.all import PcapWriter
++
+         pkt = Ether() / IP()
+-        fd, tmp_path = tempfile.mkstemp(suffix=".pcap")
+-        os.close(fd)
+-        try:
+-            wrpcap(tmp_path, [pkt])
+-            with open(tmp_path, "rb") as f:
+-                return f.read()
+-        finally:
+-            os.unlink(tmp_path)
++        pkt.time = 1700000000  # fixed epoch for reproducibility
++        buf = io.BytesIO()
++        writer = PcapWriter(buf, linktype=1, nano=False, sync=True)
++        writer.write(pkt)
++        writer.flush()
++        return buf.getvalue()
+ 
+     def _create_stl(self) -> bytes:
+         from stl import mesh
+         import tempfile
+         import os
++
+         vertices = numpy.array([[0, 0, 0], [1, 0, 0], [0, 1, 0]])
+         faces = numpy.array([[0, 1, 2]])
+         stl_mesh = mesh.Mesh(numpy.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
+@@ -204,12 +232,13 @@ class DataFormatGenerator(BaseGenerator):
+         import pydicom
+         from pydicom.dataset import Dataset, FileMetaDataset
+         from pydicom.uid import ExplicitVRLittleEndian
++
+         file_meta = FileMetaDataset()
+-        file_meta.MediaStorageSOPClassUID = '1.2.840.10008.5.1.4.1.1.2'
+-        file_meta.MediaStorageSOPInstanceUID = '1.2.3.4.5'
++        file_meta.MediaStorageSOPClassUID = "1.2.840.10008.5.1.4.1.1.2"
++        file_meta.MediaStorageSOPInstanceUID = "1.2.3.4.5"
+         file_meta.TransferSyntaxUID = ExplicitVRLittleEndian
+         ds = Dataset(file_meta=file_meta)
+-        ds.PatientName = 'Test'
++        ds.PatientName = "Test"
+         buf = BytesIO()
+         pydicom.dcmwrite(buf, ds, implicit_vr=False, little_endian=True)
+         return buf.getvalue()
