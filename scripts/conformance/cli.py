@@ -10,7 +10,11 @@ from pathlib import Path
 import re
 from typing import Sequence
 
-from scripts.conformance.inventory import InventoryValidationError, review_summary
+from scripts.conformance.inventory import (
+    InventoryValidationError,
+    load_verified_inventory,
+    review_summary,
+)
 
 
 _RECORD_ID_PATTERN = re.compile(r"[^A-Za-z0-9]+")
@@ -378,26 +382,26 @@ def _promote_candidates(
         promoted.append(record_id)
         verified_records.append(record)
 
-    # Pre-write validation: every promoted record must carry all three truth axes
-    for rec in verified_records:
-        rid = rec.get("id", "?")
-        si = rec.get("source_integrity")
-        if not si:
-            raise InventoryValidationError(
-                f"cannot promote {rid!r}: source_integrity axis missing; "
-                "add provenance data or exclude this record"
-            )
-        fv = rec.get("format_validity")
-        if not fv or fv.get("status") != "verified":
-            raise InventoryValidationError(
-                f"cannot promote {rid!r}: format_validity must be verified; "
-                "run an independent parser validator first"
-            )
-        if not rec.get("ground_truth_evidence"):
-            raise InventoryValidationError(
-                f"cannot promote {rid!r}: ground_truth_evidence missing; "
-                "every claimed MIME/extension needs authority + reference"
-            )
+    # Pre-write validation: run the full schema v2 loader on a temp copy
+    # to catch all structural/coverage issues before touching real files.
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_cand = Path(tmp_dir) / "candidates.json"
+        tmp_inv = Path(tmp_dir) / "inventory.json"
+        tmp_cand.write_text(
+            json.dumps(
+                {**candidates_payload, "schema_version": 2, "records": records},
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        tmp_inv.write_text(
+            json.dumps({"schema_version": 2, "records": verified_records}, indent=2),
+            encoding="utf-8",
+        )
+        load_verified_inventory(tmp_cand, tmp_inv, root=root)
+
     # Write updated candidates
     candidates_payload["records"] = records
     candidates_path.write_text(
