@@ -239,3 +239,36 @@ def test_rejects_both_probe_set(tmp_path: Path) -> None:
 
     with pytest.raises(InventoryValidationError, match="mutually exclusive"):
         _load_document(path, root=tmp_path, role="authoritative")
+
+
+# Q. Is neither probe_extension nor probe_filename rejected?
+def test_rejects_neither_probe_set(tmp_path: Path) -> None:
+    fixture = tmp_path / "fixture.bin"
+    fixture.write_bytes(b"fixture bytes")
+    record = _v2_record(fixture)
+    record.pop("probe_extension")
+    # _v2_record has no probe_filename by default
+    path = _write(tmp_path, [record])
+
+    with pytest.raises(InventoryValidationError, match="exactly one"):
+        _load_document(path, root=tmp_path, role="candidate")
+
+
+# Q. Is a filename-based candidate record loaded with probe_filename?
+def test_valid_filename_record_loads(tmp_path: Path) -> None:
+    fixture = tmp_path / "fixture.bin"
+    fixture.write_bytes(b"fixture bytes")
+    record = _v2_record(fixture)
+    del record["probe_extension"]
+    record["probe_filename"] = "Gemfile"
+    # GT filenames modelling is not in schema yet; verified filename
+    # records would bypass the probe/GT invariant, so keep needs_review.
+    record["ground_truth_review"] = {
+    "status": "needs_review",
+    "reason": "GT filenames modelling pending; collector staging only",
+    }
+    path = _write(tmp_path, [record])
+
+    records = _load_document(path, root=tmp_path, role="candidate")
+    assert len(records) == 1
+    assert records[0].probe_filename == "Gemfile"
