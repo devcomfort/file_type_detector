@@ -48,6 +48,10 @@ jobs:
           python -m pip install -r requirements-dev.lock
           python -m pip install --no-deps -e .
 
+      - name: Install ffmpeg for audio generators
+        shell: bash
+        run: sudo apt-get install -y ffmpeg
+
       - name: Run exact-byte gate and determinism tests
         shell: bash
         run: |
