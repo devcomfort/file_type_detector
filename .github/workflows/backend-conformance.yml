@@ -27,6 +27,52 @@ env:
   INVENTORY: tests/truth/backend_inventory.json
 
 jobs:
+  determinism-gate:
+    name: Determinism and exact-byte gate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-dev.lock
+
+      - name: Install locked dependencies
+        shell: bash
+        run: |
+          python -m pip install -r requirements-dev.lock
+          python -m pip install --no-deps -e .
+
+      - name: Run exact-byte gate (Tier1 generator output == committed fixture)
+        shell: bash
+        run: |
+          python .audit/exact_byte_gate.py
+
+      - name: Run slow determinism scan (2.1s interval)
+        shell: bash
+        run: |
+          python .audit/nondet_scan_slow.py > /tmp/slow_scan.json
+          python -c "
+          import json, sys
+          data = json.load(open('/tmp/slow_scan.json'))
+          errors = {k: v for k, v in data.items() if 'error' in v or 'error2' in v}
+          tier2 = {'7z', 'dxf', 'stl'}
+          diffs = {k for k, v in data.items() if v.get('same') is False}
+          unexpected_diffs = diffs - tier2
+          if errors:
+              print('FAIL: generator errors:', errors, file=sys.stderr)
+              sys.exit(1)
+          if unexpected_diffs:
+              print('FAIL: nondeterministic generators outside Tier2:', sorted(unexpected_diffs), file=sys.stderr)
+              sys.exit(1)
+          print(f'Determinism scan PASSED: {len(data)} checked, {len(diffs & tier2)} Tier2 allowed')
+          "
+
   collect:
     name: Collect ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
