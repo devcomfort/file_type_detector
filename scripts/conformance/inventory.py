@@ -146,6 +146,11 @@ def _parse_record(
         record_id=record_id,
     )
     probe_filename_raw = record.get("probe_filename")
+    probe_extension_raw = record.get("probe_extension")
+    if probe_filename_raw is not None and probe_extension_raw is not None:
+        raise InventoryValidationError(
+            f"{record_id}: probe_extension and probe_filename are mutually exclusive"
+        )
     if probe_filename_raw is not None:
         probe_extension = None
         probe_filename = _require_string(
