@@ -6,7 +6,7 @@ Total fixtures: **599**
 
 - **external**: 192 fixtures
 - **external_unresolved**: 29 fixtures
-- **generated**: 377 fixtures
+- **generated**: 378 fixtures
 
 ## External Sources
 
