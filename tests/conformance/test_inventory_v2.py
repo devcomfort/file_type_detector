@@ -225,3 +225,17 @@ def test_rejects_duplicate_evidence_claims(tmp_path: Path) -> None:
 
     with pytest.raises(InventoryValidationError, match="duplicate evidence claims"):
         _load_document(path, root=tmp_path, role="authoritative")
+
+
+# Q. Is setting both probe_extension and probe_filename rejected?
+def test_rejects_both_probe_set(tmp_path: Path) -> None:
+    fixture = tmp_path / "fixture.bin"
+    fixture.write_bytes(b"fixture bytes")
+    record = _v2_record(
+        fixture,
+        probe_filename="Gemfile",
+    )
+    path = _write(tmp_path, [record])
+
+    with pytest.raises(InventoryValidationError, match="mutually exclusive"):
+        _load_document(path, root=tmp_path, role="authoritative")
