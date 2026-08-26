@@ -6396,7 +6396,10 @@
    "probe_extension": ".ahk",
    "source": {
     "type": "generated",
-    "generator": "scripts.generators.code_formats.CodeFormatGenerator._ahk"
+    "generator": "scripts.generators.code_formats.CodeFormatGenerator._ahk",
+    "recipe_hash": "bd5da4bd967bd12ab255f1380569fbaffd5cb59bb3f3540d884c3d7e3a196f16",
+    "tier": "exact-byte",
+    "generator_symbol": "scripts.generators.code_formats.CodeFormatGenerator._ahk"
    }
   }
  },
