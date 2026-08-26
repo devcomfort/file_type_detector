@@ -36,7 +36,10 @@ def _write_reviewed_inventory(root: Path) -> tuple[Path, Path]:
     fixture = root / "sample.txt"
     fixture.write_bytes(b"reviewed conformance fixture")
     record = _reviewed_record(fixture)
-    payload = {"schema_version": 1, "records": [record]}
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    record = complete_v2_record(record)
+    payload = {"schema_version": 2, "records": [record]}
     candidates = root / "candidates.json"
     inventory = root / "inventory.json"
     candidates.write_text(json.dumps(payload), encoding="utf-8")
@@ -349,6 +352,9 @@ def test_aggregate_reports_candidate_review_state_without_promoting_candidates(
         "status": "needs_review",
         "reason": "Conflicting legacy declaration",
     }
+    needs_review.pop("source_integrity", None)
+    needs_review.pop("format_validity", None)
+    needs_review.pop("ground_truth_evidence", None)
     excluded = deepcopy(verified)
     excluded["id"] = "excluded"
     excluded["probe_extension"] = ".avif"
@@ -361,6 +367,9 @@ def test_aggregate_reports_candidate_review_state_without_promoting_candidates(
         "status": "excluded",
         "reason": "Duplicate byte-identical fixture",
     }
+    excluded.pop("source_integrity", None)
+    excluded.pop("format_validity", None)
+    excluded.pop("ground_truth_evidence", None)
     candidate_payload["records"].extend([needs_review, excluded])
     candidates.write_text(json.dumps(candidate_payload), encoding="utf-8")
 
