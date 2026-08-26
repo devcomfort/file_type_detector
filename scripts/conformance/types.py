@@ -8,24 +8,18 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class FixtureReference:
-    """A fixture path and the digest that identifies its reviewed bytes."""
-
     path: str
     sha256: str
 
 
 @dataclass(frozen=True)
 class GroundTruth:
-    """The MIME types and extensions established by review evidence."""
-
     mimes: tuple[str, ...]
     extensions: tuple[str, ...]
 
 
 @dataclass(frozen=True)
 class GroundTruthReview:
-    """The review state and supporting evidence for one candidate."""
-
     status: str
     reviewed_by: str | None
     reviewed_at: str | None
@@ -35,30 +29,24 @@ class GroundTruthReview:
 
 @dataclass(frozen=True)
 class SourceIntegrity:
-    """Provenance of the fixture bytes (truth axis 1)."""
-
-    kind: str  # "external" | "generated"
+    kind: str
     origin_url: str | None = None
     origin_commit: str | None = None
     blob_sha1_verified: bool | None = None
     generator_symbol: str | None = None
     recipe_hash: str | None = None
-    tier: str | None = None  # "exact-byte" | "pinned-sha-roundtrip"
+    tier: str | None = None
 
 
 @dataclass(frozen=True)
 class FormatValidity:
-    """Independent structural validation of the fixture (truth axis 2)."""
-
-    status: str  # "verified" | "needs_review" | "failed"
+    status: str
     validator: str
     evidence: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
 class GroundTruthEvidence:
-    """Structured authority mapping for each GT claim (truth axis 3)."""
-
     mime_claims: tuple[Mapping[str, str], ...]
     extension_claims: tuple[Mapping[str, str], ...] = ()
 
@@ -70,15 +58,13 @@ _IDENTIFIABILITY_TIERS = frozenset(
 
 @dataclass(frozen=True)
 class InventoryRecord:
-    """One reviewed candidate or authoritative conformance fixture."""
-
     id: str
     fixture: FixtureReference
-    probe_extension: str
     ground_truth: GroundTruth
     provenance: str
     ground_truth_review: GroundTruthReview
     backends: tuple[str, ...]
+    probe_extension: str | None = None
     probe_filename: str | None = None
     source_integrity: SourceIntegrity | None = None
     format_validity: FormatValidity | None = None
@@ -93,4 +79,9 @@ class InventoryRecord:
             raise ValueError(
                 f"{self.id}: unsupported content_identifiability tier "
                 f"{self.content_identifiability!r}"
+            )
+        if not self.probe_extension and not self.probe_filename:
+            raise ValueError(
+                f"{self.id}: exactly one of probe_extension or "
+                "probe_filename must be set"
             )
