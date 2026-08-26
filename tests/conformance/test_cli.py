@@ -335,3 +335,48 @@ def test_promote_fix_extensions_replaces_conflicting_legacy_extensions(
     assert len(promoted_inventory["records"]) == 1
     assert promoted_inventory["records"][0]["id"] == "sample-bin"
     assert promoted_inventory["records"][0]["ground_truth"]["extensions"] == [".bin"]
+
+
+# Q. Does promote leave files untouched when pre-write validation fails?
+def test_promote_atomic_on_missing_axes(tmp_path: Path) -> None:
+    source = _write_legacy_truth(tmp_path)
+    candidates_path = tmp_path / "backend_inventory_candidates.json"
+    inventory_path = tmp_path / "backend_inventory.json"
+    inventory_path.write_text(
+        json.dumps({"schema_version": 2, "records": []}), encoding="utf-8"
+    )
+    main(
+        [
+            "seed",
+            "--source",
+            str(source),
+            "--output",
+            str(candidates_path),
+            "--root",
+            str(tmp_path),
+        ]
+    )
+    candidates_before = candidates_path.read_bytes()
+    inventory_before = inventory_path.read_bytes()
+
+    with pytest.raises(SystemExit):
+        main(
+            [
+                "promote",
+                "--candidates",
+                str(candidates_path),
+                "--inventory",
+                str(inventory_path),
+                "--root",
+                str(tmp_path),
+                "--reviewer",
+                "test",
+                "--date",
+                "2026-08-24",
+                "--evidence",
+                "https://example.test",
+            ]
+        )
+
+    assert candidates_path.read_bytes() == candidates_before
+    assert inventory_path.read_bytes() == inventory_before
