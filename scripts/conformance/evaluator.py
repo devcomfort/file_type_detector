@@ -127,14 +127,17 @@ def evaluate_output(
         if parent and parent in gt_mimes:
             return _result(True, extension_match, extension_match, "subtype")
 
-    # Tier 4 — container: backend detected only the generic wrapper.
-    # Direction: detected parent whose children include a GT entry → partial.
+    # Tier 4a — supertype: backend detected a MORE generic type than GT requires.
+    # Direction: detected parent whose children include a GT entry.
+    # This is a partial match (less specific than GT), NOT overall_match.
     for detected in detected_mimes:
         children = _CHILDREN_OF.get(detected, set())
         if gt_mimes & children:
-            return _result(False, extension_match, False, "container")
+            return _result(False, extension_match, False, "supertype")
 
-        # Also check CONTAINER_RELATIONS (non-subclass containment)
+    # Tier 4b — container: backend detected only the physical wrapper
+    # (zip/jar/tar etc.) that happens to hold the GT format.
+    for detected in detected_mimes:
         related = CONTAINER_RELATIONS.get(detected, frozenset())
         if gt_mimes & related:
             return _result(False, extension_match, False, "container")

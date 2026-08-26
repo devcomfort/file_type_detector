@@ -73,13 +73,14 @@ def test_x509_subtype_directional_pass():
     assert result["overall_match"] is True
 
 
-# Q. Is pkix-cert → x-x509-ca-cert a CONTAINER match (directional parent→child)?
-def test_pkix_parent_detected_child_gt_is_container():
-    # Backend detects pkix-cert (parent), GT says x-x509-ca-cert (child) → NOT overall
+# Q. Is pkix-cert → x-x509-ca-cert a SUPERTYPE match (directional parent→child)?
+def test_pkix_parent_detected_child_gt_is_supertype():
+    # Backend detects pkix-cert (supertype), GT says x-x509-ca-cert (subtype)
+    # → partial match (less specific), NOT overall_match
     sem = semantic_output(mime_types=["application/pkix-cert"], extensions=[".cer"])
     gt = _gt(["application/x-x509-ca-cert"], [".cer"])
     result = evaluate_output(semantic=sem, ground_truth=gt, status="ok")
-    assert result["match_level"] == "container"
+    assert result["match_level"] == "supertype"
     assert result["overall_match"] is False
 
 
