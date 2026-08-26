@@ -15,9 +15,29 @@ class ImageGenerator(BaseGenerator):
     @property
     def extensions(self) -> list[str]:
         return [
-            "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif", "ico",
-            "webp", "tga", "icns", "psd", "xcf", "qoi", "jng",
-            "avif", "avifs", "jp2", "heic", "heif", "heics", "heifs", "jxl",
+            "png",
+            "jpg",
+            "jpeg",
+            "gif",
+            "bmp",
+            "tiff",
+            "tif",
+            "ico",
+            "webp",
+            "tga",
+            "icns",
+            "psd",
+            "xcf",
+            "qoi",
+            "jng",
+            "avif",
+            "avifs",
+            "jp2",
+            "heic",
+            "heif",
+            "heics",
+            "heifs",
+            "jxl",
         ]
 
     @property
@@ -83,7 +103,12 @@ class ImageGenerator(BaseGenerator):
     def _create_png(self) -> bytes:
         def chunk(chunk_type: bytes, data: bytes) -> bytes:
             c = chunk_type + data
-            return struct.pack(">I", len(data)) + c + struct.pack(">I", zlib.crc32(c) & 0xFFFFFFFF)
+            return (
+                struct.pack(">I", len(data))
+                + c
+                + struct.pack(">I", zlib.crc32(c) & 0xFFFFFFFF)
+            )
+
         sig = b"\x89PNG\r\n\x1a\n"
         ihdr = chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0))
         raw = zlib.compress(b"\x00\xff\x00\x00")
@@ -123,34 +148,62 @@ class ImageGenerator(BaseGenerator):
 
     def _create_bmp(self) -> bytes:
         return (
-            b"BM" + struct.pack("<I", 62) + struct.pack("<HH", 0, 0)
-            + struct.pack("<I", 62) + struct.pack("<I", 40)
-            + struct.pack("<i", 1) + struct.pack("<i", 1)
-            + struct.pack("<HH", 1, 24) + struct.pack("<I", 0)
-            + struct.pack("<I", 0) + struct.pack("<i", 2835)
-            + struct.pack("<i", 2835) + struct.pack("<I", 0)
-            + struct.pack("<I", 0) + b"\xff\x00\x00\x00"
+            b"BM"
+            + struct.pack("<I", 62)
+            + struct.pack("<HH", 0, 0)
+            + struct.pack("<I", 62)
+            + struct.pack("<I", 40)
+            + struct.pack("<i", 1)
+            + struct.pack("<i", 1)
+            + struct.pack("<HH", 1, 24)
+            + struct.pack("<I", 0)
+            + struct.pack("<I", 0)
+            + struct.pack("<i", 2835)
+            + struct.pack("<i", 2835)
+            + struct.pack("<I", 0)
+            + struct.pack("<I", 0)
+            + b"\xff\x00\x00\x00"
         )
 
     def _create_tiff(self) -> bytes:
-        return b"II" + struct.pack("<H", 42) + struct.pack("<I", 8) + struct.pack("<H", 0)
+        return (
+            b"II" + struct.pack("<H", 42) + struct.pack("<I", 8) + struct.pack("<H", 0)
+        )
 
     def _create_ico(self) -> bytes:
         return (
-            b"\x00\x00" + struct.pack("<H", 1) + struct.pack("<H", 1)
-            + b"\x01\x01\x00\x00" + struct.pack("<H", 1) + struct.pack("<H", 32)
-            + struct.pack("<I", 44) + struct.pack("<I", 22)
-            + struct.pack("<I", 40) + struct.pack("<i", 1) + struct.pack("<i", 2)
-            + struct.pack("<H", 1) + struct.pack("<H", 32)
-            + struct.pack("<I", 0) + struct.pack("<I", 0)
-            + struct.pack("<i", 0) + struct.pack("<i", 0)
-            + struct.pack("<I", 0) + struct.pack("<I", 0)
-            + b"\xff\x00\x00\xff" + b"\x00\x00\x00\x00"
+            b"\x00\x00"
+            + struct.pack("<H", 1)
+            + struct.pack("<H", 1)
+            + b"\x01\x01\x00\x00"
+            + struct.pack("<H", 1)
+            + struct.pack("<H", 32)
+            + struct.pack("<I", 44)
+            + struct.pack("<I", 22)
+            + struct.pack("<I", 40)
+            + struct.pack("<i", 1)
+            + struct.pack("<i", 2)
+            + struct.pack("<H", 1)
+            + struct.pack("<H", 32)
+            + struct.pack("<I", 0)
+            + struct.pack("<I", 0)
+            + struct.pack("<i", 0)
+            + struct.pack("<i", 0)
+            + struct.pack("<I", 0)
+            + struct.pack("<I", 0)
+            + b"\xff\x00\x00\xff"
+            + b"\x00\x00\x00\x00"
         )
 
     def _create_webp(self) -> bytes:
         vp8 = b"\x9d\x01\x2a\x01\x00\x00" + struct.pack("<HH", 1, 1) + b"\x00"
-        return b"RIFF" + struct.pack("<I", 4 + 8 + len(vp8)) + b"WEBPVP8 " + struct.pack("<I", len(vp8)) + vp8
+        return (
+            b"RIFF"
+            + struct.pack("<I", 4 + 8 + len(vp8))
+            + b"WEBPVP8 "
+            + struct.pack("<I", len(vp8))
+            + vp8
+        )
 
     def _create_tga(self) -> bytes:
         return (
@@ -173,7 +226,9 @@ class ImageGenerator(BaseGenerator):
 
     def _create_qoi(self) -> bytes:
         return (
-            b"qoif" + struct.pack(">II", 1, 1) + b"\x00\x00\x00\x00"
+            b"qoif"
+            + struct.pack(">II", 1, 1)
+            + b"\x00\x00\x00\x00"
             + b"\xfe\xff\x00\x00\x00\x00\x00\x01"
         )
 
@@ -182,6 +237,7 @@ class ImageGenerator(BaseGenerator):
 
     def _create_avif(self) -> bytes:
         from PIL import Image
+
         buf = BytesIO()
         img = Image.new("RGB", (8, 8), (255, 0, 0))
         img.save(buf, format="AVIF")
@@ -192,6 +248,7 @@ class ImageGenerator(BaseGenerator):
 
     def _create_jp2(self) -> bytes:
         from PIL import Image
+
         buf = BytesIO()
         img = Image.new("RGB", (8, 8), (255, 0, 0))
         img.save(buf, format="JPEG2000")
@@ -199,8 +256,10 @@ class ImageGenerator(BaseGenerator):
 
     def _create_heic(self) -> bytes:
         from pillow_heif import register_heif_opener
+
         register_heif_opener()
         from PIL import Image
+
         buf = BytesIO()
         img = Image.new("RGB", (8, 8), (255, 0, 0))
         img.save(buf, format="HEIF")
@@ -216,7 +275,10 @@ class ImageGenerator(BaseGenerator):
         return self._create_heic()
 
     def _create_jxl(self) -> bytes:
+        import pillow_jxl  # noqa: F401 -- registers the JXL codec with Pillow
+
         from PIL import Image
+
         buf = BytesIO()
         img = Image.new("RGB", (8, 8), (255, 0, 0))
         img.save(buf, format="JXL")

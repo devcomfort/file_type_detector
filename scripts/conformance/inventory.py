@@ -11,9 +11,12 @@ import re
 
 from scripts.conformance.types import (
     FixtureReference,
+    FormatValidity,
     GroundTruth,
+    GroundTruthEvidence,
     GroundTruthReview,
     InventoryRecord,
+    SourceIntegrity,
 )
 
 
@@ -97,15 +100,18 @@ def _unique_suffix_count(records: Sequence[InventoryRecord]) -> int:
 
 def _load_document(path: Path, *, root: Path, role: str) -> tuple[InventoryRecord, ...]:
     payload = _load_json(path)
-    if payload.get("schema_version") != 1:
-        raise InventoryValidationError(f"{role} inventory must use schema_version 1")
+    version = payload.get("schema_version")
+    if version not in (1, 2):
+        raise InventoryValidationError(
+            f"{role} inventory must use schema_version 1 or 2"
+        )
 
     records_payload = payload.get("records")
     if not isinstance(records_payload, list):
         raise InventoryValidationError(f"{role} inventory records must be a list")
 
     records = tuple(
-        _parse_record(raw_record, root=root, role=role)
+        _parse_record(raw_record, root=root, role=role, schema_version=version)
         for raw_record in records_payload
     )
     _validate_unique_ids(records, role=role)
@@ -130,6 +136,7 @@ def _parse_record(
     *,
     root: Path,
     role: str,
+    schema_version: int = 1,
 ) -> InventoryRecord:
     record = _require_mapping(raw_record, f"{role} record")
     record_id = _require_string(record.get("id"), f"{role} record id")
@@ -160,6 +167,61 @@ def _parse_record(
         require_canonical=role == "authoritative" or review.status == "verified",
     )
     backends = _parse_backends(record.get("backends"), f"{record_id} backends")
+
+    if review.status == "verified" and probe_extension not in ground_truth.extensions:
+        raise InventoryValidationError(
+            f"verified record {record_id!r}: probe_extension "
+            f"{probe_extension!r} must appear in ground_truth.extensions"
+        )
+
+    source_integrity = None
+    format_validity = None
+    ground_truth_evidence = None
+    content_identifiability = None
+    if schema_version >= 2:
+        raw_source = record.get("source_integrity")
+        if raw_source is not None:
+            source_integrity = _parse_source_integrity(
+                _require_mapping(raw_source, f"{record_id} source_integrity"),
+                record_id=record_id,
+            )
+        raw_validity = record.get("format_validity")
+        if raw_validity is not None:
+            format_validity = _parse_format_validity(
+                _require_mapping(raw_validity, f"{record_id} format_validity"),
+                record_id=record_id,
+            )
+        raw_gt_evidence = record.get("ground_truth_evidence")
+        if raw_gt_evidence is not None:
+            ground_truth_evidence = _parse_gt_evidence(
+                _require_mapping(raw_gt_evidence, f"{record_id} ground_truth_evidence"),
+                record_id=record_id,
+                claimed_mimes=ground_truth.mimes,
+                claimed_extensions=ground_truth.extensions,
+            )
+        content_identifiability = _parse_identifiability(
+            record.get("content_identifiability"),
+            f"{record_id} content_identifiability",
+        )
+        if review.status == "verified" and role == "authoritative":
+            problems: list[str] = []
+            if source_integrity is None:
+                problems.append("source_integrity missing")
+            elif source_integrity.kind == "external" and (
+                source_integrity.blob_sha1_verified is not True
+            ):
+                problems.append("source_integrity.blob_sha1_verified != true")
+            if format_validity is None:
+                problems.append("format_validity missing")
+            elif format_validity.status != "verified":
+                problems.append(f"format_validity.status={format_validity.status!r}")
+            if ground_truth_evidence is None:
+                problems.append("ground_truth_evidence missing")
+            if problems:
+                raise InventoryValidationError(
+                    f"schema v2 verified record {record_id!r} fails truth axes: "
+                    + "; ".join(problems)
+                )
     return InventoryRecord(
         id=record_id,
         fixture=fixture,
@@ -168,6 +230,116 @@ def _parse_record(
         provenance=provenance,
         ground_truth_review=review,
         backends=backends,
+        source_integrity=source_integrity,
+        format_validity=format_validity,
+        ground_truth_evidence=ground_truth_evidence,
+        content_identifiability=content_identifiability,
+    )
+
+
+def _parse_gt_evidence(
+    payload: Mapping[str, object],
+    *,
+    record_id: str,
+    claimed_mimes: tuple[str, ...],
+    claimed_extensions: tuple[str, ...],
+) -> GroundTruthEvidence:
+    """Validate the MIME/extension evidence axis (truth axis 3).
+
+    Both directions are enforced: every claimed MIME and extension must have
+    exactly one evidence entry with authority + URL reference, and no extra
+    or duplicate claims are allowed.
+    """
+
+    def _require_claim_list(field: str) -> list[Mapping[str, object]]:
+        value = payload.get(field)
+        if not isinstance(value, list) or not value:
+            raise InventoryValidationError(
+                f"{record_id} ground_truth_evidence.{field} must be a non-empty list"
+            )
+        return [_require_mapping(c, f"{record_id} {field} claim") for c in value]
+
+    mime_claims_payload = _require_claim_list("mime_claims")
+
+    parsed_mime_claims: list[dict[str, str]] = []
+    covered_mimes: set[str] = set()
+    for claim in mime_claims_payload:
+        mime_type = _require_string(
+            claim.get("mime_type"), f"{record_id} claim mime_type"
+        )
+        authority = _require_string(
+            claim.get("authority"), f"{record_id} claim authority"
+        )
+        reference = _require_string(
+            claim.get("reference"), f"{record_id} claim reference"
+        )
+        if not (reference.startswith("http://") or reference.startswith("https://")):
+            raise InventoryValidationError(
+                f"{record_id} claim reference for {mime_type!r} must be a URL"
+            )
+        if mime_type in covered_mimes:
+            raise InventoryValidationError(
+                f"{record_id} has duplicate evidence claims for {mime_type!r}"
+            )
+        covered_mimes.add(mime_type)
+        parsed_mime_claims.append(
+            {"mime_type": mime_type, "authority": authority, "reference": reference}
+        )
+
+    uncovered_mimes = set(claimed_mimes) - covered_mimes
+    extra_mimes = covered_mimes - set(claimed_mimes)
+    if uncovered_mimes:
+        raise InventoryValidationError(
+            f"{record_id} evidence lacks MIME claims for: "
+            + ", ".join(sorted(uncovered_mimes))
+        )
+    if extra_mimes:
+        raise InventoryValidationError(
+            f"{record_id} evidence has unclaimed MIME entries: "
+            + ", ".join(sorted(extra_mimes))
+        )
+
+    extension_claims_payload = _require_claim_list("extension_claims")
+
+    parsed_extension_claims: list[dict[str, str]] = []
+    covered_extensions: set[str] = set()
+    for claim in extension_claims_payload:
+        ext = _require_string(claim.get("extension"), f"{record_id} claim extension")
+        authority = _require_string(
+            claim.get("authority"), f"{record_id} claim authority"
+        )
+        reference = _require_string(
+            claim.get("reference"), f"{record_id} claim reference"
+        )
+        if not (reference.startswith("http://") or reference.startswith("https://")):
+            raise InventoryValidationError(
+                f"{record_id} claim reference for {ext!r} must be a URL"
+            )
+        if ext in covered_extensions:
+            raise InventoryValidationError(
+                f"{record_id} has duplicate evidence claims for {ext!r}"
+            )
+        covered_extensions.add(ext)
+        parsed_extension_claims.append(
+            {"extension": ext, "authority": authority, "reference": reference}
+        )
+
+    uncovered_exts = set(claimed_extensions) - covered_extensions
+    extra_exts = covered_extensions - set(claimed_extensions)
+    if uncovered_exts:
+        raise InventoryValidationError(
+            f"{record_id} evidence lacks extension claims for: "
+            + ", ".join(sorted(uncovered_exts))
+        )
+    if extra_exts:
+        raise InventoryValidationError(
+            f"{record_id} evidence has unclaimed extension entries: "
+            + ", ".join(sorted(extra_exts))
+        )
+
+    return GroundTruthEvidence(
+        mime_claims=tuple(parsed_mime_claims),
+        extension_claims=tuple(parsed_extension_claims),
     )
 
 
@@ -277,6 +449,106 @@ def _parse_backends(value: object, field: str) -> tuple[str, ...]:
             f"{field} must list lexical, magic, magika, hybrid"
         )
     return backends
+
+
+def _parse_source_integrity(
+    payload: Mapping[str, object],
+    *,
+    record_id: str,
+) -> SourceIntegrity:
+    kind = _require_string(payload.get("kind"), f"{record_id} source_integrity.kind")
+    if kind not in ("external", "generated"):
+        raise InventoryValidationError(
+            f"{record_id} source_integrity.kind must be external or generated"
+        )
+
+    tier = payload.get("tier")
+    if tier is not None:
+        tier = _require_string(tier, f"{record_id} source_integrity.tier")
+        if tier not in ("exact-byte", "pinned-sha-roundtrip"):
+            raise InventoryValidationError(
+                f"{record_id} source_integrity.tier is unsupported"
+            )
+
+    if kind == "external":
+        origin_url = _require_string(
+            payload.get("origin_url"), f"{record_id} source_integrity.origin_url"
+        )
+        origin_commit = _require_string(
+            payload.get("origin_commit"), f"{record_id} source_integrity.origin_commit"
+        )
+        if not re.fullmatch(r"[0-9a-f]{40}", origin_commit):
+            raise InventoryValidationError(
+                f"{record_id} source_integrity.origin_commit must be a SHA-1"
+            )
+        blob_verified = payload.get("blob_sha1_verified")
+        if blob_verified is not True:
+            raise InventoryValidationError(
+                f"{record_id} external source requires blob_sha1_verified=true"
+            )
+        return SourceIntegrity(
+            kind=kind,
+            origin_url=origin_url,
+            origin_commit=origin_commit,
+            blob_sha1_verified=True,
+            tier=tier,
+        )
+
+    generator_symbol = _require_string(
+        payload.get("generator_symbol"),
+        f"{record_id} source_integrity.generator_symbol",
+    )
+    recipe_hash_value = payload.get("recipe_hash")
+    recipe_hash = (
+        None
+        if recipe_hash_value is None
+        else _require_string(
+            recipe_hash_value, f"{record_id} source_integrity.recipe_hash"
+        )
+    )
+    return SourceIntegrity(
+        kind=kind,
+        generator_symbol=generator_symbol,
+        recipe_hash=recipe_hash,
+        tier=tier,
+    )
+
+
+def _parse_format_validity(
+    payload: Mapping[str, object],
+    *,
+    record_id: str,
+) -> FormatValidity:
+    status = _require_string(
+        payload.get("status"), f"{record_id} format_validity.status"
+    )
+    if status not in ("verified", "needs_review", "failed"):
+        raise InventoryValidationError(
+            f"{record_id} format_validity.status is unsupported"
+        )
+    validator = _require_string(
+        payload.get("validator"), f"{record_id} format_validity.validator"
+    )
+    evidence_payload = payload.get("evidence") or []
+    evidence = tuple(
+        _require_string(item, f"{record_id} format_validity.evidence")
+        for item in evidence_payload
+    )
+    return FormatValidity(status=status, validator=validator, evidence=evidence)
+
+
+_IDENTIFIABILITY_TIERS = frozenset(
+    {"distinctive", "ambiguous", "generic-container", "not_applicable"}
+)
+
+
+def _parse_identifiability(value: object, field: str) -> str | None:
+    if value is None:
+        return None
+    tier = _require_string(value, field)
+    if tier not in _IDENTIFIABILITY_TIERS:
+        raise InventoryValidationError(f"{field} is an unsupported quality tier")
+    return tier
 
 
 def _parse_review(

@@ -1,0 +1,327 @@
+{
+ "generated_at": "2026-08-24",
+ "records": {
+  "sample-7z": {
+   "committed_sha256": "a4cf06a4d0a9a1571d0d3343aaa3f70680a6f6401507cd5d83d5637f08715eac",
+   "committed_size": 161,
+   "generator_status": "nondeterministic: archives.py (py7zr archive.writestr stores mtime)",
+   "independent_validator": "py7zr.readall round-trip",
+   "decision": "fix generator determinism, then regenerate+recommit"
+  },
+  "sample-avif": {
+   "committed_sha256": "649a65b6567cda005216faae82af5ff233004d1ce98a60082c577dcb147ad6ff",
+   "committed_size": 315,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": null,
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-csv": {
+   "committed_sha256": "6be0a447942c948d5493bfd711ace67e27fe1b442d636e9c3cf7484eba5ba466",
+   "committed_size": 70,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "csv module parse",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-epub": {
+   "committed_sha256": "9cfe418c76f7ea34f0ebf4484049f544c8f44b03aa2d385b98769c77aa7706bd",
+   "committed_size": 407,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-heic": {
+   "committed_sha256": "6f67bb96cc449cbaf9564b0100432d09b34c6d28a25dbe9459351422fdaabb32",
+   "committed_size": 448,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "isobmff ftyp brand",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-odp": {
+   "committed_sha256": "396a6487b16d56d0385fff6312b3d63a7a33af82fc6dbf7043d412f7a3b6f4b4",
+   "committed_size": 421,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-ods": {
+   "committed_sha256": "fef030d21e9f5cd3618ca826c49a7185491b13c6d2126202394dda2299cf81f6",
+   "committed_size": 421,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-odt": {
+   "committed_sha256": "809366ebc0f1f7d4b52d7902df0c913876022b78dba5a5eadc4b2b37ed66cf6d",
+   "committed_size": 409,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-pcap": {
+   "committed_sha256": "cdf249cccf40fa7f92608306e1b96cb003a4c39df69329cb44487db595de7d80",
+   "committed_size": 74,
+   "generator_status": "nondeterministic: data_formats.py (timestamp in packet header)",
+   "independent_validator": "pcap magic + struct parse",
+   "decision": "fix generator determinism (fixed epoch timestamp), then regenerate"
+  },
+  "sample-zip": {
+   "committed_sha256": "5859c248fe7d2d349012717faa85d6eb79ad8077ed6161e68f9a072f4a1a786d",
+   "committed_size": 132,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-cer": {
+   "committed_sha256": "430e29cc321e78ff81644ed99dfe4e1d746ec7830dbd91f80da41bd23d5be0a8",
+   "committed_size": 690,
+   "generator_status": "certificates.py (random RSA key + random serial + utcnow)",
+   "independent_validator": "cryptography x509 load + validity window check",
+   "decision": "fix generator determinism (fixed test key + serial + dates), then regenerate"
+  },
+  "sample-cpy": {
+   "committed_sha256": "b94547a0e1651f696efbf7bffe47700f6739ba2fba8470d564cc1851bd99a6ce",
+   "committed_size": 134,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "text-content-review",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-crt": {
+   "committed_sha256": "a8d6e04a98bd201ccab5bf116075df79209ea50a0a7435ed3caf65797e3470ef",
+   "committed_size": 989,
+   "generator_status": "certificates.py (random RSA key + random serial + utcnow)",
+   "independent_validator": "cryptography x509 load + validity window check",
+   "decision": "fix generator determinism (fixed test key + serial + dates), then regenerate"
+  },
+  "sample-der": {
+   "committed_sha256": "391049816c3c6e3e0e02f386e44f593b59ba86269e82b9226f2a0543a9356f51",
+   "committed_size": 690,
+   "generator_status": "certificates.py (random RSA key + random serial + utcnow)",
+   "independent_validator": "cryptography x509 load + validity window check",
+   "decision": "fix generator determinism (fixed test key + serial + dates), then regenerate"
+  },
+  "sample-parquet": {
+   "committed_sha256": "b8f2a7fe0358bde0c961bcbffdfe2498b73b43a7b3a0e0edb358cf08060be129",
+   "committed_size": 719,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": null,
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-r": {
+   "committed_sha256": "00d281a236ec0e6bd8808e3e52ad47fd7bb4af424fee2849002a64428920e601",
+   "committed_size": 74,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "text-content-review",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-rust": {
+   "committed_sha256": "e481ab6cd285b15dbf87b7490c3dab140db86e78d7852a0a456fcb5980551f7c",
+   "committed_size": 97,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "text-content-review",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-sty": {
+   "committed_sha256": "d296afd939aec8345f9af0d06d6805ef7300c51e528a635afd085b4150611be5",
+   "committed_size": 87,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "text-content-review",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-apk": {
+   "committed_sha256": "63cbc55f0c3d6806d321a6e3036d46e7a1bfe830b0c1a7218aef3b4999dba5bc",
+   "committed_size": 132,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-avifs": {
+   "committed_sha256": "649a65b6567cda005216faae82af5ff233004d1ce98a60082c577dcb147ad6ff",
+   "committed_size": 315,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "isobmff ftyp brand",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-docm": {
+   "committed_sha256": "97906d7615e9e1dd8ecb3947c088a66819790bdb61c546ed317ce29700931c73",
+   "committed_size": 504,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-dotx": {
+   "committed_sha256": "97906d7615e9e1dd8ecb3947c088a66819790bdb61c546ed317ce29700931c73",
+   "committed_size": 504,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-dxf": {
+   "committed_sha256": "7d161ef0067b8200d74bf20acb0d379425e5e80beabcc81d18cccb524c71b7cb",
+   "committed_size": 15356,
+   "generator_status": "nondeterministic: documents.py (ezdxf handles/handles counter)",
+   "independent_validator": "ezdxf read (version pinned)",
+   "decision": "fix generator determinism, then regenerate"
+  },
+  "sample-gz": {
+   "committed_sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
+   "committed_size": 34,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "gzip magic+decompress",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-gzip": {
+   "committed_sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
+   "committed_size": 34,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "gzip magic+decompress",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-heics": {
+   "committed_sha256": "6f67bb96cc449cbaf9564b0100432d09b34c6d28a25dbe9459351422fdaabb32",
+   "committed_size": 448,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "isobmff ftyp brand",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-heif": {
+   "committed_sha256": "6f67bb96cc449cbaf9564b0100432d09b34c6d28a25dbe9459351422fdaabb32",
+   "committed_size": 448,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "isobmff ftyp brand",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-heifs": {
+   "committed_sha256": "6f67bb96cc449cbaf9564b0100432d09b34c6d28a25dbe9459351422fdaabb32",
+   "committed_size": 448,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "isobmff ftyp brand",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-jar": {
+   "committed_sha256": "5859c248fe7d2d349012717faa85d6eb79ad8077ed6161e68f9a072f4a1a786d",
+   "committed_size": 132,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-maff": {
+   "committed_sha256": "ae1bde2d81dc213b9888ca6081c512cc256c6b498e14822e94196a6df03c3472",
+   "committed_size": 145,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-npz": {
+   "committed_sha256": "dcfea59506a13f99e9713359f5e9bbb84443721a6befae6289497771311fa4b3",
+   "committed_size": 127,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-nupkg": {
+   "committed_sha256": "fb70284dbdf01bf451e296f0166e93be32bb344cb364e77260b57ad8a09589dc",
+   "committed_size": 264,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-pkg": {
+   "committed_sha256": "82e0a9d41763c20b6297bbbb3f0f0ba7b07aa023938e7b561d9c2e962dd5c12a",
+   "committed_size": 28,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "xar magic",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-pptm": {
+   "committed_sha256": "45c79aaa2dbd4265ca5cadb5edddff4c9932533b19c3a141ee6864a888717471",
+   "committed_size": 498,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-rz": {
+   "committed_sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
+   "committed_size": 34,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": null,
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-tgz": {
+   "committed_sha256": "3c992f52cbe1c011f1f152cf8d2767cc3afd9940798c559f9bb24d23d12cd51f",
+   "committed_size": 34,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": null,
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-vdw": {
+   "committed_sha256": "04b20f975424e8748ecbfa2cfb328ca53a35cdd1ef60a5e557a7c64a3499c463",
+   "committed_size": 485,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-vsdm": {
+   "committed_sha256": "04b20f975424e8748ecbfa2cfb328ca53a35cdd1ef60a5e557a7c64a3499c463",
+   "committed_size": 485,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-vsdx": {
+   "committed_sha256": "04b20f975424e8748ecbfa2cfb328ca53a35cdd1ef60a5e557a7c64a3499c463",
+   "committed_size": 485,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-xar": {
+   "committed_sha256": "82e0a9d41763c20b6297bbbb3f0f0ba7b07aa023938e7b561d9c2e962dd5c12a",
+   "committed_size": 28,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "xar magic",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-xlsb": {
+   "committed_sha256": "fdefab22f2cc0e46a907c40b819e391e5dea5d7f0ef44392f5960d23a394c60e",
+   "committed_size": 404,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-xlsm": {
+   "committed_sha256": "e523f03e302ceb746c48b6b70fb461be4b56879b193032554b8f5cb614f63d95",
+   "committed_size": 501,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-xml": {
+   "committed_sha256": "3f65b9642b32fc69250dc202c6bcd170408a33a8355d569f90aff5b701396667",
+   "committed_size": 140,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "ElementTree wellformed",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-xpi": {
+   "committed_sha256": "5859c248fe7d2d349012717faa85d6eb79ad8077ed6161e68f9a072f4a1a786d",
+   "committed_size": 132,
+   "generator_status": "deterministic now; committed from older toolchain/source",
+   "independent_validator": "zip-testzip+structure",
+   "decision": "update generator recipe to reproduce committed fixture bytes exactly"
+  },
+  "sample-avro": {
+   "committed_sha256": "55331521dbc51b7e41fed3da3f475c9b3862560eb28bfe9a17a9a5592867279a",
+   "committed_size": 191,
+   "generator_status": "nondeterministic: data_formats.py (fastavro writer metadata)",
+   "independent_validator": "fastavro reader",
+   "decision": "fix generator determinism, then regenerate"
+  },
+  "sample-stl": {
+   "committed_sha256": "dce4a3a3a401bfd064ad999917b351dbe52fc788f60614f68e9e8c8869aadb69",
+   "committed_size": 134,
+   "generator_status": "nondeterministic: data_formats.py (numpy-stl header)",
+   "independent_validator": null,
+   "decision": "quarantine until validator defined"
+  }
+ }
+}

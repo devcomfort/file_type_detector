@@ -27,6 +27,41 @@ env:
   INVENTORY: tests/truth/backend_inventory.json
 
 jobs:
+  determinism-gate:
+    name: Determinism and exact-byte gate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-dev.lock
+
+      - name: Install locked dependencies
+        shell: bash
+        run: |
+          python -m pip install -r requirements-dev.lock
+          python -m pip install --no-deps -e .
+
+      - name: Install ffmpeg for audio generators
+        shell: bash
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Run exact-byte gate and determinism tests
+        shell: bash
+        run: |
+          python -m pytest tests/conformance/test_exact_byte_gate.py tests/conformance/test_evaluator.py -v
+
+      - name: Run slow determinism scan (2.1s interval, Tier2 allowlist enforced)
+        shell: bash
+        run: |
+          python -m scripts.conformance.determinism_scan
+
   collect:
     name: Collect ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}

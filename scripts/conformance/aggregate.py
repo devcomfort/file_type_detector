@@ -7,6 +7,7 @@ import hashlib
 import csv
 import itertools
 import json
+from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
@@ -830,6 +831,8 @@ def render_markdown(
     lines.extend(["", "## Cross-platform divergence", ""])
     lines.extend(_render_divergence(pair_summaries, semantic_rows, raw_only_rows))
     lines.extend(_render_divergence_chart(semantic_rows, records))
+    lines.extend(["", "## Quality-tier slicing", ""])
+    lines.extend(_render_quality_tier_slice(result["observations"], records_by_id))
     lines.extend(["", "## Baseline", ""])
     lines.extend(_render_baseline(baseline))
     lines.extend(["", "## Reproduce", ""])
@@ -843,6 +846,53 @@ def render_markdown(
         )
     )
     return "\n".join(lines) + "\n"
+
+
+def _render_quality_tier_slice(
+    observations: Sequence[Mapping[str, object]],
+    records_by_id: Mapping[str, InventoryRecord],
+) -> list[str]:
+    """Render per-backend accuracy sliced by content_identifiability tier."""
+    tiers = ("distinctive", "ambiguous", "generic-container", "not_applicable")
+    backends = ("lexical", "magic", "magika", "hybrid")
+
+    # Build rid → tier lookup
+    rid_tier: dict[str, str] = {}
+    for rid, rec in records_by_id.items():
+        tier = rec.content_identifiability or "unclassified"
+        rid_tier[rid] = tier
+
+    # Collect accuracy per backend × tier
+    cells: dict[tuple[str, str], list[bool]] = defaultdict(list)
+    for obs in observations:
+        backend = obs.get("backend", "")
+        inv_id = obs.get("inventory_id", "")
+        evaluation = obs.get("evaluation") or {}
+        if isinstance(evaluation, Mapping):
+            cells[(backend, rid_tier.get(inv_id, "unclassified"))].append(
+                bool(evaluation.get("overall_match"))
+            )
+
+    lines = [
+        "Accuracy per backend, sliced by content-identifiability quality tier.",
+        "`overall_match` is NOT affected by the tier; this slice shows where",
+        "backends struggle with generic containers vs distinctive formats.",
+        "",
+        "| Backend | " + " | ".join(tiers) + " |",
+        "| --- | " + " | ".join("---:" for _ in tiers) + " |",
+    ]
+    for backend in backends:
+        row = [backend]
+        for tier in tiers:
+            results = cells.get((backend, tier), [])
+            if results:
+                pct = 100 * sum(results) / len(results)
+                row.append(f"{pct:.0f}% ({len(results)})")
+            else:
+                row.append("—")
+        lines.append("| " + " | ".join(row) + " |")
+
+    return lines
 
 
 def _render_reproduction() -> list[str]:

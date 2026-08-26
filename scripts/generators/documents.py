@@ -3,6 +3,7 @@
 import zipfile
 from io import BytesIO
 
+from ._deterministic import write_zip_str
 from .base import BaseGenerator
 from . import register
 
@@ -14,9 +15,27 @@ class DocumentGenerator(BaseGenerator):
     @property
     def extensions(self) -> list[str]:
         return [
-            "pdf", "ps", "eps", "ai", "epub", "rtf", "tex", "sty",
-            "odt", "ods", "odp", "dotx", "pptm", "docm", "xlsm", "xlsb",
-            "vsdm", "vsdx", "vdw", "bdf", "dxf",
+            "pdf",
+            "ps",
+            "eps",
+            "ai",
+            "epub",
+            "rtf",
+            "tex",
+            "sty",
+            "odt",
+            "ods",
+            "odp",
+            "dotx",
+            "pptm",
+            "docm",
+            "xlsm",
+            "xlsb",
+            "vsdm",
+            "vsdx",
+            "vdw",
+            "bdf",
+            "dxf",
         ]
 
     @property
@@ -90,8 +109,14 @@ class DocumentGenerator(BaseGenerator):
     def _create_epub(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("mimetype", "application/epub+zip", compress_type=zipfile.ZIP_STORED)
-            zf.writestr("META-INF/container.xml", '<?xml version="1.0"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>')
+            write_zip_str(
+                zf, "mimetype", "application/epub+zip", compress_type=zipfile.ZIP_STORED
+            )
+            write_zip_str(
+                zf,
+                "META-INF/container.xml",
+                '<?xml version="1.0"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>',
+            )
         return buf.getvalue()
 
     def _create_rtf(self) -> bytes:
@@ -106,78 +131,165 @@ class DocumentGenerator(BaseGenerator):
     def _create_odt(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("mimetype", "application/vnd.oasis.opendocument.text", compress_type=zipfile.ZIP_STORED)
-            zf.writestr("META-INF/manifest.xml", '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.text"/></manifest:manifest>')
+            write_zip_str(
+                zf,
+                "mimetype",
+                "application/vnd.oasis.opendocument.text",
+                compress_type=zipfile.ZIP_STORED,
+            )
+            write_zip_str(
+                zf,
+                "META-INF/manifest.xml",
+                '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.text"/></manifest:manifest>',
+            )
         return buf.getvalue()
 
     def _create_ods(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("mimetype", "application/vnd.oasis.opendocument.spreadsheet", compress_type=zipfile.ZIP_STORED)
-            zf.writestr("META-INF/manifest.xml", '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.spreadsheet"/></manifest:manifest>')
+            write_zip_str(
+                zf,
+                "mimetype",
+                "application/vnd.oasis.opendocument.spreadsheet",
+                compress_type=zipfile.ZIP_STORED,
+            )
+            write_zip_str(
+                zf,
+                "META-INF/manifest.xml",
+                '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.spreadsheet"/></manifest:manifest>',
+            )
         return buf.getvalue()
 
     def _create_odp(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("mimetype", "application/vnd.oasis.opendocument.presentation", compress_type=zipfile.ZIP_STORED)
-            zf.writestr("META-INF/manifest.xml", '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.presentation"/></manifest:manifest>')
+            write_zip_str(
+                zf,
+                "mimetype",
+                "application/vnd.oasis.opendocument.presentation",
+                compress_type=zipfile.ZIP_STORED,
+            )
+            write_zip_str(
+                zf,
+                "META-INF/manifest.xml",
+                '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.presentation"/></manifest:manifest>',
+            )
         return buf.getvalue()
 
     def _create_dotx(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("word/document.xml", '<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Hello</w:t></w:r></w:p></w:body></w:document>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "word/document.xml",
+                '<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Hello</w:t></w:r></w:p></w:body></w:document>',
+            )
         return buf.getvalue()
 
     def _create_pptm(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("ppt/presentation.xml", '<?xml version="1.0"?><p:presentation xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><p:sldIdLst><p:sldId id="256"/></p:sldIdLst></p:presentation>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "ppt/presentation.xml",
+                '<?xml version="1.0"?><p:presentation xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><p:sldIdLst><p:sldId id="256"/></p:sldIdLst></p:presentation>',
+            )
         return buf.getvalue()
 
     def _create_docm(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("word/document.xml", '<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Hello</w:t></w:r></w:p></w:body></w:document>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "word/document.xml",
+                '<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Hello</w:t></w:r></w:p></w:body></w:document>',
+            )
         return buf.getvalue()
 
     def _create_xlsm(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("xl/workbook.xml", '<?xml version="1.0"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheets><sheet name="Sheet1" sheetId="1" r:id="rId1"/></sheets></workbook>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "xl/workbook.xml",
+                '<?xml version="1.0"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheets><sheet name="Sheet1" sheetId="1" r:id="rId1"/></sheets></workbook>',
+            )
         return buf.getvalue()
 
     def _create_xlsb(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="bin" ContentType="application/vnd.ms-excel.sheet.binary.macroEnabled.main"/></Types>')
-            zf.writestr("xl/workbook.bin", b"\x00" * 20)
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="bin" ContentType="application/vnd.ms-excel.sheet.binary.macroEnabled.main"/></Types>',
+            )
+            write_zip_str(zf, "xl/workbook.bin", b"\x00" * 20)
         return buf.getvalue()
 
     def _create_vsdm(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("visio/document.xml", '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "visio/document.xml",
+                '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>',
+            )
         return buf.getvalue()
 
     def _create_vsdx(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("visio/document.xml", '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "visio/document.xml",
+                '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>',
+            )
         return buf.getvalue()
 
     def _create_vdw(self) -> bytes:
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr("[Content_Types].xml", '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>')
-            zf.writestr("visio/document.xml", '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>')
+            write_zip_str(
+                zf,
+                "[Content_Types].xml",
+                '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/></Types>',
+            )
+            write_zip_str(
+                zf,
+                "visio/document.xml",
+                '<?xml version="1.0"?><VisioDocument xmlns="http://schemas.microsoft.com/office/visio/2012/main"><DocumentSettings/></VisioDocument>',
+            )
         return buf.getvalue()
 
     def _create_bdf(self) -> bytes:
@@ -187,7 +299,8 @@ class DocumentGenerator(BaseGenerator):
         import ezdxf
         import tempfile
         import os
-        doc = ezdxf.new('R2010')
+
+        doc = ezdxf.new("R2010")
         msp = doc.modelspace()
         msp.add_line((0, 0), (1, 1))
         fd, tmp_path = tempfile.mkstemp(suffix=".dxf")

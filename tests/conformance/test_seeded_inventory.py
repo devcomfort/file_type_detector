@@ -31,13 +31,17 @@ def test_checked_in_candidates_are_fully_verified() -> None:
         root=_PROJECT_ROOT,
     )
 
-    assert candidates["schema_version"] == 1
+    assert candidates["schema_version"] == 2
     assert len({record["id"] for record in candidate_records}) == len(candidate_records)
     assert summary["candidate_count"] == len(candidate_records)
-    assert summary["verified_count"] == len(candidate_records)
+    # Only independently validated records remain verified; the rest are excluded.
+    assert summary["verified_count"] == 9
+    assert summary["excluded_count"] == 589
     assert summary["unresolved_count"] == 0
     assert {record.id for record in collected} == {
-        record["id"] for record in candidate_records
+        record["id"]
+        for record in candidate_records
+        if record["ground_truth_review"]["status"] == "verified"
     }
 
 
@@ -64,9 +68,10 @@ def test_known_conflicts_corrected_and_7z_provenance_preserved() -> None:
     assert by_id["sample-aiff"]["ground_truth"]["extensions"] == [".aiff"]
     assert by_id["sample-au"]["ground_truth"]["extensions"] == [".au"]
     assert by_id["sample-avif"]["ground_truth"]["extensions"] == [".avif"]
-    assert by_id["sample-aiff"]["ground_truth_review"]["status"] == "verified"
-    assert by_id["sample-avif"]["ground_truth_review"]["status"] == "verified"
-    # Clean record promoted with corrected provenance
+    # sample-aiff/sample-au: excluded pending independent format_validity validation
+    assert by_id["sample-aiff"]["ground_truth_review"]["status"] == "excluded"
+    assert by_id["sample-au"]["ground_truth_review"]["status"] == "excluded"
+    # sample-7z: Tier-2 (pinned-SHA + py7zr round-trip), format_validity=verified
     assert by_id["sample-7z"]["ground_truth_review"]["status"] == "verified"
     assert (
         by_id["sample-7z"]["provenance"]

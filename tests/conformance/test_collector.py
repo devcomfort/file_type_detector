@@ -106,6 +106,7 @@ def test_evaluate_output_requires_both_ground_truth_intersections() -> None:
         "mime_match": True,
         "extension_match": True,
         "overall_match": True,
+        "match_level": "exact",
     }
 
 
@@ -123,6 +124,7 @@ def test_evaluate_output_marks_non_results_and_errors_as_mismatches() -> None:
             "mime_match": False,
             "extension_match": False,
             "overall_match": False,
+            "match_level": "miss",
         }
 
 
@@ -213,6 +215,7 @@ def test_collect_command_uses_fresh_worker_and_writes_observations(
         "mime_match": True,
         "extension_match": True,
         "overall_match": True,
+        "match_level": "exact",
     }
     assert lexical["platform"]["runner_label"] == "test-runner"
     assert set(lexical["runtime"]) == {
@@ -281,6 +284,7 @@ def test_collect_observation_preserves_backend_failure_without_fallback(
         "mime_match": False,
         "extension_match": False,
         "overall_match": False,
+        "match_level": "miss",
     }
 
 
@@ -322,6 +326,7 @@ def test_collect_observation_classifies_empty_output_as_no_result(
         "mime_match": False,
         "extension_match": False,
         "overall_match": False,
+        "match_level": "miss",
     }
 
 
