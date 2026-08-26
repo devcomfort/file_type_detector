@@ -17,7 +17,9 @@ from scripts.conformance.inventory import (
 
 
 def _verified_record(fixture: Path) -> dict[str, object]:
-    return {
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    record = {
         "id": "fixture-bin",
         "fixture": fixture.name,
         "sha256": hashlib.sha256(fixture.read_bytes()).hexdigest(),
@@ -35,6 +37,7 @@ def _verified_record(fixture: Path) -> dict[str, object]:
         },
         "backends": ["lexical", "magic", "magika", "hybrid"],
     }
+    return complete_v2_record(record)
 
 
 # Q. Does a byte-verified authoritative record load only when an identical candidate is reviewed?
@@ -44,8 +47,8 @@ def test_loads_fact_identical_verified_record(tmp_path: Path) -> None:
     record = _verified_record(fixture)
     candidates_path = tmp_path / "candidates.json"
     inventory_path = tmp_path / "inventory.json"
-    candidates_path.write_text(json.dumps({"schema_version": 1, "records": [record]}))
-    inventory_path.write_text(json.dumps({"schema_version": 1, "records": [record]}))
+    candidates_path.write_text(json.dumps({"schema_version": 2, "records": [record]}))
+    inventory_path.write_text(json.dumps({"schema_version": 2, "records": [record]}))
 
     # Load and verify (the returned record must retain independently reviewed facts)
     records = load_verified_inventory(candidates_path, inventory_path, root=tmp_path)
@@ -98,7 +101,7 @@ def test_reports_unresolved_legacy_extension_conflicts(tmp_path: Path) -> None:
     aiff.write_bytes(b"aiff fixture")
     avif.write_bytes(b"avif fixture")
     candidates = {
-        "schema_version": 1,
+        "schema_version": 2,
         "records": [
             _needs_review_record(aiff, "sample-aiff", ".txt"),
             _needs_review_record(avif, "sample-avif", ".mp4"),
@@ -107,7 +110,7 @@ def test_reports_unresolved_legacy_extension_conflicts(tmp_path: Path) -> None:
     candidates_path = tmp_path / "candidates.json"
     inventory_path = tmp_path / "inventory.json"
     candidates_path.write_text(json.dumps(candidates))
-    inventory_path.write_text(json.dumps({"schema_version": 1, "records": []}))
+    inventory_path.write_text(json.dumps({"schema_version": 2, "records": []}))
 
     # Summarize and verify (only unresolved records appear, with their proposed extensions)
     summary = review_summary(candidates_path, inventory_path, root=tmp_path)
@@ -171,9 +174,9 @@ def _write_pair(
 ) -> tuple[Path, Path]:
     candidates_path = tmp_path / "candidates.json"
     inventory_path = tmp_path / "inventory.json"
-    candidates_path.write_text(json.dumps({"schema_version": 1, "records": candidates}))
+    candidates_path.write_text(json.dumps({"schema_version": 2, "records": candidates}))
     inventory_path.write_text(
-        json.dumps({"schema_version": 1, "records": authoritative})
+        json.dumps({"schema_version": 2, "records": authoritative})
     )
     return candidates_path, inventory_path
 
@@ -186,6 +189,9 @@ def test_rejects_authoritative_record_without_verified_candidate(
     fixture.write_bytes(b"aiff fixture")
     candidate = _needs_review_record(fixture, "sample-aiff", ".aiff")
     authoritative = deepcopy(candidate)
+    from tests.conformance._inventory_factory import complete_v2_record
+
+    authoritative = complete_v2_record(authoritative)
     authoritative["ground_truth_review"] = {
         "status": "verified",
         "reviewed_by": "test-reviewer",
