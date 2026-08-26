@@ -48,30 +48,15 @@ jobs:
           python -m pip install -r requirements-dev.lock
           python -m pip install --no-deps -e .
 
-      - name: Run exact-byte gate (Tier1 generator output == committed fixture)
+      - name: Run exact-byte gate and determinism tests
         shell: bash
         run: |
-          python .audit/exact_byte_gate.py
+          python -m pytest tests/conformance/test_exact_byte_gate.py tests/conformance/test_evaluator.py -v
 
-      - name: Run slow determinism scan (2.1s interval)
+      - name: Run slow determinism scan (2.1s interval, Tier2 allowlist enforced)
         shell: bash
         run: |
-          python .audit/nondet_scan_slow.py > /tmp/slow_scan.json
-          python -c "
-          import json, sys
-          data = json.load(open('/tmp/slow_scan.json'))
-          errors = {k: v for k, v in data.items() if 'error' in v or 'error2' in v}
-          tier2 = {'7z', 'dxf', 'stl'}
-          diffs = {k for k, v in data.items() if v.get('same') is False}
-          unexpected_diffs = diffs - tier2
-          if errors:
-              print('FAIL: generator errors:', errors, file=sys.stderr)
-              sys.exit(1)
-          if unexpected_diffs:
-              print('FAIL: nondeterministic generators outside Tier2:', sorted(unexpected_diffs), file=sys.stderr)
-              sys.exit(1)
-          print(f'Determinism scan PASSED: {len(data)} checked, {len(diffs & tier2)} Tier2 allowed')
-          "
+          python -m scripts.conformance.determinism_scan
 
   collect:
     name: Collect ${{ matrix.platform }}
