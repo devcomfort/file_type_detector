@@ -603,9 +603,7 @@
    "content_identifiability": "distinctive",
    "source_integrity": {
     "kind": "generated",
-    "generator_symbol": "scripts.generators.code_formats.CodeFormatGenerator._ahk",
-    "tier": "exact-byte",
-    "recipe_hash": "cad8d9c49cf5ee8a5c634b4f2d093116e023cd72f951cd4ffb5823e9cabf1dcf"
+    "generator_symbol": "scripts.generators.code_formats.CodeFormatGenerator._ahk"
    },
    "format_validity": {
     "status": "verified",
