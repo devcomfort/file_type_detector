@@ -50,6 +50,9 @@ class ArchiveGenerator(BaseGenerator):
             "wad",
             "xar",
             "z",
+            "cab",
+            "crx",
+            "deb",
         ]
 
     @property
@@ -123,6 +126,9 @@ class ArchiveGenerator(BaseGenerator):
             "wad": self._create_wad,
             "xar": self._create_xar,
             "z": self._create_z,
+            "cab": self._create_cab,
+            "crx": self._create_crx,
+            "deb": self._create_deb,
         }
         return generators[ext]()
 
@@ -361,3 +367,24 @@ class ArchiveGenerator(BaseGenerator):
 
     def _create_z(self) -> bytes:
         return b"\x1f\x9d" + b"\x00" * 20
+
+    def _create_cab(self) -> bytes:
+        cab_hdr = b"MSCF\x00\x00\x00\x00" + struct.pack("<IIIIHHHHHH", 128, 0, 44, 0, 0x0103, 1, 1, 0, 1, 0)
+        cab_folder = struct.pack("<IHH", 72, 1, 0)
+        cab_file = struct.pack("<IIHHHH", 13, 0, 0, 0, 0, 0x20) + b"sample.txt\x00"
+        cab_data = struct.pack("<IHH", 0, 13, 13) + b"Hello, World!"
+        return (cab_hdr + cab_folder + cab_file + cab_data).ljust(512, b"\x00")
+
+    def _create_crx(self) -> bytes:
+        import io
+        import zipfile
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as zf:
+            zf.writestr("manifest.json", '{"name":"Sample","version":"1.0","manifest_version":2}')
+        zip_data = buf.getvalue()
+        pubkey = b"\x30\x59\x30\x13\x06\x07\x2a\x86\x48\xce\x3d\x02\x01\x06\x08\x2a\x86\x48\xce\x3d\x03\x01\x07\x03\x42\x00\x04" + b"\x00" * 37
+        sig = b"\x30\x44\x02\x20" + b"\x01" * 32 + b"\x02\x20" + b"\x02" * 32
+        return b"Cr24" + struct.pack("<III", 2, len(pubkey), len(sig)) + pubkey + sig + zip_data
+
+    def _create_deb(self) -> bytes:
+        return (b"!<arch>\n" + b"debian-binary   0           0     0     100644  4         `\n2.0\n").ljust(512, b"\x00")

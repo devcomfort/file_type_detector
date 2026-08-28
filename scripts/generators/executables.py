@@ -12,7 +12,7 @@ class ExecutableGenerator(BaseGenerator):
 
     @property
     def extensions(self) -> list[str]:
-        return ["elf", "so", "ko", "pyc", "pyo"]
+        return ["elf", "so", "ko", "pyc", "pyo", "dex", "macho"]
 
     @property
     def sources(self) -> dict[str, str]:
@@ -35,6 +35,8 @@ class ExecutableGenerator(BaseGenerator):
             "ko": self._create_elf,
             "pyc": self._create_pyc,
             "pyo": self._create_pyc,
+            "dex": self._create_dex,
+            "macho": self._create_macho,
         }
         return generators[ext]()
 
@@ -53,3 +55,14 @@ class ExecutableGenerator(BaseGenerator):
         pyc_magic = importlib.util.MAGIC_NUMBER
         pyc_header = pyc_magic + b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
         return pyc_header + marshal.dumps(code_obj)
+
+    def _create_dex(self) -> bytes:
+        import struct
+        dex_magic = b"dex\n035\x00"
+        return (dex_magic + b"\x00" * 24 + struct.pack("<III", 112, 112, 0x12345678) + b"\x00" * 72).ljust(512, b"\x00")
+
+    def _create_macho(self) -> bytes:
+        import struct
+        macho_hdr = struct.pack("<IIIIIIII", 0xfeedfacf, 0x01000007, 3, 2, 1, 72, 0x200085, 0)
+        lc_seg = struct.pack("<II16sQQQQIIII", 0x19, 72, b"__PAGEZERO", 0, 0x100000000, 0, 0, 0, 0, 0, 0)
+        return (macho_hdr + lc_seg).ljust(512, b"\x00")

@@ -48,17 +48,12 @@
       }
     },
     "sample-deb": {
-      "sha256": "da2c303ba95fb99f47565b7a4fce18702ad52a06d24e73be5af7dffa141e17bc",
+      "sha256": "74ff3358237213451023bf5c292c70d5599f3aaed96e4275d0e012bf212d6165",
       "probe_extension": ".deb",
       "status": "excluded",
       "source": {
-        "type": "external",
-        "repo": "iamahsanmehmood/sample-files",
-        "commit": "7354692a691e66380e6572c3a18e20ac99771f7d",
-        "path": "archives/sample.deb",
-        "url": "https://raw.githubusercontent.com/iamahsanmehmood/sample-files/7354692a691e66380e6572c3a18e20ac99771f7d/archives/sample.deb",
-        "license": "MIT (files CC0)",
-        "blob_verified": true
+        "type": "generated",
+        "generator": "scripts.generators.ArchiveGenerator"
       }
     },
     "sample-diff": {
@@ -1717,17 +1712,12 @@
       }
     },
     "sample-crx": {
-      "sha256": "3f916cc5cea705d9d0b0c21267250e419f5583d6b8825445eb8678c78278bc8b",
+      "sha256": "2c78ffb2845b6e6894e533d2af628058c7ebce9d2a61b7fd9bc54eb241bacd3c",
       "probe_extension": ".crx",
       "status": "excluded",
       "source": {
-        "type": "external",
-        "repo": "iamahsanmehmood/sample-files",
-        "commit": "7354692a691e66380e6572c3a18e20ac99771f7d",
-        "path": "archives/sample.crx",
-        "url": "https://raw.githubusercontent.com/iamahsanmehmood/sample-files/7354692a691e66380e6572c3a18e20ac99771f7d/archives/sample.crx",
-        "license": "MIT (files CC0)",
-        "blob_verified": true
+        "type": "generated",
+        "generator": "scripts.generators.ArchiveGenerator"
       }
     },
     "sample-cs": {
@@ -2805,17 +2795,12 @@
       }
     },
     "sample-cab": {
-      "sha256": "d51203a86eec42c05847f158a7a6b6eb197b9bca11f991a20969a3aeb60792e1",
+      "sha256": "1f1a62fcf1b511fd033f9448533b7f0f545d52e3cd30666e6668c7395f7d64e2",
       "probe_extension": ".cab",
       "status": "excluded",
       "source": {
-        "type": "external",
-        "repo": "iamahsanmehmood/sample-files",
-        "commit": "7354692a691e66380e6572c3a18e20ac99771f7d",
-        "path": "archives/sample.cab",
-        "url": "https://raw.githubusercontent.com/iamahsanmehmood/sample-files/7354692a691e66380e6572c3a18e20ac99771f7d/archives/sample.cab",
-        "license": "MIT (files CC0)",
-        "blob_verified": true
+        "type": "generated",
+        "generator": "scripts.generators.ArchiveGenerator"
       }
     },
     "sample-carbon": {
@@ -3211,7 +3196,7 @@
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators.CodeFormatGenerator"
       }
     },
     "sample-pt": {
@@ -3382,12 +3367,12 @@
       }
     },
     "sample-dex": {
-      "sha256": "c87eea6ee84aee2db8267b0926aa0c86a5ae0184de70c570630c84fd868363f0",
+      "sha256": "7ed984fa5d58f72067a61226f33f69fa67d7a2bb8d28f7120665d6cc3f69b8e6",
       "probe_extension": ".dex",
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators.ExecutableGenerator"
       }
     },
     "sample-dockerfile": {
@@ -6400,6 +6385,15 @@
         "recipe_hash": "bd5da4bd967bd12ab255f1380569fbaffd5cb59bb3f3540d884c3d7e3a196f16",
         "tier": "exact-byte",
         "generator_symbol": "scripts.generators.code_formats.CodeFormatGenerator._ahk"
+      }
+    },
+    "sample-macho": {
+      "sha256": "3c04ad5895601bd33c422397269e5ee8bb265d4c643fc811fbb0d3f41a9526d5",
+      "probe_extension": ".macho",
+      "status": "excluded",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.ExecutableGenerator"
       }
     }
   },

@@ -1046,3 +1046,16 @@ class CodeFormatGenerator(BaseGenerator):
 
     def _xml(self) -> str:
         return '<?xml version="1.0" encoding="UTF-8"?>\n<root>\n  <item id="1">Sample</item>\n</root>\n'
+
+    def _create_ps1(self) -> bytes:
+        return b"""# PowerShell sample script
+function Get-Greeting {
+    param([string]$Name = "World")
+    Write-Output "Hello, $Name!"
+}
+
+$items = Get-ChildItem -Path . -Filter *.txt
+foreach ($item in $items) {
+    Write-Host "Found file: $($item.FullName)"
+}
+"""
