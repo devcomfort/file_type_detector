@@ -21,21 +21,22 @@ The APK and AI records remain quarantined because the available checks do not es
 
 ## Accepted locked-model limits
 
-These labels were measured against the current locked Magika model and are excluded from the effective recognition denominator. They remain catalog entries where independently valid fixture bytes exist; their observed label is documented rather than used as Ground Truth.
+These labels were measured against the current locked Magika model. Only entries with independently validated fixture bytes may be accepted as model limits. Unvalidated or invalid fixtures are kept separate and fail closed.
 
 | Target label | Fixture size | Observed locked label | Disposition |
 |---|---:|---|---|
 | `aidl` | 52 B | `txt` (0.49) | Accepted model limit; text syntax is not distinguishable to the locked model |
 | `dm` | 29 B | `txt` (0.25) | Accepted model limit |
-| `dwg` | 134 B | `txt` (0.31) | Accepted model limit; minimal text-like sample is insufficient for model recognition |
+| `dwg` | 134 B | `txt` (0.31) | **Unvalidated fixture**; do not classify as a model limit until an independent DWG parser succeeds |
 | `sgml` | 75 B | `txt` (0.30) | Accepted model limit |
 | `sum` | 45 B | `txt` (0.52) | Accepted model limit |
-| `ttf` | 80 B | `coff` (0.93) | Accepted borderline classification; both are binary formats with overlapping model evidence |
+| `ttf` | 80 B | `coff` (0.93) | **Unvalidated fixture**; 80-byte sample is not a valid font parser input |
 | `pdb` | 304 B | `proteindb` (1.00) | Accepted borderline classification; model collision is documented |
 
 ## Gate decision
 
 - No W4 subtype fixture is promoted solely from a Magika label.
 - `textproto` and `jinja` are signed off as ambiguous model behavior, not as successful target-label recognition.
-- The seven limit labels are excluded from the effective locked-model denominator.
+- `aidl`, `dm`, `sgml`, `sum`, and `pdb` remain signed model-limit observations.
+- `dwg` and `ttf` are excluded as unvalidated fixtures, not signed model limits.
 - Authoritative promotion remains gated on source integrity, independent format validity, MIME evidence, and content identifiability.

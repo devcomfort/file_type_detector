@@ -370,7 +370,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
+        "reason": "unvalidated fixture; excluded from model-limit denominator pending independent parser"
       },
       "backends": [
         "lexical",
@@ -391,7 +391,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": "ambiguous"
+      "content_identifiability": null
     },
     {
       "id": "sample-eml",
@@ -10733,7 +10733,7 @@
       "provenance": "Generated from font specification",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
+        "reason": "unvalidated fixture; excluded from model-limit denominator pending independent parser"
       },
       "backends": [
         "lexical",
@@ -10754,7 +10754,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": "ambiguous"
+      "content_identifiability": null
     },
     {
       "id": "sample-vcxproj",
