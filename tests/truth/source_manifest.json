@@ -6404,14 +6404,17 @@
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators.ArchiveGenerator._create_snap"
+        "generator": "scripts.generators.ArchiveGenerator._create_snap",
+        "recipe_hash": "6047b8616bcee12a0cffae47c91d1feb7818a9c365013995f9af4dd2496bfe2c",
+        "tier": "exact-byte",
+        "generator_symbol": "scripts.generators.ArchiveGenerator._create_snap"
       }
     }
   },
   "summary": {
-    "total": 599,
+    "total": 601,
     "by_type": {
-      "generated": 378,
+      "generated": 383,
       "external": 192,
       "external_unresolved": 29
     }
