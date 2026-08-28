@@ -6613,7 +6613,7 @@
     {
       "id": "sample-ai",
       "fixture": "tests/fixtures/sample.ai",
-      "sha256": "f632de16e867e6ef2c93e59c8a49aec4036b17d8bf46a1ac3ddb7379dc074d30",
+      "sha256": "c9dae116b50e3039a764d61d1510992377373e203f265011f71aaf84a0d89f36",
       "probe_extension": ".ai",
       "ground_truth": {
         "mime_types": [
@@ -6652,7 +6652,7 @@
     {
       "id": "sample-apk",
       "fixture": "tests/fixtures/sample.apk",
-      "sha256": "63cbc55f0c3d6806d321a6e3036d46e7a1bfe830b0c1a7218aef3b4999dba5bc",
+      "sha256": "b58eec5fa45562432992af96c1f95cd84802e037e52fb06c8684b85b68e75070",
       "probe_extension": ".apk",
       "ground_truth": {
         "mime_types": [
@@ -11312,7 +11312,7 @@
     {
       "id": "sample-xpi",
       "fixture": "tests/fixtures/sample.xpi",
-      "sha256": "5859c248fe7d2d349012717faa85d6eb79ad8077ed6161e68f9a072f4a1a786d",
+      "sha256": "108aca0b5f98621c609264bd6408fdb7961efa5f845149fedac6bbe60dddbeb7",
       "probe_extension": ".xpi",
       "ground_truth": {
         "mime_types": [

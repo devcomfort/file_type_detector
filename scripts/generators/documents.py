@@ -104,7 +104,13 @@ class DocumentGenerator(BaseGenerator):
         return b"%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 100 100\n/Helvetica findfont 12 scalefont setfont\n10 10 moveto (Hello) show\nshowpage\n"
 
     def _create_ai(self) -> bytes:
-        return b"%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n>>\nendobj\nxref\n0 1\ntrailer\n<<\n/Root 1 0 R\n>>\n%%EOF"
+        return (
+            b"%PDF-1.5\n%Adobe_Illustrator_8.0\n"
+            b"1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n"
+            b"2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n"
+            b"3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >> endobj\n"
+            b"%%Creator: Adobe Illustrator\n%%EOF\n"
+        )
 
     def _create_epub(self) -> bytes:
         buf = BytesIO()

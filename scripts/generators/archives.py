@@ -112,9 +112,9 @@ class ArchiveGenerator(BaseGenerator):
             "lz4": self._create_lz4,
             "zst": self._create_zst,
             "7z": self._create_7z,
-            "xpi": self._create_zip,
+            "xpi": self._create_xpi,
             "jar": self._create_zip,
-            "apk": self._create_zip,
+            "apk": self._create_apk,
             "gzip": self._create_gz,
             "nupkg": self._create_nupkg,
             "maff": self._create_maff,
@@ -139,6 +139,28 @@ class ArchiveGenerator(BaseGenerator):
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
             write_zip_str(zf, "hello.txt", "Hello, World!\n")
+        return buf.getvalue()
+
+    def _create_apk(self) -> bytes:
+        from .executables import ExecutableGenerator
+
+        buf = BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            # Kept excluded until a full binary-AXML parser validates this manifest.
+            manifest = struct.pack("<IIHHHH", 0x00080003, 16, 0, 0, 0, 0)
+            write_zip_str(zf, "AndroidManifest.xml", manifest)
+            write_zip_str(zf, "classes.dex", ExecutableGenerator().generate("dex"))
+            write_zip_str(zf, "META-INF/MANIFEST.MF", "Manifest-Version: 1.0\n\n")
+        return buf.getvalue()
+
+    def _create_xpi(self) -> bytes:
+        buf = BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            write_zip_str(
+                zf,
+                "manifest.json",
+                '{"manifest_version":2,"name":"Sample Extension","version":"1.0"}',
+            )
         return buf.getvalue()
 
     def _create_tar(self) -> bytes:
