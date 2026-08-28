@@ -84,7 +84,7 @@ class ArchiveGenerator(BaseGenerator):
             "lzh": "synthetic:LZH magic bytes",
             "pkg": "synthetic:XAR wrapper (macOS package)",
             "rpm": "synthetic:RPM lead/signature/main header + cpio payload",
-            "snap": "library:mksquashfs reproducible SquashFS 4.0",
+            "snap": "generated:pinned reproducible SquashFS 4.0 bytes (mksquashfs recipe)",
             "wad": "synthetic:WAD magic bytes",
             "xar": "synthetic:XAR header + compressed TOC + SHA-1 heap checksum",
             "z": "synthetic:Unix compress magic bytes",
