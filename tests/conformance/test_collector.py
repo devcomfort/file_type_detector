@@ -10,6 +10,7 @@ import pytest
 from types import ModuleType
 from pathlib import Path
 
+from scripts.conformance.collector import collect_observation
 from scripts.conformance.types import (
     FixtureReference,
     GroundTruth,
@@ -413,3 +414,40 @@ def test_collect_command_rejects_empty_authoritative_inventory(tmp_path: Path) -
     assert completed.returncode == 2
     assert "authoritative inventory is empty" in completed.stderr
     assert not output.exists()
+
+
+# Q. Does collect_observation correctly pass staged probe basename to evaluation for filename records?
+def test_collect_observation_passes_probe_name_for_filename_record(tmp_path: Path):
+    fixture = tmp_path / "Gemfile"
+    fixture.write_bytes(b'source "https://rubygems.org"\n')
+    digest = sha256(fixture.read_bytes()).hexdigest()
+    record = InventoryRecord(
+        id="sample-gemfile",
+        fixture=FixtureReference(path="Gemfile", sha256=digest),
+        probe_extension=None,
+        probe_filename="Gemfile",
+        ground_truth=GroundTruth(
+            mimes=("text/plain",),
+            extensions=(),
+            filenames=("Gemfile",),
+        ),
+        provenance="test fixture",
+        ground_truth_review=GroundTruthReview(
+            status="verified",
+            reviewed_by="reviewer",
+            reviewed_at="2026-08-28",
+            evidence=("test evidence",),
+            reason=None,
+        ),
+        backends=("magic",),
+    )
+    obs = collect_observation(
+        record,
+        backend="magic",
+        root=tmp_path,
+        runner_label="linux-x86_64",
+    )
+    assert obs["status"] == "ok"
+    assert obs["evaluation"] is not None
+    assert obs["evaluation"]["extension_match"] is True
+    assert obs["evaluation"]["overall_match"] is True

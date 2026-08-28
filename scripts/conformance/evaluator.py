@@ -16,6 +16,8 @@ Hierarchy relationships are directional:
 
 from __future__ import annotations
 
+import fnmatch
+
 from collections.abc import Mapping, Sequence
 
 from scripts.conformance.types import GroundTruth
@@ -107,12 +109,16 @@ def evaluate_output(
     gt_filenames = set(ground_truth.filenames)
 
     # For filename-based records (e.g. Gemfile, .gitignore), evaluate against
-    # ground_truth.filenames when probe_name is provided.
+    # ground_truth.filenames. Fail-closed: probe_name must be explicitly provided
+    # and match at least one exact name or glob pattern in ground_truth.filenames.
     if gt_filenames:
-        if probe_name is not None:
-            filename_match = probe_name in gt_filenames
+        if probe_name is None:
+            filename_match = False
         else:
-            filename_match = True
+            filename_match = any(
+                fnmatch.fnmatchcase(probe_name, pattern)
+                for pattern in gt_filenames
+            )
         extension_match = filename_match and (not detected_exts or not gt_exts or bool(detected_exts & gt_exts))
     else:
         extension_match = bool(detected_exts & gt_exts)

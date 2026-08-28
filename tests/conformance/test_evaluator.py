@@ -122,3 +122,37 @@ def test_filename_match_evaluation():
     )
     assert res_bad["overall_match"] is False
     assert res_bad["extension_match"] is False
+
+
+# Q. Does evaluator fail-closed when probe_name is missing for filename GT?
+def test_filename_match_fail_closed_when_probe_name_none():
+    sem = semantic_output(mime_types=["text/plain"], extensions=[])
+    gt = GroundTruth(
+        mimes=("text/plain",),
+        extensions=(),
+        filenames=("Gemfile",),
+    )
+    res = evaluate_output(semantic=sem, ground_truth=gt, status="ok", probe_name=None)
+    assert res["overall_match"] is False
+    assert res["extension_match"] is False
+
+
+# Q. Does evaluator match glob patterns in ground_truth.filenames?
+def test_filename_pattern_glob_matching():
+    sem = semantic_output(mime_types=["text/plain"], extensions=[])
+    gt = GroundTruth(
+        mimes=("text/plain",),
+        extensions=(),
+        filenames=(".git*",),
+    )
+    res_ok = evaluate_output(
+        semantic=sem, ground_truth=gt, status="ok", probe_name=".gitignore"
+    )
+    assert res_ok["overall_match"] is True
+    assert res_ok["extension_match"] is True
+
+    res_bad = evaluate_output(
+        semantic=sem, ground_truth=gt, status="ok", probe_name="gitignore"
+    )
+    assert res_bad["overall_match"] is False
+    assert res_bad["extension_match"] is False

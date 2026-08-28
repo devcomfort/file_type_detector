@@ -59,9 +59,11 @@ def collect_observation(
     """Collect one backend result without substituting another backend."""
     platform_info = _platform_info(runner_label)
     runtime_info = _runtime_info()
+    probe_name: str | None = None
     try:
         inferencer = _inferencer_for_backend(backend)
         with stage_probe(record, root=root) as probe:
+            probe_name = probe.name
             result = inferencer.infer(probe)
     except Exception as error:
         return _error_observation(
@@ -94,7 +96,7 @@ def collect_observation(
             semantic=semantic,
             ground_truth=record.ground_truth,
             status=status,
-            probe_name=probe.name if "probe" in locals() else (record.probe_filename or None),
+            probe_name=probe_name,
         ),
     }
 
