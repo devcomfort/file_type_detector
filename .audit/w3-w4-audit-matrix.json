@@ -73,7 +73,7 @@
       "validator_command": "python .audit/w3_validate.py --id sample-pyc",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME authority evidence and promotion pending",
+      "evidence_gap": "candidate review/promotion pending; MIME claim uses CPython vendor mapping",
       "promotion_input": false,
       "validator_evidence": [
         "CPython magic number, header, and marshal code object"
@@ -94,7 +94,7 @@
       "validator_command": "python .audit/w3_validate.py --id sample-squashfs",
       "format_validity": "verified",
       "content_identifiability": "generic-container",
-      "evidence_gap": "MIME authority evidence and promotion pending",
+      "evidence_gap": "candidate review/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
         "SquashFS 4.0 superblock"

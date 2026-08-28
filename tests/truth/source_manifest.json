@@ -3473,7 +3473,10 @@
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators",
+        "generator_symbol": "scripts.generators.executables.ExecutableGenerator._create_pyc",
+        "recipe_hash": "b65926e46bd9ad224e2171e039a26360fbb4a4edfadf24f71968db79e2473be5",
+        "tier": "exact-byte"
       }
     },
     "sample-pyo": {
