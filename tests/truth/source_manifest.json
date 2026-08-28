@@ -1270,7 +1270,7 @@
       }
     },
     "sample-textproto": {
-      "sha256": "eeda414fc309c1a932ae12ba01d04e993864c8e995bbcdf990d0ee908a1142c7",
+      "sha256": "3b72d8b68212024027d849dbf842811db030821b53527374873b39814c7a2705",
       "probe_extension": ".textproto",
       "status": "excluded",
       "source": {
@@ -1983,7 +1983,7 @@
       }
     },
     "sample-jinja": {
-      "sha256": "7c9fd5919ae75e5918719c143406cd66912fc00155a39588790f7eb1f0a10d28",
+      "sha256": "a4b5296e7ed31d485c3e00af581cf5ca212757cc7c866acea1fe4295dc04661b",
       "probe_extension": ".jinja",
       "status": "excluded",
       "source": {

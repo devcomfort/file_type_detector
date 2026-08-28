@@ -1,2 +1,9 @@
+# proto-file: sample.proto
 name: "sample"
-version: 1
+id: 12345
+is_enabled: true
+settings {
+  timeout_seconds: 30
+  retry_count: 3
+}
+items: ["item1", "item2"]

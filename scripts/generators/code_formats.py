@@ -756,7 +756,17 @@ class CodeFormatGenerator(BaseGenerator):
         return 'syntax = "proto3";\n\nmessage User {\n  int32 id = 1;\n  string name = 2;\n}\n'
 
     def _textproto(self) -> str:
-        return 'name: "sample"\nversion: 1\n'
+        return (
+            "# proto-file: sample.proto\n"
+            'name: "sample"\n'
+            "id: 12345\n"
+            "is_enabled: true\n"
+            "settings {\n"
+            "  timeout_seconds: 30\n"
+            "  retry_count: 3\n"
+            "}\n"
+            'items: ["item1", "item2"]\n'
+        )
 
     def _cmake(self) -> str:
         return "cmake_minimum_required(VERSION 3.10)\nproject(Sample)\nadd_executable(sample main.c)\n"
@@ -783,7 +793,18 @@ class CodeFormatGenerator(BaseGenerator):
         return "{{!-- Sample --}}\n<html><body><h1>{{message}}</h1></body></html>\n"
 
     def _jinja(self) -> str:
-        return "{# Sample #}\n<html><body><h1>{{ message }}</h1></body></html>\n"
+        return (
+            '{% extends "base.html" %}\n'
+            '{% block title %}{{ page_title | default("Home") }}{% endblock %}\n'
+            "{% block content %}\n"
+            "<h1>{{ user.name | upper }}</h1>\n"
+            "{% for item in items if item.active %}\n"
+            "  <li>{{ loop.index }}: {{ item.name | escape }}</li>\n"
+            "{% else %}\n"
+            "  <li>No items found</li>\n"
+            "{% endfor %}\n"
+            "{% endblock %}\n"
+        )
 
     def _scss(self) -> str:
         return "$primary: #333;\n\nbody {\n  color: $primary;\n}\n"

@@ -1,2 +1,10 @@
-{# Sample #}
-<html><body><h1>{{ message }}</h1></body></html>
+{% extends "base.html" %}
+{% block title %}{{ page_title | default("Home") }}{% endblock %}
+{% block content %}
+<h1>{{ user.name | upper }}</h1>
+{% for item in items if item.active %}
+  <li>{{ loop.index }}: {{ item.name | escape }}</li>
+{% else %}
+  <li>No items found</li>
+{% endfor %}
+{% endblock %}
