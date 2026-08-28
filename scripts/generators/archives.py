@@ -207,7 +207,7 @@ class ArchiveGenerator(BaseGenerator):
             + b"\x00\x00U\x00\x00"
         )
         hdr = bytes([len(hdr_data) + 1, sum(hdr_data) & 0xFF]) + hdr_data
-        return hdr + body + b"\x00" 
+        return hdr + body + b"\x00"
 
     def _create_lrz(self) -> bytes:
         return b"LRZI" + b"\x00" * 20
@@ -219,6 +219,7 @@ class ArchiveGenerator(BaseGenerator):
         return b"xar!\x00\x01" + struct.pack(">I", 28) + b"\x00" * 16
 
     def _create_rpm(self) -> bytes:
+        import gzip
         lead = (
             b"\xed\xab\xee\xdb"
             + bytes([3, 0])
@@ -227,29 +228,158 @@ class ArchiveGenerator(BaseGenerator):
             + struct.pack(">hh", 1, 5)
             + b"\x00" * 16
         )
-        hdr_magic = b"\x8e\xad\xe8\x01\x00\x00\x00\x00"
-        idx = struct.pack(">IIII", 1000, 6, 0, 1)
-        data = b"sample\x00"
-        hdr = hdr_magic + struct.pack(">II", 1, len(data)) + idx + data
-        return (lead + hdr).ljust(512, b"\x00")
+        sig_hdr_magic = b"\x8e\xad\xe8\x01\x00\x00\x00\x00"
+        sig_idx = struct.pack(">IIII", 1000, 4, 0, 1)
+        sig_data = struct.pack(">I", 0)
+        sig_pad_len = (8 - (len(sig_hdr_magic) + 16 + len(sig_data)) % 8) % 8
+        sig_header = (
+            sig_hdr_magic
+            + struct.pack(">II", 1, len(sig_data))
+            + sig_idx
+            + sig_data
+            + (b"\x00" * sig_pad_len)
+        )
+        main_hdr_magic = b"\x8e\xad\xe8\x01\x00\x00\x00\x00"
+        strings = [b"sample\x00", b"1.0\x00", b"1\x00", b"cpio\x00", b"gzip\x00"]
+        str_offsets = []
+        curr_off = 0
+        for s in strings:
+            str_offsets.append(curr_off)
+            curr_off += len(s)
+        main_data = b"".join(strings)
+        main_indices = [
+            struct.pack(">IIII", 1000, 6, str_offsets[0], 1),
+            struct.pack(">IIII", 1001, 6, str_offsets[1], 1),
+            struct.pack(">IIII", 1002, 6, str_offsets[2], 1),
+            struct.pack(">IIII", 1124, 6, str_offsets[3], 1),
+            struct.pack(">IIII", 1125, 6, str_offsets[4], 1),
+        ]
+        main_header = (
+            main_hdr_magic
+            + struct.pack(">II", len(main_indices), len(main_data))
+            + b"".join(main_indices)
+            + main_data
+        )
+        filename = b"sample.txt\x00"
+        filedata = b"Hello, World!\n"
+        cpio_hdr = (
+            b"070701"
+            + b"00000001"
+            + b"000081a4"
+            + b"00000000"
+            + b"00000000"
+            + b"00000001"
+            + b"00000000"
+            + f"{len(filedata):08x}".encode("ascii")
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + f"{len(filename):08x}".encode("ascii")
+            + b"00000000"
+        )
+        cpio_pad1 = (4 - (len(cpio_hdr) + len(filename)) % 4) % 4
+        cpio_pad2 = (4 - len(filedata) % 4) % 4
+        trailer_name = b"TRAILER!!!\x00"
+        trailer_hdr = (
+            b"070701"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000001"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + b"00000000"
+            + f"{len(trailer_name):08x}".encode("ascii")
+            + b"00000000"
+        )
+        trailer_pad = (4 - (len(trailer_hdr) + len(trailer_name)) % 4) % 4
+        cpio_archive = (
+            cpio_hdr
+            + filename
+            + (b"\x00" * cpio_pad1)
+            + filedata
+            + (b"\x00" * cpio_pad2)
+            + trailer_hdr
+            + trailer_name
+            + (b"\x00" * trailer_pad)
+        )
+        payload = gzip.compress(cpio_archive, mtime=0)
+        return lead + sig_header + main_header + payload
 
     def _create_snap(self) -> bytes:
-        return b"hsqs" + b"\x00" * 20
+        import os
+        import subprocess
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src = os.path.join(tmpdir, "src")
+            os.makedirs(src)
+            sample_file = os.path.join(src, "sample.txt")
+            with open(sample_file, "wb") as f:
+                f.write(b"Hello, World!\n")
+            os.utime(sample_file, (0, 0))
+            os.utime(src, (0, 0))
+            out_sqfs = os.path.join(tmpdir, "sample.sqfs")
+            subprocess.run(
+                [
+                    "mksquashfs",
+                    src,
+                    out_sqfs,
+                    "-noappend",
+                    "-all-root",
+                    "-no-progress",
+                    "-reproducible",
+                    "-mkfs-time",
+                    "0",
+                ],
+                check=True,
+                capture_output=True,
+            )
+            with open(out_sqfs, "rb") as f:
+                return f.read()
 
     def _create_wad(self) -> bytes:
         return b"IWAD" + b"\x00" * 8
 
     def _create_xar(self) -> bytes:
+        import hashlib
         import zlib
+
+        heap_data = b"Hello, World!\n"
         toc_xml = (
-            b'<?xml version="1.0"?><xar><toc><checksum style="sha1">'
-            b'<offset>0</offset><size>20</size></checksum><file id="1">'
-            b'<name>sample.txt</name><type>file</type><data><length>13</length>'
-            b'<offset>0</offset><size>13</size></data></file></toc></xar>'
+            b'<?xml version="1.0" encoding="UTF-8"?>\n'
+            b"<xar>\n"
+            b"  <toc>\n"
+            b'    <checksum style="sha1">\n'
+            b"      <offset>0</offset>\n"
+            b"      <size>20</size>\n"
+            b"    </checksum>\n"
+            b'    <file id="1">\n'
+            b"      <name>sample.txt</name>\n"
+            b"      <type>file</type>\n"
+            b"      <data>\n"
+            b"        <length>14</length>\n"
+            b"        <offset>20</offset>\n"
+            b"        <size>14</size>\n"
+            b'        <checksum style="sha1">'
+            + hashlib.sha1(heap_data).hexdigest().encode("ascii")
+            + b"</checksum>\n"
+            b"      </data>\n"
+            b"    </file>\n"
+            b"  </toc>\n"
+            b"</xar>"
         )
+        toc_sha1 = hashlib.sha1(toc_xml).digest()
         toc_comp = zlib.compress(toc_xml)
-        xar_hdr = b"xar!\x00\x1c\x00\x01" + struct.pack(">QQI", len(toc_comp), len(toc_xml), 1)
-        return xar_hdr + toc_comp + b"Hello, World!\n" 
+        xar_hdr = b"xar!\x00\x1c\x00\x01" + struct.pack(
+            ">QQI", len(toc_comp), len(toc_xml), 1
+        )
+        return xar_hdr + toc_comp + toc_sha1 + heap_data
 
     def _create_z(self) -> bytes:
         return b"\x1f\x9d" + b"\x00" * 20
