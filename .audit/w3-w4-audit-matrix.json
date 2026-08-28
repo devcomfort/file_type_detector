@@ -69,12 +69,15 @@
     },
     {
       "action": "pythonbytecode",
-      "inventory_id": null,
-      "validator_command": "python .audit/w3_validate.py --id sample-pythonbytecode",
-      "format_validity": "not-run",
+      "inventory_id": "sample-pyc",
+      "validator_command": "python .audit/w3_validate.py --id sample-pyc",
+      "format_validity": "verified",
       "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false,
+      "validator_evidence": [
+        "CPython magic number, header, and marshal code object"
+      ]
     },
     {
       "action": "pytorch",
@@ -87,12 +90,15 @@
     },
     {
       "action": "squashfs",
-      "inventory_id": null,
+      "inventory_id": "sample-squashfs",
       "validator_command": "python .audit/w3_validate.py --id sample-squashfs",
-      "format_validity": "not-run",
+      "format_validity": "verified",
       "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false,
+      "validator_evidence": [
+        "SquashFS 4.0 superblock"
+      ]
     },
     {
       "action": "wmf",

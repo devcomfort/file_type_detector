@@ -6397,6 +6397,15 @@
         "type": "generated",
         "generator": "scripts.generators.ExecutableGenerator"
       }
+    },
+    "sample-squashfs": {
+      "sha256": "5637affc9954069411fa9db430a3341845e3df2d9ddd36a9074a6b1787de683f",
+      "probe_extension": ".squashfs",
+      "status": "excluded",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.ArchiveGenerator._create_snap"
+      }
     }
   },
   "summary": {

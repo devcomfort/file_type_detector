@@ -33,7 +33,8 @@ def result(
 
 def validate(record_id: str) -> dict[str, object]:
     ext = record_id.removeprefix("sample-")
-    path = FIXTURES / f"sample.{ext}"
+    fixture_ext = "pyc" if ext == "pythonbytecode" else ext
+    path = FIXTURES / f"sample.{fixture_ext}"
     if not path.is_file():
         return result(
             record_id, "failed", "w3_validate.py:fixture-exists", ["fixture missing"]
@@ -41,6 +42,19 @@ def validate(record_id: str) -> dict[str, object]:
     data = path.read_bytes()
 
     try:
+        if ext in {"pyc", "pythonbytecode"}:
+            import importlib.util
+            import marshal
+
+            assert data[:4] == importlib.util.MAGIC_NUMBER
+            code = marshal.loads(data[16:])
+            assert isinstance(code, type(compile("", "", "exec")))
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:pyc-marshal",
+                ["CPython magic number, header, and marshal code object"],
+            )
         if ext == "cab":
             cb_cabinet = struct.unpack("<I", data[8:12])[0]
             coff_files = struct.unpack("<I", data[16:20])[0]
@@ -100,7 +114,7 @@ def validate(record_id: str) -> dict[str, object]:
             assert struct.unpack("<I", data[32:36])[0] == len(data)
             assert hashlib.sha1(data[32:]).digest() == data[12:32]
             assert (
-                hashlib and __import__("zlib").adler32(data[12:]) & 0xFFFFFFFF
+                __import__("zlib").adler32(data[12:]) & 0xFFFFFFFF
             ) == struct.unpack("<I", data[8:12])[0]
             map_off = struct.unpack("<I", data[52:56])[0]
             count = struct.unpack("<I", data[map_off : map_off + 4])[0]
@@ -116,6 +130,16 @@ def validate(record_id: str) -> dict[str, object]:
                 "verified",
                 "w3_validate.py:dex-checksums-map",
                 ["file size, SHA-1, Adler-32, and string-data map item"],
+            )
+        if ext in {"snap", "squashfs"}:
+            assert data[:4] == b"hsqs" and len(data) >= 96
+            assert struct.unpack("<H", data[28:30])[0] == 4
+            assert struct.unpack("<H", data[30:32])[0] == 0
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:squashfs-superblock",
+                ["SquashFS 4.0 superblock"],
             )
         if ext == "lha":
             assert data[2:7] == b"-lh0-" and data[0] == 36

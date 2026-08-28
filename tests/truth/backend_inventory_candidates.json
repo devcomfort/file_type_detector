@@ -24023,6 +24023,31 @@
         "magika",
         "hybrid"
       ]
+    },
+    {
+      "id": "sample-squashfs",
+      "fixture": "tests/fixtures/sample.squashfs",
+      "sha256": "5637affc9954069411fa9db430a3341845e3df2d9ddd36a9074a6b1787de683f",
+      "probe_extension": ".squashfs",
+      "ground_truth": {
+        "mime_types": [
+          "application/x-squashfs"
+        ],
+        "extensions": [
+          ".squashfs"
+        ]
+      },
+      "provenance": "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
+      "ground_truth_review": {
+        "status": "excluded",
+        "reason": "W3 action pending independent MIME evidence and promotion"
+      },
+      "backends": [
+        "lexical",
+        "magic",
+        "magika",
+        "hybrid"
+      ]
     }
   ]
 }
