@@ -370,7 +370,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -391,7 +391,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-eml",
@@ -5519,17 +5519,17 @@
       "source_integrity": {
         "kind": "generated",
         "generator_symbol": "scripts.generators",
-        "recipe_hash": "a5dddc2aba51f3fb7e4ab64f6e410d1031e452118e757f5e1e977cbd94b2d2c2",
+        "recipe_hash": "4421f1cac2320acc87e0d2e15b2017b936335cb99bcf446b326bcb45110e625d",
         "tier": "exact-byte"
       },
       "format_validity": {
         "status": "needs_review",
         "validator": "pending",
         "evidence": [
-          "independent parser validation not yet executed"
+          "manual syntax review: protobuf text fields / Jinja block delimiters"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-tf",
@@ -8575,17 +8575,17 @@
       "source_integrity": {
         "kind": "generated",
         "generator_symbol": "scripts.generators",
-        "recipe_hash": "a5dddc2aba51f3fb7e4ab64f6e410d1031e452118e757f5e1e977cbd94b2d2c2",
+        "recipe_hash": "4421f1cac2320acc87e0d2e15b2017b936335cb99bcf446b326bcb45110e625d",
         "tier": "exact-byte"
       },
       "format_validity": {
         "status": "needs_review",
         "validator": "pending",
         "evidence": [
-          "independent parser validation not yet executed"
+          "manual syntax review: protobuf text fields / Jinja block delimiters"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-jinja2",
@@ -10733,7 +10733,7 @@
       "provenance": "Generated from font specification",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -10754,7 +10754,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-vcxproj",
@@ -11639,7 +11639,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -11660,7 +11660,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-au3",
@@ -12405,7 +12405,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -12426,7 +12426,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-dmigd",
@@ -14069,7 +14069,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -14090,7 +14090,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-sol",
@@ -14186,7 +14186,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -14207,7 +14207,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-text",
@@ -20555,7 +20555,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "accepted locked-model ambiguity; excluded from recognition denominator"
       },
       "backends": [
         "lexical",
@@ -20577,7 +20577,7 @@
           "independent parser validation not yet executed"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "ambiguous"
     },
     {
       "id": "sample-pgm",

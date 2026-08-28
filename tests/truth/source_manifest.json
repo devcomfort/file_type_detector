@@ -1275,7 +1275,8 @@
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators",
+        "recipe_hash": "4421f1cac2320acc87e0d2e15b2017b936335cb99bcf446b326bcb45110e625d"
       }
     },
     "sample-tf": {
@@ -1988,7 +1989,8 @@
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators",
+        "recipe_hash": "4421f1cac2320acc87e0d2e15b2017b936335cb99bcf446b326bcb45110e625d"
       }
     },
     "sample-jinja2": {
