@@ -1,0 +1,192 @@
+"""Rerunnable structural checks for the W3 audit matrix.
+
+This validator never promotes records. It reports format validity only; MIME
+authority evidence and review status remain separate gates.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import io
+import json
+import struct
+import subprocess
+import tarfile
+import zipfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures"
+
+
+def result(
+    record_id: str, status: str, validator: str, evidence: list[str]
+) -> dict[str, object]:
+    return {
+        "id": record_id,
+        "status": status,
+        "validator": validator,
+        "evidence": evidence,
+    }
+
+
+def validate(record_id: str) -> dict[str, object]:
+    ext = record_id.removeprefix("sample-")
+    path = FIXTURES / f"sample.{ext}"
+    if not path.is_file():
+        return result(
+            record_id, "failed", "w3_validate.py:fixture-exists", ["fixture missing"]
+        )
+    data = path.read_bytes()
+
+    try:
+        if ext == "cab":
+            cb_cabinet = struct.unpack("<I", data[8:12])[0]
+            coff_files = struct.unpack("<I", data[16:20])[0]
+            assert cb_cabinet == len(data) and coff_files == 44
+            coff_cab_start = struct.unpack("<I", data[36:40])[0]
+            assert coff_cab_start == 71
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:cab-struct",
+                ["CFHEADER/CFFOLDER/CFFILE/CFDATA offsets and lengths"],
+            )
+        if ext == "crx":
+            version, pub_len, sig_len = struct.unpack("<III", data[4:16])
+            assert version == 2
+            pub = data[16 : 16 + pub_len]
+            sig = data[16 + pub_len : 16 + pub_len + sig_len]
+            payload = data[16 + pub_len + sig_len :]
+            from cryptography.hazmat.primitives import hashes, serialization
+            from cryptography.hazmat.primitives.asymmetric import padding
+
+            serialization.load_der_public_key(pub).verify(
+                sig, payload, padding.PKCS1v15(), hashes.SHA1()
+            )
+            with zipfile.ZipFile(io.BytesIO(payload)) as archive:
+                assert "manifest.json" in archive.namelist()
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:crx-rsa-sha1-zip",
+                ["RSA-SHA1 signature and manifest.json"],
+            )
+        if ext == "deb":
+            assert data.startswith(b"!<arch>\n")
+            pos, members = 8, {}
+            while pos + 60 <= len(data):
+                header = data[pos : pos + 60]
+                name = header[:16].strip().decode("ascii")
+                size = int(header[48:58].strip())
+                pos += 60
+                members[name] = data[pos : pos + size]
+                pos += size + size % 2
+            assert {"debian-binary", "control.tar.gz", "data.tar.gz"} <= members.keys()
+            for name in ("control.tar.gz", "data.tar.gz"):
+                with tarfile.open(
+                    fileobj=io.BytesIO(members[name]), mode="r:gz"
+                ) as archive:
+                    assert archive.getnames()
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:deb-ar-tar",
+                ["ar members and gzip tar archives"],
+            )
+        if ext == "dex":
+            assert data.startswith(b"dex\n035\x00")
+            assert struct.unpack("<I", data[32:36])[0] == len(data)
+            assert hashlib.sha1(data[32:]).digest() == data[12:32]
+            assert (
+                hashlib and __import__("zlib").adler32(data[12:]) & 0xFFFFFFFF
+            ) == struct.unpack("<I", data[8:12])[0]
+            map_off = struct.unpack("<I", data[52:56])[0]
+            count = struct.unpack("<I", data[map_off : map_off + 4])[0]
+            types = [
+                struct.unpack("<H", data[map_off + 4 + i * 12 : map_off + 6 + i * 12])[
+                    0
+                ]
+                for i in range(count)
+            ]
+            assert 0x2002 in types
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:dex-checksums-map",
+                ["file size, SHA-1, Adler-32, and string-data map item"],
+            )
+        if ext == "lha":
+            assert data[2:7] == b"-lh0-" and data[0] == 36
+            assert data[22:32] == b"sample.txt" and data[37:50] == b"Hello, World!"
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:lha-level1",
+                ["method, filename, and stored payload"],
+            )
+        if ext == "rpm":
+            assert data.startswith(b"\xed\xab\xee\xdb")
+            gzip_offset = data.index(b"\x1f\x8b")
+            payload = __import__("gzip").decompress(data[gzip_offset:])
+            assert payload.startswith(b"070701") and b"TRAILER!!!" in payload
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:rpm-cpio",
+                ["RPM lead/header and newc CPIO payload"],
+            )
+        if ext == "snap":
+            assert data[:4] == b"hsqs" and len(data) >= 96
+            assert struct.unpack("<H", data[28:30])[0] == 4
+            assert struct.unpack("<H", data[30:32])[0] == 0
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:squashfs-superblock",
+                ["SquashFS 4.0 superblock"],
+            )
+        if ext == "xar":
+            assert data[:4] == b"xar!"
+            _, _, _, compressed_len, uncompressed_len, algorithm = struct.unpack(
+                ">4sHHQQI", data[:28]
+            )
+            compressed = data[28 : 28 + compressed_len]
+            uncompressed = __import__("zlib").decompress(compressed)
+            assert len(uncompressed) == uncompressed_len
+            assert (
+                hashlib.sha1(compressed).digest()
+                == data[28 + compressed_len : 48 + compressed_len]
+            )
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:xar-compressed-toc",
+                ["compressed TOC length and SHA-1"],
+            )
+        return result(
+            record_id,
+            "needs_review",
+            "w3_validate.py:pending",
+            ["independent parser not implemented"],
+        )
+    except Exception as error:
+        return result(
+            record_id,
+            "failed",
+            "w3_validate.py:structural",
+            [f"{type(error).__name__}: {error}"],
+        )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--id", required=True)
+    args = parser.parse_args()
+    print(json.dumps(validate(args.id), sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
