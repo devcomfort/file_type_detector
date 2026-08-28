@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "actions": [
+    {
+      "id": "sample-dicom",
+      "action": "dicom",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-dsstore",
+      "action": "dsstore",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-emf",
+      "action": "emf",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-hlp",
+      "action": "hlp",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-macho",
+      "action": "macho",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-mum",
+      "action": "mum",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-outlook",
+      "action": "outlook",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-pythonbytecode",
+      "action": "pythonbytecode",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-pytorch",
+      "action": "pytorch",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-squashfs",
+      "action": "squashfs",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-wmf",
+      "action": "wmf",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-zlibstream",
+      "action": "zlibstream",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "missing",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-ace",
+      "action": "ace",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "needs_review",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-cab",
+      "action": "cab",
+      "validator_command": "pure-python CFHEADER/CFFOLDER/CFFILE/CFDATA validator",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-chm",
+      "action": "chm",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "needs_review",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-crx",
+      "action": "crx",
+      "validator_command": "cryptography RSA-SHA1 verification + zipfile manifest check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-deb",
+      "action": "deb",
+      "validator_command": "pure-python ar parser + tarfile control/data round-trip",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-dex",
+      "action": "dex",
+      "validator_command": "pure-python DEX SHA-1/Adler-32/map-list validator",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-elf",
+      "action": "elf",
+      "validator_command": "ELF header/PT_LOAD structural validator",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-icns",
+      "action": "icns",
+      "validator_command": "Pillow Image.open ICNS",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-lha",
+      "action": "lha",
+      "validator_command": "LHA header structural check + Magika observation",
+      "format_validity": "needs_review",
+      "content_identifiability": "ambiguous",
+      "evidence_gap": "independent extractor evidence pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-swf",
+      "action": "swf",
+      "validator_command": "SWF header/tag structural check + Magika observation",
+      "format_validity": "needs_review",
+      "content_identifiability": "ambiguous",
+      "evidence_gap": "independent decoder evidence pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-webm",
+      "action": "webm",
+      "validator_command": "ffmpeg decode check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-xar",
+      "action": "xar",
+      "validator_command": "zlib TOC and compressed-TOC SHA-1 check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-woff",
+      "action": "woff",
+      "validator_command": "fontTools TTFont reopen",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-flac",
+      "action": "flac",
+      "validator_command": "ffmpeg decode check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-tga",
+      "action": "tga",
+      "validator_command": "Pillow Image.open TGA",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-rpm",
+      "action": "rpm",
+      "validator_command": "pure-python lead/header + gzip newc CPIO structural check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-snap",
+      "action": "snap",
+      "validator_command": "unsquashfs extraction + fixed-time reproducibility check",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-msi",
+      "action": "msi",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "needs_review",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    },
+    {
+      "id": "sample-one",
+      "action": "one",
+      "validator_command": "not run: independent parser/tool required",
+      "format_validity": "needs_review",
+      "content_identifiability": null,
+      "evidence_gap": "fixture or independent validator not yet available; not a promotion input",
+      "promotion_input": false
+    }
+  ]
+}
