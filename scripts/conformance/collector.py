@@ -94,6 +94,7 @@ def collect_observation(
             semantic=semantic,
             ground_truth=record.ground_truth,
             status=status,
+            probe_name=probe.name if "probe" in locals() else (record.probe_filename or None),
         ),
     }
 

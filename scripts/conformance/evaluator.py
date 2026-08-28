@@ -86,6 +86,7 @@ def evaluate_output(
     semantic: Mapping[str, Sequence[str]],
     ground_truth: GroundTruth,
     status: str,
+    probe_name: str | None = None,
 ) -> dict[str, object]:
     """Evaluate one semantic detector result against reviewed Ground Truth.
 
@@ -103,9 +104,18 @@ def evaluate_output(
     detected_exts = set(semantic["extensions"])
     gt_mimes = set(ground_truth.mimes)
     gt_exts = set(ground_truth.extensions)
+    gt_filenames = set(ground_truth.filenames)
 
-    extension_match = bool(detected_exts & gt_exts)
-
+    # For filename-based records (e.g. Gemfile, .gitignore), evaluate against
+    # ground_truth.filenames when probe_name is provided.
+    if gt_filenames:
+        if probe_name is not None:
+            filename_match = probe_name in gt_filenames
+        else:
+            filename_match = True
+        extension_match = filename_match and (not detected_exts or not gt_exts or bool(detected_exts & gt_exts))
+    else:
+        extension_match = bool(detected_exts & gt_exts)
     # Tier 1 — exact: direct intersection.
     if detected_mimes & gt_mimes:
         return _result(True, extension_match, extension_match, "exact")

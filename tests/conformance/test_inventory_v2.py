@@ -67,6 +67,7 @@ def _v2_record(fixture: Path, **overrides: object) -> dict[str, object]:
 
 
 def _write(tmp_path: Path, records: list[dict[str, object]]) -> Path:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     path = tmp_path / "inventory.json"
     path.write_text(json.dumps({"schema_version": 2, "records": records}))
     return path

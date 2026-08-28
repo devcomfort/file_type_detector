@@ -98,3 +98,27 @@ def test_no_result_all_false():
     result = evaluate_output(semantic=sem, ground_truth=gt, status="no_result")
     assert result["overall_match"] is False
     assert result["match_level"] == "miss"
+
+
+# Q. Does evaluator correctly evaluate filename-based records against probe_name?
+def test_filename_match_evaluation():
+    sem = semantic_output(mime_types=["text/plain"], extensions=[])
+    gt = GroundTruth(
+        mimes=("text/plain",),
+        extensions=(),
+        filenames=("Gemfile",),
+    )
+    # Correct probe_name matches
+    res_ok = evaluate_output(
+        semantic=sem, ground_truth=gt, status="ok", probe_name="Gemfile"
+    )
+    assert res_ok["overall_match"] is True
+    assert res_ok["extension_match"] is True
+    assert res_ok["match_level"] == "exact"
+
+    # Mismatched probe_name fails extension/overall match
+    res_bad = evaluate_output(
+        semantic=sem, ground_truth=gt, status="ok", probe_name="Rakefile"
+    )
+    assert res_bad["overall_match"] is False
+    assert res_bad["extension_match"] is False
