@@ -72,7 +72,7 @@
       "inventory_id": "sample-pyc",
       "validator_command": "python .audit/w3_validate.py --id sample-pyc",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "MIME authority evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -93,7 +93,7 @@
       "inventory_id": "sample-squashfs",
       "validator_command": "python .audit/w3_validate.py --id sample-squashfs",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "generic-container",
       "evidence_gap": "MIME authority evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -135,7 +135,7 @@
       "inventory_id": "sample-cab",
       "validator_command": "python .audit/w3_validate.py --id sample-cab",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -159,7 +159,7 @@
       "inventory_id": "sample-crx",
       "validator_command": "python .audit/w3_validate.py --id sample-crx",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -171,7 +171,7 @@
       "inventory_id": "sample-deb",
       "validator_command": "python .audit/w3_validate.py --id sample-deb",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -183,7 +183,7 @@
       "inventory_id": "sample-dex",
       "validator_command": "python .audit/w3_validate.py --id sample-dex",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -219,7 +219,7 @@
       "inventory_id": "sample-lha",
       "validator_command": "python .audit/w3_validate.py --id sample-lha",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -255,7 +255,7 @@
       "inventory_id": "sample-xar",
       "validator_command": "python .audit/w3_validate.py --id sample-xar",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -303,7 +303,7 @@
       "inventory_id": "sample-rpm",
       "validator_command": "python .audit/w3_validate.py --id sample-rpm",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "distinctive",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
@@ -315,7 +315,7 @@
       "inventory_id": "sample-snap",
       "validator_command": "python .audit/w3_validate.py --id sample-snap",
       "format_validity": "verified",
-      "content_identifiability": null,
+      "content_identifiability": "generic-container",
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
