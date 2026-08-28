@@ -48,44 +48,83 @@ class VideoGenerator(BaseGenerator):
 
     def _create_mp4(self) -> bytes:
         return (
-            struct.pack(">I", 32) + b"ftyp" + b"isom" + struct.pack(">I", 0)
-            + b"isomiso2mp41" + struct.pack(">I", 8) + b"free"
+            struct.pack(">I", 32)
+            + b"ftyp"
+            + b"isom"
+            + struct.pack(">I", 0)
+            + b"isomiso2mp41"
+            + struct.pack(">I", 8)
+            + b"free"
         )
 
     def _create_mkv(self) -> bytes:
         return (
-            b"\x1a\x45\xdf\xa3" + b"\x01\x00\x00\x00\x00\x00\x00\x1c"
-            + b"\x42\x86" + b"\x81\x01" + b"\x42\xf7" + b"\x81\x01"
-            + b"\x42\xf2" + b"\x81\x04" + b"\x42\xf3" + b"\x81\x08"
-            + b"\x42\x82" + b"\x88\x6d\x61\x74\x72\x6f\x73\x6b\x61"
+            b"\x1a\x45\xdf\xa3"
+            + b"\x01\x00\x00\x00\x00\x00\x00\x1c"
+            + b"\x42\x86"
+            + b"\x81\x01"
+            + b"\x42\xf7"
+            + b"\x81\x01"
+            + b"\x42\xf2"
+            + b"\x81\x04"
+            + b"\x42\xf3"
+            + b"\x81\x08"
+            + b"\x42\x82"
+            + b"\x88\x6d\x61\x74\x72\x6f\x73\x6b\x61"
         )
 
     def _create_webm(self) -> bytes:
-        return (
-            b"\x1a\x45\xdf\xa3" + b"\x01\x00\x00\x00\x00\x00\x00\x1b"
-            + b"\x42\x86" + b"\x81\x01" + b"\x42\xf7" + b"\x81\x01"
-            + b"\x42\xf2" + b"\x81\x04" + b"\x42\xf3" + b"\x81\x08"
-            + b"\x42\x82" + b"\x84\x77\x65\x62\x6d"
+        ebml_id = b"\x1a\x45\xdf\xa3"
+        ebml_data = (
+            b"\x42\x86\x81\x01"  # EBMLVersion = 1
+            b"\x42\xf7\x81\x01"  # EBMLReadVersion = 1
+            b"\x42\xf2\x81\x04"  # EBMLMaxIDLength = 4
+            b"\x42\xf3\x81\x08"  # EBMLMaxSizeLength = 8
+            b"\x42\x82\x84webm"  # DocType = "webm"
+            b"\x42\x87\x81\x04"  # DocTypeVersion = 4
+            b"\x42\x85\x81\x02"  # DocTypeReadVersion = 2
         )
+        ebml_hdr = ebml_id + bytes([0x80 | len(ebml_data)]) + ebml_data
+        segment = b"\x18\x53\x80\x67\x01\xff\xff\xff\xff\xff\xff\xff"  # Segment ID + unknown size
+        tracks = b"\x16\x54\xae\x6b\x80"  # Tracks ID + 0 size
+        return (ebml_hdr + segment + tracks).ljust(512, b"\x00")
 
     def _create_avi(self) -> bytes:
         return (
-            b"RIFF" + struct.pack("<I", 100) + b"AVI LIST"
-            + struct.pack("<I", 92) + b"hdrl"
-            + b"avih" + struct.pack("<I", 56) + struct.pack("<IIII", 0, 0, 0, 0)
-            + b"\x00" * 40 + b"LIST" + struct.pack("<I", 0) + b"movi"
+            b"RIFF"
+            + struct.pack("<I", 100)
+            + b"AVI LIST"
+            + struct.pack("<I", 92)
+            + b"hdrl"
+            + b"avih"
+            + struct.pack("<I", 56)
+            + struct.pack("<IIII", 0, 0, 0, 0)
+            + b"\x00" * 40
+            + b"LIST"
+            + struct.pack("<I", 0)
+            + b"movi"
         )
 
     def _create_mov(self) -> bytes:
         return (
-            struct.pack(">I", 24) + b"ftyp" + b"qt  " + struct.pack(">I", 0)
-            + b"qt  " + struct.pack(">I", 8) + b"free"
+            struct.pack(">I", 24)
+            + b"ftyp"
+            + b"qt  "
+            + struct.pack(">I", 0)
+            + b"qt  "
+            + struct.pack(">I", 8)
+            + b"free"
         )
 
     def _create_3gp(self) -> bytes:
         return (
-            struct.pack(">I", 28) + b"ftyp" + b"3gp4" + struct.pack(">I", 0)
-            + b"3gp4isom" + struct.pack(">I", 8) + b"free"
+            struct.pack(">I", 28)
+            + b"ftyp"
+            + b"3gp4"
+            + struct.pack(">I", 0)
+            + b"3gp4isom"
+            + struct.pack(">I", 8)
+            + b"free"
         )
 
     def _create_flv(self) -> bytes:

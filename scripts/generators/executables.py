@@ -39,11 +39,16 @@ class ExecutableGenerator(BaseGenerator):
         return generators[ext]()
 
     def _create_elf(self) -> bytes:
-        return (
-            b"\x7fELF" + struct.pack("<BBB", 2, 1, 1) + b"\x00" * 9
-            + struct.pack("<H", 2) + struct.pack("<H", 0x3e)
-            + struct.pack("<I", 1) + b"\x00" * 20
-        )
+        elf_ident = b"\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        elf_hdr = elf_ident + struct.pack("<HHIQQQIHHHHHH", 2, 0x3E, 1, 0x400078, 64, 0, 0, 64, 56, 1, 64, 0, 0)
+        elf_ph = struct.pack("<IIQQQQQQ", 1, 5, 0, 0x400000, 0x400000, 120, 120, 0x1000)
+        code = b"\xb8\x3c\x00\x00\x00\xbf\x00\x00\x00\x00\x0f\x05"
+        return (elf_hdr + elf_ph + code).ljust(512, b"\x00")
 
     def _create_pyc(self) -> bytes:
-        return struct.pack("<I", 3439) + struct.pack("<I", 0) + struct.pack("<I", 0) + b"\x00" * 20
+        import marshal
+        import importlib.util
+        def dummy(): pass
+        pyc_magic = importlib.util.MAGIC_NUMBER
+        pyc_header = pyc_magic + b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        return pyc_header + marshal.dumps(dummy.__code__)
