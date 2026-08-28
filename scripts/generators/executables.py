@@ -58,8 +58,51 @@ class ExecutableGenerator(BaseGenerator):
 
     def _create_dex(self) -> bytes:
         import struct
-        dex_magic = b"dex\n035\x00"
-        return (dex_magic + b"\x00" * 24 + struct.pack("<III", 112, 112, 0x12345678) + b"\x00" * 72).ljust(512, b"\x00")
+        import zlib
+        import hashlib
+
+        header_size = 112
+        string_ids_off = 112
+        string_data_off = 116
+        string_data = bytes([8]) + b"Lsample;\x00"
+        string_id_entry = struct.pack("<I", string_data_off)
+        pad = b"\x00" * 2
+        map_off = string_data_off + len(string_data) + len(pad)
+
+        map_items = [
+            struct.pack("<HHI", 0x0000, 0, 1) + struct.pack("<I", 0),
+            struct.pack("<HHI", 0x0001, 0, 1) + struct.pack("<I", string_ids_off),
+            struct.pack("<HHI", 0x2002, 0, 1) + struct.pack("<I", string_data_off),
+            struct.pack("<HHI", 0x1000, 0, 1) + struct.pack("<I", map_off),
+        ]
+        map_list = struct.pack("<I", len(map_items)) + b"".join(map_items)
+
+        data_off = string_data_off
+        data_size = len(string_data) + len(pad) + len(map_list)
+        total_file_size = map_off + len(map_list)
+
+        hdr_rest = struct.pack(
+            "<IIIIIIIIIIIIIIIIIIII",
+            total_file_size,
+            header_size,
+            0x12345678,
+            0, 0,
+            map_off,
+            1, string_ids_off,
+            0, 0,
+            0, 0,
+            0, 0,
+            0, 0,
+            0, 0,
+            data_size,
+            data_off,
+        )
+
+        body_from_32 = hdr_rest + string_id_entry + string_data + pad + map_list
+        sha1_sig = hashlib.sha1(body_from_32).digest()
+        body_from_12 = sha1_sig + body_from_32
+        checksum = zlib.adler32(body_from_12) & 0xFFFFFFFF
+        return b"dex\n035\x00" + struct.pack("<I", checksum) + body_from_12
 
     def _create_macho(self) -> bytes:
         import struct

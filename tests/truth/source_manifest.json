@@ -48,7 +48,7 @@
       }
     },
     "sample-deb": {
-      "sha256": "74ff3358237213451023bf5c292c70d5599f3aaed96e4275d0e012bf212d6165",
+      "sha256": "7a50dfdc0592e745eb4d8cbb21c29e99038226a501c954c5432e3b10683c1b76",
       "probe_extension": ".deb",
       "status": "excluded",
       "source": {
@@ -1712,7 +1712,7 @@
       }
     },
     "sample-crx": {
-      "sha256": "2c78ffb2845b6e6894e533d2af628058c7ebce9d2a61b7fd9bc54eb241bacd3c",
+      "sha256": "8273c96d2a8e8dee1cb426bf486f1ab43a374d678aee01bf6e71cbed542ed985",
       "probe_extension": ".crx",
       "status": "excluded",
       "source": {
@@ -2795,7 +2795,7 @@
       }
     },
     "sample-cab": {
-      "sha256": "1f1a62fcf1b511fd033f9448533b7f0f545d52e3cd30666e6668c7395f7d64e2",
+      "sha256": "0b64850b5bafe1dec400d9a7bd826aac4c3fa817f61361aff2ddfacb2dd29116",
       "probe_extension": ".cab",
       "status": "excluded",
       "source": {
@@ -3367,7 +3367,7 @@
       }
     },
     "sample-dex": {
-      "sha256": "7ed984fa5d58f72067a61226f33f69fa67d7a2bb8d28f7120665d6cc3f69b8e6",
+      "sha256": "87d3a70a0ea84c9915b86361a262690eddaf8e9c82948549d3750fb003c82a71",
       "probe_extension": ".dex",
       "status": "excluded",
       "source": {

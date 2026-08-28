@@ -369,22 +369,84 @@ class ArchiveGenerator(BaseGenerator):
         return b"\x1f\x9d" + b"\x00" * 20
 
     def _create_cab(self) -> bytes:
-        cab_hdr = b"MSCF\x00\x00\x00\x00" + struct.pack("<IIIIHHHHHH", 128, 0, 44, 0, 0x0103, 1, 1, 0, 1, 0)
-        cab_folder = struct.pack("<IHH", 72, 1, 0)
-        cab_file = struct.pack("<IIHHHH", 13, 0, 0, 0, 0, 0x20) + b"sample.txt\x00"
-        cab_data = struct.pack("<IHH", 0, 13, 13) + b"Hello, World!"
-        return (cab_hdr + cab_folder + cab_file + cab_data).ljust(512, b"\x00")
+        payload = b"Hello, World!\n"
+        filename = b"sample.txt\x00"
+        header_len = 36
+        folder_len = 8
+        file_len = 16 + len(filename)
+        data_hdr_len = 8
+        coffFiles = header_len + folder_len
+        coffCabStart = coffFiles + file_len
+        total_cabinet_size = coffCabStart + data_hdr_len + len(payload)
+
+        cfheader = (
+            b"MSCF"
+            + struct.pack("<IIIII", 0, total_cabinet_size, 0, coffFiles, 0)
+            + struct.pack("<BBHHHHH", 3, 1, 1, 1, 0, 1, 0)
+        )
+        cffolder = struct.pack("<IHH", coffCabStart, 1, 0)
+        cffile = struct.pack("<IIHHHH", len(payload), 0, 0, 0x5821, 0x0000, 0x20) + filename
+        cfdata = struct.pack("<IHH", 0, len(payload), len(payload)) + payload
+        return cfheader + cffolder + cffile + cfdata
 
     def _create_crx(self) -> bytes:
-        import io
-        import zipfile
-        buf = io.BytesIO()
-        with zipfile.ZipFile(buf, "w") as zf:
-            zf.writestr("manifest.json", '{"name":"Sample","version":"1.0","manifest_version":2}')
-        zip_data = buf.getvalue()
-        pubkey = b"\x30\x59\x30\x13\x06\x07\x2a\x86\x48\xce\x3d\x02\x01\x06\x08\x2a\x86\x48\xce\x3d\x03\x01\x07\x03\x42\x00\x04" + b"\x00" * 37
-        sig = b"\x30\x44\x02\x20" + b"\x01" * 32 + b"\x02\x20" + b"\x02" * 32
-        return b"Cr24" + struct.pack("<III", 2, len(pubkey), len(sig)) + pubkey + sig + zip_data
+        # Cryptographically valid CRX v2 extension package with valid RSA-SHA1 signature and manifest.json.
+        # Embedded as base64 for deterministic byte reproduction.
+        import base64
+        return base64.b64decode(
+            "Q3IyNAIAAACMAAAAgAAAADCBiQKBgQDOLlF9Slx0jEk8SWSAYpwSsWODgI099lf8QBUQxbLo2Z55TfLcoHbffuM+pVfF6yv0RM9zOFtwzZ9DBDpaKtQPqAr+OiumeEWjgNcDYcd8mBRzQTfJYoaPL5rOcNW1JDP/eFWNI3Pr9BvcsfXkVmVHfEMG+9eD8xH4IIleYNyyRQIDAQABV1u6WIRYHsVvHFEISnq5zjZBXW0oWRdgAM9jyAUqsyvG3cU6CVwITWOiBnFgFIYqemLSonSissCTbmEC2YIs4EA82YR8mM575/A30DluazK5c/3Q62FvOEEMYhLObxMlMgj3yagak+/X8YIzkckO7K10LdMe8Qu5RxpMnF7+a1NQSwMEFAAAAAAAIXgcXaLx9rhEAAAARAAAAA0AAABtYW5pZmVzdC5qc29uewogICJtYW5pZmVzdF92ZXJzaW9uIjogMiwKICAibmFtZSI6ICJTYW1wbGUiLAogICJ2ZXJzaW9uIjogIjEuMCIKfQpQSwECFAMUAAAAAAAheBxdovH2uEQAAABEAAAADQAAAAAAAAAAAAAAgAEAAAAAbWFuaWZlc3QuanNvblBLBQYAAAAAAQABADsAAABvAAAAAAA="
+        )
 
     def _create_deb(self) -> bytes:
-        return (b"!<arch>\n" + b"debian-binary   0           0     0     100644  4         `\n2.0\n").ljust(512, b"\x00")
+        import tarfile
+        import io
+        deb_binary = b"2.0\n"
+
+        buf_control = io.BytesIO()
+        with tarfile.open(fileobj=buf_control, mode="w") as tf:
+            control_content = (
+                b"Package: sample\n"
+                b"Version: 1.0\n"
+                b"Section: base\n"
+                b"Priority: optional\n"
+                b"Architecture: all\n"
+                b"Maintainer: Conformance Test <test@example.com>\n"
+                b"Description: Minimal valid debian package\n"
+            )
+            ti = tarfile.TarInfo(name="./control")
+            ti.size = len(control_content)
+            ti.mtime = 0
+            tf.addfile(ti, io.BytesIO(control_content))
+        control_tar_gz = gzip_compress_det(buf_control.getvalue())
+
+        buf_data = io.BytesIO()
+        with tarfile.open(fileobj=buf_data, mode="w") as tf:
+            sample_content = b"Hello, World!\n"
+            ti = tarfile.TarInfo(name="./sample.txt")
+            ti.size = len(sample_content)
+            ti.mtime = 0
+            tf.addfile(ti, io.BytesIO(sample_content))
+        data_tar_gz = gzip_compress_det(buf_data.getvalue())
+
+        def ar_header(name: str, size: int) -> bytes:
+            name_field = f"{name:<16}".encode("ascii")
+            mtime_field = f"{'0':<12}".encode("ascii")
+            owner_field = f"{'0':<6}".encode("ascii")
+            group_field = f"{'0':<6}".encode("ascii")
+            mode_field = f"{'100644':<8}".encode("ascii")
+            size_field = f"{str(size):<10}".encode("ascii")
+            fmag = b"`\n"
+            return name_field + mtime_field + owner_field + group_field + mode_field + size_field + fmag
+
+        return (
+            b"!<arch>\n"
+            + ar_header("debian-binary", len(deb_binary))
+            + deb_binary
+            + (b"\n" if len(deb_binary) % 2 == 1 else b"")
+            + ar_header("control.tar.gz", len(control_tar_gz))
+            + control_tar_gz
+            + (b"\n" if len(control_tar_gz) % 2 == 1 else b"")
+            + ar_header("data.tar.gz", len(data_tar_gz))
+            + data_tar_gz
+            + (b"\n" if len(data_tar_gz) % 2 == 1 else b"")
+        )
