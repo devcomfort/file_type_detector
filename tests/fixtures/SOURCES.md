@@ -1,613 +1,622 @@
 # Fixture Sources
 
-This directory contains **598** fixture files used by the
+This directory contains **600** fixture files used by the
 filetype-detector test suite.
 
-**394** fixtures are generated from format specifications or Python libraries.
-**204** fixtures are downloaded from external repositories.
+**355** fixtures are synthetically generated from format specifications.
+**27** fixtures are downloaded from external repositories (see attribution details below).
+**220** fixtures exist on disk but have no registered generator; they were added manually or via legacy scripts.
 
-## All Fixtures
+## Registered generators
 
-- `sample.3dm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.3ds` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.3g2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.3gp` (generated): Generated from format specification (minimal valid content)
-- `sample.3mf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.7z` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.uppercase.CBL` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.COB` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.CPY` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.F90` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.P` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.R` (generated): Generated from format specification (minimal valid content)
-- `sample.uppercase.S` (generated): Generated from format specification (minimal valid content)
-- `sample.a68` (generated): Generated from format specification (minimal valid content)
-- `sample.aac` (generated): Generated via ffmpeg/audio library
-- `sample.abnf` (generated): Generated from format specification (minimal valid content)
-- `sample.ac3` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.accdb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ace` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.acf` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.adoc` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.aff` (generated): Generated from format specification (minimal valid content)
-- `sample.agda` (generated): Generated from format specification (minimal valid content)
-- `sample.ai` (generated): Generated from format specification (minimal valid content)
-- `sample.aidl` (generated): Generated from format specification (minimal valid content)
-- `sample.aif` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.aiff` (generated): Generated from format specification (minimal valid content)
-- `sample.amf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.amr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ani` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.apk` (generated): Generated from format specification (minimal valid content)
-- `sample.apng` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.appx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.arc` (generated): Generated from format specification (minimal valid content)
-- `sample.arj` (generated): Generated from format specification (minimal valid content)
-- `sample.arw` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.asc` (generated): Generated via OpenSSL/GPG key generation
-- `sample.asf` (generated): Generated from format specification (minimal valid content)
-- `sample.asm` (generated): Generated from format specification (minimal valid content)
-- `sample.asp` (generated): Generated from format specification (minimal valid content)
-- `sample.aspx` (generated): Generated from format specification (minimal valid content)
-- `sample.au` (generated): Generated from format specification (minimal valid content)
-- `sample.au3` (generated): Generated from format specification (minimal valid content)
-- `sample.aux` (generated): Generated from format specification (minimal valid content)
-- `sample.avi` (generated): Generated via ffmpeg/video library
-- `sample.avif` (generated): Generated via Pillow/Python image library
-- `sample.avifs` (generated): Generated from format specification (minimal valid content)
-- `sample.avro` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.awk` (generated): Generated from format specification (minimal valid content)
-- `sample.ax` (generated): Generated from format specification (minimal valid content)
-- `sample.azw` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.azw3` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.b` (generated): Generated from format specification (minimal valid content)
-- `sample.bat` (generated): Generated from format specification (minimal valid content)
-- `sample.bdf` (generated): Generated from format specification (minimal valid content)
-- `sample.bf` (generated): Generated from format specification (minimal valid content)
-- `sample.bfm` (generated): Generated from format specification (minimal valid content)
-- `sample.bib` (generated): Generated from format specification (minimal valid content)
-- `sample.blend` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.bluespec` (generated): Generated from format specification (minimal valid content)
-- `sample.bmp` (generated): Generated via Pillow/Python image library
-- `sample.bplist` (generated): Generated from format specification (minimal valid content)
-- `sample.brep` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.brf` (generated): Generated from format specification (minimal valid content)
-- `sample.bson` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.btx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.bz2` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.bzl` (generated): Generated from format specification (minimal valid content)
-- `sample.c` (generated): Generated from format specification (minimal valid content)
-- `sample.c++` (generated): Generated from format specification (minimal valid content)
-- `sample.cab` (generated): Generated from format specification (minimal valid content)
-- `sample.cabal` (generated): Generated from format specification (minimal valid content)
-- `sample.caf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cairo` (generated): Generated from format specification (minimal valid content)
-- `sample.carbon` (generated): Generated from format specification (minimal valid content)
-- `sample.cbl` (generated): Generated from format specification (minimal valid content)
-- `sample.cbor` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cbr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cbz` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cc` (generated): Generated from format specification (minimal valid content)
-- `sample.cdd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cdf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cer` (generated): Generated via OpenSSL/GPG key generation
-- `sample.cfg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.chisel` (generated): Generated from format specification (minimal valid content)
-- `sample.chm` (generated): Generated from format specification (minimal valid content)
-- `sample.cjs` (generated): Generated from format specification (minimal valid content)
-- `sample.cjsx` (generated): Generated from format specification (minimal valid content)
-- `sample.cl` (generated): Generated from format specification (minimal valid content)
-- `sample.class` (generated): Generated from format specification (minimal valid content)
-- `sample.clj` (generated): Generated from format specification (minimal valid content)
-- `sample.cljr` (generated): Generated from format specification (minimal valid content)
-- `sample.cljs` (generated): Generated from format specification (minimal valid content)
-- `sample.cmake` (generated): Generated from format specification (minimal valid content)
-- `sample.cmd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cob` (generated): Generated from format specification (minimal valid content)
-- `sample.coffee` (generated): Generated from format specification (minimal valid content)
-- `sample.conf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cpio` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cpl` (generated): Generated from format specification (minimal valid content)
-- `sample.cpp` (generated): Generated from format specification (minimal valid content)
-- `sample.cppm` (generated): Generated from format specification (minimal valid content)
-- `sample.cpy` (generated): Generated from format specification (minimal valid content)
-- `sample.cr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cr2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.crt` (generated): Generated via OpenSSL/GPG key generation
-- `sample.crx` (generated): Generated from format specification (minimal valid content)
-- `sample.cs` (generated): Generated from format specification (minimal valid content)
-- `sample.csproj` (generated): Generated from format specification (minimal valid content)
-- `sample.csr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.css` (generated): Generated from format specification (minimal valid content)
-- `sample.csv` (generated): Generated from format specification (minimal valid content)
-- `sample.csx` (generated): Generated from format specification (minimal valid content)
-- `sample.cts` (generated): Generated from format specification (minimal valid content)
-- `sample.ctsx` (generated): Generated from format specification (minimal valid content)
-- `sample.cur` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.cxx` (generated): Generated from format specification (minimal valid content)
-- `sample.d` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dae` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dart` (generated): Generated from format specification (minimal valid content)
-- `sample.db` (generated): Generated via sqlite3 library
-- `sample.dbf` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.dcm` (generated): Generated from format specification (minimal valid content)
-- `sample.dds` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.deb` (generated): Generated from format specification (minimal valid content)
-- `sample.der` (generated): Generated via OpenSSL/GPG key generation
-- `sample.dex` (generated): Generated from format specification (minimal valid content)
-- `sample.dgn` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dhall` (generated): Generated from format specification (minimal valid content)
-- `sample.diff` (generated): Generated from format specification (minimal valid content)
-- `sample.divx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.djvu` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dll` (generated): Generated from binary executable specification
-- `sample.dm` (generated): Generated from format specification (minimal valid content)
-- `sample.dmg` (generated): Generated via genisoimage/mkfs library
-- `sample.dmigd` (generated): Generated from format specification (minimal valid content)
-- `sample.dng` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.doc` (generated): Auto-generated: OLE2 compound document binary stub (legacy binary format)
-- `sample.dockerfile` (generated): Generated from format specification (minimal valid content)
-- `sample.docm` (generated): Generated via python-docx/openpyxl library
-- `sample.docx` (generated): Generated via python-docx/openpyxl library
-- `sample.dot` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dotx` (generated): Generated via python-docx/openpyxl library
-- `sample.dts` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.dwg` (generated): Generated from format specification (minimal valid content)
-- `sample.dxf` (generated): Auto-generated: DXF ASCII header stub (legacy CAD format)
-- `sample.dylib` (generated): Generated from binary executable specification
-- `sample.e57` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ear` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.egg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ejs` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.elf` (generated): Generated from binary executable specification
-- `sample.elm` (generated): Generated from format specification (minimal valid content)
-- `sample.eml` (generated): Generated from MIME message specification
-- `sample.env` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.eot` (generated): Generated from font specification
-- `sample.eps` (generated): Generated from PDF/PostScript specification
-- `sample.epub` (generated): Generated from format specification (minimal valid content)
-- `sample.erb` (generated): Generated from format specification (minimal valid content)
-- `sample.erl` (generated): Generated from format specification (minimal valid content)
-- `sample.ex` (generated): Generated from format specification (minimal valid content)
-- `sample.exe` (generated): Generated from binary executable specification
-- `sample.exr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.exs` (generated): Generated from format specification (minimal valid content)
-- `sample.f` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.f03` (generated): Generated from format specification (minimal valid content)
-- `sample.f4v` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.f90` (generated): Generated from format specification (minimal valid content)
-- `sample.f95` (generated): Generated from format specification (minimal valid content)
-- `sample.fasta` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.fastq` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.fb2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.fbx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.fft` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.firrtl` (generated): Generated from format specification (minimal valid content)
-- `sample.fits` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.flac` (generated): Generated via ffmpeg/audio library
-- `sample.flv` (generated): Generated via ffmpeg/video library
-- `sample.fs` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.fsx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gcode` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gem` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gemspec` (generated): Generated from format specification (minimal valid content)
-- `sample.geojson` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gif` (generated): Generated via Pillow/Python image library
-- `sample.glb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gleam` (generated): Generated from format specification (minimal valid content)
-- `sample.glsl` (generated): Generated from format specification (minimal valid content)
-- `sample.gltf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gml` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.go` (generated): Generated from format specification (minimal valid content)
-- `sample.gpg` (generated): Generated via OpenSSL/GPG key generation
-- `sample.gpx` (generated): Generated from format specification (minimal valid content)
-- `sample.gradle` (generated): Generated from format specification (minimal valid content)
-- `sample.graphql` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.groovy` (generated): Generated from format specification (minimal valid content)
-- `sample.gsm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.gz` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.gzip` (generated): Generated from format specification (minimal valid content)
-- `sample.h` (generated): Generated from format specification (minimal valid content)
-- `sample.h++` (generated): Generated from format specification (minimal valid content)
-- `sample.h5` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.handlebars` (generated): Generated from format specification (minimal valid content)
-- `sample.har` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.hbs` (generated): Generated from format specification (minimal valid content)
-- `sample.hcl` (generated): Generated from format specification (minimal valid content)
-- `sample.hdf5` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.hdr` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.heic` (generated): Generated via Pillow/Python image library
-- `sample.heics` (generated): Generated from format specification (minimal valid content)
-- `sample.heif` (generated): Generated via Pillow/Python image library
-- `sample.heifs` (generated): Generated from format specification (minimal valid content)
-- `sample.hh` (generated): Generated from format specification (minimal valid content)
-- `sample.hlsl` (generated): Generated from format specification (minimal valid content)
-- `sample.hp2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.hpgl` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.hpp` (generated): Generated from format specification (minimal valid content)
-- `sample.hrl` (generated): Generated from format specification (minimal valid content)
-- `sample.hs` (generated): Generated from format specification (minimal valid content)
-- `sample.hta` (generated): Generated from format specification (minimal valid content)
-- `sample.htm` (generated): Generated from format specification (minimal valid content)
-- `sample.html` (generated): Generated from format specification (minimal valid content)
-- `sample.hwp` (generated): Generated via pyhwp/hwp-rs library
-- `sample.hwpx` (generated): Generated via pyhwp/hwp-rs library
-- `sample.hxx` (generated): Generated from format specification (minimal valid content)
-- `sample.iba` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ibooks` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.icns` (generated): Generated via Pillow/Python image library
-- `sample.ico` (generated): Generated via Pillow/Python image library
-- `sample.ics` (generated): Generated from MIME message specification
-- `sample.idr` (generated): Generated from format specification (minimal valid content)
-- `sample.ifc` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.iges` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.igs` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.img` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.indd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.inf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ini` (generated): Generated from format specification (minimal valid content)
-- `sample.ipa` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ipynb` (generated): Generated from format specification (minimal valid content)
-- `sample.iso` (generated): Generated via genisoimage/mkfs library
-- `sample.ixx` (generated): Generated from format specification (minimal valid content)
-- `sample.j2` (generated): Generated from format specification (minimal valid content)
-- `sample.jar` (generated): Generated from format specification (minimal valid content)
-- `sample.java` (generated): Generated from format specification (minimal valid content)
-- `sample.jfif` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.jinja` (generated): Generated from format specification (minimal valid content)
-- `sample.jinja2` (generated): Generated from format specification (minimal valid content)
-- `sample.jl` (generated): Generated from format specification (minimal valid content)
-- `sample.jng` (generated): Generated from format specification (minimal valid content)
-- `sample.jnlp` (generated): Generated from format specification (minimal valid content)
-- `sample.jp2` (generated): Generated via Pillow/Python image library
-- `sample.jpe` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.jpeg` (generated): Generated via Pillow/Python image library
-- `sample.jpf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.jpg` (generated): Generated via Pillow/Python image library
-- `sample.js` (generated): Generated from format specification (minimal valid content)
-- `sample.json` (generated): Generated from format specification (minimal valid content)
-- `sample.jsonl` (generated): Generated from format specification (minimal valid content)
-- `sample.jsonld` (generated): Generated from format specification (minimal valid content)
-- `sample.jsx` (generated): Generated from format specification (minimal valid content)
-- `sample.jxl` (generated): Generated from format specification (minimal valid content)
-- `sample.key` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.kml` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.kmz` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ko` (generated): Generated from format specification (minimal valid content)
-- `sample.ksh` (generated): Generated from format specification (minimal valid content)
-- `sample.kt` (generated): Generated from format specification (minimal valid content)
-- `sample.kts` (generated): Generated from format specification (minimal valid content)
-- `sample.l` (generated): Generated from format specification (minimal valid content)
-- `sample.lean` (generated): Generated from format specification (minimal valid content)
-- `sample.less` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.lha` (generated): Generated from format specification (minimal valid content)
-- `sample.lhs` (generated): Generated from format specification (minimal valid content)
-- `sample.lisp` (generated): Generated from format specification (minimal valid content)
-- `sample.lit` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.litcoffee` (generated): Generated from format specification (minimal valid content)
-- `sample.lnk` (generated): Generated from format specification (minimal valid content)
-- `sample.lock` (generated): Generated from format specification (minimal valid content)
-- `sample.log` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.lrz` (generated): Generated from format specification (minimal valid content)
-- `sample.lsp` (generated): Generated from format specification (minimal valid content)
-- `sample.lua` (generated): Generated from format specification (minimal valid content)
-- `sample.lwo` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.lz` (generated): Generated from format specification (minimal valid content)
-- `sample.lz4` (generated): Generated from format specification (minimal valid content)
-- `sample.lzh` (generated): Generated from format specification (minimal valid content)
-- `sample.lzma` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.m` (generated): Generated from format specification (minimal valid content)
-- `sample.m2t` (generated): Generated from format specification (minimal valid content)
-- `sample.m2ts` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.m3u` (generated): Generated from format specification (minimal valid content)
-- `sample.m3u8` (generated): Generated from format specification (minimal valid content)
-- `sample.m4` (generated): Generated from format specification (minimal valid content)
-- `sample.m4a` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.m4v` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.maff` (generated): Generated from format specification (minimal valid content)
-- `sample.makefile` (generated): Generated from format specification (minimal valid content)
-- `sample.map` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.markdown` (generated): Generated from format specification (minimal valid content)
-- `sample.mat` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.matlab` (generated): Generated from format specification (minimal valid content)
-- `sample.mbox` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.md` (generated): Generated from format specification (minimal valid content)
-- `sample.mdb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.metal` (generated): Generated from format specification (minimal valid content)
-- `sample.mht` (generated): Generated from MIME message specification
-- `sample.mid` (generated): Generated from format specification (minimal valid content)
-- `sample.midi` (generated): Generated via ffmpeg/audio library
-- `sample.mj2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mjs` (generated): Generated from format specification (minimal valid content)
-- `sample.mjsx` (generated): Generated from format specification (minimal valid content)
-- `sample.mk` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mka` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mkv` (generated): Generated via ffmpeg/video library
-- `sample.ml` (generated): Generated from format specification (minimal valid content)
-- `sample.mli` (generated): Generated from format specification (minimal valid content)
-- `sample.mlir` (generated): Generated from format specification (minimal valid content)
-- `sample.mm` (generated): Generated from format specification (minimal valid content)
-- `sample.mmp` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mobi` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.mojo` (generated): Generated from format specification (minimal valid content)
-- `sample.mol` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mol2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mov` (generated): Generated via ffmpeg/video library
-- `sample.move` (generated): Generated from format specification (minimal valid content)
-- `sample.mp3` (generated): Generated via ffmpeg/audio library
-- `sample.mp4` (generated): Generated via ffmpeg/video library
-- `sample.mpeg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mpg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.msg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.msgpack` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.msi` (generated): Auto-generated: OLE2 compound document binary stub (legacy installer format)
-- `sample.msix` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mtl` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.mts` (generated): Generated from format specification (minimal valid content)
-- `sample.mtsx` (generated): Generated from format specification (minimal valid content)
-- `sample.nc` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ndjson` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nef` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nginx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nii` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nim` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nix` (generated): Generated from format specification (minimal valid content)
-- `sample.nmind` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.npy` (generated): Generated via pickle/numpy/torch serialization
-- `sample.npz` (generated): Generated via pickle/numpy/torch serialization
-- `sample.numbers` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nupkg` (generated): Generated from format specification (minimal valid content)
-- `sample.nwc` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.nwd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.o` (generated): Generated from binary executable specification
-- `sample.obj` (generated): Generated from binary executable specification
-- `sample.ocx` (generated): Generated from format specification (minimal valid content)
-- `sample.odb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.odex` (generated): Generated from format specification (minimal valid content)
-- `sample.odin` (generated): Generated from format specification (minimal valid content)
-- `sample.odp` (generated): Generated from format specification (minimal valid content)
-- `sample.ods` (generated): Generated from format specification (minimal valid content)
-- `sample.odt` (generated): Generated from format specification (minimal valid content)
-- `sample.off` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.oga` (generated): Generated from format specification (minimal valid content)
-- `sample.ogg` (generated): Generated via ffmpeg/audio library
-- `sample.ogv` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.one` (generated): Auto-generated: OneNote binary stub (legacy document format)
-- `sample.onnx` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.opus` (generated): Generated via ffmpeg/audio library
-- `sample.orc` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.orf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.osm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.otf` (generated): Generated from font specification
-- `sample.oxps` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.p` (generated): Generated from format specification (minimal valid content)
-- `sample.p6` (generated): Generated from format specification (minimal valid content)
-- `sample.pages` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.parquet` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.pas` (generated): Generated from format specification (minimal valid content)
-- `sample.patch` (generated): Generated from format specification (minimal valid content)
-- `sample.pb` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.pbm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pbtxt` (generated): Generated from format specification (minimal valid content)
-- `sample.pcap` (generated): Generated via scapy/pcap library
-- `sample.pcapng` (generated): Generated via scapy/pcap library
-- `sample.pcd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pcx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pdb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pdf` (generated): Generated from PDF/PostScript specification
-- `sample.pem` (generated): Generated via OpenSSL/GPG key generation
-- `sample.pgm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pgp` (generated): Generated via OpenSSL/GPG key generation
-- `sample.php` (generated): Generated from format specification (minimal valid content)
-- `sample.pickle` (generated): Generated via pickle/numpy/torch serialization
-- `sample.pkg` (generated): Generated from format specification (minimal valid content)
-- `sample.pkl` (generated): Generated via pickle/numpy/torch serialization
-- `sample.pl` (generated): Generated from format specification (minimal valid content)
-- `sample.pl6` (generated): Generated from format specification (minimal valid content)
-- `sample.plist` (generated): Generated from format specification (minimal valid content)
-- `sample.pln` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.plt` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ply` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.pm6` (generated): Generated from format specification (minimal valid content)
-- `sample.png` (generated): Generated via Pillow/Python image library
-- `sample.pnm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.po` (generated): Generated from format specification (minimal valid content)
-- `sample.pot` (generated): Generated from format specification (minimal valid content)
-- `sample.pp` (generated): Generated from format specification (minimal valid content)
-- `sample.ppm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ppt` (generated): Auto-generated: OLE2 compound document binary stub (legacy binary format)
-- `sample.pptm` (generated): Generated via python-docx/openpyxl library
-- `sample.pptx` (generated): Generated via python-docx/openpyxl library
-- `sample.pro` (generated): Generated from format specification (minimal valid content)
-- `sample.properties` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.proto` (generated): Generated from format specification (minimal valid content)
-- `sample.protobuf` (generated): Generated via data format library (parquet/avro/h5py/onnx)
-- `sample.ps` (generated): Generated from PDF/PostScript specification
-- `sample.ps1` (generated): Generated from format specification (minimal valid content)
-- `sample.psd` (generated): Generated from format specification (minimal valid content)
-- `sample.pt` (generated): Generated via pickle/numpy/torch serialization
-- `sample.pth` (generated): Generated via pickle/numpy/torch serialization
-- `sample.pub` (generated): Generated via OpenSSL/GPG key generation
-- `sample.pug` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.purs` (generated): Generated from format specification (minimal valid content)
-- `sample.py` (generated): Generated from format specification (minimal valid content)
-- `sample.pyc` (generated): Generated via Python compileall
-- `sample.pyi` (generated): Generated from format specification (minimal valid content)
-- `sample.pyo` (generated): Generated via Python compileall
-- `sample.qoi` (generated): Generated from format specification (minimal valid content)
-- `sample.r` (generated): Generated from format specification (minimal valid content)
-- `sample.ra` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.raf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rake` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.raku` (generated): Generated from format specification (minimal valid content)
-- `sample.raku6` (generated): Generated from format specification (minimal valid content)
-- `sample.rar` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.rb` (generated): Generated from format specification (minimal valid content)
-- `sample.rdf` (generated): Generated from format specification (minimal valid content)
-- `sample.reg` (generated): Generated from format specification (minimal valid content)
-- `sample.rfa` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rlib` (generated): Generated from format specification (minimal valid content)
-- `sample.rll` (generated): Generated from format specification (minimal valid content)
-- `sample.rm` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rmvb` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.roc` (generated): Generated from format specification (minimal valid content)
-- `sample.rpm` (generated): Generated from format specification (minimal valid content)
-- `sample.rs` (generated): Generated from format specification (minimal valid content)
-- `sample.rst` (generated): Generated from format specification (minimal valid content)
-- `sample.rte` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rtf` (generated): Generated from format specification (minimal valid content)
-- `sample.rust` (generated): Generated from format specification (minimal valid content)
-- `sample.rvt` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rw2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.rz` (generated): Generated from format specification (minimal valid content)
-- `sample.s` (generated): Generated from format specification (minimal valid content)
-- `sample.sam` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sass` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sbt` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.scala` (generated): Generated from format specification (minimal valid content)
-- `sample.scm` (generated): Generated from format specification (minimal valid content)
-- `sample.scr` (generated): Generated from format specification (minimal valid content)
-- `sample.scss` (generated): Generated from format specification (minimal valid content)
-- `sample.sdf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sgi` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sgml` (generated): Generated from format specification (minimal valid content)
-- `sample.sh` (generated): Generated from format specification (minimal valid content)
-- `sample.sha1` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.shp` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.shx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sig` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.skp` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.smali` (generated): Generated from format specification (minimal valid content)
-- `sample.snap` (generated): Generated from format specification (minimal valid content)
-- `sample.snd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.so` (generated): Generated from binary executable specification
-- `sample.sol` (generated): Generated from format specification (minimal valid content)
-- `sample.spv` (generated): Generated from format specification (minimal valid content)
-- `sample.spx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sql` (generated): Generated from format specification (minimal valid content)
-- `sample.sqlite` (generated): Generated via sqlite3 library
-- `sample.sqlite3` (generated): Generated via sqlite3 library
-- `sample.sr2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.srt` (generated): Generated from format specification (minimal valid content)
-- `sample.ss` (generated): Generated from format specification (minimal valid content)
-- `sample.step` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.stg` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.stl` (generated): Generated from format specification (minimal valid content)
-- `sample.stp` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.sty` (generated): Generated from format specification (minimal valid content)
-- `sample.sum` (generated): Generated from format specification (minimal valid content)
-- `sample.svelte` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.svg` (generated): Generated via Pillow/Python image library
-- `sample.swf` (generated): Generated from format specification (minimal valid content)
-- `sample.swift` (generated): Generated from format specification (minimal valid content)
-- `sample.sys` (generated): Generated from format specification (minimal valid content)
-- `sample.tab` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.tar` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.tbz2` (generated): Generated from format specification (minimal valid content)
-- `sample.tcl` (generated): Generated from format specification (minimal valid content)
-- `sample.tex` (generated): Generated from format specification (minimal valid content)
-- `sample.text` (generated): Generated from format specification (minimal valid content)
-- `sample.textpb` (generated): Generated from format specification (minimal valid content)
-- `sample.textproto` (generated): Generated from format specification (minimal valid content)
-- `sample.tf` (generated): Generated from format specification (minimal valid content)
-- `sample.tga` (generated): Generated from format specification (minimal valid content)
-- `sample.tgz` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.tif` (generated): Generated via Pillow/Python image library
-- `sample.tiff` (generated): Generated via Pillow/Python image library
-- `sample.toml` (generated): Generated from format specification (minimal valid content)
-- `sample.topojson` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.torrent` (generated): Generated via bencode/torrent library
-- `sample.ts` (generated): Generated from format specification (minimal valid content)
-- `sample.tsv` (generated): Generated from format specification (minimal valid content)
-- `sample.tsx` (generated): Generated from format specification (minimal valid content)
-- `sample.tta` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.ttc` (generated): Generated from format specification (minimal valid content)
-- `sample.ttf` (generated): Generated from font specification
-- `sample.twig` (generated): Generated from format specification (minimal valid content)
-- `sample.txt` (generated): Generated from format specification (minimal valid content)
-- `sample.url` (generated): Generated from format specification (minimal valid content)
-- `sample.usdz` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.v` (generated): Generated from format specification (minimal valid content)
-- `sample.vb` (generated): Generated from format specification (minimal valid content)
-- `sample.vba` (generated): Generated from format specification (minimal valid content)
-- `sample.vbe` (generated): Generated from format specification (minimal valid content)
-- `sample.vbs` (generated): Generated from format specification (minimal valid content)
-- `sample.vcard` (generated): Generated from MIME message specification
-- `sample.vcf` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vcxproj` (generated): Generated from format specification (minimal valid content)
-- `sample.vdw` (generated): Generated from format specification (minimal valid content)
-- `sample.verilog` (generated): Generated from format specification (minimal valid content)
-- `sample.vh` (generated): Generated from format specification (minimal valid content)
-- `sample.vhd` (generated): Generated from format specification (minimal valid content)
-- `sample.vim` (generated): Generated from format specification (minimal valid content)
-- `sample.vlg` (generated): Generated from format specification (minimal valid content)
-- `sample.vob` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vox` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vsd` (generated): Generated from format specification (minimal header + content)
-- `sample.vsdm` (generated): Generated from format specification (minimal valid content)
-- `sample.vsdx` (generated): Generated from format specification (minimal valid content)
-- `sample.vsix` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vtk` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vtp` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.vtt` (generated): Generated from format specification (minimal valid content)
-- `sample.vue` (generated): Generated from format specification (minimal valid content)
-- `sample.wad` (generated): Generated from format specification (minimal valid content)
-- `sample.war` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wasm` (generated): Generated from binary executable specification
-- `sample.wav` (generated): Generated via ffmpeg/audio library
-- `sample.wb1` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wb2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wb3` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.webm` (generated): Generated via ffmpeg/video library
-- `sample.webp` (generated): Generated via Pillow/Python image library
-- `sample.webvtt` (generated): Generated from format specification (minimal valid content)
-- `sample.wgsl` (generated): Generated from format specification (minimal valid content)
-- `sample.whl` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wk1` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wk3` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wk4` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wks` (download): Downloaded from openpreserve/format-corpus (CC0)
-- `sample.wkt` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wma` (generated): Generated from format specification (minimal valid content)
-- `sample.wmv` (generated): Generated from format specification (minimal valid content)
-- `sample.woff` (generated): Generated from font specification
-- `sample.woff2` (generated): Generated from font specification
-- `sample.wpd` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wps` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wq1` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wq2` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wri` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.wrl` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.x3d` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.x3dv` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.x3f` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.xar` (generated): Generated from format specification (minimal valid content)
-- `sample.xcf` (generated): Generated from format specification (minimal valid content)
-- `sample.xht` (generated): Generated from format specification (minimal valid content)
-- `sample.xhtml` (generated): Generated from format specification (minimal valid content)
-- `sample.xls` (generated): Auto-generated: OLE2 compound document binary stub (legacy binary format)
-- `sample.xlsb` (generated): Generated via python-docx/openpyxl library
-- `sample.xlsm` (generated): Generated via python-docx/openpyxl library
-- `sample.xlsx` (generated): Generated via python-docx/openpyxl library
-- `sample.xlt` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.xltx` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.xml` (generated): Generated from format specification (minimal valid content)
-- `sample.xpi` (generated): Generated from format specification (minimal valid content)
-- `sample.xps` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.xsd` (generated): Generated from format specification (minimal valid content)
-- `sample.xyz` (download): Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)
-- `sample.xz` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.yaml` (generated): Generated from format specification (minimal valid content)
-- `sample.yar` (generated): Generated from format specification (minimal valid content)
-- `sample.yara` (generated): Generated from format specification (minimal valid content)
-- `sample.yml` (generated): Generated from format specification (minimal valid content)
-- `sample.z` (generated): Generated from format specification (minimal valid content)
-- `sample.zig` (generated): Generated from format specification (minimal valid content)
-- `sample.zip` (generated): Generated via Python archive library (zipfile/tarfile/bz2/lzma)
-- `sample.zst` (generated): Generated from format specification (minimal valid content)
+- `sample.3gp` (video): synthetic:3GPP ftyp box
+- `sample.7z` (archive): library:py7zr
+- `sample.uppercase.CBL` (code): synthetic:Minimal valid source code
+- `sample.uppercase.COB` (code): synthetic:Minimal valid source code
+- `sample.uppercase.CPY` (code): synthetic:Minimal valid source code
+- `sample.uppercase.F90` (code): synthetic:Minimal valid source code
+- `sample.uppercase.P` (code): synthetic:Minimal valid source code
+- `sample.uppercase.R` (code): synthetic:Minimal valid source code
+- `sample.uppercase.S` (code): synthetic:Minimal valid source code
+- `sample.a68` (code): synthetic:Minimal valid source code
+- `sample.aac` (audio): library:ffmpeg
+- `sample.abnf` (code): synthetic:Minimal valid source code
+- `sample.aff` (code): synthetic:Hunspell affix
+- `sample.agda` (code): synthetic:Agda
+- `sample.ahk` (code): synthetic:AutoHotkey
+- `sample.ai` (document): synthetic:PDF magic (AI wraps PDF)
+- `sample.aidl` (code): synthetic:Minimal valid source code
+- `sample.aiff` (audio): synthetic:AIFF FORM header
+- `sample.apk` (archive): library:zipfile
+- `sample.arc` (archive): synthetic:ARC magic bytes
+- `sample.arj` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.arj
+- `sample.asc` (text): synthetic:Minimal valid format content
+- `sample.asm` (code): synthetic:Minimal valid source code
+- `sample.asp` (code): synthetic:Minimal valid ASP source
+- `sample.aspx` (code): synthetic:Minimal valid ASP.NET source
+- `sample.au` (audio): synthetic:AU/SND header
+- `sample.au3` (code): synthetic:Minimal valid source code
+- `sample.aux` (text): synthetic:Minimal valid format content
+- `sample.avi` (video): synthetic:RIFF AVI header
+- `sample.avif` (image): library:Pillow
+- `sample.avifs` (image): library:Pillow
+- `sample.avro` (data): library:fastavro
+- `sample.awk` (code): synthetic:Minimal valid source code
+- `sample.b` (code): synthetic:Minimal valid source code
+- `sample.bat` (code): synthetic:Windows batch
+- `sample.bdf` (document): synthetic:Minimal BDF font
+- `sample.bf` (code): synthetic:Minimal valid source code
+- `sample.bfm` (text): synthetic:Minimal valid format content
+- `sample.bib` (text): synthetic:Minimal valid format content
+- `sample.bluespec` (code): synthetic:Bluespec
+- `sample.bmp` (image): library:Pillow
+- `sample.bplist` (text): synthetic:Minimal valid format content
+- `sample.brf` (text): synthetic:Minimal valid format content
+- `sample.bz2` (archive): library:bz2
+- `sample.bzl` (code): synthetic:Minimal valid source code
+- `sample.c` (code): synthetic:Minimal valid source code
+- `sample.c++` (code): synthetic:Minimal valid source code
+- `sample.cab` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.cab
+- `sample.cabal` (code): synthetic:Cabal
+- `sample.cairo` (code): synthetic:Cairo
+- `sample.carbon` (code): synthetic:Carbon
+- `sample.cbl` (code): synthetic:Minimal valid source code
+- `sample.cc` (code): synthetic:Minimal valid source code
+- `sample.cer` (certificate): library:cryptography (fixed test key)
+- `sample.chisel` (code): synthetic:Chisel
+- `sample.chm` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/documents/sample.chm
+- `sample.cjs` (code): synthetic:Minimal valid source code
+- `sample.cjsx` (code): synthetic:Minimal valid source code
+- `sample.cl` (code): synthetic:Minimal valid source code
+- `sample.clj` (code): synthetic:Clojure
+- `sample.cljr` (code): synthetic:Minimal valid ClojureScript (CLJR) source
+- `sample.cljs` (code): synthetic:Minimal valid ClojureScript source
+- `sample.cmake` (code): synthetic:Minimal valid source code
+- `sample.cob` (code): synthetic:Minimal valid source code
+- `sample.coffee` (code): synthetic:Minimal valid source code
+- `sample.cpp` (code): synthetic:Minimal valid source code
+- `sample.cppm` (code): synthetic:Minimal valid source code
+- `sample.cpy` (code): synthetic:Minimal valid source code
+- `sample.crt` (certificate): library:cryptography (fixed test key)
+- `sample.crx` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.crx
+- `sample.cs` (code): synthetic:Minimal valid source code
+- `sample.csproj` (code): synthetic:C# project XML
+- `sample.css` (code): synthetic:CSS stylesheet
+- `sample.csv` (code): synthetic:Minimal valid CSV data
+- `sample.csx` (code): synthetic:Minimal valid source code
+- `sample.cts` (code): synthetic:Minimal valid source code
+- `sample.ctsx` (code): synthetic:Minimal valid source code
+- `sample.cxx` (code): synthetic:Minimal valid source code
+- `sample.dart` (code): synthetic:Minimal valid source code
+- `sample.db` (data): library:sqlite3
+- `sample.dcm` (data): library:pydicom
+- `sample.deb` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.deb
+- `sample.der` (certificate): library:cryptography (fixed test key)
+- `sample.dex` (executable): synthetic:DEX 035 header/checksum/map
+- `sample.dhall` (code): synthetic:Dhall
+- `sample.diff` (text): synthetic:Minimal valid format content
+- `sample.dll` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/executables/sample.dll
+- `sample.dm` (text): synthetic:Minimal valid format content
+- `sample.dmg` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.dmg
+- `sample.dmigd` (text): synthetic:Minimal valid format content
+- `sample.doc` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/document/Word.doc
+- `sample.dockerfile` (code): synthetic:Dockerfile
+- `sample.docm` (document): library:zipfile
+- `sample.docx` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/document/Word.docx
+- `sample.dotx` (document): library:zipfile
+- `sample.dwg` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/cad/sample.dwg
+- `sample.dxf` (document): library:ezdxf
+- `sample.elf` (executable): synthetic:ELF header with PT_LOAD
+- `sample.elm` (code): synthetic:Elm
+- `sample.eml` (text): synthetic:Minimal valid format content
+- `sample.eot` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/fonts/sample.eot
+- `sample.eps` (document): synthetic:EPS header
+- `sample.epub` (document): library:zipfile
+- `sample.erb` (code): synthetic:ERB template
+- `sample.erl` (code): synthetic:Minimal valid source code
+- `sample.ex` (code): synthetic:Minimal valid source code
+- `sample.exe` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/executables/sample.exe
+- `sample.exs` (code): synthetic:Minimal valid source code
+- `sample.f03` (code): synthetic:Minimal valid source code
+- `sample.f90` (code): synthetic:Minimal valid source code
+- `sample.f95` (code): synthetic:Minimal valid source code
+- `sample.firrtl` (code): synthetic:FIRRTL
+- `sample.flac` (audio): synthetic:FLAC stream header
+- `sample.flv` (video): synthetic:FLV header
+- `sample.gemspec` (code): synthetic:Minimal valid source code
+- `sample.gif` (image): library:Pillow
+- `sample.gleam` (code): synthetic:Minimal valid source code
+- `sample.glsl` (code): synthetic:GLSL
+- `sample.go` (code): synthetic:Minimal valid source code
+- `sample.gpg` (text): synthetic:Minimal valid format content
+- `sample.gpx` (code): synthetic:Minimal valid source code
+- `sample.gradle` (code): synthetic:Minimal valid source code
+- `sample.groovy` (code): synthetic:Minimal valid source code
+- `sample.gz` (archive): library:gzip
+- `sample.gzip` (archive): library:gzip
+- `sample.h` (code): synthetic:Minimal valid source code
+- `sample.h++` (code): synthetic:Minimal valid source code
+- `sample.h5` (data): library:h5py
+- `sample.handlebars` (code): synthetic:Minimal valid source code
+- `sample.hbs` (code): synthetic:Minimal valid source code
+- `sample.hcl` (code): synthetic:Minimal valid source code
+- `sample.hdf5` (data): library:h5py
+- `sample.heic` (image): library:Pillow+pillow-heif
+- `sample.heics` (image): library:Pillow+pillow-heif
+- `sample.heif` (image): library:Pillow+pillow-heif
+- `sample.heifs` (image): library:Pillow+pillow-heif
+- `sample.hh` (code): synthetic:Minimal valid source code
+- `sample.hlsl` (code): synthetic:HLSL
+- `sample.hpp` (code): synthetic:Minimal valid source code
+- `sample.hrl` (code): synthetic:Minimal valid source code
+- `sample.hs` (code): synthetic:Minimal valid source code
+- `sample.hta` (code): synthetic:HTML Application
+- `sample.htm` (code): synthetic:Minimal valid source code
+- `sample.html` (code): synthetic:HTML5 document
+- `sample.hwp` (download): download:https://raw.githubusercontent.com/hahnlee/hwp-rs/main/tests/data/sample.hwp
+- `sample.hwpx` (download): download:https://raw.githubusercontent.com/hahnlee/hwp-rs/main/tests/data/sample.hwpx
+- `sample.hxx` (code): synthetic:Minimal valid source code
+- `sample.icns` (image): synthetic:icns magic + icon type header
+- `sample.ico` (image): library:Pillow
+- `sample.ics` (text): synthetic:Minimal valid format content
+- `sample.idr` (code): synthetic:Idris
+- `sample.ini` (code): synthetic:INI config
+- `sample.ipynb` (code): synthetic:Minimal valid source code
+- `sample.iso` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.iso
+- `sample.ixx` (code): synthetic:Minimal valid source code
+- `sample.j2` (code): synthetic:Minimal valid source code
+- `sample.jar` (archive): library:zipfile
+- `sample.java` (code): synthetic:Minimal valid source code
+- `sample.jinja` (code): synthetic:Minimal valid source code
+- `sample.jinja2` (code): synthetic:Minimal valid source code
+- `sample.jl` (code): synthetic:Minimal valid source code
+- `sample.jng` (image): synthetic:JNG magic bytes
+- `sample.jnlp` (code): synthetic:Java Web Start XML
+- `sample.jp2` (image): library:Pillow
+- `sample.jpeg` (image): library:Pillow
+- `sample.jpg` (image): library:Pillow
+- `sample.js` (code): synthetic:Minimal valid source code
+- `sample.json` (code): synthetic:JSON data
+- `sample.jsonl` (code): synthetic:JSON Lines
+- `sample.jsonld` (code): synthetic:Minimal valid source code
+- `sample.jsx` (code): synthetic:Minimal valid source code
+- `sample.jxl` (image): library:Pillow
+- `sample.ko` (executable): synthetic:ELF header with PT_LOAD
+- `sample.ksh` (code): synthetic:Korn shell
+- `sample.kt` (code): synthetic:Minimal valid source code
+- `sample.kts` (code): synthetic:Minimal valid source code
+- `sample.l` (code): synthetic:Minimal valid source code
+- `sample.lean` (code): synthetic:Lean
+- `sample.lha` (archive): synthetic:LHA magic bytes
+- `sample.lhs` (code): synthetic:Minimal valid source code
+- `sample.lisp` (code): synthetic:Minimal valid source code
+- `sample.litcoffee` (code): synthetic:Literate CoffeeScript
+- `sample.lnk` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.lnk
+- `sample.lock` (text): synthetic:Minimal valid format content
+- `sample.lrz` (archive): synthetic:LRZIP magic bytes
+- `sample.lsp` (code): synthetic:Minimal valid source code
+- `sample.lua` (code): synthetic:Minimal valid source code
+- `sample.lz` (archive): library:lzma
+- `sample.lz4` (archive): library:lz4
+- `sample.lzh` (archive): synthetic:LZH magic bytes
+- `sample.m` (code): synthetic:Minimal valid source code
+- `sample.m2t` (video): synthetic:MPEG-TS packet header
+- `sample.m3u` (text): synthetic:Minimal valid format content
+- `sample.m3u8` (text): synthetic:Minimal valid format content
+- `sample.m4` (code): synthetic:Minimal valid source code
+- `sample.macho` (executable): synthetic:Mach-O 64-bit header/load command
+- `sample.maff` (archive): library:zipfile
+- `sample.makefile` (code): synthetic:Makefile
+- `sample.markdown` (text): synthetic:Minimal valid format content
+- `sample.matlab` (code): synthetic:Minimal valid MATLAB source
+- `sample.md` (text): synthetic:Minimal valid format content
+- `sample.metal` (code): synthetic:Metal
+- `sample.mht` (code): synthetic:MHTML
+- `sample.mid` (audio): synthetic:Standard MIDI File header
+- `sample.midi` (audio): synthetic:Standard MIDI File header
+- `sample.mjs` (code): synthetic:Minimal valid source code
+- `sample.mjsx` (code): synthetic:Minimal valid source code
+- `sample.mkv` (video): synthetic:Matroska EBML header
+- `sample.ml` (code): synthetic:Minimal valid source code
+- `sample.mli` (code): synthetic:Minimal valid source code
+- `sample.mlir` (code): synthetic:MLIR
+- `sample.mm` (code): synthetic:Minimal valid source code
+- `sample.mojo` (code): synthetic:Mojo
+- `sample.mov` (video): synthetic:QuickTime ftyp box
+- `sample.move` (code): synthetic:Move
+- `sample.mp3` (audio): library:ffmpeg
+- `sample.mp4` (video): synthetic:ISO BMFF ftyp box
+- `sample.msi` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.msi
+- `sample.mts` (code): synthetic:Minimal valid source code
+- `sample.mtsx` (code): synthetic:Minimal valid source code
+- `sample.nix` (code): synthetic:Nix
+- `sample.npy` (data): synthetic:NumPy array header
+- `sample.npz` (data): library:zipfile
+- `sample.nupkg` (archive): library:zipfile
+- `sample.odin` (code): synthetic:Minimal valid source code
+- `sample.odp` (document): library:zipfile
+- `sample.ods` (document): library:zipfile
+- `sample.odt` (document): library:zipfile
+- `sample.oga` (audio): synthetic:Ogg container header
+- `sample.ogg` (audio): synthetic:Ogg container header
+- `sample.one` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/documents/sample.one
+- `sample.onnx` (data): library:onnx
+- `sample.opus` (audio): synthetic:Ogg container header
+- `sample.otf` (font): synthetic:OpenType offset table header
+- `sample.p` (code): synthetic:Minimal valid source code
+- `sample.p6` (code): synthetic:Raku
+- `sample.parquet` (data): library:pyarrow
+- `sample.pas` (code): synthetic:Minimal valid source code
+- `sample.patch` (text): synthetic:Minimal valid format content
+- `sample.pb` (data): library:protobuf
+- `sample.pbtxt` (code): synthetic:Minimal valid source code
+- `sample.pcap` (data): library:scapy
+- `sample.pcapng` (download): download:https://raw.githubusercontent.com/wireshark/wireshark/master/test/captures/bt_attr.pcapng
+- `sample.pdf` (document): synthetic:PDF magic header
+- `sample.pem` (text): synthetic:Minimal valid format content
+- `sample.pgp` (text): synthetic:Minimal valid format content
+- `sample.php` (code): synthetic:Minimal valid source code
+- `sample.pickle` (data): library:pickle
+- `sample.pkg` (archive): synthetic:XAR wrapper (macOS package)
+- `sample.pkl` (data): library:pickle
+- `sample.pl` (code): synthetic:Minimal valid source code
+- `sample.pl6` (code): synthetic:Raku
+- `sample.plist` (text): synthetic:Minimal valid format content
+- `sample.pm6` (code): synthetic:Raku
+- `sample.png` (image): library:Pillow
+- `sample.po` (code): synthetic:Minimal valid gettext PO translation
+- `sample.pot` (code): synthetic:Minimal valid gettext PO template
+- `sample.pp` (code): synthetic:Minimal valid source code
+- `sample.ppt` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/document/pptWithImages.ppt
+- `sample.pptm` (document): library:zipfile
+- `sample.pptx` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/slideshow/withImages.pptx
+- `sample.pro` (code): synthetic:Minimal valid source code
+- `sample.proto` (code): synthetic:Minimal valid source code
+- `sample.protobuf` (data): library:protobuf
+- `sample.ps` (document): synthetic:PostScript header
+- `sample.ps1` (code): synthetic:PowerShell
+- `sample.psd` (image): synthetic:PSD magic bytes
+- `sample.pt` (data): library:pickle
+- `sample.pth` (data): library:pickle
+- `sample.pub` (text): synthetic:Minimal valid format content
+- `sample.purs` (code): synthetic:PureScript
+- `sample.py` (code): synthetic:Minimal valid source code
+- `sample.pyc` (executable): library:Python compile with fixed <module> filename
+- `sample.pyi` (code): synthetic:Minimal valid source code
+- `sample.pyo` (executable): library:Python compile with fixed <module> filename
+- `sample.qoi` (image): synthetic:QOI header + raw pixel data
+- `sample.r` (code): synthetic:Minimal valid R source (lowercase extension)
+- `sample.raku` (code): synthetic:Raku
+- `sample.raku6` (code): synthetic:Raku
+- `sample.rar` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/archives/sample.rar
+- `sample.rb` (code): synthetic:Minimal valid source code
+- `sample.rdf` (text): synthetic:Minimal valid format content
+- `sample.reg` (text): synthetic:Minimal valid format content
+- `sample.roc` (code): synthetic:Roc
+- `sample.rpm` (archive): synthetic:RPM lead/signature/main header + cpio payload
+- `sample.rs` (code): synthetic:Minimal valid source code
+- `sample.rst` (text): synthetic:Minimal valid format content
+- `sample.rtf` (text): synthetic:Minimal valid format content
+- `sample.rust` (code): synthetic:Minimal valid Rust source
+- `sample.rz` (archive): library:gzip
+- `sample.s` (code): synthetic:Minimal valid source code
+- `sample.scala` (code): synthetic:Minimal valid source code
+- `sample.scm` (code): synthetic:Minimal valid source code
+- `sample.scss` (code): synthetic:Minimal valid source code
+- `sample.sgml` (text): synthetic:Minimal valid format content
+- `sample.sh` (code): synthetic:Minimal valid source code
+- `sample.smali` (code): synthetic:Minimal valid source code
+- `sample.snap` (archive): library:mksquashfs reproducible SquashFS 4.0
+- `sample.so` (executable): synthetic:ELF header with PT_LOAD
+- `sample.sol` (code): synthetic:Minimal valid source code
+- `sample.spv` (code): synthetic:SPIR-V
+- `sample.sql` (code): synthetic:Minimal valid source code
+- `sample.sqlite` (data): library:sqlite3
+- `sample.sqlite3` (data): library:sqlite3
+- `sample.srt` (text): synthetic:Minimal valid format content
+- `sample.ss` (code): synthetic:Minimal valid source code
+- `sample.stl` (data): library:numpy-stl
+- `sample.sty` (text): synthetic:Minimal valid format content
+- `sample.sum` (text): synthetic:Minimal valid format content
+- `sample.svg` (code): synthetic:SVG image
+- `sample.swift` (code): synthetic:Minimal valid source code
+- `sample.tar` (archive): library:tarfile
+- `sample.tbz2` (archive): library:bz2
+- `sample.tcl` (code): synthetic:Minimal valid source code
+- `sample.tex` (text): synthetic:Minimal valid format content
+- `sample.text` (text): synthetic:Minimal valid format content
+- `sample.textpb` (code): synthetic:Minimal valid source code
+- `sample.textproto` (code): synthetic:Minimal valid source code
+- `sample.tf` (code): synthetic:Terraform HCL
+- `sample.tga` (image): synthetic:TGA header + raw pixel data
+- `sample.tgz` (archive): library:gzip
+- `sample.tif` (image): library:Pillow
+- `sample.tiff` (image): library:Pillow
+- `sample.toml` (code): synthetic:TOML config
+- `sample.torrent` (text): synthetic:Minimal valid format content
+- `sample.ts` (code): synthetic:Minimal valid source code
+- `sample.tsv` (code): synthetic:Minimal valid source code
+- `sample.tsx` (code): synthetic:Minimal valid source code
+- `sample.ttc` (font): synthetic:TTC header
+- `sample.ttf` (font): synthetic:TrueType offset table header
+- `sample.twig` (code): synthetic:Twig template
+- `sample.txt` (text): synthetic:Minimal valid format content
+- `sample.url` (text): synthetic:Minimal valid format content
+- `sample.v` (code): synthetic:Minimal valid source code
+- `sample.vb` (code): synthetic:Minimal valid Visual Basic source code
+- `sample.vba` (code): synthetic:VBA
+- `sample.vbe` (code): synthetic:Minimal valid encrypted VBScript
+- `sample.vbs` (code): synthetic:VBScript
+- `sample.vcard` (text): synthetic:Minimal valid format content
+- `sample.vcxproj` (code): synthetic:C++ project XML
+- `sample.vdw` (document): library:zipfile
+- `sample.verilog` (code): synthetic:Minimal valid source code
+- `sample.vh` (code): synthetic:Minimal valid source code
+- `sample.vhd` (code): synthetic:Minimal valid source code
+- `sample.vim` (code): synthetic:Vim script
+- `sample.vlg` (code): synthetic:Minimal valid source code
+- `sample.vsd` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/documents/sample.vsd
+- `sample.vsdm` (document): library:zipfile
+- `sample.vsdx` (document): library:zipfile
+- `sample.vtt` (text): synthetic:Minimal valid format content
+- `sample.vue` (code): synthetic:Vue SFC
+- `sample.wad` (archive): synthetic:WAD magic bytes
+- `sample.wasm` (download): download:https://raw.githubusercontent.com/h2non/filetype/master/fixtures/sample.wasm
+- `sample.wav` (audio): library:wave
+- `sample.webm` (video): synthetic:WebM EBML header
+- `sample.webp` (image): library:Pillow
+- `sample.webvtt` (text): synthetic:Minimal valid format content
+- `sample.wgsl` (code): synthetic:WGSL
+- `sample.woff` (font): synthetic:WOFF header (wraps TTF)
+- `sample.woff2` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/fonts/sample.woff2
+- `sample.xar` (archive): synthetic:XAR header + compressed TOC + SHA-1 heap checksum
+- `sample.xcf` (image): synthetic:GIMP XCF magic bytes
+- `sample.xht` (code): synthetic:Minimal valid source code
+- `sample.xhtml` (code): synthetic:Minimal valid source code
+- `sample.xls` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/spreadsheet/35188.xls
+- `sample.xlsb` (document): library:zipfile
+- `sample.xlsm` (document): library:zipfile
+- `sample.xlsx` (download): download:https://raw.githubusercontent.com/apache/poi/master/test-data/spreadsheet/59689.xlsx
+- `sample.xml` (code): synthetic:Minimal valid XML document
+- `sample.xpi` (archive): library:zipfile
+- `sample.xsd` (code): synthetic:Minimal valid source code
+- `sample.xz` (archive): library:lzma
+- `sample.yaml` (code): synthetic:YAML config
+- `sample.yar` (code): synthetic:Minimal valid source code
+- `sample.yara` (code): synthetic:Minimal valid source code
+- `sample.yml` (code): synthetic:Minimal valid source code
+- `sample.z` (archive): synthetic:Unix compress magic bytes
+- `sample.zig` (code): synthetic:Zig
+- `sample.zip` (archive): library:zipfile
+- `sample.zst` (archive): library:zstandard
 
----
+## Discovered fixtures (no registered generator)
 
-**Total**: 598 fixtures
-**Generated**: 2026-05-04
+These fixture files exist on disk but are not produced by any registered generator. They were added via legacy `scripts/generate_fixtures.py` or `scripts/download_fixtures.py` workflows, or were manually placed. Regenerate them with:
+
+    rye run python scripts/generate_fixtures.py
+    rye run python scripts/download_fixtures.py
+
+- `sample.3dm` (78 bytes): external: existing fixture (no registered generator)
+- `sample.3ds` (3,810,956 bytes): external: existing fixture (no registered generator)
+- `sample.3g2` (41,087 bytes): external: existing fixture (no registered generator)
+- `sample.3mf` (2,045 bytes): external: existing fixture (no registered generator)
+- `sample.ac3` (120,372 bytes): external: existing fixture (no registered generator)
+- `sample.accdb` (120 bytes): external: existing fixture (no registered generator)
+- `sample.ace` (57 bytes): external: existing fixture (no registered generator)
+- `sample.acf` (20 bytes): external: existing fixture (no registered generator)
+- `sample.adoc` (430 bytes): external: existing fixture (no registered generator)
+- `sample.aif` (441,054 bytes): external: existing fixture (no registered generator)
+- `sample.amf` (953 bytes): external: existing fixture (no registered generator)
+- `sample.amr` (8,038 bytes): external: existing fixture (no registered generator)
+- `sample.ani` (56 bytes): external: existing fixture (no registered generator)
+- `sample.apng` (11,980 bytes): external: existing fixture (no registered generator)
+- `sample.appx` (425 bytes): external: existing fixture (no registered generator)
+- `sample.arw` (12,428 bytes): external: existing fixture (no registered generator)
+- `sample.asf` (42 bytes): external: existing fixture (no registered generator)
+- `sample.ax` (92 bytes): external: existing fixture (no registered generator)
+- `sample.azw` (279 bytes): external: existing fixture (no registered generator)
+- `sample.azw3` (12,807 bytes): external: existing fixture (no registered generator)
+- `sample.blend` (909,160 bytes): external: existing fixture (no registered generator)
+- `sample.brep` (171 bytes): external: existing fixture (no registered generator)
+- `sample.bson` (30 bytes): external: existing fixture (no registered generator)
+- `sample.btx` (8,192 bytes): external: existing fixture (no registered generator)
+- `sample.caf` (441,130 bytes): external: existing fixture (no registered generator)
+- `sample.cbor` (21 bytes): external: existing fixture (no registered generator)
+- `sample.cbr` (58 bytes): external: existing fixture (no registered generator)
+- `sample.cbz` (278 bytes): external: existing fixture (no registered generator)
+- `sample.cdd` (112,445 bytes): external: existing fixture (no registered generator)
+- `sample.cdf` (58 bytes): external: existing fixture (no registered generator)
+- `sample.cfg` (211 bytes): external: existing fixture (no registered generator)
+- `sample.class` (28 bytes): external: existing fixture (no registered generator)
+- `sample.cmd` (123 bytes): external: existing fixture (no registered generator)
+- `sample.conf` (248 bytes): external: existing fixture (no registered generator)
+- `sample.cpio` (121 bytes): external: existing fixture (no registered generator)
+- `sample.cpl` (92 bytes): external: existing fixture (no registered generator)
+- `sample.cr` (208 bytes): external: existing fixture (no registered generator)
+- `sample.cr2` (12,428 bytes): external: existing fixture (no registered generator)
+- `sample.csr` (204 bytes): external: existing fixture (no registered generator)
+- `sample.cur` (1,045 bytes): external: existing fixture (no registered generator)
+- `sample.d` (271 bytes): external: existing fixture (no registered generator)
+- `sample.dae` (1,205 bytes): external: existing fixture (no registered generator)
+- `sample.dbf` (280 bytes): external: existing fixture (no registered generator)
+- `sample.dds` (16,512 bytes): external: existing fixture (no registered generator)
+- `sample.dgn` (128 bytes): external: existing fixture (no registered generator)
+- `sample.divx` (218,016 bytes): external: existing fixture (no registered generator)
+- `sample.djvu` (34 bytes): external: existing fixture (no registered generator)
+- `sample.dng` (12,428 bytes): external: existing fixture (no registered generator)
+- `sample.dot` (512 bytes): external: existing fixture (no registered generator)
+- `sample.dts` (480,996 bytes): external: existing fixture (no registered generator)
+- `sample.dylib` (32 bytes): external: existing fixture (no registered generator)
+- `sample.e57` (56 bytes): external: existing fixture (no registered generator)
+- `sample.ear` (229 bytes): external: existing fixture (no registered generator)
+- `sample.egg` (182 bytes): external: existing fixture (no registered generator)
+- `sample.ejs` (225 bytes): external: existing fixture (no registered generator)
+- `sample.env` (217 bytes): external: existing fixture (no registered generator)
+- `sample.exr` (48 bytes): external: existing fixture (no registered generator)
+- `sample.f` (148 bytes): external: existing fixture (no registered generator)
+- `sample.f4v` (256,134 bytes): external: existing fixture (no registered generator)
+- `sample.fasta` (204 bytes): external: existing fixture (no registered generator)
+- `sample.fastq` (164 bytes): external: existing fixture (no registered generator)
+- `sample.fb2` (5,171 bytes): external: existing fixture (no registered generator)
+- `sample.fbx` (77 bytes): external: existing fixture (no registered generator)
+- `sample.fft` (922 bytes): external: existing fixture (no registered generator)
+- `sample.fits` (20,160 bytes): external: existing fixture (no registered generator)
+- `sample.fs` (212 bytes): external: existing fixture (no registered generator)
+- `sample.fsx` (248 bytes): external: existing fixture (no registered generator)
+- `sample.gcode` (275 bytes): external: existing fixture (no registered generator)
+- `sample.gem` (10,240 bytes): external: existing fixture (no registered generator)
+- `sample.geojson` (655 bytes): external: existing fixture (no registered generator)
+- `sample.glb` (828 bytes): external: existing fixture (no registered generator)
+- `sample.gltf` (1,375 bytes): external: existing fixture (no registered generator)
+- `sample.gml` (336 bytes): external: existing fixture (no registered generator)
+- `sample.graphql` (591 bytes): external: existing fixture (no registered generator)
+- `sample.gsm` (8,250 bytes): external: existing fixture (no registered generator)
+- `sample.har` (936 bytes): external: existing fixture (no registered generator)
+- `sample.hdr` (16,431 bytes): external: existing fixture (no registered generator)
+- `sample.hp2` (59 bytes): external: existing fixture (no registered generator)
+- `sample.hpgl` (59 bytes): external: existing fixture (no registered generator)
+- `sample.iba` (1,346,299 bytes): external: existing fixture (no registered generator)
+- `sample.ibooks` (339,258 bytes): external: existing fixture (no registered generator)
+- `sample.ifc` (1,843,671 bytes): external: existing fixture (no registered generator)
+- `sample.iges` (136,663 bytes): external: existing fixture (no registered generator)
+- `sample.igs` (810 bytes): external: existing fixture (no registered generator)
+- `sample.img` (1,474,560 bytes): external: existing fixture (no registered generator)
+- `sample.indd` (1,503,232 bytes): external: existing fixture (no registered generator)
+- `sample.inf` (236 bytes): external: existing fixture (no registered generator)
+- `sample.ipa` (271 bytes): external: existing fixture (no registered generator)
+- `sample.jfif` (28,651 bytes): external: existing fixture (no registered generator)
+- `sample.jpe` (28,651 bytes): external: existing fixture (no registered generator)
+- `sample.jpf` (674,424 bytes): external: existing fixture (no registered generator)
+- `sample.key` (270 bytes): external: existing fixture (no registered generator)
+- `sample.kml` (586 bytes): external: existing fixture (no registered generator)
+- `sample.kmz` (698 bytes): external: existing fixture (no registered generator)
+- `sample.less` (191 bytes): external: existing fixture (no registered generator)
+- `sample.lit` (112 bytes): external: existing fixture (no registered generator)
+- `sample.log` (649 bytes): external: existing fixture (no registered generator)
+- `sample.lwo` (28 bytes): external: existing fixture (no registered generator)
+- `sample.lzma` (33 bytes): external: existing fixture (no registered generator)
+- `sample.m2ts` (294,912 bytes): external: existing fixture (no registered generator)
+- `sample.m4a` (86,599 bytes): external: existing fixture (no registered generator)
+- `sample.m4v` (256,474 bytes): external: existing fixture (no registered generator)
+- `sample.map` (167,512 bytes): external: existing fixture (no registered generator)
+- `sample.mat` (2,112 bytes): external: existing fixture (no registered generator)
+- `sample.mbox` (431 bytes): external: existing fixture (no registered generator)
+- `sample.mdb` (94,208 bytes): external: existing fixture (no registered generator)
+- `sample.mj2` (3,018,267 bytes): external: existing fixture (no registered generator)
+- `sample.mk` (206 bytes): external: existing fixture (no registered generator)
+- `sample.mka` (79,585 bytes): external: existing fixture (no registered generator)
+- `sample.mmp` (24,291 bytes): external: existing fixture (no registered generator)
+- `sample.mobi` (279 bytes): external: existing fixture (no registered generator)
+- `sample.mol` (347 bytes): external: existing fixture (no registered generator)
+- `sample.mol2` (222 bytes): external: existing fixture (no registered generator)
+- `sample.mpeg` (311,296 bytes): external: existing fixture (no registered generator)
+- `sample.mpg` (299,008 bytes): external: existing fixture (no registered generator)
+- `sample.msg` (512 bytes): external: existing fixture (no registered generator)
+- `sample.msgpack` (20 bytes): external: existing fixture (no registered generator)
+- `sample.msix` (213 bytes): external: existing fixture (no registered generator)
+- `sample.mtl` (106 bytes): external: existing fixture (no registered generator)
+- `sample.nc` (9,896 bytes): external: existing fixture (no registered generator)
+- `sample.ndjson` (155 bytes): external: existing fixture (no registered generator)
+- `sample.nef` (12,428 bytes): external: existing fixture (no registered generator)
+- `sample.nginx` (303 bytes): external: existing fixture (no registered generator)
+- `sample.nii` (348 bytes): external: existing fixture (no registered generator)
+- `sample.nim` (620 bytes): external: existing fixture (no registered generator)
+- `sample.nmind` (28,731 bytes): external: existing fixture (no registered generator)
+- `sample.numbers` (267 bytes): external: existing fixture (no registered generator)
+- `sample.nwc` (126 bytes): external: existing fixture (no registered generator)
+- `sample.nwd` (126 bytes): external: existing fixture (no registered generator)
+- `sample.o` (24 bytes): external: existing fixture (no registered generator)
+- `sample.obj` (24 bytes): external: existing fixture (no registered generator)
+- `sample.ocx` (92 bytes): external: existing fixture (no registered generator)
+- `sample.odb` (2,419 bytes): external: existing fixture (no registered generator)
+- `sample.odex` (28 bytes): external: existing fixture (no registered generator)
+- `sample.off` (166 bytes): external: existing fixture (no registered generator)
+- `sample.ogv` (1,375,324 bytes): external: existing fixture (no registered generator)
+- `sample.orc` (53 bytes): external: existing fixture (no registered generator)
+- `sample.orf` (256 bytes): external: existing fixture (no registered generator)
+- `sample.osm` (651 bytes): external: existing fixture (no registered generator)
+- `sample.oxps` (297 bytes): external: existing fixture (no registered generator)
+- `sample.pages` (168,831 bytes): external: existing fixture (no registered generator)
+- `sample.pbm` (521 bytes): external: existing fixture (no registered generator)
+- `sample.pcd` (175 bytes): external: existing fixture (no registered generator)
+- `sample.pcx` (58,505 bytes): external: existing fixture (no registered generator)
+- `sample.pdb` (304 bytes): external: existing fixture (no registered generator)
+- `sample.pgm` (4,109 bytes): external: existing fixture (no registered generator)
+- `sample.pln` (124 bytes): external: existing fixture (no registered generator)
+- `sample.plt` (59 bytes): external: existing fixture (no registered generator)
+- `sample.ply` (437 bytes): external: existing fixture (no registered generator)
+- `sample.pm` (89 bytes): external: existing fixture (no registered generator)
+- `sample.pnm` (12,301 bytes): external: existing fixture (no registered generator)
+- `sample.ppm` (90,015 bytes): external: existing fixture (no registered generator)
+- `sample.properties` (145 bytes): external: existing fixture (no registered generator)
+- `sample.pug` (239 bytes): external: existing fixture (no registered generator)
+- `sample.ra` (62,181 bytes): external: existing fixture (no registered generator)
+- `sample.raf` (268 bytes): external: existing fixture (no registered generator)
+- `sample.rake` (183 bytes): external: existing fixture (no registered generator)
+- `sample.rfa` (512 bytes): external: existing fixture (no registered generator)
+- `sample.rlib` (28 bytes): external: existing fixture (no registered generator)
+- `sample.rll` (92 bytes): external: existing fixture (no registered generator)
+- `sample.rm` (208,908 bytes): external: existing fixture (no registered generator)
+- `sample.rmvb` (208,908 bytes): external: existing fixture (no registered generator)
+- `sample.rte` (512 bytes): external: existing fixture (no registered generator)
+- `sample.rvt` (512 bytes): external: existing fixture (no registered generator)
+- `sample.rw2` (256 bytes): external: existing fixture (no registered generator)
+- `sample.sam` (3,463 bytes): external: existing fixture (no registered generator)
+- `sample.sass` (185 bytes): external: existing fixture (no registered generator)
+- `sample.sbt` (169 bytes): external: existing fixture (no registered generator)
+- `sample.scr` (92 bytes): external: existing fixture (no registered generator)
+- `sample.sdf` (130 bytes): external: existing fixture (no registered generator)
+- `sample.sgi` (12,800 bytes): external: existing fixture (no registered generator)
+- `sample.sha1` (374,644 bytes): external: existing fixture (no registered generator)
+- `sample.shp` (184 bytes): external: existing fixture (no registered generator)
+- `sample.shx` (124 bytes): external: existing fixture (no registered generator)
+- `sample.sig` (95 bytes): external: existing fixture (no registered generator)
+- `sample.skp` (119 bytes): external: existing fixture (no registered generator)
+- `sample.snd` (441,032 bytes): external: existing fixture (no registered generator)
+- `sample.spx` (18,076 bytes): external: existing fixture (no registered generator)
+- `sample.sr2` (12,428 bytes): external: existing fixture (no registered generator)
+- `sample.step` (8,010 bytes): external: existing fixture (no registered generator)
+- `sample.stg` (3,096 bytes): external: existing fixture (no registered generator)
+- `sample.stp` (8,010 bytes): external: existing fixture (no registered generator)
+- `sample.svelte` (172 bytes): external: existing fixture (no registered generator)
+- `sample.swf` (28 bytes): external: existing fixture (no registered generator)
+- `sample.sys` (92 bytes): external: existing fixture (no registered generator)
+- `sample.tab` (151 bytes): external: existing fixture (no registered generator)
+- `sample.topojson` (329 bytes): external: existing fixture (no registered generator)
+- `sample.tta` (100,398 bytes): external: existing fixture (no registered generator)
+- `sample.usdz` (203 bytes): external: existing fixture (no registered generator)
+- `sample.vcf` (329 bytes): external: existing fixture (no registered generator)
+- `sample.vob` (241,664 bytes): external: existing fixture (no registered generator)
+- `sample.vox` (64 bytes): external: existing fixture (no registered generator)
+- `sample.vsix` (486 bytes): external: existing fixture (no registered generator)
+- `sample.vtk` (123 bytes): external: existing fixture (no registered generator)
+- `sample.vtp` (553 bytes): external: existing fixture (no registered generator)
+- `sample.war` (335 bytes): external: existing fixture (no registered generator)
+- `sample.wb1` (4,813 bytes): external: existing fixture (no registered generator)
+- `sample.wb2` (4,804 bytes): external: existing fixture (no registered generator)
+- `sample.wb3` (5,120 bytes): external: existing fixture (no registered generator)
+- `sample.whl` (513 bytes): external: existing fixture (no registered generator)
+- `sample.wk1` (24,291 bytes): external: existing fixture (no registered generator)
+- `sample.wk3` (18,635 bytes): external: existing fixture (no registered generator)
+- `sample.wk4` (6,168 bytes): external: existing fixture (no registered generator)
+- `sample.wks` (852 bytes): external: existing fixture (no registered generator)
+- `sample.wkt` (135 bytes): external: existing fixture (no registered generator)
+- `sample.wma` (42 bytes): external: existing fixture (no registered generator)
+- `sample.wmv` (42 bytes): external: existing fixture (no registered generator)
+- `sample.wpd` (1,099,409 bytes): external: existing fixture (no registered generator)
+- `sample.wps` (512 bytes): external: existing fixture (no registered generator)
+- `sample.wq1` (18,687 bytes): external: existing fixture (no registered generator)
+- `sample.wq2` (7,938 bytes): external: existing fixture (no registered generator)
+- `sample.wri` (1,536 bytes): external: existing fixture (no registered generator)
+- `sample.wrl` (225 bytes): external: existing fixture (no registered generator)
+- `sample.x3d` (1,121 bytes): external: existing fixture (no registered generator)
+- `sample.x3dv` (157 bytes): external: existing fixture (no registered generator)
+- `sample.x3f` (256 bytes): external: existing fixture (no registered generator)
+- `sample.xlt` (512 bytes): external: existing fixture (no registered generator)
+- `sample.xltx` (996 bytes): external: existing fixture (no registered generator)
+- `sample.xps` (605 bytes): external: existing fixture (no registered generator)
+- `sample.xyz` (96 bytes): external: existing fixture (no registered generator)
+
+
+Total: 600 fixtures

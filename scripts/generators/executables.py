@@ -17,11 +17,13 @@ class ExecutableGenerator(BaseGenerator):
     @property
     def sources(self) -> dict[str, str]:
         return {
-            "elf": "synthetic:ELF header",
-            "so": "synthetic:ELF header",
-            "ko": "synthetic:ELF header",
-            "pyc": "library:Python compile",
-            "pyo": "library:Python compile",
+            "elf": "synthetic:ELF header with PT_LOAD",
+            "so": "synthetic:ELF header with PT_LOAD",
+            "ko": "synthetic:ELF header with PT_LOAD",
+            "pyc": "library:Python compile with fixed <module> filename",
+            "pyo": "library:Python compile with fixed <module> filename",
+            "dex": "synthetic:DEX 035 header/checksum/map",
+            "macho": "synthetic:Mach-O 64-bit header/load command",
         }
 
     @property
@@ -42,15 +44,20 @@ class ExecutableGenerator(BaseGenerator):
 
     def _create_elf(self) -> bytes:
         elf_ident = b"\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-        elf_hdr = elf_ident + struct.pack("<HHIQQQIHHHHHH", 2, 0x3E, 1, 0x400078, 64, 0, 0, 64, 56, 1, 64, 0, 0)
+        elf_hdr = elf_ident + struct.pack(
+            "<HHIQQQIHHHHHH", 2, 0x3E, 1, 0x400078, 64, 0, 0, 64, 56, 1, 64, 0, 0
+        )
         code = b"\xb8\x3c\x00\x00\x00\xbf\x00\x00\x00\x00\x0f\x05"
         total_filesz = 120 + len(code)
-        elf_ph = struct.pack("<IIQQQQQQ", 1, 5, 0, 0x400000, 0x400000, total_filesz, total_filesz, 0x1000)
+        elf_ph = struct.pack(
+            "<IIQQQQQQ", 1, 5, 0, 0x400000, 0x400000, total_filesz, total_filesz, 0x1000
+        )
         return (elf_hdr + elf_ph + code).ljust(512, b"\x00")
 
     def _create_pyc(self) -> bytes:
         import marshal
         import importlib.util
+
         code_obj = compile("pass", "<module>", "exec")
         pyc_magic = importlib.util.MAGIC_NUMBER
         pyc_header = pyc_magic + b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
@@ -86,14 +93,21 @@ class ExecutableGenerator(BaseGenerator):
             total_file_size,
             header_size,
             0x12345678,
-            0, 0,
+            0,
+            0,
             map_off,
-            1, string_ids_off,
-            0, 0,
-            0, 0,
-            0, 0,
-            0, 0,
-            0, 0,
+            1,
+            string_ids_off,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             data_size,
             data_off,
         )
@@ -106,6 +120,11 @@ class ExecutableGenerator(BaseGenerator):
 
     def _create_macho(self) -> bytes:
         import struct
-        macho_hdr = struct.pack("<IIIIIIII", 0xfeedfacf, 0x01000007, 3, 2, 1, 72, 0x200085, 0)
-        lc_seg = struct.pack("<II16sQQQQIIII", 0x19, 72, b"__PAGEZERO", 0, 0x100000000, 0, 0, 0, 0, 0, 0)
+
+        macho_hdr = struct.pack(
+            "<IIIIIIII", 0xFEEDFACF, 0x01000007, 3, 2, 1, 72, 0x200085, 0
+        )
+        lc_seg = struct.pack(
+            "<II16sQQQQIIII", 0x19, 72, b"__PAGEZERO", 0, 0x100000000, 0, 0, 0, 0, 0, 0
+        )
         return (macho_hdr + lc_seg).ljust(512, b"\x00")
