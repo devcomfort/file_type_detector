@@ -184,14 +184,22 @@ def _parse_record(
         _require_mapping(record.get("ground_truth"), f"{record_id} ground_truth"),
         record_id=record_id,
         require_canonical=role == "authoritative" or review.status == "verified",
+        allow_empty_extensions=probe_filename is not None,
     )
     backends = _parse_backends(record.get("backends"), f"{record_id} backends")
 
-    if review.status == "verified" and probe_extension not in ground_truth.extensions:
-        raise InventoryValidationError(
-            f"verified record {record_id!r}: probe_extension "
-            f"{probe_extension!r} must appear in ground_truth.extensions"
-        )
+    if review.status == "verified":
+        if probe_filename is not None:
+            if probe_filename not in ground_truth.filenames:
+                raise InventoryValidationError(
+                    f"verified record {record_id!r}: probe_filename "
+                    f"{probe_filename!r} must appear in ground_truth.filenames"
+                )
+        elif probe_extension not in ground_truth.extensions:
+            raise InventoryValidationError(
+                f"verified record {record_id!r}: probe_extension "
+                f"{probe_extension!r} must appear in ground_truth.extensions"
+            )
 
     source_integrity = None
     format_validity = None
@@ -217,6 +225,7 @@ def _parse_record(
                 record_id=record_id,
                 claimed_mimes=ground_truth.mimes,
                 claimed_extensions=ground_truth.extensions,
+                claimed_filenames=ground_truth.filenames,
             )
         content_identifiability = _parse_identifiability(
             record.get("content_identifiability"),
@@ -263,6 +272,7 @@ def _parse_gt_evidence(
     record_id: str,
     claimed_mimes: tuple[str, ...],
     claimed_extensions: tuple[str, ...],
+    claimed_filenames: tuple[str, ...] = (),
 ) -> GroundTruthEvidence:
     """Validate the MIME/extension evidence axis (truth axis 3).
 
@@ -319,7 +329,16 @@ def _parse_gt_evidence(
             + ", ".join(sorted(extra_mimes))
         )
 
-    extension_claims_payload = _require_claim_list("extension_claims")
+    raw_extension_claims = payload.get("extension_claims")
+    if not claimed_extensions:
+        if raw_extension_claims:
+            raise InventoryValidationError(
+                f"{record_id} evidence has unclaimed extension entries: "
+                "ground_truth.extensions is empty"
+            )
+        extension_claims_payload = []
+    else:
+        extension_claims_payload = _require_claim_list("extension_claims")
 
     parsed_extension_claims: list[dict[str, str]] = []
     covered_extensions: set[str] = set()
@@ -357,9 +376,52 @@ def _parse_gt_evidence(
             + ", ".join(sorted(extra_exts))
         )
 
+    if not claimed_filenames and (payload.get("filename_claims") or []):
+        raise InventoryValidationError(
+            f"{record_id} evidence has unclaimed filename entries: "
+            "ground_truth.filenames is empty"
+        )
+    parsed_filename_claims: list[dict[str, str]] = []
+    covered_filenames: set[str] = set()
+    if claimed_filenames:
+        filename_claims_payload = _require_claim_list("filename_claims")
+        for claim in filename_claims_payload:
+            name = _require_string(claim.get("filename"), f"{record_id} claim filename")
+            authority = _require_string(
+                claim.get("authority"), f"{record_id} claim authority"
+            )
+            reference = _require_string(
+                claim.get("reference"), f"{record_id} claim reference"
+            )
+            if not (reference.startswith("http://") or reference.startswith("https://")):
+                raise InventoryValidationError(
+                    f"{record_id} claim reference for {name!r} must be a URL"
+                )
+            if name in covered_filenames:
+                raise InventoryValidationError(
+                    f"{record_id} has duplicate evidence claims for {name!r}"
+                )
+            covered_filenames.add(name)
+            parsed_filename_claims.append(
+                {"filename": name, "authority": authority, "reference": reference}
+            )
+        uncovered_names = set(claimed_filenames) - covered_filenames
+        extra_names = covered_filenames - set(claimed_filenames)
+        if uncovered_names:
+            raise InventoryValidationError(
+                f"{record_id} evidence lacks filename claims for: "
+                + ", ".join(sorted(uncovered_names))
+            )
+        if extra_names:
+            raise InventoryValidationError(
+                f"{record_id} evidence has unclaimed filename entries: "
+                + ", ".join(sorted(extra_names))
+            )
+
     return GroundTruthEvidence(
         mime_claims=tuple(parsed_mime_claims),
         extension_claims=tuple(parsed_extension_claims),
+        filename_claims=tuple(parsed_filename_claims),
     )
 
 
@@ -410,6 +472,7 @@ def _parse_ground_truth(
     *,
     record_id: str,
     require_canonical: bool,
+    allow_empty_extensions: bool = False,
 ) -> GroundTruth:
     return GroundTruth(
         mimes=_parse_mimes(
@@ -421,8 +484,18 @@ def _parse_ground_truth(
             ground_truth.get("extensions"),
             f"{record_id} ground_truth.extensions",
             require_canonical=require_canonical,
+            allow_empty=allow_empty_extensions,
+        ),
+        filenames=_parse_filenames(
+            ground_truth.get("filenames"), f"{record_id} ground_truth.filenames"
         ),
     )
+
+
+def _parse_filenames(value: object, field: str) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    return tuple(_require_string_list(value, field))
 
 
 def _parse_mimes(
@@ -442,7 +515,10 @@ def _parse_extensions(
     field: str,
     *,
     require_canonical: bool,
+    allow_empty: bool = False,
 ) -> tuple[str, ...]:
+    if allow_empty and isinstance(value, list) and not value:
+        return ()
     values = _require_string_list(value, field)
     for extension in values:
         if not extension.startswith("."):

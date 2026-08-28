@@ -16,6 +16,7 @@ class FixtureReference:
 class GroundTruth:
     mimes: tuple[str, ...]
     extensions: tuple[str, ...]
+    filenames: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -49,6 +50,7 @@ class FormatValidity:
 class GroundTruthEvidence:
     mime_claims: tuple[Mapping[str, str], ...]
     extension_claims: tuple[Mapping[str, str], ...] = ()
+    filename_claims: tuple[Mapping[str, str], ...] = ()
 
 
 _IDENTIFIABILITY_TIERS = frozenset(
