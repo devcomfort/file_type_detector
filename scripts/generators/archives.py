@@ -195,7 +195,19 @@ class ArchiveGenerator(BaseGenerator):
         return b"\x1a" + b"\x00" * 20
 
     def _create_lha(self) -> bytes:
-        return b"-lh0-" + b"\x00" * 20
+        name = b"sample.txt"
+        body = b"Hello, World!"
+        method = b"-lh0-"
+        hdr_data = (
+            method
+            + struct.pack("<III", len(body), len(body), 0)
+            + b"\x20\x01"
+            + bytes([len(name)])
+            + name
+            + b"\x00\x00U\x00\x00"
+        )
+        hdr = bytes([len(hdr_data) + 1, sum(hdr_data) & 0xFF]) + hdr_data
+        return hdr + body + b"\x00" 
 
     def _create_lrz(self) -> bytes:
         return b"LRZI" + b"\x00" * 20
@@ -207,7 +219,19 @@ class ArchiveGenerator(BaseGenerator):
         return b"xar!\x00\x01" + struct.pack(">I", 28) + b"\x00" * 16
 
     def _create_rpm(self) -> bytes:
-        return b"\xed\xab\xee\xdb" + b"\x00" * 20
+        lead = (
+            b"\xed\xab\xee\xdb"
+            + bytes([3, 0])
+            + struct.pack(">hh", 0, 1)
+            + b"sample".ljust(66, b"\x00")
+            + struct.pack(">hh", 1, 5)
+            + b"\x00" * 16
+        )
+        hdr_magic = b"\x8e\xad\xe8\x01\x00\x00\x00\x00"
+        idx = struct.pack(">IIII", 1000, 6, 0, 1)
+        data = b"sample\x00"
+        hdr = hdr_magic + struct.pack(">II", 1, len(data)) + idx + data
+        return (lead + hdr).ljust(512, b"\x00")
 
     def _create_snap(self) -> bytes:
         return b"hsqs" + b"\x00" * 20
@@ -216,7 +240,16 @@ class ArchiveGenerator(BaseGenerator):
         return b"IWAD" + b"\x00" * 8
 
     def _create_xar(self) -> bytes:
-        return b"xar!\x00\x01" + struct.pack(">I", 28) + b"\x00" * 16
+        import zlib
+        toc_xml = (
+            b'<?xml version="1.0"?><xar><toc><checksum style="sha1">'
+            b'<offset>0</offset><size>20</size></checksum><file id="1">'
+            b'<name>sample.txt</name><type>file</type><data><length>13</length>'
+            b'<offset>0</offset><size>13</size></data></file></toc></xar>'
+        )
+        toc_comp = zlib.compress(toc_xml)
+        xar_hdr = b"xar!\x00\x1c\x00\x01" + struct.pack(">QQI", len(toc_comp), len(toc_xml), 1)
+        return xar_hdr + toc_comp + b"Hello, World!\n" 
 
     def _create_z(self) -> bytes:
         return b"\x1f\x9d" + b"\x00" * 20
