@@ -74,20 +74,13 @@ class VideoGenerator(BaseGenerator):
         )
 
     def _create_webm(self) -> bytes:
-        ebml_id = b"\x1a\x45\xdf\xa3"
-        ebml_data = (
-            b"\x42\x86\x81\x01"  # EBMLVersion = 1
-            b"\x42\xf7\x81\x01"  # EBMLReadVersion = 1
-            b"\x42\xf2\x81\x04"  # EBMLMaxIDLength = 4
-            b"\x42\xf3\x81\x08"  # EBMLMaxSizeLength = 8
-            b"\x42\x82\x84webm"  # DocType = "webm"
-            b"\x42\x87\x81\x04"  # DocTypeVersion = 4
-            b"\x42\x85\x81\x02"  # DocTypeReadVersion = 2
+        # Decodable valid minimal WebM video stream generated deterministically via ffmpeg (lavfi color vp9).
+        # Embedded as base64 for 100% portable pure-Python generation without ffmpeg runtime dependency.
+        import base64
+
+        return base64.b64decode(
+            "GkXfo59ChoEBQveBAULygQRC84EIQoKEd2VibUKHgQJChYECGFOAZwH/////////EU2bdKtNu4tTq4QVSalmU6yBoU27i1OrhBZUrmtTrIHYTbuMU6uEElTDZ1OsggEi7AEAAAAAAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVSalmsirXsYMPQkBNgI1MYXZmNTguNzYuMTAwV0GNTGF2ZjU4Ljc2LjEwMESJiEBZAAAAAAAAFlSua8WuAQAAAAAAADzXgQFzxYjOk3xd4FAQQ5yBACK1nIN1bmSGhVZfVlA5g4EBI+ODhAX14QDgAQAAAAAAAAmwgRC6gRCagQISVMNn+XNzAQAAAAAAACdjwIBnyAEAAAAAAAAaRaOHRU5DT0RFUkSHjUxhdmY1OC43Ni4xMDBzcwEAAAAAAAA+Y8CLY8WIzpN8XeBQEENnyAEAAAAAAAAmRaOHRU5DT0RFUkSHmUxhdmM1OC4xMzQuMTAwIGxpYnZweC12cDkfQ7Z1sOeBAKOrgQAAgIJJg0IAAPAA9gA4JBwYSgAAMGAAABC///wQsf////8irP///n/AAA=="
         )
-        ebml_hdr = ebml_id + bytes([0x80 | len(ebml_data)]) + ebml_data
-        segment = b"\x18\x53\x80\x67\x01\xff\xff\xff\xff\xff\xff\xff"  # Segment ID + unknown size
-        tracks = b"\x16\x54\xae\x6b\x80"  # Tracks ID + 0 size
-        return (ebml_hdr + segment + tracks).ljust(512, b"\x00")
 
     def _create_avi(self) -> bytes:
         return (
