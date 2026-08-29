@@ -111,12 +111,15 @@
     },
     {
       "action": "zlibstream",
-      "inventory_id": null,
+      "inventory_id": "sample-zlibstream",
       "validator_command": "python .audit/w3_validate.py --id sample-zlibstream",
-      "format_validity": "not-run",
-      "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "human review/promotion pending",
+      "promotion_input": false,
+      "validator_evidence": [
+        "zlib stream decompressed to deterministic payload"
+      ]
     },
     {
       "action": "ace",

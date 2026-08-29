@@ -6415,12 +6415,23 @@
         "tier": "exact-byte",
         "generator_symbol": "scripts.generators.ArchiveGenerator._create_snap"
       }
+    },
+    "sample-zlibstream": {
+      "sha256": "89ec7a2ae631b811b677373421fc2946e0beea5e09c0e37fbb3e99dce57e146e",
+      "probe_extension": ".zlibstream",
+      "status": "excluded",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.archives.ArchiveGenerator._create_zlibstream",
+        "recipe_hash": "3951f2b086d48827d0e70316d7b89f5d4e29357d21d07e8acf6816760811c096",
+        "tier": "exact-byte"
+      }
     }
   },
   "summary": {
-    "total": 601,
+    "total": 602,
     "by_type": {
-      "generated": 383,
+      "generated": 384,
       "external": 189,
       "external_unresolved": 29
     }

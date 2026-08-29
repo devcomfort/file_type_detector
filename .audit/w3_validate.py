@@ -170,6 +170,16 @@ def validate(record_id: str) -> dict[str, object]:
                 "w3_validate.py:lha-level1",
                 ["method, filename, and stored payload"],
             )
+        if ext == "zlibstream":
+            import zlib
+            payload = zlib.decompress(data)
+            assert payload == b"Hello, World!\n" * 10
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:zlib-decompress",
+                ["zlib stream decompressed to deterministic payload"],
+            )
         if ext == "rpm":
             assert data.startswith(b"\xed\xab\xee\xdb")
             gzip_offset = data.index(b"\x1f\x8b")

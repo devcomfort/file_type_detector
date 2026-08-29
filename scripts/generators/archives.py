@@ -88,6 +88,7 @@ class ArchiveGenerator(BaseGenerator):
             "wad": "synthetic:WAD magic bytes",
             "xar": "synthetic:XAR header + compressed TOC + SHA-1 heap checksum",
             "z": "synthetic:Unix compress magic bytes",
+            "zlibstream": "library:zlib.compress",
             "cab": "synthetic:Microsoft Cabinet CFHEADER/CFFOLDER/CFFILE/CFDATA",
             "crx": "library:cryptography RSA-SHA1 signed CRX v2",
             "deb": "library:tarfile + gzip_compress_det + ar",
@@ -129,6 +130,7 @@ class ArchiveGenerator(BaseGenerator):
             "wad": self._create_wad,
             "xar": self._create_xar,
             "z": self._create_z,
+            "zlibstream": self._create_zlibstream,
             "cab": self._create_cab,
             "crx": self._create_crx,
             "deb": self._create_deb,
@@ -508,3 +510,8 @@ class ArchiveGenerator(BaseGenerator):
             + data_tar_gz
             + (b"\n" if len(data_tar_gz) % 2 == 1 else b"")
         )
+
+    def _create_zlibstream(self) -> bytes:
+        import zlib
+
+        return zlib.compress(b"Hello, World!\n" * 10)
