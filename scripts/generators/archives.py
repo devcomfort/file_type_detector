@@ -47,7 +47,7 @@ class ArchiveGenerator(BaseGenerator):
             "pkg",
             "rpm",
             "snap",
-            "wad",
+            "squashfs",
             "xar",
             "z",
             "cab",
@@ -87,7 +87,7 @@ class ArchiveGenerator(BaseGenerator):
             "rpm": "synthetic:RPM lead/signature/main header + cpio payload",
             "snap": "generated:pinned reproducible SquashFS 4.0 bytes (mksquashfs recipe)",
             "wad": "synthetic:WAD magic bytes",
-            "xar": "synthetic:XAR header + compressed TOC + SHA-1 heap checksum",
+            "squashfs": "generated:pinned reproducible SquashFS 4.0 bytes (mksquashfs recipe)",
             "z": "synthetic:Unix compress magic bytes",
             "zlibstream": "library:zlib.compress",
             "cab": "synthetic:Microsoft Cabinet CFHEADER/CFFOLDER/CFFILE/CFDATA",
@@ -131,6 +131,7 @@ class ArchiveGenerator(BaseGenerator):
             "wad": self._create_wad,
             "xar": self._create_xar,
             "z": self._create_z,
+            "squashfs": self._create_snap,
             "zlibstream": self._create_zlibstream,
             "cab": self._create_cab,
             "crx": self._create_crx,
@@ -158,15 +159,18 @@ class ArchiveGenerator(BaseGenerator):
             + b"\x00" * (pool_size - 28 - 4 - len(string_data))
         )
         start_element = struct.pack(
-            "<HHIIIIIHHHHHH",
-            0x0102, 16, 36, 1, 0, 0xFFFFFFFF, 0, 20, 20, 0, 0, 0, 0
+            "<HHIIIIIHHHHHH", 0x0102, 16, 36, 1, 0, 0xFFFFFFFF, 0, 20, 20, 0, 0, 0, 0
         )
-        end_element = (
-            struct.pack("<HHIIII", 0x0103, 16, 24, 2, 0, 0xFFFFFFFF)
-            + struct.pack("<I", 0)
-        )
+        end_element = struct.pack(
+            "<HHIIII", 0x0103, 16, 24, 2, 0, 0xFFFFFFFF
+        ) + struct.pack("<I", 0)
         xml_size = 8 + len(string_pool) + len(start_element) + len(end_element)
-        binary_xml = struct.pack("<HHI", 0x0003, 8, xml_size) + string_pool + start_element + end_element
+        binary_xml = (
+            struct.pack("<HHI", 0x0003, 8, xml_size)
+            + string_pool
+            + start_element
+            + end_element
+        )
 
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:

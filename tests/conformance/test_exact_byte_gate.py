@@ -92,7 +92,6 @@ def test_tier1_exact_byte_reproduction():
 
     for r in tier1:
         ext = r["probe_extension"].lstrip(".")
-        ext = {"squashfs": "snap"}.get(ext, ext)
         gen_output = gens.get(ext)
         assert gen_output is not None, f"{r['id']}: no generator for .{ext}"
         disk = (_PROJECT_ROOT / r["fixture"]).read_bytes()

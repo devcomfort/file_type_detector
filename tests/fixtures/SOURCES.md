@@ -313,6 +313,7 @@ filetype-detector test suite.
 - `sample.sql` (code): synthetic:Minimal valid source code
 - `sample.sqlite` (data): library:sqlite3
 - `sample.sqlite3` (data): library:sqlite3
+- `sample.squashfs` (archive): generated:pinned reproducible SquashFS 4.0 bytes (mksquashfs recipe)
 - `sample.srt` (text): synthetic:Minimal valid format content
 - `sample.ss` (code): synthetic:Minimal valid source code
 - `sample.stl` (data): library:numpy-stl
@@ -360,7 +361,7 @@ filetype-detector test suite.
 - `sample.vsdx` (document): library:zipfile
 - `sample.vtt` (text): synthetic:Minimal valid format content
 - `sample.vue` (code): synthetic:Vue SFC
-- `sample.wad` (archive): synthetic:WAD magic bytes
+- `sample.wad` (unknown): synthetic:WAD magic bytes
 - `sample.wasm` (download): download:https://raw.githubusercontent.com/h2non/filetype/master/fixtures/sample.wasm
 - `sample.wav` (audio): library:wave
 - `sample.webm` (video): synthetic:WebM EBML header
@@ -369,7 +370,6 @@ filetype-detector test suite.
 - `sample.wgsl` (code): synthetic:WGSL
 - `sample.woff` (font): synthetic:WOFF header (wraps TTF)
 - `sample.woff2` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/fonts/sample.woff2
-- `sample.xar` (archive): synthetic:XAR header + compressed TOC + SHA-1 heap checksum
 - `sample.xcf` (image): synthetic:GIMP XCF magic bytes
 - `sample.xht` (code): synthetic:Minimal valid source code
 - `sample.xhtml` (code): synthetic:Minimal valid source code
@@ -576,7 +576,6 @@ These fixture files exist on disk but are not produced by any registered generat
 - `sample.skp` (119 bytes): external: existing fixture (no registered generator)
 - `sample.snd` (441,032 bytes): external: existing fixture (no registered generator)
 - `sample.spx` (18,076 bytes): external: existing fixture (no registered generator)
-- `sample.squashfs` (4,096 bytes): external: existing fixture (no registered generator)
 - `sample.sr2` (12,428 bytes): external: existing fixture (no registered generator)
 - `sample.step` (8,010 bytes): external: existing fixture (no registered generator)
 - `sample.stg` (3,096 bytes): external: existing fixture (no registered generator)
@@ -615,6 +614,7 @@ These fixture files exist on disk but are not produced by any registered generat
 - `sample.x3d` (1,121 bytes): external: existing fixture (no registered generator)
 - `sample.x3dv` (157 bytes): external: existing fixture (no registered generator)
 - `sample.x3f` (256 bytes): external: existing fixture (no registered generator)
+- `sample.xar` (296 bytes): external: existing fixture (no registered generator)
 - `sample.xlt` (512 bytes): external: existing fixture (no registered generator)
 - `sample.xltx` (996 bytes): external: existing fixture (no registered generator)
 - `sample.xps` (605 bytes): external: existing fixture (no registered generator)
