@@ -3,9 +3,9 @@
 This directory contains **602** fixture files used by the
 filetype-detector test suite.
 
-**356** fixtures are synthetically generated from format specifications.
+**357** fixtures are synthetically generated from format specifications.
 **27** fixtures are downloaded from external repositories (see attribution details below).
-**221** fixtures exist on disk but have no registered generator; they were added manually or via legacy scripts.
+**220** fixtures exist on disk but have no registered generator; they were added manually or via legacy scripts.
 
 ## Registered generators
 
@@ -361,7 +361,7 @@ filetype-detector test suite.
 - `sample.vsdx` (document): library:zipfile
 - `sample.vtt` (text): synthetic:Minimal valid format content
 - `sample.vue` (code): synthetic:Vue SFC
-- `sample.wad` (unknown): synthetic:WAD magic bytes
+- `sample.wad` (archive): synthetic:WAD magic bytes
 - `sample.wasm` (download): download:https://raw.githubusercontent.com/h2non/filetype/master/fixtures/sample.wasm
 - `sample.wav` (audio): library:wave
 - `sample.webm` (video): synthetic:WebM EBML header
@@ -370,6 +370,7 @@ filetype-detector test suite.
 - `sample.wgsl` (code): synthetic:WGSL
 - `sample.woff` (font): synthetic:WOFF header (wraps TTF)
 - `sample.woff2` (download): download:https://raw.githubusercontent.com/iamahsanmehmood/sample-files/main/fonts/sample.woff2
+- `sample.xar` (archive): synthetic:XAR header + compressed TOC + SHA-1 heap checksum
 - `sample.xcf` (image): synthetic:GIMP XCF magic bytes
 - `sample.xht` (code): synthetic:Minimal valid source code
 - `sample.xhtml` (code): synthetic:Minimal valid source code
@@ -614,7 +615,6 @@ These fixture files exist on disk but are not produced by any registered generat
 - `sample.x3d` (1,121 bytes): external: existing fixture (no registered generator)
 - `sample.x3dv` (157 bytes): external: existing fixture (no registered generator)
 - `sample.x3f` (256 bytes): external: existing fixture (no registered generator)
-- `sample.xar` (296 bytes): external: existing fixture (no registered generator)
 - `sample.xlt` (512 bytes): external: existing fixture (no registered generator)
 - `sample.xltx` (996 bytes): external: existing fixture (no registered generator)
 - `sample.xps` (605 bytes): external: existing fixture (no registered generator)
