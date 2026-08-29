@@ -53,6 +53,7 @@ class ArchiveGenerator(BaseGenerator):
             "cab",
             "crx",
             "deb",
+            "zlibstream",
         ]
 
     @property

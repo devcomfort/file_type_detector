@@ -123,3 +123,14 @@ def test_spec_compliant_archive_generators(tmp_path):
     toc_checksum_in_heap = heap[:20]
     # Apple xar verifies checksum over the compressed TOC stream
     assert hashlib.sha1(comp_toc).digest() == toc_checksum_in_heap
+
+
+# Q. Does the registered zlibstream dispatch reproduce its committed fixture?
+def test_zlibstream_dispatch_matches_fixture() -> None:
+    import hashlib
+    from scripts.generators.archives import ArchiveGenerator
+
+    generated = ArchiveGenerator().generate("zlibstream")
+    committed = (Path(__file__).parent / "fixtures" / "sample.zlibstream").read_bytes()
+    assert generated == committed
+    assert hashlib.sha256(generated).hexdigest() == "89ec7a2ae631b811b677373421fc2946e0beea5e09c0e37fbb3e99dce57e146e"
