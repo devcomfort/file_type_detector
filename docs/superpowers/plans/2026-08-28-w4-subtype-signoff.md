@@ -13,7 +13,7 @@ This sign-off records the validation evidence for the W4 subtype fixtures and th
 |---|---|---|---|
 | `sample.apk` | ZIP member inventory checked; `AndroidManifest.xml` marker has a self-consistent 16-byte chunk; embedded `classes.dex` is checked by the DEX checksum/signature/map validator | `jar` (0.96) | **Not promoted**: full Android binary-AXML parser validation still required |
 | `sample.xpi` | ZIP member inventory checked; `manifest.json` is valid JSON with manifest version, name, and version | `xpi` (0.91) | Candidate remains excluded pending independent XPI package validation |
-| `sample.ai` | PDF header/trailer and Illustrator creator marker checked structurally | `pdf` (0.89) | **Not promoted**: PDF compatibility is not proof of Illustrator semantics |
+| `sample.ai` | `pdfinfo` opens the committed one-page PDF; exact generator↔fixture bytes match; Adobe documents AI files may contain PDF-compatible data, but this marker is not native Illustrator PGF | `pdf` (0.89) | **Not promoted**: PDF compatibility is not proof of Illustrator semantics; authority: [Adobe supported file formats](https://helpx.adobe.com/illustrator/desktop/get-started/learn-the-basics/supported-file-formats.html) |
 | `sample.textproto` | Fixture contains protobuf text-field syntax: scalar fields, nested message, boolean, and repeated list syntax | `yaml` (0.83) | Accepted as ambiguous model behavior; no subtype claim promoted |
 | `sample.jinja` | Fixture contains Jinja delimiters, inheritance, block, filter, loop, and conditional syntax | `twig` (0.68) | Accepted as ambiguous model behavior; no subtype claim promoted |
 

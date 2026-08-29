@@ -20,7 +20,7 @@ from scripts.generators.certificates import CertificateGenerator  # noqa: E402
 from scripts.generators.archives import ArchiveGenerator  # noqa: E402
 from scripts.generators.data_formats import DataFormatGenerator  # noqa: E402
 from scripts.generators.code_formats import CodeFormatGenerator  # noqa: E402
-
+from scripts.generators.documents import DocumentGenerator  # noqa: E402
 _TIER2 = {"sample-7z", "sample-dxf", "sample-stl"}
 
 
@@ -40,6 +40,7 @@ def _generators():
         ArchiveGenerator,
         DataFormatGenerator,
         CodeFormatGenerator,
+        DocumentGenerator,
     ):
         inst = cls()
         for ext in inst.extensions:
@@ -95,6 +96,13 @@ def test_tier1_exact_byte_reproduction():
             f"{r['id']}: Tier1 exact-byte MISMATCH "
             f"(gen={len(gen_output)}B, disk={len(disk)}B)"
         )
+
+
+# Q. Does the Illustrator-marked AI candidate reproduce its committed bytes?
+def test_ai_candidate_exact_byte_reproduction():
+    generated = DocumentGenerator().generate("ai")
+    committed = (_PROJECT_ROOT / "tests/fixtures/sample.ai").read_bytes()
+    assert generated == committed
 
 
 # Q. Does sample-gzip have .gzip in GT extensions (probe ∈ GT invariant)?
