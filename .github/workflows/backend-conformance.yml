@@ -9,6 +9,8 @@ on:
       - "tests/fixtures/**"
       - "pyproject.toml"
       - "requirements*.lock"
+      - ".audit/**"
+      - "scripts/generators/**"
       - ".github/workflows/backend-conformance.yml"
   workflow_dispatch:
   schedule:
