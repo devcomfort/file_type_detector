@@ -24097,8 +24097,13 @@
       },
       "provenance": "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
       "ground_truth_review": {
-        "status": "excluded",
-        "reason": "W3 action pending independent MIME evidence and promotion"
+        "status": "verified",
+        "reviewed_by": "automated-independent-validator",
+        "reviewed_at": "2026-08-29",
+        "evidence": [
+          "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
+          "w3_validate.py:squashfs-superblock"
+        ]
       },
       "backends": [
         "lexical",

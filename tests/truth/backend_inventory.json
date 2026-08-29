@@ -736,6 +736,66 @@
           "Reference: https://github.com/AutoHotkey/AutoHotkeyDocs/blob/v1/docs/Scripts.htm"
         ]
       }
+    },
+    {
+      "id": "sample-squashfs",
+      "fixture": "tests/fixtures/sample.squashfs",
+      "sha256": "5637affc9954069411fa9db430a3341845e3df2d9ddd36a9074a6b1787de683f",
+      "probe_extension": ".squashfs",
+      "ground_truth": {
+        "mime_types": [
+          "application/x-squashfs"
+        ],
+        "extensions": [
+          ".squashfs"
+        ]
+      },
+      "provenance": "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
+      "ground_truth_review": {
+        "status": "verified",
+        "reviewed_by": "automated-independent-validator",
+        "reviewed_at": "2026-08-29",
+        "evidence": [
+          "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
+          "w3_validate.py:squashfs-superblock"
+        ]
+      },
+      "backends": [
+        "lexical",
+        "magic",
+        "magika",
+        "hybrid"
+      ],
+      "source_integrity": {
+        "kind": "generated",
+        "generator_symbol": "scripts.generators.ArchiveGenerator._create_snap",
+        "recipe_hash": "6047b8616bcee12a0cffae47c91d1feb7818a9c365013995f9af4dd2496bfe2c",
+        "tier": "exact-byte"
+      },
+      "format_validity": {
+        "status": "verified",
+        "validator": "w3_validate.py:squashfs-superblock",
+        "evidence": [
+          "SquashFS 4.0 superblock"
+        ]
+      },
+      "content_identifiability": "generic-container",
+      "ground_truth_evidence": {
+        "mime_claims": [
+          {
+            "mime_type": "application/x-squashfs",
+            "authority": "SquashFS project",
+            "reference": "https://github.com/plougher/squashfs-tools"
+          }
+        ],
+        "extension_claims": [
+          {
+            "extension": ".squashfs",
+            "authority": "SquashFS project",
+            "reference": "https://github.com/plougher/squashfs-tools"
+          }
+        ]
+      }
     }
   ]
 }
