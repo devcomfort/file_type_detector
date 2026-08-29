@@ -235,11 +235,16 @@ class DataFormatGenerator(BaseGenerator):
         from pydicom.uid import ExplicitVRLittleEndian
 
         file_meta = FileMetaDataset()
+        file_meta.FileMetaInformationVersion = b"\x00\x01"
         file_meta.MediaStorageSOPClassUID = "1.2.840.10008.5.1.4.1.1.2"
         file_meta.MediaStorageSOPInstanceUID = "1.2.3.4.5"
         file_meta.TransferSyntaxUID = ExplicitVRLittleEndian
-        ds = Dataset(file_meta=file_meta)
+        file_meta.ImplementationClassUID = "1.2.3.4.5.6"
+        ds = Dataset()
+        ds.file_meta = file_meta
+        ds.is_little_endian = True
+        ds.is_implicit_VR = False
         ds.PatientName = "Test"
         buf = BytesIO()
-        pydicom.dcmwrite(buf, ds, implicit_vr=False, little_endian=True)
+        pydicom.dcmwrite(buf, ds, write_like_original=False)
         return buf.getvalue()

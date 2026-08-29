@@ -3363,12 +3363,15 @@
       }
     },
     "sample-dcm": {
-      "sha256": "9e0d351a3d09087895e224bd545a385e1b307f78228452f70c9ad79c0056e4ea",
+      "sha256": "94e8bb25f73b15dce5bbb248e99c1105179f2368eab76891622f48070a55873a",
       "probe_extension": ".dcm",
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators",
+        "generator_symbol": "scripts.generators.data_formats.DataFormatGenerator._create_dcm",
+        "recipe_hash": "bf13963a27fbeebd7d18870cd5fe3d6321c0470287fd485f2d6d17a48ad455ae",
+        "tier": "exact-byte"
       }
     },
     "sample-dex": {
