@@ -105,6 +105,18 @@ def test_ai_candidate_exact_byte_reproduction():
     assert generated == committed
 
 
+
+# Q. Does the source manifest summary reconcile with its fixture entries?
+def test_manifest_summary_counts_reconcile():
+    manifest = _manifest()
+    fixtures = manifest["fixtures"].values()
+    counts = {}
+    for entry in fixtures:
+        source_type = (entry.get("source") or {}).get("type")
+        counts[source_type] = counts.get(source_type, 0) + 1
+    assert manifest["summary"]["total"] == len(manifest["fixtures"])
+    assert manifest["summary"]["by_type"] == counts
+
 # Q. Does sample-gzip have .gzip in GT extensions (probe ∈ GT invariant)?
 def test_sample_gzip_probe_in_gt_extensions():
     inv = _inv()
