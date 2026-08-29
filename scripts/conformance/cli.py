@@ -366,12 +366,16 @@ def _promote_candidates(
                 gt.get("mime_types"), f"{record_id} mime_types"
             )
         ]
-        gt["extensions"] = [
-            ext.lower()
-            for ext in _require_string_list(
-                gt.get("extensions"), f"{record_id} extensions"
-            )
-        ]
+        raw_extensions = gt.get("extensions")
+        if record.get("probe_filename") is not None and raw_extensions == []:
+            gt["extensions"] = []
+        else:
+            gt["extensions"] = [
+                ext.lower()
+                for ext in _require_string_list(
+                    raw_extensions, f"{record_id} extensions"
+                )
+            ]
 
         record["ground_truth_review"] = {
             "status": "verified",

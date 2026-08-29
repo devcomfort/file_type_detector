@@ -6432,7 +6432,6 @@
     },
     "sample-dsstore": {
       "sha256": "c9b810a123353224dbdcbe8bd978c2b64629a254be609c52aaf39bc10c4c689f",
-      "probe_extension": ".dsstore",
       "status": "verified",
       "source": {
         "type": "generated",
@@ -6440,7 +6439,8 @@
         "recipe_hash": "99627790318adf441c4e14cf866dc0ea421c02a807a3b20f104af96764ce373b",
         "tier": "exact-byte",
         "generator_symbol": "scripts.generators.macos.MacOSGenerator._create_dsstore"
-      }
+      },
+      "probe_filename": ".DS_Store"
     }
   },
   "summary": {

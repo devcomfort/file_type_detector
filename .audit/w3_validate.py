@@ -106,7 +106,7 @@ def validate(record_id: str) -> dict[str, object]:
                 with DSStore.open(buffer, "r") as store:
                     entries = list(store)
             assert any(
-                entry.filename == "hello.txt" and entry.code == b"Iloc"
+                str(entry.filename) == "hello.txt" and entry.code == b"Iloc"
                 for entry in entries
             )
             return result(

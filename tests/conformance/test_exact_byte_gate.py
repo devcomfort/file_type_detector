@@ -93,7 +93,7 @@ def test_tier1_exact_byte_reproduction():
     assert len(tier1) > 0, "no Tier1 records found"
 
     for r in tier1:
-        ext = r["probe_extension"].lstrip(".")
+        ext = "dsstore" if r.get("probe_filename") == ".DS_Store" else r["probe_extension"].lstrip(".")
         gen_output = gens.get(ext)
         assert gen_output is not None, f"{r['id']}: no generator for .{ext}"
         disk = (_PROJECT_ROOT / r["fixture"]).read_bytes()
