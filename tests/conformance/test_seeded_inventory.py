@@ -35,8 +35,8 @@ def test_checked_in_candidates_are_fully_verified() -> None:
     assert len({record["id"] for record in candidate_records}) == len(candidate_records)
     assert summary["candidate_count"] == len(candidate_records)
     # Only independently validated records remain verified; the rest are excluded.
-    assert summary["verified_count"] == 10
-    assert summary["excluded_count"] == 592
+    assert summary["verified_count"] == 12
+    assert summary["excluded_count"] == 590
     assert summary["unresolved_count"] == 0
     assert {record.id for record in collected} == {
         record["id"]
