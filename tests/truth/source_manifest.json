@@ -3365,7 +3365,7 @@
     "sample-dcm": {
       "sha256": "94e8bb25f73b15dce5bbb248e99c1105179f2368eab76891622f48070a55873a",
       "probe_extension": ".dcm",
-      "status": "excluded",
+      "status": "verified",
       "source": {
         "type": "generated",
         "generator": "scripts.generators",
@@ -3476,7 +3476,7 @@
     "sample-pyc": {
       "sha256": "f4333e808079e0e3669005c9657e51039c1efc4989665902abc27be8afd79659",
       "probe_extension": ".pyc",
-      "status": "excluded",
+      "status": "verified",
       "source": {
         "type": "generated",
         "generator": "scripts.generators",
@@ -6410,7 +6410,7 @@
     "sample-squashfs": {
       "sha256": "5637affc9954069411fa9db430a3341845e3df2d9ddd36a9074a6b1787de683f",
       "probe_extension": ".squashfs",
-      "status": "excluded",
+      "status": "verified",
       "source": {
         "type": "generated",
         "generator": "scripts.generators.ArchiveGenerator._create_snap",

@@ -92,6 +92,7 @@ def test_tier1_exact_byte_reproduction():
 
     for r in tier1:
         ext = r["probe_extension"].lstrip(".")
+        ext = {"squashfs": "snap"}.get(ext, ext)
         gen_output = gens.get(ext)
         assert gen_output is not None, f"{r['id']}: no generator for .{ext}"
         disk = (_PROJECT_ROOT / r["fixture"]).read_bytes()
@@ -118,6 +119,14 @@ def test_manifest_summary_counts_reconcile():
         counts[source_type] = counts.get(source_type, 0) + 1
     assert manifest["summary"]["total"] == len(manifest["fixtures"])
     assert manifest["summary"]["by_type"] == counts
+
+
+# Q. Do manifest statuses match promoted authoritative records?
+def test_manifest_status_matches_authoritative_records():
+    manifest = _manifest()
+    for record in _inv()["records"]:
+        entry = manifest["fixtures"][record["id"]]
+        assert entry["status"] == record["ground_truth_review"]["status"]
 
 
 # Q. Does sample-gzip have .gzip in GT extensions (probe ∈ GT invariant)?
