@@ -21,6 +21,8 @@ from scripts.generators.archives import ArchiveGenerator  # noqa: E402
 from scripts.generators.data_formats import DataFormatGenerator  # noqa: E402
 from scripts.generators.code_formats import CodeFormatGenerator  # noqa: E402
 from scripts.generators.documents import DocumentGenerator  # noqa: E402
+from scripts.generators.executables import ExecutableGenerator  # noqa: E402
+
 _TIER2 = {"sample-7z", "sample-dxf", "sample-stl"}
 
 
@@ -41,6 +43,7 @@ def _generators():
         DataFormatGenerator,
         CodeFormatGenerator,
         DocumentGenerator,
+        ExecutableGenerator,
     ):
         inst = cls()
         for ext in inst.extensions:
@@ -105,7 +108,6 @@ def test_ai_candidate_exact_byte_reproduction():
     assert generated == committed
 
 
-
 # Q. Does the source manifest summary reconcile with its fixture entries?
 def test_manifest_summary_counts_reconcile():
     manifest = _manifest()
@@ -116,6 +118,7 @@ def test_manifest_summary_counts_reconcile():
         counts[source_type] = counts.get(source_type, 0) + 1
     assert manifest["summary"]["total"] == len(manifest["fixtures"])
     assert manifest["summary"]["by_type"] == counts
+
 
 # Q. Does sample-gzip have .gzip in GT extensions (probe ∈ GT invariant)?
 def test_sample_gzip_probe_in_gt_extensions():
