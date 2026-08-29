@@ -1537,12 +1537,15 @@
       }
     },
     "sample-apk": {
-      "sha256": "b58eec5fa45562432992af96c1f95cd84802e037e52fb06c8684b85b68e75070",
+      "sha256": "3cc9667f453b2d6f40a6bfbf40382bc9b6d37a4bece05284e68d91dd7bd7c8e5",
       "probe_extension": ".apk",
       "status": "excluded",
       "source": {
         "type": "generated",
-        "generator": "scripts.generators"
+        "generator": "scripts.generators",
+        "generator_symbol": "scripts.generators.archives.ArchiveGenerator._create_apk",
+        "recipe_hash": "d328bfeadfca2a10b25e88d69ca9e6ccc2be726ff1ffc70d13f0ee4d24047fd8",
+        "tier": "exact-byte"
       }
     },
     "sample-arj": {

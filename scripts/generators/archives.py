@@ -144,11 +144,30 @@ class ArchiveGenerator(BaseGenerator):
     def _create_apk(self) -> bytes:
         from .executables import ExecutableGenerator
 
+        # Minimal valid Android binary XML document with a manifest element.
+        text = b"manifest"
+        string_data = bytes([len(text), len(text)]) + text + b"\x00"
+        pool_size = (28 + 4 + len(string_data) + 3) & ~3
+        string_pool = (
+            struct.pack("<HHIIIIII", 0x0001, 28, pool_size, 1, 0, 0x100, 32, 0)
+            + struct.pack("<I", 0)
+            + string_data
+            + b"\x00" * (pool_size - 28 - 4 - len(string_data))
+        )
+        start_element = struct.pack(
+            "<HHIIIIIHHHHHH",
+            0x0102, 16, 36, 1, 0, 0xFFFFFFFF, 0, 20, 20, 0, 0, 0, 0
+        )
+        end_element = (
+            struct.pack("<HHIIII", 0x0103, 16, 24, 2, 0, 0xFFFFFFFF)
+            + struct.pack("<I", 0)
+        )
+        xml_size = 8 + len(string_pool) + len(start_element) + len(end_element)
+        binary_xml = struct.pack("<HHI", 0x0003, 8, xml_size) + string_pool + start_element + end_element
+
         buf = BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            # Kept excluded until a full binary-AXML parser validates this manifest.
-            manifest = struct.pack("<IIHHHH", 0x00080003, 16, 0, 0, 0, 0)
-            write_zip_str(zf, "AndroidManifest.xml", manifest)
+            write_zip_str(zf, "AndroidManifest.xml", binary_xml)
             write_zip_str(zf, "classes.dex", ExecutableGenerator().generate("dex"))
             write_zip_str(zf, "META-INF/MANIFEST.MF", "Manifest-Version: 1.0\n\n")
         return buf.getvalue()

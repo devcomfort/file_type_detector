@@ -55,6 +55,26 @@ def validate(record_id: str) -> dict[str, object]:
                 "w3_validate.py:pyc-marshal",
                 ["CPython magic number, header, and marshal code object"],
             )
+        if ext == "apk":
+            with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                names = set(archive.namelist())
+                assert {"AndroidManifest.xml", "classes.dex"} <= names
+                manifest = archive.read("AndroidManifest.xml")
+                xml_type, xml_header_size, xml_size = struct.unpack("<HHI", manifest[:8])
+                assert xml_type == 0x0003 and xml_header_size == 8 and xml_size == len(manifest)
+                pool_type, pool_header_size, pool_size = struct.unpack("<HHI", manifest[8:16])
+                assert pool_type == 0x0001 and pool_header_size == 28
+                assert pool_size >= 32 and 8 + pool_size <= len(manifest)
+                start = 8 + pool_size
+                start_type, start_header_size, start_size = struct.unpack("<HHI", manifest[start:start + 8])
+                assert start_type == 0x0102 and start_header_size == 16 and start_size == 36
+                end = start + start_size
+                end_type, end_header_size, end_size = struct.unpack("<HHI", manifest[end:end + 8])
+                assert end_type == 0x0103 and end_header_size == 16 and end_size == 24
+                assert end + end_size == len(manifest)
+                dex = archive.read("classes.dex")
+                assert dex.startswith(b"dex\n035\x00")
+            return result(record_id, "needs_review", "w3_validate.py:apk-structural", ["binary AXML chunk boundaries and DEX marker checked; independent Android parser pending"])
         if ext == "cab":
             cb_cabinet = struct.unpack("<I", data[8:12])[0]
             coff_files = struct.unpack("<I", data[16:20])[0]
