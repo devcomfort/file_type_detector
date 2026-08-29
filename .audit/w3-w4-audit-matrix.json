@@ -346,5 +346,13 @@
         "independent parser not implemented"
       ]
     }
-  ]
+  ],
+  "w4_apk": {
+    "inventory_id": "sample-apk",
+    "validator_command": "python .audit/apk_validate.py --id sample-apk",
+    "format_validity": "needs_review",
+    "content_identifiability": null,
+    "evidence_gap": "androguard container parse only; semantic package review pending",
+    "promotion_input": false
+  }
 }

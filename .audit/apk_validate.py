@@ -1,6 +1,8 @@
-"""Independent APK validation using androguard.
+"""Independent APK container validation using pinned androguard.
 
-Install androguard in the audit environment before running this script.
+The fixture is intentionally not promoted as a semantic Android application:
+the validator proves ZIP/binary-AXML parsing only. Install the exact pinned
+dependency from ``.audit/requirements-apk.txt`` before running this script.
 """
 from __future__ import annotations
 
@@ -21,8 +23,8 @@ def main() -> int:
     path = ROOT / "tests" / "fixtures" / "sample.apk"
     apk = APK(str(path))
     if not apk.is_valid_APK():
-        raise SystemExit("androguard rejected APK")
-    print("sample-apk: androguard APK.is_valid_APK passed")
+        raise SystemExit("androguard rejected APK container/binary AXML")
+    print("sample-apk: androguard APK.is_valid_APK container parse passed")
     return 0
 
 
