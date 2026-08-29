@@ -104,13 +104,43 @@ class DocumentGenerator(BaseGenerator):
         return b"%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 100 100\n/Helvetica findfont 12 scalefont setfont\n10 10 moveto (Hello) show\nshowpage\n"
 
     def _create_ai(self) -> bytes:
-        return (
-            b"%PDF-1.5\n%Adobe_Illustrator_8.0\n"
-            b"1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n"
-            b"2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n"
-            b"3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >> endobj\n"
-            b"%%Creator: Adobe Illustrator\n%%EOF\n"
+        # Deterministic PDF structure with Illustrator markers and valid xref/trailer.
+        objects = [
+            b"<< /Type /Catalog /Pages 2 0 R >>",
+            b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+            b"/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+            b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+        ]
+        content = (
+            b"BT /F1 12 Tf 72 720 Td (Illustrator-compatible sample) Tj ET\n"
         )
+        objects.append(
+            b"<< /Length "
+            + str(len(content)).encode("ascii")
+            + b" >>\nstream\n"
+            + content
+            + b"endstream"
+        )
+        output = bytearray(b"%PDF-1.5\n%Adobe_Illustrator_8.0\n")
+        offsets = [0]
+        for number, body in enumerate(objects, start=1):
+            offsets.append(len(output))
+            output.extend(f"{number} 0 obj\n".encode("ascii"))
+            output.extend(body)
+            output.extend(b"\nendobj\n")
+        xref_offset = len(output)
+        output.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+        output.extend(b"0000000000 65535 f \n")
+        for offset in offsets[1:]:
+            output.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+        output.extend(
+            f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_offset}\n%%Creator: Adobe Illustrator\n%%EOF\n".encode(
+                "ascii"
+            )
+        )
+        return bytes(output)
 
     def _create_epub(self) -> bytes:
         buf = BytesIO()

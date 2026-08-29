@@ -6613,7 +6613,7 @@
     {
       "id": "sample-ai",
       "fixture": "tests/fixtures/sample.ai",
-      "sha256": "c9dae116b50e3039a764d61d1510992377373e203f265011f71aaf84a0d89f36",
+      "sha256": "4e6972727a5fc51c712807f6069573690b29826335268d3aece7c9b765c77cf8",
       "probe_extension": ".ai",
       "ground_truth": {
         "mime_types": [
