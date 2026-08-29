@@ -1,11 +1,11 @@
 # Fixture Sources
 
-This directory contains **600** fixture files used by the
+This directory contains **602** fixture files used by the
 filetype-detector test suite.
 
-**355** fixtures are synthetically generated from format specifications.
+**356** fixtures are synthetically generated from format specifications.
 **27** fixtures are downloaded from external repositories (see attribution details below).
-**220** fixtures exist on disk but have no registered generator; they were added manually or via legacy scripts.
+**221** fixtures exist on disk but have no registered generator; they were added manually or via legacy scripts.
 
 ## Registered generators
 
@@ -306,7 +306,7 @@ filetype-detector test suite.
 - `sample.sgml` (text): synthetic:Minimal valid format content
 - `sample.sh` (code): synthetic:Minimal valid source code
 - `sample.smali` (code): synthetic:Minimal valid source code
-- `sample.snap` (archive): library:mksquashfs reproducible SquashFS 4.0
+- `sample.snap` (archive): generated:pinned reproducible SquashFS 4.0 bytes (mksquashfs recipe)
 - `sample.so` (executable): synthetic:ELF header with PT_LOAD
 - `sample.sol` (code): synthetic:Minimal valid source code
 - `sample.spv` (code): synthetic:SPIR-V
@@ -388,6 +388,7 @@ filetype-detector test suite.
 - `sample.z` (archive): synthetic:Unix compress magic bytes
 - `sample.zig` (code): synthetic:Zig
 - `sample.zip` (archive): library:zipfile
+- `sample.zlibstream` (archive): library:zlib.compress
 - `sample.zst` (archive): library:zstandard
 
 ## Discovered fixtures (no registered generator)
@@ -575,6 +576,7 @@ These fixture files exist on disk but are not produced by any registered generat
 - `sample.skp` (119 bytes): external: existing fixture (no registered generator)
 - `sample.snd` (441,032 bytes): external: existing fixture (no registered generator)
 - `sample.spx` (18,076 bytes): external: existing fixture (no registered generator)
+- `sample.squashfs` (4,096 bytes): external: existing fixture (no registered generator)
 - `sample.sr2` (12,428 bytes): external: existing fixture (no registered generator)
 - `sample.step` (8,010 bytes): external: existing fixture (no registered generator)
 - `sample.stg` (3,096 bytes): external: existing fixture (no registered generator)
@@ -619,4 +621,4 @@ These fixture files exist on disk but are not produced by any registered generat
 - `sample.xyz` (96 bytes): external: existing fixture (no registered generator)
 
 
-Total: 600 fixtures
+Total: 602 fixtures
