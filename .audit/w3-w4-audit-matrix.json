@@ -15,12 +15,15 @@
     },
     {
       "action": "dsstore",
-      "inventory_id": null,
+      "inventory_id": "sample-dsstore",
       "validator_command": "python .audit/w3_validate.py --id sample-dsstore",
-      "format_validity": "not-run",
-      "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME authority evidence and promotion pending",
+      "promotion_input": false,
+      "validator_evidence": [
+        "ds-store 1.3.3 Bud1 header and Iloc record traversal"
+      ]
     },
     {
       "action": "emf",

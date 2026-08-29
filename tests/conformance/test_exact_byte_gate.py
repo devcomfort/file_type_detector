@@ -22,6 +22,7 @@ from scripts.generators.data_formats import DataFormatGenerator  # noqa: E402
 from scripts.generators.code_formats import CodeFormatGenerator  # noqa: E402
 from scripts.generators.documents import DocumentGenerator  # noqa: E402
 from scripts.generators.executables import ExecutableGenerator  # noqa: E402
+from scripts.generators.macos import MacOSGenerator  # noqa: E402
 
 _TIER2 = {"sample-7z", "sample-dxf", "sample-stl"}
 
@@ -44,6 +45,7 @@ def _generators():
         CodeFormatGenerator,
         DocumentGenerator,
         ExecutableGenerator,
+        MacOSGenerator,
     ):
         inst = cls()
         for ext in inst.extensions:

@@ -54,4 +54,5 @@ from . import (  # noqa: E402, F401
     code_formats,
     certificates,
     downloads,
+    macos,
 )

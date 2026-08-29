@@ -6429,12 +6429,24 @@
         "recipe_hash": "3951f2b086d48827d0e70316d7b89f5d4e29357d21d07e8acf6816760811c096",
         "tier": "exact-byte"
       }
+    },
+    "sample-dsstore": {
+      "sha256": "c9b810a123353224dbdcbe8bd978c2b64629a254be609c52aaf39bc10c4c689f",
+      "probe_extension": ".dsstore",
+      "status": "verified",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.macos.MacOSGenerator._create_dsstore",
+        "recipe_hash": "99627790318adf441c4e14cf866dc0ea421c02a807a3b20f104af96764ce373b",
+        "tier": "exact-byte",
+        "generator_symbol": "scripts.generators.macos.MacOSGenerator._create_dsstore"
+      }
     }
   },
   "summary": {
-    "total": 602,
+    "total": 603,
     "by_type": {
-      "generated": 384,
+      "generated": 385,
       "external": 189,
       "external_unresolved": 29
     }

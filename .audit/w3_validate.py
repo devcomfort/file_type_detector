@@ -98,6 +98,23 @@ def validate(record_id: str) -> dict[str, object]:
                     "binary AXML chunk boundaries and DEX marker checked; independent Android parser pending"
                 ],
             )
+        if ext == "dsstore":
+            from ds_store import DSStore
+
+            assert data[:9] == b"\x00\x00\x00\x01Bud1\x00"
+            with io.BytesIO(data) as buffer:
+                with DSStore.open(buffer, "r") as store:
+                    entries = list(store)
+            assert any(
+                entry.filename == "hello.txt" and entry.code == b"Iloc"
+                for entry in entries
+            )
+            return result(
+                record_id,
+                "verified",
+                "w3_validate.py:ds-store-roundtrip",
+                ["ds-store 1.3.3 Bud1 header and Iloc record traversal"],
+            )
         if ext == "cab":
             cb_cabinet = struct.unpack("<I", data[8:12])[0]
             coff_files = struct.unpack("<I", data[16:20])[0]

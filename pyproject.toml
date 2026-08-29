@@ -71,6 +71,7 @@ fixtures = [
     "py7zr",
     "pyarrow",
     "pydicom",
+    "ds-store==1.3.3",
     "scapy",
     "zstandard",
 ]
