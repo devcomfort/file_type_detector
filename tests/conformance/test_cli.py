@@ -447,3 +447,38 @@ def test_promote_atomic_on_extra_evidence_claims(tmp_path: Path) -> None:
 
     assert candidates_path.read_bytes() == cand_before
     assert inventory_path.read_bytes() == inv_before
+
+
+# Q. Does promotion preserve a filename-only verified record without a fake extension?
+def test_promote_filename_only_record(tmp_path: Path) -> None:
+    fixture = tmp_path / "Gemfile"
+    fixture.write_text('source "https://rubygems.org"\n', encoding="utf-8")
+    digest = hashlib.sha256(fixture.read_bytes()).hexdigest()
+    candidates_path = tmp_path / "candidates.json"
+    inventory_path = tmp_path / "inventory.json"
+    record = {
+        "id": "sample-gemfile",
+        "fixture": "Gemfile",
+        "sha256": digest,
+        "probe_filename": "Gemfile",
+        "ground_truth": {"mime_types": ["text/plain"], "extensions": [], "filenames": ["Gemfile"]},
+        "provenance": "filename-only fixture",
+        "ground_truth_review": {"status": "excluded", "reason": "awaiting review"},
+        "backends": ["lexical", "magic", "magika", "hybrid"],
+        "source_integrity": {"kind": "generated", "generator_symbol": "test", "recipe_hash": "a" * 64, "tier": "exact-byte"},
+        "format_validity": {"status": "verified", "validator": "test-validator", "evidence": ["syntax"]},
+        "content_identifiability": "distinctive",
+        "ground_truth_evidence": {
+            "mime_claims": [{"mime_type": "text/plain", "authority": "IANA", "reference": "https://www.iana.org/assignments/media-types/media-types.xhtml"}],
+            "filename_claims": [{"filename": "Gemfile", "authority": "Bundler", "reference": "https://bundler.io/guides/gemfile.html"}],
+        },
+    }
+    payload = {"schema_version": 2, "records": [record]}
+    candidates_path.write_text(json.dumps(payload), encoding="utf-8")
+    inventory_path.write_text(json.dumps({"schema_version": 2, "records": []}), encoding="utf-8")
+    assert main(["promote", "--candidates", str(candidates_path), "--inventory", str(inventory_path), "--root", str(tmp_path), "--ids", "sample-gemfile", "--reviewer", "automated-independent-validator", "--date", "2026-08-29", "--evidence", "test-validator"]) == 0
+    promoted = json.loads(inventory_path.read_text(encoding="utf-8"))["records"][0]
+    assert promoted["probe_filename"] == "Gemfile"
+    assert "probe_extension" not in promoted
+    assert promoted["ground_truth"]["extensions"] == []
+    assert promoted["ground_truth"]["filenames"] == ["Gemfile"]
