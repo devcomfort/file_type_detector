@@ -60,11 +60,19 @@ jobs:
 
       - name: Install Linux archive audit tools
         shell: bash
-        run: sudo apt-get install -y ffmpeg squashfs-tools
+        run: sudo apt-get install -y ffmpeg squashfs-tools libreoffice
 
       - name: Validate SquashFS extraction
         shell: bash
         run: python .audit/w3_validate.py --id sample-squashfs
+
+      - name: Validate EMF import/export
+        shell: bash
+        run: python .audit/metafile_validate.py --id sample-emf
+
+      - name: Validate WMF import/export
+        shell: bash
+        run: python .audit/metafile_validate.py --id sample-wmf
 
       - name: Run exact-byte gate and determinism tests
         shell: bash
