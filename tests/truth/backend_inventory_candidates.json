@@ -24121,7 +24121,8 @@
         "status": "verified",
         "validator": "w3_validate.py:squashfs-superblock",
         "evidence": [
-          "SquashFS 4.0 superblock"
+          "SquashFS 4.0 superblock",
+          "unsquashfs extraction of sample.txt -> Hello, World!"
         ]
       },
       "content_identifiability": "generic-container",
