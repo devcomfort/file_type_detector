@@ -58,7 +58,7 @@ def build_report() -> dict[str, object]:
         "notes": [
             "Recognition-label coverage and suffix coverage are separate metrics.",
             "Promotion requires all truth axes and evidence.",
-            "Platform-specific validators run in dedicated CI jobs before matrix updates.",
+            "Selected platform-specific validators run in dedicated CI jobs before matrix updates.",
         ],
     }
 
