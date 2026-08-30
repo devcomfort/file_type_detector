@@ -6463,13 +6463,26 @@
         "recipe_hash": "27d38283f82076ad04c020b609b7b65cb8a0617b6aa9513203010b46460eb5f8",
         "tier": "exact-byte"
       }
+    },
+    "sample-hlp": {
+      "sha256": "94beeb2e886fec20747af52c13ff4da7c250091433ed8e3ab9ccae43935c30d2",
+      "probe_extension": ".hlp",
+      "status": "verified",
+      "source": {
+        "type": "external",
+        "url": "https://raw.githubusercontent.com/bitplane/winhlp/15824bda51da5af8db7ba9894167cc1812797ab3/tests/data/FXSEARCH.HLP",
+        "commit": "15824bda51da5af8db7ba9894167cc1812797ab3",
+        "blob_sha1": "5e76fdaee80b913c5006028aa5f5f09ac18a0e7b",
+        "tier": "pinned-sha-roundtrip",
+        "license": "GPL-2.0-only"
+      }
     }
   },
   "summary": {
-    "total": 605,
+    "total": 606,
     "by_type": {
       "generated": 387,
-      "external": 189,
+      "external": 190,
       "external_unresolved": 29
     }
   }

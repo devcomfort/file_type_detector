@@ -40,12 +40,15 @@
     },
     {
       "action": "hlp",
-      "inventory_id": null,
-      "validator_command": "python .audit/w3_validate.py --id sample-hlp",
-      "format_validity": "not-run",
-      "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "inventory_id": "sample-hlp",
+      "validator_command": "python .audit/hlp_validate.py --id sample-hlp",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "promoted to authoritative inventory",
+      "promotion_input": true,
+      "validator_evidence": [
+        "winhlp HelpFile parse and internal files passed"
+      ]
     },
     {
       "action": "macho",

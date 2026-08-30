@@ -54,6 +54,14 @@ jobs:
         shell: bash
         run: python -m pip install -r .audit/requirements-apk.txt
 
+      - name: Install pinned HLP audit dependency
+        shell: bash
+        run: python -m pip install -r .audit/requirements-hlp.txt
+
+      - name: Validate WinHelp fixture
+        shell: bash
+        run: python .audit/hlp_validate.py --id sample-hlp
+
       - name: Validate APK binary XML with androguard
         shell: bash
         run: python .audit/apk_validate.py --id sample-apk

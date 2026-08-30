@@ -980,6 +980,68 @@
           }
         ]
       }
+    },
+    {
+      "id": "sample-hlp",
+      "fixture": "tests/fixtures/sample.hlp",
+      "sha256": "94beeb2e886fec20747af52c13ff4da7c250091433ed8e3ab9ccae43935c30d2",
+      "probe_extension": ".hlp",
+      "ground_truth": {
+        "mime_types": [
+          "application/winhlp"
+        ],
+        "extensions": [
+          ".hlp"
+        ]
+      },
+      "provenance": "External fixture https://raw.githubusercontent.com/bitplane/winhlp/15824bda51da5af8db7ba9894167cc1812797ab3/tests/data/FXSEARCH.HLP; upstream commit 15824bda51da5af8db7ba9894167cc1812797ab3; blob SHA1 5e76fdaee80b913c5006028aa5f5f09ac18a0e7b",
+      "ground_truth_review": {
+        "status": "verified",
+        "reviewed_by": "automated-independent-validator",
+        "reviewed_at": "2026-08-29",
+        "evidence": [
+          "External fixture https://raw.githubusercontent.com/bitplane/winhlp/15824bda51da5af8db7ba9894167cc1812797ab3/tests/data/FXSEARCH.HLP; upstream commit 15824bda51da5af8db7ba9894167cc1812797ab3; blob SHA1 5e76fdaee80b913c5006028aa5f5f09ac18a0e7b",
+          "hlp_validate.py:winhlp-0.3.0"
+        ]
+      },
+      "backends": [
+        "lexical",
+        "magic",
+        "magika",
+        "hybrid"
+      ],
+      "source_integrity": {
+        "kind": "external",
+        "origin_url": "https://raw.githubusercontent.com/bitplane/winhlp/15824bda51da5af8db7ba9894167cc1812797ab3/tests/data/FXSEARCH.HLP",
+        "origin_commit": "15824bda51da5af8db7ba9894167cc1812797ab3",
+        "blob_sha1_verified": true,
+        "tier": "pinned-sha-roundtrip",
+        "license": "GPL-2.0-only"
+      },
+      "format_validity": {
+        "status": "verified",
+        "validator": "hlp_validate.py:winhlp==0.3.0",
+        "evidence": [
+          "winhlp HelpFile parse and internal files passed"
+        ]
+      },
+      "content_identifiability": "distinctive",
+      "ground_truth_evidence": {
+        "mime_claims": [
+          {
+            "mime_type": "application/winhlp",
+            "authority": "freedesktop shared-mime-info direct mapping",
+            "reference": "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/raw/master/data/freedesktop.org.xml.in"
+          }
+        ],
+        "extension_claims": [
+          {
+            "extension": ".hlp",
+            "authority": "Microsoft WinHelp format specification",
+            "reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wmf/4813e7fd-52d0-4f42-965f-228c8b7488d2"
+          }
+        ]
+      }
     }
   ]
 }
