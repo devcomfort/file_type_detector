@@ -58,9 +58,13 @@ jobs:
         shell: bash
         run: python .audit/apk_validate.py --id sample-apk
 
-      - name: Install ffmpeg for audio generators
+      - name: Install Linux archive audit tools
         shell: bash
-        run: sudo apt-get install -y ffmpeg
+        run: sudo apt-get install -y ffmpeg squashfs-tools
+
+      - name: Validate SquashFS extraction
+        shell: bash
+        run: python .audit/w3_validate.py --id sample-squashfs
 
       - name: Run exact-byte gate and determinism tests
         shell: bash

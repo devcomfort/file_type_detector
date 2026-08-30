@@ -5211,9 +5211,10 @@
       },
       "format_validity": {
         "status": "needs_review",
-        "validator": "pending",
+        "validator": "w3_validate.py:squashfs-unsquashfs",
         "evidence": [
-          "independent parser validation not yet executed"
+          "SquashFS 4.0 superblock",
+          "unsquashfs extraction of sample.txt -> Hello, World!"
         ]
       },
       "content_identifiability": null
@@ -24119,7 +24120,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "w3_validate.py:squashfs-superblock",
+        "validator": "w3_validate.py:squashfs-unsquashfs",
         "evidence": [
           "SquashFS 4.0 superblock",
           "unsquashfs extraction of sample.txt -> Hello, World!"

@@ -97,7 +97,7 @@
     {
       "action": "squashfs",
       "inventory_id": "sample-squashfs",
-      "validator_command": "python .audit/w3_validate.py --id sample-squashfs && unsquashfs -no-progress -d /tmp/squashfs-check tests/fixtures/sample.squashfs",
+      "validator_command": "python .audit/w3_validate.py --id sample-squashfs",
       "format_validity": "verified",
       "content_identifiability": "generic-container",
       "evidence_gap": "promoted to authoritative inventory",
@@ -329,7 +329,8 @@
       "evidence_gap": "independent validator/evidence/promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "SquashFS 4.0 superblock"
+        "SquashFS 4.0 superblock",
+        "unsquashfs extraction of sample.txt -> Hello, World!"
       ]
     },
     {
