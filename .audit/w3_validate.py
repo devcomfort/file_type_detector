@@ -13,6 +13,7 @@ import json
 import struct
 import subprocess
 import tarfile
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -195,11 +196,19 @@ def validate(record_id: str) -> dict[str, object]:
             assert data[:4] == b"hsqs" and len(data) >= 96
             assert struct.unpack("<H", data[28:30])[0] == 4
             assert struct.unpack("<H", data[30:32])[0] == 0
+            with tempfile.TemporaryDirectory(prefix="w3-squashfs-") as tmp:
+                out_dir = Path(tmp) / "out"
+                subprocess.run(
+                    ["unsquashfs", "-no-progress", "-d", str(out_dir), str(path)],
+                    check=True,
+                    capture_output=True,
+                )
+                assert (out_dir / "sample.txt").read_bytes() == b"Hello, World!\n"
             return result(
                 record_id,
                 "verified",
-                "w3_validate.py:squashfs-superblock",
-                ["SquashFS 4.0 superblock"],
+                "w3_validate.py:squashfs-unsquashfs",
+                ["SquashFS 4.0 superblock and unsquashfs sample.txt extraction"],
             )
         if ext == "lha":
             assert data[2:7] == b"-lh0-" and data[0] == 36
@@ -242,16 +251,6 @@ def validate(record_id: str) -> dict[str, object]:
                 "verified",
                 "w3_validate.py:rpm-cpio",
                 ["RPM lead/header and newc CPIO payload"],
-            )
-        if ext == "snap":
-            assert data[:4] == b"hsqs" and len(data) >= 96
-            assert struct.unpack("<H", data[28:30])[0] == 4
-            assert struct.unpack("<H", data[30:32])[0] == 0
-            return result(
-                record_id,
-                "verified",
-                "w3_validate.py:squashfs-superblock",
-                ["SquashFS 4.0 superblock"],
             )
         if ext == "xar":
             assert data[:4] == b"xar!"
