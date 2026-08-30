@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "generated_by": "coverage-report.py",
+  "candidate": {
+    "total": 603,
+    "verified": 14,
+    "excluded": 589
+  },
+  "authoritative": {
+    "total": 14
+  },
+  "w3_matrix": {
+    "total": 31,
+    "verified": 13,
+    "missing_inventory": 6,
+    "needs_review": 12,
+    "missing_actions": [
+      "emf",
+      "hlp",
+      "mum",
+      "outlook",
+      "pytorch",
+      "wmf"
+    ],
+    "needs_review_actions": [
+      "macho",
+      "ace",
+      "chm",
+      "elf",
+      "icns",
+      "swf",
+      "webm",
+      "woff",
+      "flac",
+      "tga",
+      "msi",
+      "one"
+    ]
+  },
+  "notes": [
+    "Recognition-label coverage and suffix coverage are separate metrics.",
+    "Promotion requires all truth axes and evidence."
+  ]
+}
