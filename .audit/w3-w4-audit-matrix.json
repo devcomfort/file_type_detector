@@ -27,12 +27,16 @@
     },
     {
       "action": "emf",
-      "inventory_id": null,
-      "validator_command": "python .audit/w3_validate.py --id sample-emf",
-      "format_validity": "not-run",
-      "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "inventory_id": "sample-emf",
+      "validator_command": "python .audit/metafile_validate.py --id sample-emf",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "promoted to authoritative inventory",
+      "promotion_input": true,
+      "validator_evidence": [
+        "EMF/WMF record-walk assertions",
+        "LibreOffice Draw import/export to non-empty PDF"
+      ]
     },
     {
       "action": "hlp",
@@ -109,12 +113,16 @@
     },
     {
       "action": "wmf",
-      "inventory_id": null,
-      "validator_command": "python .audit/w3_validate.py --id sample-wmf",
-      "format_validity": "not-run",
-      "content_identifiability": null,
-      "evidence_gap": "inventory record absent",
-      "promotion_input": false
+      "inventory_id": "sample-wmf",
+      "validator_command": "python .audit/metafile_validate.py --id sample-wmf",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "promoted to authoritative inventory",
+      "promotion_input": true,
+      "validator_evidence": [
+        "EMF/WMF record-walk assertions",
+        "LibreOffice Draw import/export to non-empty PDF"
+      ]
     },
     {
       "action": "zlibstream",

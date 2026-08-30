@@ -6441,12 +6441,34 @@
         "generator_symbol": "scripts.generators.macos.MacOSGenerator._create_dsstore"
       },
       "probe_filename": ".DS_Store"
+    },
+    "sample-emf": {
+      "sha256": "913eaab2d0a728fb662ed9b5b92724bf5e152d7571d5ae531f98d88d3189b6f6",
+      "probe_extension": ".emf",
+      "status": "verified",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.images.ImageGenerator._create_emf",
+        "recipe_hash": "27d38283f82076ad04c020b609b7b65cb8a0617b6aa9513203010b46460eb5f8",
+        "tier": "exact-byte"
+      }
+    },
+    "sample-wmf": {
+      "sha256": "2db4dd9aab7e823e0e346b78f50f64e9b7c64985ae4e1b697e3a30f22e95521f",
+      "probe_extension": ".wmf",
+      "status": "verified",
+      "source": {
+        "type": "generated",
+        "generator": "scripts.generators.images.ImageGenerator._create_wmf",
+        "recipe_hash": "27d38283f82076ad04c020b609b7b65cb8a0617b6aa9513203010b46460eb5f8",
+        "tier": "exact-byte"
+      }
     }
   },
   "summary": {
-    "total": 603,
+    "total": 605,
     "by_type": {
-      "generated": 385,
+      "generated": 387,
       "external": 189,
       "external_unresolved": 29
     }

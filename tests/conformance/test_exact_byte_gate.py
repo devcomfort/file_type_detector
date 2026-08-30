@@ -23,6 +23,7 @@ from scripts.generators.code_formats import CodeFormatGenerator  # noqa: E402
 from scripts.generators.documents import DocumentGenerator  # noqa: E402
 from scripts.generators.executables import ExecutableGenerator  # noqa: E402
 from scripts.generators.macos import MacOSGenerator  # noqa: E402
+from scripts.generators.images import ImageGenerator  # noqa: E402
 
 _TIER2 = {"sample-7z", "sample-dxf", "sample-stl"}
 
@@ -46,6 +47,7 @@ def _generators():
         DocumentGenerator,
         ExecutableGenerator,
         MacOSGenerator,
+        ImageGenerator,
     ):
         inst = cls()
         for ext in inst.extensions:
@@ -93,7 +95,11 @@ def test_tier1_exact_byte_reproduction():
     assert len(tier1) > 0, "no Tier1 records found"
 
     for r in tier1:
-        ext = "dsstore" if r.get("probe_filename") == ".DS_Store" else r["probe_extension"].lstrip(".")
+        ext = (
+            "dsstore"
+            if r.get("probe_filename") == ".DS_Store"
+            else r["probe_extension"].lstrip(".")
+        )
         gen_output = gens.get(ext)
         assert gen_output is not None, f"{r['id']}: no generator for .{ext}"
         disk = (_PROJECT_ROOT / r["fixture"]).read_bytes()

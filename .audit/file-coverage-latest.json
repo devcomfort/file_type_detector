@@ -2,25 +2,23 @@
   "schema_version": 1,
   "generated_by": ".audit/coverage-report.py",
   "candidate": {
-    "total": 603,
-    "verified": 14,
+    "total": 605,
+    "verified": 16,
     "excluded": 589
   },
   "authoritative": {
-    "total": 14
+    "total": 16
   },
   "w3_matrix": {
     "total": 31,
-    "verified": 13,
-    "missing_inventory": 6,
+    "verified": 15,
+    "missing_inventory": 4,
     "needs_review": 12,
     "missing_actions": [
-      "emf",
       "hlp",
       "mum",
       "outlook",
-      "pytorch",
-      "wmf"
+      "pytorch"
     ],
     "needs_review_actions": [
       "macho",
