@@ -41,6 +41,8 @@ cryptography==46.0.3
     #   secretstorage
 docutils==0.22.3
     # via readme-renderer
+ds-store==1.3.3
+    # via filetype-detector (pyproject.toml)
 exceptiongroup==1.3.1 ; python_full_version < '3.11'
     # via pytest
 ezdxf==1.4.3
@@ -96,6 +98,8 @@ linkify-it-py==2.1.0
     # via markdown-it-py
 lz4==4.4.5
     # via filetype-detector (pyproject.toml)
+mac-alias==2.2.3
+    # via ds-store
 magika==1.0.1
     # via filetype-detector (pyproject.toml)
 markdown==3.10

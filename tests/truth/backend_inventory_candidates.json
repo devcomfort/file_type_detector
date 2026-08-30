@@ -5195,7 +5195,8 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed",
+        "evidence": []
       },
       "backends": [
         "lexical",
@@ -24103,7 +24104,7 @@
         "reviewed_at": "2026-08-29",
         "evidence": [
           "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
-          "w3_validate.py:squashfs-superblock"
+          "w3_validate.py:squashfs-unsquashfs"
         ]
       },
       "backends": [

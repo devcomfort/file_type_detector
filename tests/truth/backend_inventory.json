@@ -757,7 +757,7 @@
         "reviewed_at": "2026-08-29",
         "evidence": [
           "Pinned reproducible SquashFS 4.0 bytes; same physical format as snap image",
-          "w3_validate.py:squashfs-superblock"
+          "w3_validate.py:squashfs-unsquashfs"
         ]
       },
       "backends": [
