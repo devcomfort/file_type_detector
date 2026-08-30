@@ -1030,15 +1030,15 @@
         "mime_claims": [
           {
             "mime_type": "application/winhlp",
-            "authority": "freedesktop shared-mime-info direct mapping",
+            "authority": "freedesktop shared-mime-info direct application/winhlp mapping",
             "reference": "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/raw/master/data/freedesktop.org.xml.in"
           }
         ],
         "extension_claims": [
           {
             "extension": ".hlp",
-            "authority": "Microsoft WinHelp format specification",
-            "reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wmf/4813e7fd-52d0-4f42-965f-228c8b7488d2"
+            "authority": "freedesktop shared-mime-info direct application/winhlp mapping",
+            "reference": "https://gitlab.freedesktop.org/xdg/shared-mime-info/-/raw/master/data/freedesktop.org.xml.in"
           }
         ]
       }
