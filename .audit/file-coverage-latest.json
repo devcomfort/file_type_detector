@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_by": "coverage-report.py",
+  "generated_by": ".audit/coverage-report.py",
   "candidate": {
     "total": 603,
     "verified": 14,
