@@ -1,10 +1,13 @@
-"""Generate and verify the separate fixture coverage report."""
+"""Generate and verify the separate fixture coverage report.
+
+This report consumes the checked-in audit matrix. Platform-specific validators
+(such as unsquashfs) run in their dedicated CI jobs, not during report generation.
+"""
 
 from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -22,18 +25,11 @@ def build_report() -> dict[str, object]:
     )["records"]
     matrix = json.loads((ROOT / ".audit/w3-w4-audit-matrix.json").read_text())
     statuses: Counter[str] = Counter()
-    python = sys.executable
     for row in matrix["actions"]:
-        inventory_id = row.get("inventory_id")
-        if not inventory_id:
+        if not row.get("inventory_id"):
             statuses["missing_inventory"] += 1
-            continue
-        output = subprocess.check_output(
-            [python, str(ROOT / ".audit/w3_validate.py"), "--id", inventory_id],
-            cwd=ROOT,
-            text=True,
-        )
-        statuses[json.loads(output)["status"]] += 1
+        else:
+            statuses[row.get("format_validity", "not-run")] += 1
     return {
         "schema_version": 1,
         "generated_by": ".audit/coverage-report.py",
@@ -62,6 +58,7 @@ def build_report() -> dict[str, object]:
         "notes": [
             "Recognition-label coverage and suffix coverage are separate metrics.",
             "Promotion requires all truth axes and evidence.",
+            "Platform-specific validators run in dedicated CI jobs before matrix updates.",
         ],
     }
 
