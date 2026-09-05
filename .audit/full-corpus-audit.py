@@ -30,10 +30,7 @@ CFB_CONFLICT_IDS = {
 }
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    args = parser.parse_args()
+def build_report() -> dict[str, object]:
     candidates = json.loads(
         (ROOT / "tests/truth/backend_inventory_candidates.json").read_text()
     )["records"]
@@ -160,11 +157,22 @@ def main() -> int:
             "cfb_conflicts": sorted(CFB_CONFLICT_IDS),
         },
     }
+    return report
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    report = build_report()
+    if args.check:
+        if json.loads(args.output.read_text()) != report:
+            raise SystemExit("full corpus audit artifact is stale")
+        print("full corpus audit: current")
+        return 0
     args.output.write_text(json.dumps(report, indent=2) + "\n")
-    print(f"audited {len(rows)} candidates -> {args.output}")
-    print(
-        f"sha mismatches: {len(report['queues']['sha_mismatch'])}; duplicate GT conflicts: {len(duplicate_conflicts)}; matrix inconsistencies: {len(matrix_candidate_inconsistencies)}"
-    )
+    print(f"audited {report['candidate_count']} candidates -> {args.output}")
     return 0
 
 

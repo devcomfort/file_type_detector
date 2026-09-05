@@ -12,8 +12,9 @@
   "w3_matrix": {
     "total": 31,
     "verified": 22,
-    "needs_review": 6,
+    "needs_review": 4,
     "missing_inventory": 3,
+    "failed": 2,
     "missing_actions": [
       "mum",
       "outlook",
@@ -23,9 +24,7 @@
       "macho",
       "ace",
       "chm",
-      "swf",
-      "msi",
-      "one"
+      "swf"
     ]
   },
   "notes": [

@@ -53,3 +53,15 @@ def test_complete_fixture_table_is_current() -> None:
     )["records"]
     assert len(rows) == len(candidates)
     assert {row["id"] for row in rows} == {record["id"] for record in candidates}
+
+
+# Q. Does the full corpus audit artifact match current inventory/matrix data?
+def test_full_corpus_audit_is_current() -> None:
+    result = subprocess.run(
+        [sys.executable, str(_ROOT / ".audit/full-corpus-audit.py"), "--check"],
+        cwd=_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr or result.stdout
