@@ -227,10 +227,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-deb",
         "evidence": [
-          "independent parser validation not yet executed"
+          "ar members and gzip tar archives"
         ]
       },
       "content_identifiability": null
@@ -581,9 +581,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "ffprobe FLAC decode/container",
+        "validator": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.flac",
         "evidence": [
-          "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.flac"
+          "ffprobe FLAC decode/container"
         ]
       },
       "content_identifiability": "distinctive"
@@ -2270,9 +2270,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "ffprobe WebM decode/container",
+        "validator": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.webm",
         "evidence": [
-          "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.webm"
+          "ffprobe WebM decode/container"
         ]
       },
       "content_identifiability": "distinctive"
@@ -5211,8 +5211,8 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "w3_validate.py:squashfs-unsquashfs",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-snap",
         "evidence": [
           "SquashFS 4.0 superblock",
           "unsquashfs extraction of sample.txt -> Hello, World!"
@@ -7456,10 +7456,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-crx",
         "evidence": [
-          "independent parser validation not yet executed"
+          "RSA-SHA1 signature and manifest.json"
         ]
       },
       "content_identifiability": null
@@ -7812,9 +7812,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "readelf ELF header",
+        "validator": "readelf -h tests/fixtures/sample.elf",
         "evidence": [
-          "readelf -h tests/fixtures/sample.elf"
+          "readelf ELF header"
         ]
       },
       "content_identifiability": "distinctive"
@@ -8442,9 +8442,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "Pillow Image.open ICNS",
+        "validator": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.icns').load()\"",
         "evidence": [
-          "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.icns').load()\""
+          "Pillow Image.open ICNS"
         ]
       },
       "content_identifiability": "distinctive"
@@ -9375,7 +9375,7 @@
       "provenance": "Auto-generated: OLE2 compound document binary stub (legacy installer format)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -9390,10 +9390,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -9650,7 +9650,7 @@
       "provenance": "Auto-generated: OneNote binary stub (legacy document format)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -9665,10 +9665,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -10213,10 +10213,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-rpm",
         "evidence": [
-          "independent parser validation not yet executed"
+          "RPM lead/header and newc CPIO payload"
         ]
       },
       "content_identifiability": null
@@ -10608,9 +10608,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "Pillow Image.open TGA",
+        "validator": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.tga').load()\"",
         "evidence": [
-          "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.tga').load()\""
+          "Pillow Image.open TGA"
         ]
       },
       "content_identifiability": "distinctive",
@@ -10845,7 +10845,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "format validity failed: same OPC package as vsdm/vsdx; Visio web-drawing identity unproven"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -10861,9 +10861,9 @@
       },
       "format_validity": {
         "status": "failed",
-        "validator": "subtype-structure-check",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "same OPC package as vsdm/vsdx; Visio web-drawing identity unproven"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -10884,7 +10884,7 @@
       "provenance": "Generated from format specification (minimal header + content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -10899,10 +10899,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -10923,7 +10923,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "format validity failed: same OPC package as vdw/vsdx; macro-enabled template identity unproven"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -10939,9 +10939,9 @@
       },
       "format_validity": {
         "status": "failed",
-        "validator": "subtype-structure-check",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "same OPC package as vdw/vsdx; macro-enabled template identity unproven"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -10962,7 +10962,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "format validity failed: same OPC package as vdw/vsdm; drawing subtype identity unproven"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -10978,9 +10978,9 @@
       },
       "format_validity": {
         "status": "failed",
-        "validator": "subtype-structure-check",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "same OPC package as vdw/vsdm; drawing subtype identity unproven"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -11133,10 +11133,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-xar",
         "evidence": [
-          "independent parser validation not yet executed"
+          "compressed TOC length and SHA-1"
         ]
       },
       "content_identifiability": null
@@ -12083,10 +12083,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-cab",
         "evidence": [
-          "independent parser validation not yet executed"
+          "CFHEADER/CFFOLDER/CFFILE/CFDATA offsets and lengths"
         ]
       },
       "content_identifiability": null
@@ -14554,7 +14554,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "w3_validate.py:pydicom",
+        "validator": "python .audit/w3_validate.py --id sample-dcm",
         "evidence": [
           "pydicom read of DICOM preamble, file meta, and PatientName"
         ]
@@ -14608,10 +14608,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-dex",
         "evidence": [
-          "independent parser validation not yet executed"
+          "file size, SHA-1, Adler-32, and string-data map item"
         ]
       },
       "content_identifiability": null
@@ -14725,10 +14725,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python .audit/w3_validate.py --id sample-lha",
         "evidence": [
-          "independent parser validation not yet executed"
+          "method, filename, and stored payload"
         ]
       },
       "content_identifiability": null
@@ -15043,9 +15043,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "w3_validate.py:pyc-marshal",
+        "validator": "python .audit/w3_validate.py --id sample-pyc",
         "evidence": [
-          "CPython magic number, 16-byte header, and marshal code object"
+          "CPython magic number, header, and marshal code object"
         ]
       },
       "content_identifiability": "distinctive",
@@ -15254,9 +15254,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "fontTools TTFont WOFF reopen",
+        "validator": "/tmp/format-validators/bin/python -c \"from fontTools.ttLib import TTFont; TTFont('tests/fixtures/sample.woff')\"",
         "evidence": [
-          "/tmp/format-validators/bin/python -c \"from fontTools.ttLib import TTFont; TTFont('tests/fixtures/sample.woff')\""
+          "fontTools TTFont WOFF reopen"
         ]
       },
       "content_identifiability": "distinctive",
@@ -17038,7 +17038,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -17054,10 +17054,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -19650,7 +19650,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -19666,10 +19666,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -21167,7 +21167,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -21183,10 +21183,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -21287,7 +21287,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -21303,10 +21303,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -21327,7 +21327,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -21343,10 +21343,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -22911,7 +22911,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -22927,10 +22927,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -23228,7 +23228,7 @@
       "provenance": "Downloaded from iamahsanmehmood/sample-files (MIT, files CC0)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "hard quarantine: duplicate CFB bytes conflict with multiple semantic formats"
       },
       "backends": [
         "lexical",
@@ -23244,10 +23244,10 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "failed",
+        "validator": "full-corpus-audit:cfb-conflict",
         "evidence": [
-          "independent parser validation not yet executed"
+          "same SHA256 bytes claimed as multiple CFB semantic formats"
         ]
       },
       "content_identifiability": null
@@ -24153,7 +24153,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "w3_validate.py:squashfs-unsquashfs",
+        "validator": "python .audit/w3_validate.py --id sample-squashfs",
         "evidence": [
           "SquashFS 4.0 superblock",
           "unsquashfs extraction of sample.txt -> Hello, World!"
@@ -24209,7 +24209,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "w3_validate.py:zlib-decompress",
+        "validator": "python .audit/w3_validate.py --id sample-zlibstream",
         "evidence": [
           "zlib stream decompressed to deterministic payload"
         ]
@@ -24253,9 +24253,9 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "ds-store==1.3.3 DSStore.open",
+        "validator": "python .audit/w3_validate.py --id sample-dsstore",
         "evidence": [
-          "DS_Store Bud1 header and Iloc record round-trip"
+          "ds-store 1.3.3 Bud1 header and Iloc record traversal"
         ]
       },
       "content_identifiability": "distinctive",
@@ -24314,7 +24314,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "metafile_validate.py:emf",
+        "validator": "python .audit/metafile_validate.py --id sample-emf",
         "evidence": [
           "EMF/WMF record-walk assertions",
           "LibreOffice Draw import/export to non-empty PDF"
@@ -24375,7 +24375,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "metafile_validate.py:wmf",
+        "validator": "python .audit/metafile_validate.py --id sample-wmf",
         "evidence": [
           "EMF/WMF record-walk assertions",
           "LibreOffice Draw import/export to non-empty PDF"
@@ -24438,7 +24438,7 @@
       },
       "format_validity": {
         "status": "verified",
-        "validator": "hlp_validate.py:winhlp==0.3.0",
+        "validator": "python .audit/hlp_validate.py --id sample-hlp",
         "evidence": [
           "winhlp HelpFile parse and internal files passed"
         ]
