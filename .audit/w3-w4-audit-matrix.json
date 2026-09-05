@@ -214,25 +214,25 @@
     {
       "action": "elf",
       "inventory_id": "sample-elf",
-      "validator_command": "python .audit/w3_validate.py --id sample-elf",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "readelf -h tests/fixtures/sample.elf",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "readelf ELF header"
       ]
     },
     {
       "action": "icns",
       "inventory_id": "sample-icns",
-      "validator_command": "python .audit/w3_validate.py --id sample-icns",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.icns').load()\"",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "Pillow Image.open ICNS"
       ]
     },
     {
@@ -262,13 +262,13 @@
     {
       "action": "webm",
       "inventory_id": "sample-webm",
-      "validator_command": "python .audit/w3_validate.py --id sample-webm",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.webm",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "ffprobe WebM decode/container"
       ]
     },
     {
@@ -286,37 +286,37 @@
     {
       "action": "woff",
       "inventory_id": "sample-woff",
-      "validator_command": "python .audit/w3_validate.py --id sample-woff",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "/tmp/format-validators/bin/python -c \"from fontTools.ttLib import TTFont; TTFont('tests/fixtures/sample.woff')\"",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "fontTools TTFont WOFF reopen"
       ]
     },
     {
       "action": "flac",
       "inventory_id": "sample-flac",
-      "validator_command": "python .audit/w3_validate.py --id sample-flac",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.flac",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "ffprobe FLAC decode/container"
       ]
     },
     {
       "action": "tga",
       "inventory_id": "sample-tga",
-      "validator_command": "python .audit/w3_validate.py --id sample-tga",
-      "format_validity": "needs_review",
-      "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "validator_command": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.tga').load()\"",
+      "format_validity": "verified",
+      "content_identifiability": "distinctive",
+      "evidence_gap": "MIME evidence and promotion pending",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "Pillow Image.open TGA"
       ]
     },
     {

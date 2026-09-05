@@ -580,13 +580,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "ffprobe FLAC decode/container",
         "evidence": [
-          "independent parser validation not yet executed"
+          "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.flac"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-flv",
@@ -2269,13 +2269,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "ffprobe WebM decode/container",
         "evidence": [
-          "independent parser validation not yet executed"
+          "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.webm"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-webp",
@@ -7811,13 +7811,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "readelf ELF header",
         "evidence": [
-          "independent parser validation not yet executed"
+          "readelf -h tests/fixtures/sample.elf"
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-erb",
@@ -8441,13 +8441,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "Pillow Image.open ICNS",
         "evidence": [
-          "independent parser validation not yet executed"
+          "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.icns').load()\""
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-ipynb",
@@ -10607,13 +10607,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "Pillow Image.open TGA",
         "evidence": [
-          "independent parser validation not yet executed"
+          "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.tga').load()\""
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-tgz",
@@ -15237,13 +15237,13 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "fontTools TTFont WOFF reopen",
         "evidence": [
-          "independent parser validation not yet executed"
+          "/tmp/format-validators/bin/python -c \"from fontTools.ttLib import TTFont; TTFont('tests/fixtures/sample.woff')\""
         ]
       },
-      "content_identifiability": null
+      "content_identifiability": "distinctive"
     },
     {
       "id": "sample-3dm",

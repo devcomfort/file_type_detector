@@ -11,8 +11,8 @@
   },
   "w3_matrix": {
     "total": 31,
-    "verified": 16,
-    "needs_review": 12,
+    "verified": 22,
+    "needs_review": 6,
     "missing_inventory": 3,
     "missing_actions": [
       "mum",
@@ -23,13 +23,7 @@
       "macho",
       "ace",
       "chm",
-      "elf",
-      "icns",
       "swf",
-      "webm",
-      "woff",
-      "flac",
-      "tga",
       "msi",
       "one"
     ]
