@@ -100,14 +100,44 @@ def main() -> int:
                 }
             )
             continue
+        candidate_validity = candidate.get("format_validity") or {}
+        candidate_status = candidate_validity.get("status")
         matrix_status = row.get("format_validity")
-        candidate_status = (candidate.get("format_validity") or {}).get("status")
-        if matrix_status == "verified" and candidate_status != "verified":
+        if matrix_status != candidate_status:
             matrix_candidate_inconsistencies.append(
                 {
                     "action": row["action"],
                     "inventory_id": inventory_id,
-                    "reason": f"matrix={matrix_status}, candidate={candidate_status}",
+                    "reason": f"format_validity matrix={matrix_status}, candidate={candidate_status}",
+                }
+            )
+        if row.get("content_identifiability") != candidate.get(
+            "content_identifiability"
+        ):
+            matrix_candidate_inconsistencies.append(
+                {
+                    "action": row["action"],
+                    "inventory_id": inventory_id,
+                    "reason": "content_identifiability differs",
+                }
+            )
+        matrix_evidence = set(row.get("validator_evidence") or [])
+        candidate_evidence = set(candidate_validity.get("evidence") or [])
+        if not matrix_evidence <= candidate_evidence:
+            matrix_candidate_inconsistencies.append(
+                {
+                    "action": row["action"],
+                    "inventory_id": inventory_id,
+                    "reason": "matrix validator evidence missing from candidate",
+                }
+            )
+        promoted = candidate.get("ground_truth_review", {}).get("status") == "verified"
+        if bool(row.get("promotion_input")) != promoted:
+            matrix_candidate_inconsistencies.append(
+                {
+                    "action": row["action"],
+                    "inventory_id": inventory_id,
+                    "reason": "promotion_input differs from review_status",
                 }
             )
     report = {

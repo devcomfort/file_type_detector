@@ -13470,7 +13470,83 @@
     "sample-wps",
     "sample-xlt"
   ],
-  "matrix_candidate_inconsistencies": [],
+  "matrix_candidate_inconsistencies": [
+    {
+      "action": "macho",
+      "inventory_id": "sample-macho",
+      "reason": "format_validity matrix=needs_review, candidate=None"
+    },
+    {
+      "action": "macho",
+      "inventory_id": "sample-macho",
+      "reason": "matrix validator evidence missing from candidate"
+    },
+    {
+      "action": "ace",
+      "inventory_id": "sample-ace",
+      "reason": "matrix validator evidence missing from candidate"
+    },
+    {
+      "action": "cab",
+      "inventory_id": "sample-cab",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "chm",
+      "inventory_id": "sample-chm",
+      "reason": "matrix validator evidence missing from candidate"
+    },
+    {
+      "action": "crx",
+      "inventory_id": "sample-crx",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "deb",
+      "inventory_id": "sample-deb",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "dex",
+      "inventory_id": "sample-dex",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "lha",
+      "inventory_id": "sample-lha",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "swf",
+      "inventory_id": "sample-swf",
+      "reason": "matrix validator evidence missing from candidate"
+    },
+    {
+      "action": "xar",
+      "inventory_id": "sample-xar",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "rpm",
+      "inventory_id": "sample-rpm",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "snap",
+      "inventory_id": "sample-snap",
+      "reason": "content_identifiability differs"
+    },
+    {
+      "action": "msi",
+      "inventory_id": "sample-msi",
+      "reason": "matrix validator evidence missing from candidate"
+    },
+    {
+      "action": "one",
+      "inventory_id": "sample-one",
+      "reason": "matrix validator evidence missing from candidate"
+    }
+  ],
   "queues": {
     "missing_fixture": [],
     "sha_mismatch": [],

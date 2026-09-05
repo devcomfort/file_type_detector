@@ -347,25 +347,25 @@
     {
       "action": "msi",
       "inventory_id": "sample-msi",
-      "validator_command": "python .audit/w3_validate.py --id sample-msi",
-      "format_validity": "needs_review",
+      "validator_command": "python .audit/full-corpus-audit.py --check",
+      "format_validity": "failed",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "hard quarantine: shared CFB bytes cannot establish format semantics",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "duplicate CFB bytes conflict with multiple semantic formats"
       ]
     },
     {
       "action": "one",
       "inventory_id": "sample-one",
-      "validator_command": "python .audit/w3_validate.py --id sample-one",
-      "format_validity": "needs_review",
+      "validator_command": "python .audit/full-corpus-audit.py --check",
+      "format_validity": "failed",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "hard quarantine: shared CFB bytes cannot establish format semantics",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "duplicate CFB bytes conflict with multiple semantic formats"
       ]
     }
   ],
