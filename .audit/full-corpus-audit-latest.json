@@ -13470,13 +13470,7 @@
     "sample-wps",
     "sample-xlt"
   ],
-  "matrix_candidate_inconsistencies": [
-    {
-      "action": "macho",
-      "inventory_id": "sample-macho",
-      "reason": "format_validity matrix=not-run, candidate=None"
-    }
-  ],
+  "matrix_candidate_inconsistencies": [],
   "queues": {
     "missing_fixture": [],
     "sha_mismatch": [],
