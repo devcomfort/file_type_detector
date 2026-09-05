@@ -38,9 +38,10 @@ All scripts are intended to be idempotent. They install audit-only tools; these 
 A detector label is not format-validity evidence. A fixture may be promoted only when all of the following are recorded:
 
 1. Reproducible generator output or immutable external provenance.
-2. Independent parser, reader, decoder, or round-trip validation.
-3. MIME and extension or exact-filename authority evidence.
-4. Content identifiability and a clear distinction from generic containers.
-5. Correct source license and tool version information.
+2. Independent parser, reader, decoder, or round-trip validation when available.
+3. If no independent validator exists, an official producer/writer is acceptable when the producer, version, construction parameters, and resulting format-specific bytes are explicit and reproducible. This is evidence of the construction process, not a detector-label assertion.
+4. MIME and extension or exact-filename authority evidence.
+5. Content identifiability and a clear distinction from generic containers.
+6. Correct source license and tool version information.
 
 If a validator is unavailable on an operating system, the script must fail explicitly as unsupported; it must not silently skip the check. The separate coverage report records those gaps instead of turning them into false passes.
