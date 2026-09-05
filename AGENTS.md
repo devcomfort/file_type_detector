@@ -4,19 +4,19 @@
 
 파일 형식 fixture를 추가하거나 재생성할 때 다음 절차를 따른다.
 
-### 1. 생성 도구가 필요하면 설치 절차를 먼저 문서화한다
+### 1. 생성 도구가 필요하면 OS별 설치 스크립트를 먼저 작성한다
 
-fixture 생성을 위해 운영체제별 외부 도구나 라이브러리 설치가 필요하다면, 구현 전에 해당 포맷의 Markdown 문서를 만든다. 문서에는 다음 내용을 포함한다. 순서는 작업에 맞게 조정할 수 있다.
+fixture 생성을 위해 외부 도구나 라이브러리 설치가 필요하면, 해당 fixture를 구현하기 전에 반드시 운영체제별 idempotent 설치 스크립트를 작성한다. 이 의무는 선택 사항이 아니다.
 
-- 확장자와 포맷의 목적 및 식별 규칙
-- 파일 내부 구성과 유효한 파일을 만드는 방법
-- 필요한 Python 라이브러리 또는 OS 도구
-- Ubuntu/Linux, macOS, Windows별 설치 명령 또는 설치 방법
-- 실제 생성·검증 스크립트의 저장소 경로와 실행 명령
-- 도구 버전, lock pinning, 라이선스와 재현성 제약
-- 해당 도구가 일부 OS에서만 제공될 때의 대체 경로 또는 지원 범위
+- Linux: [`scripts/install-fixture-tools-linux.sh`](scripts/install-fixture-tools-linux.sh)
+- macOS: [`scripts/install-fixture-tools-macos.sh`](scripts/install-fixture-tools-macos.sh)
+- Windows: [`scripts/install-fixture-tools-windows.ps1`](scripts/install-fixture-tools-windows.ps1)
 
-문서는 도구 설치 후에 뒤늦게 작성하지 않는다. 생성 방법과 설치 재현성이 확인된 뒤 fixture를 candidate inventory에 추가한다.
+각 스크립트는 이미 설치된 도구를 다시 실행해도 안전해야 하며, 지원하지 않는 OS·패키지 관리자·검증 도구가 있으면 명시적인 `unsupported` 오류와 non-zero exit status를 반환해야 한다. 스크립트에 없는 수동 설치 절차만으로 fixture를 추가하지 않는다.
+
+설치와 포맷별 생성·검증 방법은 [`docs/reference/fixture-tool-installation.md`](docs/reference/fixture-tool-installation.md)에 기록한다. dossier에는 확장자, 내부 구성, 생성 방법, 필요한 도구, OS별 설치법, 실제 실행 스크립트 경로, 버전 pinning, 라이선스와 재현성 제약을 포함한다.
+
+문서와 설치 스크립트가 먼저 존재하고, 생성 방법과 설치 재현성이 확인된 뒤에만 fixture를 candidate inventory에 추가한다.
 
 ### 2. 생성 방식과 fixture 출처를 분리해 기록한다
 
