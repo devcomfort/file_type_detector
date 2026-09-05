@@ -20,3 +20,17 @@ def test_file_coverage_report_is_current() -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr or result.stdout
+
+
+# Q. Does the complete fixture table stay synchronized with candidate inventory?
+def test_complete_fixture_table_is_current() -> None:
+    result = subprocess.run(
+        [sys.executable, str(_ROOT / ".audit/generate_fixture_coverage_table.py")],
+        cwd=_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr or result.stdout
+    rows = (_ROOT / ".audit/fixture-coverage-table.csv").read_text().splitlines()
+    assert len(rows) == 607
