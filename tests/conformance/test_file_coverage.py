@@ -25,12 +25,31 @@ def test_file_coverage_report_is_current() -> None:
 # Q. Does the complete fixture table stay synchronized with candidate inventory?
 def test_complete_fixture_table_is_current() -> None:
     result = subprocess.run(
-        [sys.executable, str(_ROOT / ".audit/generate_fixture_coverage_table.py")],
+        [
+            sys.executable,
+            str(_ROOT / ".audit/generate_fixture_coverage_table.py"),
+            "--check",
+        ],
         cwd=_ROOT,
         capture_output=True,
         text=True,
         check=False,
     )
     assert result.returncode == 0, result.stderr or result.stdout
-    rows = (_ROOT / ".audit/fixture-coverage-table.csv").read_text().splitlines()
-    assert len(rows) == 607
+    import csv
+    import json
+
+    rows = list(
+        csv.DictReader(
+            (_ROOT / ".audit/fixture-coverage-table.csv").open(
+                encoding="utf-8", newline=""
+            )
+        )
+    )
+    candidates = json.loads(
+        (_ROOT / "tests/truth/backend_inventory_candidates.json").read_text(
+            encoding="utf-8"
+        )
+    )["records"]
+    assert len(rows) == len(candidates)
+    assert {row["id"] for row in rows} == {record["id"] for record in candidates}
