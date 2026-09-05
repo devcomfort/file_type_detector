@@ -54,13 +54,11 @@
       "action": "macho",
       "inventory_id": "sample-macho",
       "validator_command": "python .audit/w3_validate.py --id sample-macho",
-      "format_validity": "needs_review",
+      "format_validity": "not-run",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
-      "validator_evidence": [
-        "independent parser not implemented"
-      ]
+      "validator_evidence": []
     },
     {
       "action": "mum",
@@ -133,7 +131,7 @@
       "validator_command": "python .audit/w3_validate.py --id sample-zlibstream",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "human review/promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "zlib stream decompressed to deterministic payload"
@@ -145,10 +143,10 @@
       "validator_command": "python .audit/w3_validate.py --id sample-ace",
       "format_validity": "needs_review",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "independent parser validation not yet executed"
       ]
     },
     {
@@ -156,8 +154,8 @@
       "inventory_id": "sample-cab",
       "validator_command": "python .audit/w3_validate.py --id sample-cab",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "CFHEADER/CFFOLDER/CFFILE/CFDATA offsets and lengths"
@@ -169,10 +167,10 @@
       "validator_command": "python .audit/w3_validate.py --id sample-chm",
       "format_validity": "needs_review",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "independent parser validation not yet executed"
       ]
     },
     {
@@ -180,8 +178,8 @@
       "inventory_id": "sample-crx",
       "validator_command": "python .audit/w3_validate.py --id sample-crx",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "RSA-SHA1 signature and manifest.json"
@@ -192,8 +190,8 @@
       "inventory_id": "sample-deb",
       "validator_command": "python .audit/w3_validate.py --id sample-deb",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "ar members and gzip tar archives"
@@ -204,8 +202,8 @@
       "inventory_id": "sample-dex",
       "validator_command": "python .audit/w3_validate.py --id sample-dex",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "file size, SHA-1, Adler-32, and string-data map item"
@@ -217,7 +215,7 @@
       "validator_command": "readelf -h tests/fixtures/sample.elf",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "readelf ELF header"
@@ -229,7 +227,7 @@
       "validator_command": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.icns').load()\"",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "Pillow Image.open ICNS"
@@ -240,8 +238,8 @@
       "inventory_id": "sample-lha",
       "validator_command": "python .audit/w3_validate.py --id sample-lha",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "method, filename, and stored payload"
@@ -253,10 +251,10 @@
       "validator_command": "python .audit/w3_validate.py --id sample-swf",
       "format_validity": "needs_review",
       "content_identifiability": null,
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
-        "independent parser not implemented"
+        "independent parser validation not yet executed"
       ]
     },
     {
@@ -265,7 +263,7 @@
       "validator_command": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.webm",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "ffprobe WebM decode/container"
@@ -276,8 +274,8 @@
       "inventory_id": "sample-xar",
       "validator_command": "python .audit/w3_validate.py --id sample-xar",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "compressed TOC length and SHA-1"
@@ -289,7 +287,7 @@
       "validator_command": "/tmp/format-validators/bin/python -c \"from fontTools.ttLib import TTFont; TTFont('tests/fixtures/sample.woff')\"",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "fontTools TTFont WOFF reopen"
@@ -301,7 +299,7 @@
       "validator_command": "ffprobe -v error -show_entries format=format_name tests/fixtures/sample.flac",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "ffprobe FLAC decode/container"
@@ -313,7 +311,7 @@
       "validator_command": "/tmp/format-validators/bin/python -c \"from PIL import Image; Image.open('tests/fixtures/sample.tga').load()\"",
       "format_validity": "verified",
       "content_identifiability": "distinctive",
-      "evidence_gap": "MIME evidence and promotion pending",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "Pillow Image.open TGA"
@@ -324,8 +322,8 @@
       "inventory_id": "sample-rpm",
       "validator_command": "python .audit/w3_validate.py --id sample-rpm",
       "format_validity": "verified",
-      "content_identifiability": "distinctive",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "RPM lead/header and newc CPIO payload"
@@ -336,8 +334,8 @@
       "inventory_id": "sample-snap",
       "validator_command": "python .audit/w3_validate.py --id sample-snap",
       "format_validity": "verified",
-      "content_identifiability": "generic-container",
-      "evidence_gap": "independent validator/evidence/promotion pending",
+      "content_identifiability": null,
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
         "SquashFS 4.0 superblock",
@@ -350,10 +348,10 @@
       "validator_command": "python .audit/full-corpus-audit.py --check",
       "format_validity": "failed",
       "content_identifiability": null,
-      "evidence_gap": "hard quarantine: shared CFB bytes cannot establish format semantics",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
-        "duplicate CFB bytes conflict with multiple semantic formats"
+        "same SHA256 bytes claimed as multiple CFB semantic formats"
       ]
     },
     {
@@ -362,10 +360,10 @@
       "validator_command": "python .audit/full-corpus-audit.py --check",
       "format_validity": "failed",
       "content_identifiability": null,
-      "evidence_gap": "hard quarantine: shared CFB bytes cannot establish format semantics",
+      "evidence_gap": "candidate remains non-verified; see candidate format_validity and review reason",
       "promotion_input": false,
       "validator_evidence": [
-        "duplicate CFB bytes conflict with multiple semantic formats"
+        "same SHA256 bytes claimed as multiple CFB semantic formats"
       ]
     }
   ],

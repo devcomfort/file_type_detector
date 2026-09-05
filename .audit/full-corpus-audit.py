@@ -98,8 +98,7 @@ def build_report() -> dict[str, object]:
             )
             continue
         candidate_validity = candidate.get("format_validity") or {}
-        candidate_status = candidate_validity.get("status")
-        matrix_status = row.get("format_validity")
+        candidate_status = candidate_validity.get("status") or "not-run"
         if matrix_status != candidate_status:
             matrix_candidate_inconsistencies.append(
                 {
