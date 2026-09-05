@@ -621,7 +621,7 @@
       }
     },
     "sample-R": {
-      "sha256": "00d281a236ec0e6bd8808e3e52ad47fd7bb4af424fee2849002a64428920e601",
+      "sha256": "4a93b45feb02b571abdbb4623580d70de4349b959ac8f095b6b241a3ae6dbcd8",
       "probe_extension": ".r",
       "status": "excluded",
       "source": {
@@ -2674,7 +2674,7 @@
       }
     },
     "sample-CPY": {
-      "sha256": "b94547a0e1651f696efbf7bffe47700f6739ba2fba8470d564cc1851bd99a6ce",
+      "sha256": "ea5dbd522fd35574425f8db33364034da873cd877d62ab7789b4376f6df12d0a",
       "probe_extension": ".cpy",
       "status": "excluded",
       "source": {

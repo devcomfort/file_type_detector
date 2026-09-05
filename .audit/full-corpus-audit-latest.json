@@ -1516,7 +1516,7 @@
       "inventory_sha256": "4a93b45feb02b571abdbb4623580d70de4349b959ac8f095b6b241a3ae6dbcd8",
       "disk_sha256": "4a93b45feb02b571abdbb4623580d70de4349b959ac8f095b6b241a3ae6dbcd8",
       "sha_match": true,
-      "manifest_sha_match": false,
+      "manifest_sha_match": true,
       "manifest_status": "excluded",
       "source_kind": "generated",
       "declared_reproduction_tier": "exact-byte",
@@ -6624,7 +6624,7 @@
       "inventory_sha256": "ea5dbd522fd35574425f8db33364034da873cd877d62ab7789b4376f6df12d0a",
       "disk_sha256": "ea5dbd522fd35574425f8db33364034da873cd877d62ab7789b4376f6df12d0a",
       "sha_match": true,
-      "manifest_sha_match": false,
+      "manifest_sha_match": true,
       "manifest_status": "excluded",
       "source_kind": "generated",
       "declared_reproduction_tier": "exact-byte",
@@ -14064,10 +14064,7 @@
   "queues": {
     "missing_fixture": [],
     "sha_mismatch": [],
-    "manifest_mismatch": [
-      "sample-R",
-      "sample-CPY"
-    ],
+    "manifest_mismatch": [],
     "missing_evidence": [
       "sample-aiff",
       "sample-au",
