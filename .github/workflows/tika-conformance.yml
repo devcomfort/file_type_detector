@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PYTHON_VERSION: "3.12.12"
+  PYTHON_VERSION: "3.12.10"
   JAVA_VERSION: "11.0.29+7"
 
 jobs:
