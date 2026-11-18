@@ -134,3 +134,21 @@ def test_unreviewed_duplicate_labels_do_not_block_collection_or_change_originals
     assert artifact["samples"][1]["ground_truth"] is None
     evidence = output.parent / artifact["provenance"]["evidence_dir"]
     assert (evidence / "backend_inventory_candidates.json").read_bytes() == original
+
+
+def test_legacy_windows_binding_metadata_does_not_prevent_detection(tmp_path, monkeypatch):
+    import sys
+    from types import SimpleNamespace
+
+    legacy = SimpleNamespace(
+        libmagic=SimpleNamespace(magic_version=lambda: 526),
+        Magic=lambda **kwargs: SimpleNamespace(from_file=lambda path: "text/plain"),
+    )
+    monkeypatch.setitem(sys.modules, "magic", legacy)
+    (tmp_path / "sample.txt").write_text("sample", encoding="utf-8")
+    rows, native_version = collector.collect_magic(
+        [{"id": "sample", "fixture": "sample.txt"}], tmp_path,
+    )
+    assert rows[0]["status"] == "ok"
+    assert rows[0]["mime_types"] == ["text/plain"]
+    assert native_version == "526"

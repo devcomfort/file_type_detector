@@ -220,7 +220,8 @@ def collect_magic(samples: list[dict], root: Path) -> tuple[list[dict], str]:
     observations = []
     try:
         import magic
-        native_version = str(magic.version())
+        # Both pinned bindings expose the native C API; the Windows one has no version().
+        native_version = str(magic.libmagic.magic_version())
         detector = magic.Magic(mime=True)
     except Exception:
         error = traceback.format_exc()
