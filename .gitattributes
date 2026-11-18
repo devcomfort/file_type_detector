@@ -1,3 +1,7 @@
 # Ground Truth hashes require reviewed bytes to survive cross-platform checkouts unchanged.
 tests/fixtures/** -text
 tests/truth/*.json -text
+
+# The experiment fingerprints these source bytes on every native runner.
+scripts/conformance/tika_*.py text eol=lf
+scripts/conformance/TikaProbe.java text eol=lf

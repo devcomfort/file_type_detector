@@ -1,0 +1,172 @@
+name: Tika OS conformance
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/tika-conformance.yml"
+      - "scripts/conformance/tika_*.py"
+      - "scripts/conformance/TikaProbe.java"
+      - "tests/conformance/test_tika_*.py"
+  pull_request:
+    paths:
+      - ".github/workflows/tika-conformance.yml"
+      - "scripts/conformance/tika_*.py"
+      - "scripts/conformance/TikaProbe.java"
+      - "tests/conformance/test_tika_*.py"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tika-conformance-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12.12"
+  JAVA_VERSION: "11.0.29+7"
+
+jobs:
+  collect:
+    name: Tika and libmagic on ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: ubuntu
+            runner: ubuntu-22.04
+            label: ubuntu-x64
+          - platform: macos
+            runner: macos-15-intel
+            label: macos-x64
+          - platform: windows
+            runner: windows-2022
+            label: windows-x64
+    steps:
+      - name: Check out identical source and sample bytes
+        uses: actions/checkout@v4
+
+      - name: Set up fixed Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: x64
+
+      - name: Set up fixed Temurin Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          architecture: x64
+
+      - name: Install native libmagic on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmagic1
+
+      - name: Install native libmagic on macOS
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          brew install libmagic
+          prefix="$(brew --prefix libmagic)"
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$prefix/lib" >> "$GITHUB_ENV"
+          echo "MAGIC=$prefix/share/misc/magic.mgc" >> "$GITHUB_ENV"
+
+      - name: Install Unix Python binding
+        if: runner.os != 'Windows'
+        shell: bash
+        run: python -m pip install --disable-pip-version-check "python-magic==0.4.27"
+
+      - name: Install Windows Python binding and native library
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m pip install --disable-pip-version-check "python-magic-bin==0.4.14"
+          if ($LASTEXITCODE -ne 0) { throw "libmagic installation failed" }
+
+      - name: Install focused test dependency
+        shell: bash
+        run: python -m pip install --disable-pip-version-check "pytest==8.4.2"
+
+      - name: Check experiment failure detection
+        shell: bash
+        run: |
+          python -m pytest tests/conformance/test_tika_collect.py tests/conformance/test_tika_compare.py -q
+
+      - name: Collect all committed sample observations
+        shell: bash
+        run: |
+          python -m scripts.conformance.tika_collect \
+            --root . \
+            --runner-label "${{ matrix.label }}" \
+            --revision "$GITHUB_SHA" \
+            --jar .artifacts/tika/tika-app.jar \
+            --download \
+            --output ".artifacts/tika/${{ matrix.platform }}/${{ matrix.platform }}.json"
+
+      - name: Preserve complete observations and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tika-${{ matrix.platform }}
+          path: .artifacts/tika/${{ matrix.platform }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  compare:
+    name: Compare exact MIME labels across all three operating systems
+    needs: collect
+    if: ${{ always() && !cancelled() }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out comparison code
+        uses: actions/checkout@v4
+
+      - name: Set up fixed Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Download complete platform evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: tika-*
+          path: tika-artifacts
+
+      - name: Validate identities and compare raw outputs
+        shell: bash
+        run: |
+          python -m scripts.conformance.tika_compare \
+            --input tika-artifacts/tika-ubuntu/ubuntu.json \
+            --input tika-artifacts/tika-macos/macos.json \
+            --input tika-artifacts/tika-windows/windows.json \
+            --expected-runner ubuntu-x64 \
+            --expected-runner macos-x64 \
+            --expected-runner windows-x64 \
+            --expected-revision "$GITHUB_SHA" \
+            --output-dir .artifacts/tika-report
+
+      - name: Publish decision evidence in job summary
+        if: always()
+        shell: bash
+        run: |
+          if [[ -f .artifacts/tika-report/tika-conformance.md ]]; then
+            cat .artifacts/tika-report/tika-conformance.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Comparison report unavailable; see collection diagnostics." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Preserve full comparison report even when the gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tika-conformance-report
+          path: .artifacts/tika-report/
+          if-no-files-found: error
+          retention-days: 30
