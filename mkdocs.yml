@@ -71,6 +71,8 @@ nav:
     - Overview: reference/index.md
     - Backend Conformance: reference/backend-conformance.md
     - Apache Tika OS Conformance: reference/tika-conformance.md
+    - Fixture Sources: reference/fixture-sources.md
+    - Fixture Tool Installation: reference/fixture-tool-installation.md
     - BaseInferencer: api/base_inferencer.md
     - AutoInferencer: api/auto_inferencer.md
     - LexicalInferencer: api/lexical_inferencer.md
@@ -84,3 +86,8 @@ nav:
     - Architecture: architecture.md
   - Project:
     - Contributing: contributing.md
+
+# Internal plans and design records stay out of the published navigation on purpose.
+not_in_nav: |
+  superpowers/plans/*
+  superpowers/specs/*

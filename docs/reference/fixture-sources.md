@@ -205,12 +205,12 @@ Total fixtures: **599**
 
 **License**: CC0
 
-- `acf` — [source](N/A) (⚠️ unverified)
-- `dbf` — [source](N/A) (⚠️ unverified)
-- `fft` — [source](N/A) (⚠️ unverified)
-- `log` — [source](N/A) (⚠️ unverified)
-- `mobi` — [source](N/A) (⚠️ unverified)
-- `wks` — [source](N/A) (⚠️ unverified)
+- `acf` — source N/A (⚠️ unverified)
+- `dbf` — source N/A (⚠️ unverified)
+- `fft` — source N/A (⚠️ unverified)
+- `log` — source N/A (⚠️ unverified)
+- `mobi` — source N/A (⚠️ unverified)
+- `wks` — source N/A (⚠️ unverified)
 
 ### Unresolved External Provenance
 

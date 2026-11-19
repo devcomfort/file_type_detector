@@ -6,9 +6,9 @@
 
 | 운영체제 | 실행할 파일 | 설치 내용과 실패 조건 |
 |---|---|---|
-| Linux | [`scripts/install-fixture-tools-linux.sh`](../../scripts/install-fixture-tools-linux.sh) | `ffmpeg`, LibreOffice, `squashfs-tools`, APK/HLP/Mach-O/DS_Store 점검 도구를 설치한다. `apt-get` 또는 `sudo`가 없으면 지원하지 않는 환경으로 보고 실패한다. |
-| macOS | [`scripts/install-fixture-tools-macos.sh`](../../scripts/install-fixture-tools-macos.sh) | Homebrew로 `ffmpeg`, `squashfs-tools`, LibreOffice와 Python 점검 도구를 설치한다. `unsquashfs`를 설치하지 못하면 SquashFS 점검을 지원하지 않는 환경으로 실패한다. |
-| Windows | [`scripts/install-fixture-tools-windows.ps1`](../../scripts/install-fixture-tools-windows.ps1) | `winget`으로 FFmpeg와 LibreOffice를 설치하고 Python 점검 도구를 설치한다. `unsquashfs.exe`가 없으면 SquashFS 점검을 지원하지 않는 환경으로 명확히 실패한다. |
+| Linux | [`scripts/install-fixture-tools-linux.sh`](https://github.com/devcomfort/file_type_detector/blob/main/scripts/install-fixture-tools-linux.sh) | `ffmpeg`, LibreOffice, `squashfs-tools`, APK/HLP/Mach-O/DS_Store 점검 도구를 설치한다. `apt-get` 또는 `sudo`가 없으면 지원하지 않는 환경으로 보고 실패한다. |
+| macOS | [`scripts/install-fixture-tools-macos.sh`](https://github.com/devcomfort/file_type_detector/blob/main/scripts/install-fixture-tools-macos.sh) | Homebrew로 `ffmpeg`, `squashfs-tools`, LibreOffice와 Python 점검 도구를 설치한다. `unsquashfs`를 설치하지 못하면 SquashFS 점검을 지원하지 않는 환경으로 실패한다. |
+| Windows | [`scripts/install-fixture-tools-windows.ps1`](https://github.com/devcomfort/file_type_detector/blob/main/scripts/install-fixture-tools-windows.ps1) | `winget`으로 FFmpeg와 LibreOffice를 설치하고 Python 점검 도구를 설치한다. `unsquashfs.exe`가 없으면 SquashFS 점검을 지원하지 않는 환경으로 명확히 실패한다. |
 
 설치 스크립트는 이미 설치된 도구를 다시 실행해도 안전해야 한다. 이 도구들은 `filetype-detector`를 실행할 때 필요한 것이 아니라 테스트용 샘플 파일을 만들고 확인할 때만 필요하다.
 
