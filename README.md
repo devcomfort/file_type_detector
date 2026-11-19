@@ -1,9 +1,9 @@
 # filetype-detector
 
-[![CI](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml)
-[![Backend conformance](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+[![CI](https://github.com/devcomfort/file_type_detector/actions/workflows/ci.yml/badge.svg)](https://github.com/devcomfort/file_type_detector/actions/workflows/ci.yml)
+[![Backend conformance](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml/badge.svg)](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml)
 
-A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, and AI-powered content analysis.
+A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, AI-powered content analysis, and pinned Apache Tika detection.
 
 ## Backend Conformance
 
@@ -19,6 +19,7 @@ methodology, latest workflow artifact, and reproduction commands.
 ## Features
 
 - **Multiple Inference Methods**: Choose from lexical, magic-based, AI-powered, Apache Tika, or hybrid inference strategies
+- **OS-Independent Labels**: `TikaInferencer` returns identical MIME and extension labels on Linux, macOS, and Windows
 - **Type-Safe API**: Type hints and type-safe inference method selection
 - **Flexible Input**: Supports both `Path` objects and string paths
 - **Performance Optimized**: Hybrid inference combines Magic and Magika when it improves the result
@@ -116,6 +117,32 @@ file --version
 
 If the command works, `libmagic` is properly installed.
 
+#### TikaInferencer
+
+`TikaInferencer` uses a pinned Apache Tika build instead of `libmagic`, so its
+labels do not drift between operating systems. It needs two things that
+`pip install` does not provide:
+
+1. **Java 11 or newer** on `PATH` (`java -version` should work).
+2. **The pinned `tika-app-3.3.3.jar`**. Download it once before the first
+   `detect()` call:
+
+   ```python
+   from filetype_detector import TikaInferencer
+
+   TikaInferencer.download_jar()  # fetches from Maven Central, verifies SHA-512
+   ```
+
+   The JAR is stored at `~/.cache/filetype-detector/tika-app-3.3.3.jar` and
+   reused. To use your own copy, set the `TIKA_JAR` environment variable or
+   pass `jar_path=` to the constructor. The SHA-512 of the JAR is checked
+   against a pinned value on every run; a mismatched JAR is refused.
+
+`detect()` raises `FileNotFoundError` if the JAR is missing and `RuntimeError`
+if Java is not installed. No automatic download happens at detection time:
+identical labels on every OS require the identical, verified JAR.
+
+
 ## Quick Start
 
 **Recommended**: Use `UnifiedInferencer` with `backend="hybrid"` for the best balance of performance and accuracy:
@@ -133,11 +160,12 @@ ft.mime_types             # ('application/pdf',)
 
 All `detect()` methods return a `FileType` instance. See [FileType](#filetype) for details.
 
-For more examples and usage patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
+For more examples and usage patterns, see the [documentation site](https://devcomfort.github.io/file_type_detector/).
 
 ## FileType
 
-`detect()`가 반환하는 `FileType`은 frozen dataclass로, 확장자와 MIME 타입을 함께 보관한다.
+`detect()` returns `FileType`, a frozen dataclass that keeps extensions and
+MIME types together:
 
 ```python
 from filetype_detector import FileType
@@ -147,15 +175,15 @@ ft.extensions   # ('.pdf',)
 ft.mime_types   # ('application/pdf',)
 
 ft2 = FileType.from_mimetype('image/jpeg')
-ft2.extensions  # ('.jfif', '.jpe', '.jpeg', '.jpg') – OS별로 다를 수 있음
+ft2.extensions  # ('.jfif', '.jpe', '.jpeg', '.jpg') – may differ per OS
 ```
 
-| 프로퍼티 | 타입 | 설명 |
-|---------|------|------|
-| `extensions` | `tuple[str, ...]` | 연관된 파일 확장자 목록 |
-| `mime_types` | `tuple[str, ...]` | 연관된 MIME 타입 목록 |
+| Property | Type | Description |
+|----------|------|-------------|
+| `extensions` | `tuple[str, ...]` | Associated file extensions |
+| `mime_types` | `tuple[str, ...]` | Associated MIME types |
 
-팩토리 메서드: `FileType.from_extension(ext)`, `FileType.from_mimetype(mime)`
+Factory methods: `FileType.from_extension(ext)`, `FileType.from_mimetype(mime)`
 
 ## Performance Comparison
 
@@ -166,10 +194,12 @@ Choose the right inferencer based on your needs:
 | **LexicalInferencer** | < 0.001ms | Minimal | 50,000+ files/sec | Trusted extensions |
 | **MagicInferencer** | ~1-5ms | Low | 200-500 files/sec | Content-based detection |
 | **MagikaInferencer** | ~5-10ms* | High** | 100-200 files/sec | Highest accuracy (text) |
+| **TikaInferencer** | ~1-5ms*** | Medium | 200-500 files/sec | OS-independent labels |
 | **HybridInferencer** | ~1-6ms | Medium | 150-400 files/sec | **⭐ Recommended default** |
 
 \* After initial model load (~100-200ms one-time overhead)  
-\*\* Model loaded into memory (~50-100MB)
+\*\* Model loaded into memory (~50-100MB)  
+\*\*\* After one-time JVM + JAR startup; the Java process stays alive between calls
 
 ### Recommendation
 
@@ -223,6 +253,29 @@ ft = inferencer.detect("script.py")
 extension, score = inferencer.detect_with_score("data.json")  # ('.json', 0.98)
 ```
 
+### TikaInferencer
+
+Uses Apache Tika instead of `libmagic`. A pinned Tika build returns identical
+MIME and extension labels on Linux, macOS, and Windows, so the labels do not
+depend on the operating system's MIME database or libmagic version.
+
+```python
+from filetype_detector import TikaInferencer
+
+TikaInferencer.download_jar()  # one-time: verified tika-app-3.3.3.jar
+
+inferencer = TikaInferencer()
+ft = inferencer.detect("file.dat")
+ft.mime_types   # e.g. ('application/pdf',), identical on every OS
+ft.extensions   # e.g. ('.pdf',), identical on every OS
+```
+
+Detection runs in a long-lived Java process started lazily on the first call.
+JVM startup is paid once; later calls are fast.
+
+**System Requirements**: Java 11+ and the pinned JAR. See
+[System Dependencies](#system-dependencies).
+
 ### HybridInferencer
 
 Smart two-stage approach: uses Magic for all files, then Magika for text files.
@@ -247,69 +300,79 @@ If you want the same behavior through the unified interface, use `UnifiedInferen
 
 ## Choosing an Inferencer
 
-파일 성격과 요구사항에 따라 추론기를 선택한다.
+Pick the inferencer that matches the files you expect and the guarantees you
+need:
 
 ```
-파일 이름(확장자)을 신뢰할 수 있는가?
-├─ 예  → LexicalInferencer   (파일 읽기 없음, 가장 빠름)
-└─ 아니오 / 불확실
-       ├─ 주로 바이너리? (PDF, Office, 이미지, 압축 등)
+Do you trust the file name (extension)?
+├─ Yes → LexicalInferencer   (no file reads, fastest)
+└─ No / unsure
+       ├─ Need identical labels on every OS?
+       │       └─ TikaInferencer      (pinned Tika, needs Java + JAR)
+       ├─ Mostly binary? (PDF, Office, images, archives)
        │       └─ MagicInferencer
-       ├─ 주로 텍스트? (Python, JSON, HTML, CSV 등)
-       │       └─ MagikaInferencer   (세부 분류 + 신뢰도 점수)
-       └─ 혼합 / 미확정
-               └─ HybridInferencer  (기본값 추천)
+       ├─ Mostly text? (Python, JSON, HTML, CSV)
+       │       └─ MagikaInferencer    (finer classes + confidence score)
+       └─ Mixed / undecided
+               └─ HybridInferencer   (recommended default)
 ```
 
-| 상황 | 추천 |
-|------|------|
-| CI 파이프라인 등 이미 정제된 파일 | `LexicalInferencer` |
-| 확장자 없는 파일, 잘못된 확장자 검증 | `MagicInferencer` |
-| `.py` / `.json` / `.csv` 등 텍스트 세분화 | `MagikaInferencer` |
-| 신뢰도 점수(`detect_with_score`)가 필요할 때 | `MagikaInferencer` |
-| 업로드 파일 등 무엇이 올지 모를 때 | `HybridInferencer` |
-| 단일 진입점으로 backend만 교체하고 싶을 때 | `UnifiedInferencer` |
+| Situation | Recommended |
+|-----------|-------------|
+| Already-cleaned files, e.g. CI pipelines | `LexicalInferencer` |
+| Missing or suspicious extensions | `MagicInferencer` |
+| Fine-grained text types (`.py` / `.json` / `.csv`) | `MagikaInferencer` |
+| Confidence scores (`detect_with_score`) | `MagikaInferencer` |
+| Identical MIME/extension labels across OS | `TikaInferencer` |
+| Unknown uploads where anything may arrive | `HybridInferencer` |
+| One entry point, swap backends by name | `UnifiedInferencer` |
 
 ## Known Limitations
 
 ### LexicalInferencer
 
-확장자가 없거나 잘못된 경우 탐지 불가. 파일 내용을 읽지 않으므로 위변조 파일을 그대로 통과시킨다.
+Cannot detect files without an extension or with a wrong one. It never reads
+file contents, so forged files pass through unchanged.
 
 ### MagicInferencer
 
-`text/plain`으로 분류되는 파일들의 세부 구분이 불가능하다. Python, JSON, CSV 등이 동일하게 `text/plain`을 반환한다.
-Compound Document 포맷(구 `.doc`, `.ppt`, `.xls`)은 같은 컨테이너를 공유하므로 여러 확장자가 후보로 반환된다.
+Cannot distinguish subtypes of `text/plain`: Python, JSON, and CSV all return
+`text/plain`. Compound Document formats (legacy `.doc`, `.ppt`, `.xls`) share
+one container, so several extensions may be returned as candidates.
+MIME-to-extension mapping comes from the OS `mimetypes` database, so extension
+sets can differ between systems.
 
 ### MagikaInferencer
 
-- **텍스트 파일 외에는 이점이 제한적이다.** 바이너리 파일에서는 `MagicInferencer`와 동등하거나 열등한 경우가 있다.
-- **HWP**: 학습 데이터에 없어 빈 결과를 반환한다.
-- **ZIP 기반 포맷** (HWPX, ODF, ePub 등): 내부 구조를 분석하지 않아 `.epub` 등으로 오분류될 수 있다.
-- **모델 로딩 비용**: 첫 인스턴스화 시 100–200ms의 오버헤드가 있다.
+- **Limited benefit outside text files.** On binary files it performs the same
+  as or worse than `MagicInferencer`.
+- **HWP**: not in the training data; returns an empty result.
+- **ZIP-based formats** (HWPX, ODF, ePub, etc.): does not inspect the internal
+  structure and may misclassify, e.g. as `.epub`.
+- **Model loading cost**: 100–200ms overhead on the first instantiation.
+
+### TikaInferencer
+
+- Requires Java 11+ and a separately downloaded JAR; detection fails fast with
+  `FileNotFoundError` or `RuntimeError` if either is missing.
+- The first `detect()` call pays JVM startup cost; keep one instance alive for
+  repeated calls.
+- The real filename is sent to Tika as a hint, so detection is not purely
+  content-based when a misleading name is present.
 
 ### HybridInferencer
 
-Magic 결과가 `text/`로 시작할 때만 Magika를 호출한다.
-ZIP 기반 포맷(HWPX, ODF 등)과 Compound Document 포맷은 Magic으로만 처리되며 Magika가 적용되지 않는다.
-
-## Key Features
-
-- ✅ **Multiple inference strategies** - Choose the right method for your use case
-- ✅ **Type-safe API** - Full type hints and type-safe method selection
-- ✅ **Flexible input** - Supports both `Path` objects and string paths
-- ✅ **Performance optimized** - Hybrid inference combines fast binary detection with more detailed text detection
-- ✅ **Well-tested** - Comprehensive test suite
-- ✅ **Extensible** - Base class architecture for custom implementations
+Calls Magika only when the Magic result starts with `text/`. ZIP-based formats
+(HWPX, ODF, etc.) and Compound Document formats are handled by Magic alone.
 
 ## Documentation
 
-- Tutorial: [Getting Started](https://devcomfort-labs.github.io/file_type_detector/getting-started/)
+- Tutorial: [Getting Started](https://devcomfort.github.io/file_type_detector/getting-started/)
 - How-to Guides: choosing an inferencer, bulk processing, and extending the library
 - Reference: API pages for `UnifiedInferencer`, `BaseInferencer`, and each inferencer
 - Explanation: inference strategy trade-offs and architecture notes
 
-For detailed usage examples, error handling, and advanced patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
+For detailed usage examples, error handling, and advanced patterns, see the [documentation site](https://devcomfort.github.io/file_type_detector/).
 
 ## Testing
 
@@ -340,7 +403,7 @@ rye run python -m pytest tests/conformance -q
 ```
 
 The dedicated
-[Backend conformance workflow](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+[Backend conformance workflow](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml)
 collects fresh-process observations on Ubuntu, macOS, and Windows. See the
 [Backend Conformance reference](docs/reference/backend-conformance.md) for
 local collection and aggregation commands.
@@ -423,6 +486,8 @@ the `dev`, `docs`, and `fixtures` optional extras.
 ## Requirements
 
 - Python >= 3.10
+- For `MagicInferencer` / `HybridInferencer`: `libmagic` (see [System Dependencies](#system-dependencies))
+- For `TikaInferencer`: Java 11+ and the pinned JAR (see [System Dependencies](#system-dependencies))
 
 ## License
 
@@ -441,3 +506,4 @@ Contributions are welcome! Please ensure:
 
 - [python-magic](https://github.com/ahupp/python-magic) for libmagic bindings
 - [Google Magika](https://github.com/google/magika) for AI-powered file type detection
+- [Apache Tika](https://tika.apache.org/) for OS-independent content detection
