@@ -5,6 +5,12 @@ reviewed Ground Truth on Linux, macOS, and Windows. It does not publish one
 universal accuracy percentage. Detector output depends on the operating system,
 Python's MIME database, libmagic, and the Magika model.
 
+This page covers the production backends. A separate isolated experiment,
+[Apache Tika OS Conformance](tika-conformance.md), measures whether a pinned
+Tika build returns identical raw MIME and extension labels on the same three
+runners. It does not replace these backends, does not feed this baseline, and
+its pass or fail state says nothing about the accuracy numbers above.
+
 ## Source of Truth
 
 | Artifact | Purpose |
@@ -36,7 +42,7 @@ successful detections.
 ## Supported Matrix
 
 The
-[Backend conformance workflow](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+[Backend conformance workflow](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml)
 runs the complete inventory on these x64 environments:
 
 | Runner label | GitHub runner | Native dependency |
@@ -70,7 +76,7 @@ baseline gate.
 ## Read the Latest Evidence
 
 1. Open the latest successful
-   [Backend conformance workflow run](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml).
+   [Backend conformance workflow run](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml).
 2. Download the `backend-conformance-report` artifact.
 3. Read `backend-conformance.md` for the inventory review, runtime matrix,
    correctness, divergence, baseline status, and evidence rows.

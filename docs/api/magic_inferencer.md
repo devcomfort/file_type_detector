@@ -134,7 +134,7 @@ The `MagicInferencer` requires the `libmagic` system library. See [Getting Start
 
 1. **Text file specificity**: Files detected as `text/plain` return a generic `FileType` — Python, JSON, and CSV files all look the same. Use `MagikaInferencer` or `HybridInferencer` when you need to distinguish between text formats.
 2. **Compound Document formats**: Legacy Office formats (`.doc`, `.ppt`, `.xls`) share the same Compound Document container, so `from_mimetype` may return multiple extension candidates.
-3. **MIME-to-extension mapping is OS-dependent**: The `mimetypes` module reads OS MIME databases, so the same input can return different extensions on different systems.
+3. **MIME-to-extension mapping is OS-dependent**: The `mimetypes` module reads OS MIME databases, so the same input can return different extensions on different systems. On the committed 606-sample set, native Linux, macOS, and Windows runners produced different extension sets for 481 records, against 148 differing libmagic MIME labels. See [Apache Tika OS Conformance](../reference/tika-conformance.md).
 
 ## Common MIME Types
 

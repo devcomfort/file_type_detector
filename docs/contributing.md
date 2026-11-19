@@ -308,6 +308,8 @@ Aim for high test coverage:
 
 The conformance suite evaluates every verified inventory record across all four inference strategies. See [Backend Conformance](reference/backend-conformance.md) for the review, runtime, and baseline methodology.
 
+The Tika experiment is separate from that suite. It runs `scripts/conformance/tika_*.py` and `scripts/conformance/TikaProbe.java` under its own workflow, keeps its own artifacts, and must not be wired into the conformance baseline. See [Apache Tika OS Conformance](reference/tika-conformance.md).
+
 ## Questions?
 
 If you have questions:

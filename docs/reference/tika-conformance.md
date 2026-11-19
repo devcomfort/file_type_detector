@@ -2,7 +2,7 @@
 
 ## 목적과 범위
 
-[Tika OS conformance 워크플로](../../.github/workflows/tika-conformance.yml)는 실제 Linux·macOS·Windows에서 같은 입력에 대한 Tika 출력의 일치성을 검사하는 독립 실험이다. 운영 검출기를 교체하지 않으며, 기존 [Backend Conformance](backend-conformance.md)의 정확성 평가·baseline과 별개다.
+[Tika OS conformance 워크플로](https://github.com/devcomfort/file_type_detector/actions/workflows/tika-conformance.yml)(`.github/workflows/tika-conformance.yml`)는 실제 Linux·macOS·Windows에서 같은 입력에 대한 Tika 출력의 일치성을 검사하는 독립 실험이다. 운영 검출기를 교체하지 않으며, 기존 [Backend Conformance](backend-conformance.md)의 정확성 평가·baseline과 별개다.
 
 - 같은 소스 revision, 입력 목록 해시, 샘플 ID·SHA256, 수집기·Java probe·Tika 식별 정보를 확인한 뒤 비교한다. 누락·중복·오류·무결성 실패는 통과할 수 없다.
 - 각 샘플을 `content`(빈 Metadata), `named`(실제 파일명), `wrong_pdf`(`payload.pdf`), `wrong_txt`(`payload.txt`)로 측정한다. 모드마다 Metadata를 새로 만들며, 각 모드의 OS 간 결과를 비교한다. 서로 다른 모드끼리 같아야 하는 것은 아니다.
@@ -22,7 +22,7 @@
 | `macos-x64` | `macos-15-intel` | Homebrew `libmagic`, `python-magic==0.4.27` |
 | `windows-x64` | `windows-2022` | `python-magic-bin==0.4.14` |
 
-Tika JAR은 [고정 계약](../../scripts/conformance/tika_contract.py)의 Maven Central URL에서 내려받고, Java 실행 전에 아래 SHA512를 확인한다. 기존 JAR의 해시가 다르면 덮어쓰지 않고 실패한다. 배포·검증 안내는 [Apache 공식 다운로드](https://tika.apache.org/download.html)를 참고한다.
+Tika JAR은 고정 계약 `scripts/conformance/tika_contract.py`의 Maven Central URL에서 내려받고, Java 실행 전에 아래 SHA512를 확인한다. 기존 JAR의 해시가 다르면 덮어쓰지 않고 실패한다. 배포·검증 안내는 [Apache 공식 다운로드](https://tika.apache.org/download.html)를 참고한다.
 
 ```text
 3c6e62e864e32af234832ec6d928bbc58692d3ddd60564cd8c80dee7e161653d6efcba373b6cc9468c778010bea92bdee5ca75ab24f01923480bec1b29b573fd
@@ -49,13 +49,36 @@ python -m scripts.conformance.tika_compare \
   --output-dir .artifacts/tika-report
 ```
 
-비교 명령은 같은 revision의 체크아웃에서 실행한다. 세 수집 artifact를 위 경로에 디렉터리째 풀어 JSON과 `.evidence`를 함께 둔다. `--expected-revision`은 생략하면 비교 체크아웃 HEAD를 사용하지만, 재현 시에는 명시한다. `--download` 없이 검증된 기존 JAR을 재사용할 수 있다. 실제 CLI 계약은 [수집기](../../scripts/conformance/tika_collect.py), [비교기](../../scripts/conformance/tika_compare.py), [Java probe](../../scripts/conformance/TikaProbe.java)에 있다.
+비교 명령은 같은 revision의 체크아웃에서 실행한다. 세 수집 artifact를 위 경로에 디렉터리째 풀어 JSON과 `.evidence`를 함께 둔다. `--expected-revision`은 생략하면 비교 체크아웃 HEAD를 사용하지만, 재현 시에는 명시한다. `--download` 없이 검증된 기존 JAR을 재사용할 수 있다. 실제 CLI 계약은 수집기 `scripts/conformance/tika_collect.py`, 비교기 `scripts/conformance/tika_compare.py`, Java probe `scripts/conformance/TikaProbe.java`에 있다.
 
 ## 결과와 실패 증거
 
-결과는 [실제 Actions 실행](https://github.com/devcomfort/file_type_detector/actions/workflows/tika-conformance.yml)의 `tika-conformance-report` artifact에서 확인한다. 해당 실행의 보고서가 확보되기 전에는 클라우드 통과나 OS 일치 성공을 주장하지 않는다.
+결과는 [실제 Actions 실행](https://github.com/devcomfort/file_type_detector/actions/workflows/tika-conformance.yml)의 `tika-conformance-report` artifact에서 확인한다. 보고서를 확보하기 전에는 클라우드 통과나 OS 일치 성공을 주장하지 않는다. 확보한 뒤에도 `passed`가 `false`이면 실패로 읽는다.
 
 - OS별 artifact는 `tika-ubuntu`, `tika-macos`, `tika-windows`다. 각각 `<platform>.json`과 `<platform>.evidence/`를 담는다.
 - evidence에는 원본 `backend_inventory_candidates.json`, `backend_inventory.json`, `manifest.tsv`, `java.stdout`, `java.stderr`, `run.json`이 있다. 관측 오류와 전체 stack trace도 보존한다.
 - `tika-conformance-report`에는 요약 `tika-conformance.md`, 전체 입력·원시 증거·오류·차이를 담은 `tika-conformance.json`, 전체 비교 행 `tika-conformance.csv`가 있다. 실패해도 확보한 증거를 저장하고 CLI는 0이 아닌 종료 코드를 반환한다. 워크플로는 실패 시에도 업로드를 시도하며 보존 기간은 30일이다.
 - 세 실제 OS·x86_64 식별 정보, Java 실행 환경·설정 일치, 전체 입력과 관측의 유효성, 모든 Tika 모드의 MIME·확장자 일치가 충족되어야 `cross_os_verified=true`다. 로컬 결과나 복사한 artifact로 대체하지 않는다.
+
+## 2026-11-19 실행 실측
+
+커밋 `391975271b1ccc4f1c02723b3c386850da0f66b8`의 [run 44340818834](https://github.com/devcomfort/file_type_detector/actions/runs/44340818834)에서 세 네이티브 러너가 모두 관측을 끝냈다. 비교 작업도 보고서를 남겼다.
+
+| 항목 | 관측값 |
+|---|---:|
+| 입력 샘플 / 공식 검토 | 606 / 17 |
+| 러너당 Tika 관측 (4모드 × 606) | 2424 (정상 2420 / 오류 4) |
+| Tika 원시 MIME 차이 | 0 |
+| Tika 내장 확장자 집합 차이 | 0 |
+| 비교불가 (모든 모드, `sample-bplist`) | 1 |
+| libmagic 원시 MIME 차이 | 148 |
+| Python `mimetypes` 확장자 차이 | 481 |
+| 판정 | `passed=false`, `cross_os_verified=false` |
+
+- Tika가 정상 처리한 **605개에서는 세 OS의 원시 MIME과 내장 확장자가 완전히 같았다.** `content`·`named`·`wrong_pdf`·`wrong_txt` 네 모드 모두 같다. 이 값은 OS 간 일치도이며 형식 정확도가 아니다.
+- libmagic 차이는 **Tika 실패 조건이 아니다.** 이 실험의 libmagic은 러너별 배포판이 달라(`541`·`548`·`532`) 버전 차이와 OS 차이가 섞여 있다. 같은 수치로 OS 의존성만 분리할 수 없고, Python `mimetypes` 확장자 차이는 호스트 MIME 데이터베이스 차이다.
+- 전체 실패는 `sample-bplist` 1건 때문이다. 커밋된 파일은 `bplist00` 뒤에 NUL 20바이트만 붙인 28바이트 스텁으로, `plistlib`도 `InvalidFileException`으로 거부한다. 후보 목록의 이 레코드는 이미 `ground_truth_review.status=excluded`(사유: `quarantined pending format validity`)이고 `format_validity.status=needs_review`다. Tika의 `BPListDetector`는 세 OS 모두 같은 `IOException: problem parsing root`를 냈으므로 OS별 차이가 아니라 입력 결함이다.
+- fail-closed 설계를 그대로 두었으므로 이 1건이 게이트를 실패시킨다. 게이트를 통과시키려면 샘플을 실제 유효한 바이너리 plist로 고치거나, 실험 입력에서 검토 대기 레코드를 어떻게 다룰지 계약을 먼저 정해야 한다. 샘플을 조용히 빼거나 오류를 성공으로 바꾸지 않는다.
+- 검토 라벨 호환은 `content` 30/51, `named` 33/51, `wrong_pdf` 27/51, `wrong_txt` 27/51이고 같은 조건의 libmagic `content`는 29/51이다. 별칭 정규화 없는 원시 문자열 비교이며 정확도가 아니다. `named`가 더 높은 것은 파일명 힌트의 영향이다.
+
+<!-- 2026-11-19: 첫 성공적 3-OS 실행 결과를 기록했다. 판정은 실패로 유지하며, 실패 원인이 OS 차이가 아니라 검토 대기 샘플 1건임을 구분해 남긴다. -->

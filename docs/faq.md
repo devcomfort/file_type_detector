@@ -18,6 +18,13 @@ extension alternatives on Linux, macOS, and Windows.
 See [Backend Conformance](reference/backend-conformance.md) to read the latest
 workflow report with its exact runtime versions.
 
+How large the platform effect is depends on the component. A pinned Apache Tika
+build returned identical raw MIME and extension labels for all 605 comparable
+committed samples on native Linux, macOS, and Windows, while the same runners
+disagreed on 148 libmagic MIME labels. That measurement does not mean Tika is
+more accurate; it separates label stability from correctness. See
+[Apache Tika OS Conformance](reference/tika-conformance.md).
+
 ### Can I use multiple inferencers together?
 
 Yes. You can chain inferencers or use them sequentially. See [Examples and Patterns](user-guide.md#custom-inferencer-chain) for a concrete fallback pattern.

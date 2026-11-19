@@ -1,7 +1,7 @@
 # filetype-detector
 
-[![CI](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/ci.yml)
-[![Backend conformance](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml/badge.svg)](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+[![CI](https://github.com/devcomfort/file_type_detector/actions/workflows/ci.yml/badge.svg)](https://github.com/devcomfort/file_type_detector/actions/workflows/ci.yml)
+[![Backend conformance](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml/badge.svg)](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml)
 
 A Python library for detecting file types using multiple inference strategies, including path-based extraction, magic number detection, and AI-powered content analysis.
 
@@ -15,6 +15,11 @@ percentage.
 
 See [Backend Conformance](docs/reference/backend-conformance.md) for the
 methodology, latest workflow artifact, and reproduction commands.
+
+A separate isolated experiment, [Apache Tika OS Conformance](docs/reference/tika-conformance.md),
+pins one Tika build and compares its raw MIME and extension labels across native
+Linux, macOS, and Windows runners. It does not change the backends shipped by
+this package and does not feed the conformance baseline.
 
 ## Features
 
@@ -133,7 +138,7 @@ ft.mime_types             # ('application/pdf',)
 
 All `infer()` methods return a `FileType` instance. See [FileType](#filetype) for details.
 
-For more examples and usage patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
+For more examples and usage patterns, see the [documentation site](https://devcomfort.github.io/file_type_detector/).
 
 ## FileType
 
@@ -304,12 +309,12 @@ ZIP 기반 포맷(HWPX, ODF 등)과 Compound Document 포맷은 Magic으로만 �
 
 ## Documentation
 
-- Tutorial: [Getting Started](https://devcomfort-labs.github.io/file_type_detector/getting-started/)
+- Tutorial: [Getting Started](https://devcomfort.github.io/file_type_detector/getting-started/)
 - How-to Guides: choosing an inferencer, bulk processing, and extending the library
 - Reference: API pages for `AutoInferencer`, `BaseInferencer`, and each inferencer
 - Explanation: inference strategy trade-offs and architecture notes
 
-For detailed usage examples, error handling, and advanced patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
+For detailed usage examples, error handling, and advanced patterns, see the [documentation site](https://devcomfort.github.io/file_type_detector/).
 
 ## Testing
 
@@ -340,7 +345,7 @@ rye run python -m pytest tests/conformance -q
 ```
 
 The dedicated
-[Backend conformance workflow](https://github.com/devcomfort-labs/filetype_detector/actions/workflows/backend-conformance.yml)
+[Backend conformance workflow](https://github.com/devcomfort/file_type_detector/actions/workflows/backend-conformance.yml)
 collects fresh-process observations on Ubuntu, macOS, and Windows. See the
 [Backend Conformance reference](docs/reference/backend-conformance.md) for
 local collection and aggregation commands.

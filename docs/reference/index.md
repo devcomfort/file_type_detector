@@ -76,6 +76,14 @@
 
 	[Open conformance reference](backend-conformance.md)
 
+- __Apache Tika OS Conformance__
+
+	---
+
+	Isolated experiment: identical bytes on native Linux, macOS, and Windows runners.
+
+	[Open Tika experiment reference](tika-conformance.md)
+
 </div>
 
 ## When to Leave Reference
