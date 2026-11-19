@@ -19,7 +19,7 @@ class MagikaInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> FileType`
+### `detect(file_path: Union[Path, str]) -> FileType`
 
 Returns the detected file type as a `FileType` instance.
 
@@ -46,15 +46,15 @@ from pathlib import Path
 inferencer = MagikaInferencer()
 
 # String path
-ft = inferencer.infer('document.pdf')
+ft = inferencer.detect('document.pdf')
 '.pdf' in ft.extensions  # True
 
 # Path object
-ft = inferencer.infer(Path('notes.txt'))
+ft = inferencer.detect(Path('notes.txt'))
 '.txt' in ft.extensions  # True
 ```
 
-### `infer_with_score(file_path: Union[Path, str], prediction_mode: PredictionMode = PredictionMode.MEDIUM_CONFIDENCE) -> Tuple[str, float]`
+### `detect_with_score(file_path: Union[Path, str], prediction_mode: PredictionMode = PredictionMode.MEDIUM_CONFIDENCE) -> Tuple[str, float]`
 
 Core implementation that returns both extension and confidence score.
 
@@ -82,11 +82,11 @@ from magika import PredictionMode
 inferencer = MagikaInferencer()
 
 # Default prediction mode
-extension, score = inferencer.infer_with_score('document.pdf')
+extension, score = inferencer.detect_with_score('document.pdf')
 print(f"{extension}, {score:.2%}")  # Output: '.pdf, 99.00%'
 
 # High confidence mode
-extension, score = inferencer.infer_with_score(
+extension, score = inferencer.detect_with_score(
     'script.py',
     prediction_mode=PredictionMode.HIGH_CONFIDENCE
 )
@@ -106,13 +106,13 @@ from magika import PredictionMode
 inferencer = MagikaInferencer()
 
 # Medium confidence (default)
-ext, score = inferencer.infer_with_score(
+ext, score = inferencer.detect_with_score(
     "file.py",
     prediction_mode=PredictionMode.MEDIUM_CONFIDENCE
 )
 
 # High confidence
-ext, score = inferencer.infer_with_score(
+ext, score = inferencer.detect_with_score(
     "file.py",
     prediction_mode=PredictionMode.HIGH_CONFIDENCE
 )
@@ -126,7 +126,7 @@ ext, score = inferencer.infer_with_score(
 from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
-ft = inferencer.infer("script.py")
+ft = inferencer.detect("script.py")
 '.py' in ft.extensions  # True
 ft.mime_types            # ('text/x-python',) or similar
 ```
@@ -135,7 +135,7 @@ ft.mime_types            # ('text/x-python',) or similar
 
 ```python
 inferencer = MagikaInferencer()
-extension, confidence = inferencer.infer_with_score("data.json")
+extension, confidence = inferencer.detect_with_score("data.json")
 print(f"Type: {extension}, Confidence: {confidence:.2%}")
 # Output: Type: .json, Confidence: 98.00%
 ```
@@ -145,14 +145,14 @@ print(f"Type: {extension}, Confidence: {confidence:.2%}")
 ```python
 inferencer = MagikaInferencer()
 
-ft = inferencer.infer("script.py")
+ft = inferencer.detect("script.py")
 '.py' in ft.extensions   # True
 
-ft = inferencer.infer("code.js")
+ft = inferencer.detect("code.js")
 '.js' in ft.extensions   # True
 
 # JSON data in a .txt file
-ft = inferencer.infer("data.txt")
+ft = inferencer.detect("data.txt")
 '.json' in ft.extensions  # Possibly True
 ```
 
@@ -161,7 +161,7 @@ ft = inferencer.infer("data.txt")
 ```python
 inferencer = MagikaInferencer()
 
-extension, score = inferencer.infer_with_score("file.py")
+extension, score = inferencer.detect_with_score("file.py")
 
 if score >= 0.95:
     print(f"High confidence: {extension}")
@@ -179,7 +179,7 @@ from filetype_detector import MagikaInferencer
 inferencer = MagikaInferencer()
 
 try:
-    extension = inferencer.infer("nonexistent.pdf")
+    extension = inferencer.detect("nonexistent.pdf")
 except FileNotFoundError:
     print("File not found")
 except ValueError:
@@ -227,7 +227,7 @@ The Magika model is loaded when the inferencer is instantiated:
 inferencer = MagikaInferencer()
 
 # Subsequent calls are faster (~5-10ms)
-extension = inferencer.infer("file.py")
+extension = inferencer.detect("file.py")
 ```
 
 **Best Practice**: Create one instance and reuse it for multiple files.
@@ -254,7 +254,7 @@ Compare actual results for each supported runtime in the [backend conformance re
 
 ## Known Limitations
 
-1. **HWP not supported**: HWP (Hangul Word Processor) is not in Magika's training data. `infer()` returns a `FileType` with empty `extensions` and `mime_types`.
+1. **HWP not supported**: HWP (Hangul Word Processor) is not in Magika's training data. `detect()` returns a `FileType` with empty `extensions` and `mime_types`.
 2. **ZIP-based formats misclassified**: HWPX, ODF, ePub, and other ZIP-wrapped formats may be misidentified (e.g., HWPX is sometimes classified as `.epub`) because Magika does not inspect the internal XML structure.
 3. **Binary formats vs. text formats**: The advantage over `MagicInferencer` is strongest for text files. For mainstream binary formats (PDF, PNG, ZIP), the two inferencers typically agree.
 4. **Model size**: Requires ~50-100MB memory

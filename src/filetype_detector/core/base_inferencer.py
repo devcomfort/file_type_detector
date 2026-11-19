@@ -10,7 +10,7 @@ class BaseInferencer(ABC):
     """Abstract base class for file type inferencers.
 
     All concrete inference strategies must inherit from this class and
-    implement the :meth:`infer` method. Provides a shared :meth:`_validate_path`
+    implement the :meth:`detect` method. Provides a shared :meth:`_validate_path`
     utility for file existence and type checking.
 
     Notes
@@ -20,18 +20,18 @@ class BaseInferencer(ABC):
     """
 
     @abstractmethod
-    def infer(self, file_path: Union[Path, str]) -> FileType:
-        """Infer file type from a file path.
+    def detect(self, file_path: Path | str) -> FileType:
+        """Detect file type from a file path.
 
         Parameters
         ----------
         file_path : Union[Path, str]
-            The path to the file whose type will be inferred.
+            The path to the file whose type will be detected.
 
         Returns
         -------
         FileType
-            A FileType instance containing the inferred extension and MIME type.
+            A FileType instance containing the detected extension and MIME type.
 
         Raises
         ------

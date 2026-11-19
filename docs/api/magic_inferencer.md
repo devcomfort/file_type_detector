@@ -19,7 +19,7 @@ class MagicInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> FileType`
+### `detect(file_path: Union[Path, str]) -> FileType`
 
 Infer file extension using python-magic and mimetypes.
 
@@ -46,11 +46,11 @@ from pathlib import Path
 inferencer = MagicInferencer()
 
 # String path
-ft = inferencer.infer('document.pdf')
+ft = inferencer.detect('document.pdf')
 '.pdf' in ft.extensions  # True
 
 # Path object
-ft = inferencer.infer(Path('notes.txt'))
+ft = inferencer.detect(Path('notes.txt'))
 '.txt' in ft.extensions  # True
 ```
 
@@ -62,7 +62,7 @@ ft = inferencer.infer(Path('notes.txt'))
 from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-ft = inferencer.infer("document.pdf")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions  # True
 ft.mime_types             # ('application/pdf',)
 ```
@@ -73,10 +73,10 @@ ft.mime_types             # ('application/pdf',)
 inferencer = MagicInferencer()
 
 # File named .txt but contains JSON
-ft = inferencer.infer("data.txt")  # extensions may include '.json'
+ft = inferencer.detect("data.txt")  # extensions may include '.json'
 
 # File without extension
-ft = inferencer.infer("file_without_ext")
+ft = inferencer.detect("file_without_ext")
 ft.extensions  # e.g. ('.pdf',) based on actual content
 ```
 
@@ -88,7 +88,7 @@ from filetype_detector import MagicInferencer
 inferencer = MagicInferencer()
 
 try:
-    extension = inferencer.infer("nonexistent.pdf")
+    extension = inferencer.detect("nonexistent.pdf")
 except FileNotFoundError:
     print("File not found")
 except ValueError:

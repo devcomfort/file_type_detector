@@ -1,9 +1,10 @@
 """Provides libmagic-based inferencer implementation."""
 
-from ..core import BaseInferencer, FileType
-from typing import Union
 from pathlib import Path
+
 import magic
+
+from ..core import BaseInferencer, FileType
 
 
 class MagicInferencer(BaseInferencer):
@@ -26,12 +27,12 @@ class MagicInferencer(BaseInferencer):
     Examples
     --------
     >>> inferencer = MagicInferencer()
-    >>> ft = inferencer.infer('document.pdf')
+    >>> ft = inferencer.detect('document.pdf')
     >>> '.pdf' in ft.extensions
     True
     """
 
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Path | str) -> FileType:
         """Infer FileType from file content.
 
         Parameters
@@ -56,7 +57,7 @@ class MagicInferencer(BaseInferencer):
         Examples
         --------
         >>> inferencer = MagicInferencer()
-        >>> ft = inferencer.infer('document.pdf')
+        >>> ft = inferencer.detect('document.pdf')
         >>> '.pdf' in ft.extensions
         True
         """

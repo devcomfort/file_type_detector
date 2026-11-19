@@ -71,11 +71,12 @@ nav:
     - Overview: reference/index.md
     - Backend Conformance: reference/backend-conformance.md
     - BaseInferencer: api/base_inferencer.md
-    - AutoInferencer: api/auto_inferencer.md
+    - UnifiedInferencer: api/unified_inferencer.md
     - LexicalInferencer: api/lexical_inferencer.md
     - MagicInferencer: api/magic_inferencer.md
     - MagikaInferencer: api/magika_inferencer.md
     - HybridInferencer: api/hybrid_inferencer.md
+    - TikaInferencer: api/tika_inferencer.md
     - FAQ and Troubleshooting: faq.md
   - Explanation:
     - Overview: explanation/index.md

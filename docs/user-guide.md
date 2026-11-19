@@ -28,9 +28,9 @@ The fastest inferencer, extracts file extensions directly from file paths withou
 from filetype_detector import LexicalInferencer
 
 inferencer = LexicalInferencer()
-file_type = inferencer.infer("document.pdf")
+file_type = inferencer.detect("document.pdf")
 file_type.extensions  # ('.pdf',)
-inferencer.infer("file_without_ext")  # Raises ValueError
+inferencer.detect("file_without_ext")  # Raises ValueError
 ```
 
 ### Limitations
@@ -61,9 +61,9 @@ Requires `libmagic` system library. See [Getting Started](getting-started.md#sys
 from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-pdf_type = inferencer.infer("document.pdf")
+pdf_type = inferencer.detect("document.pdf")
 '.pdf' in pdf_type.extensions  # True
-json_type = inferencer.infer("data.txt")
+json_type = inferencer.detect("data.txt")
 '.json' in json_type.extensions  # True if the content is JSON
 ```
 
@@ -86,11 +86,11 @@ Uses Google's Magika AI model for advanced file type detection, especially effec
 from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
-file_type = inferencer.infer("script.py")
+file_type = inferencer.detect("script.py")
 '.py' in file_type.extensions  # True
 
 # With confidence score
-extension, score = inferencer.infer_with_score("data.json")
+extension, score = inferencer.detect_with_score("data.json")
 print(f"Extension: {extension}, Confidence: {score:.2%}")
 ```
 
@@ -125,19 +125,19 @@ from filetype_detector import HybridInferencer
 inferencer = HybridInferencer()
 
 # Text file - uses Magic then Magika
-text_type = inferencer.infer("script.py")
+text_type = inferencer.detect("script.py")
 '.py' in text_type.extensions  # True
 
 # Binary file - uses Magic only
-binary_type = inferencer.infer("document.pdf")
+binary_type = inferencer.detect("document.pdf")
 '.pdf' in binary_type.extensions  # True
 ```
 
 See [HybridInferencer API](api/hybrid_inferencer.md) for complete documentation.
 
-## Using AutoInferencer
+## Using UnifiedInferencer
 
-For type-safe backend selection, use `AutoInferencer`. See [AutoInferencer](api/auto_inferencer.md) for detailed usage patterns.
+For type-safe backend selection, use `UnifiedInferencer`. See [UnifiedInferencer](api/unified_inferencer.md) for detailed usage patterns.
 
 ## Handling Different Input Types
 
@@ -149,10 +149,10 @@ from pathlib import Path
 inferencer = MagicInferencer()
 
 # String path
-file_type_from_string = inferencer.infer("document.pdf")
+file_type_from_string = inferencer.detect("document.pdf")
 
 # Path object
-file_type_from_path = inferencer.infer(Path("document.pdf"))
+file_type_from_path = inferencer.detect(Path("document.pdf"))
 
 # Both return the same result
 assert file_type_from_string == file_type_from_path
@@ -163,7 +163,7 @@ assert file_type_from_string == file_type_from_path
 1. **Use HybridInferencer by default** - Best balance of performance and accuracy
 2. **Handle exceptions** - Always wrap inference calls in try-except blocks
 3. **Handle missing suffixes** - LexicalInferencer raises `ValueError` when no extension is present
-4. **Use confidence scores** - For MagikaInferencer, use `infer_with_score()` when accuracy matters
+4. **Use confidence scores** - For MagikaInferencer, use `detect_with_score()` when accuracy matters
 5. **Cache inferencer instances** - Reuse inferencer instances when processing multiple files
 
 ## Performance
@@ -188,14 +188,14 @@ assert file_type_from_string == file_type_from_path
 ```python
 for file_path in files:
     inferencer = MagicInferencer()  # Creates new instance each time
-    file_type = inferencer.infer(file_path)
+    file_type = inferencer.detect(file_path)
 ```
 
 **Good:**
 ```python
 inferencer = MagicInferencer()  # Create once
 for file_path in files:
-    file_type = inferencer.infer(file_path)
+    file_type = inferencer.detect(file_path)
 ```
 
 #### 2. Choose the Right Inferencer
@@ -230,7 +230,7 @@ from pathlib import Path
 def detect_type(file_path: Path) -> tuple[str, FileType | str]:
     inferencer = HybridInferencer()
     try:
-        file_type = inferencer.infer(file_path)
+        file_type = inferencer.detect(file_path)
         return (str(file_path), file_type)
     except Exception as e:
         return (str(file_path), f"Error: {e}")
@@ -257,8 +257,8 @@ from filetype_detector import MagicInferencer
 
 class CachedMagicInferencer(MagicInferencer):
     @lru_cache(maxsize=1000)
-    def infer(self, file_path):
-        return super().infer(str(file_path) if not isinstance(file_path, str) else file_path)
+    def detect(self, file_path):
+        return super().detect(str(file_path) if not isinstance(file_path, str) else file_path)
 
 inferencer = CachedMagicInferencer()
 # Subsequent calls with same file path use cache
@@ -282,7 +282,7 @@ def batch_detect(file_paths: list[Path]) -> dict[str, FileType | str]:
     
     for file_path in file_paths:
         try:
-            file_type = inferencer.infer(file_path)
+            file_type = inferencer.detect(file_path)
             results[str(file_path)] = file_type
         except FileNotFoundError:
             results[str(file_path)] = "ERROR: File not found"
@@ -310,7 +310,7 @@ def validate_file_type(file_path: Path, expected_extension: str) -> bool:
     """Validate that file matches expected type."""
     inferencer = MagicInferencer()
     try:
-        detected = inferencer.infer(file_path)
+        detected = inferencer.detect(file_path)
         return expected_extension in detected.extensions
     except Exception:
         return False
@@ -333,7 +333,7 @@ def filter_by_confidence(
 ) -> tuple[str, float] | None:
     """Get file type only if confidence meets threshold."""
     inferencer = MagikaInferencer()
-    extension, score = inferencer.infer_with_score(
+    extension, score = inferencer.detect_with_score(
         file_path, 
         prediction_mode=PredictionMode.HIGH_CONFIDENCE
     )
@@ -364,7 +364,7 @@ def scan_directory(directory: Path) -> dict[str, int]:
     for file_path in directory.rglob("*"):
         if file_path.is_file():
             try:
-                file_type = inferencer.infer(file_path)
+                file_type = inferencer.detect(file_path)
                 extension = file_type.extensions[0] if file_type.extensions else "unknown"
                 type_counts[extension] += 1
             except Exception:
@@ -388,9 +388,9 @@ def infer_with_fallback(file_path: Path) -> FileType:
     """Use content detection when the path does not have an extension."""
     lexical = LexicalInferencer()
     try:
-        return lexical.infer(file_path)
+        return lexical.detect(file_path)
     except ValueError:
-        return MagicInferencer().infer(file_path)
+        return MagicInferencer().detect(file_path)
 
 # Usage
 result = infer_with_fallback(Path("file_without_ext"))
@@ -400,7 +400,7 @@ print(f"Detected: {result}")
 ### Type-Safe File Router
 
 ```python
-from filetype_detector import AutoInferencer, BackendType
+from filetype_detector import UnifiedInferencer, BackendType
 from pathlib import Path
 from typing import Callable
 
@@ -408,7 +408,7 @@ class FileRouter:
     """Route files based on type."""
     
     def __init__(self, backend: BackendType = "magic"):
-        self.inferencer = AutoInferencer(backend=backend)
+        self.inferencer = UnifiedInferencer(backend=backend)
         self.handlers: dict[str, Callable] = {}
     
     def register(self, extension: str, handler: Callable):
@@ -417,7 +417,7 @@ class FileRouter:
     
     def route(self, file_path: Path):
         """Route file to appropriate handler."""
-        file_type = self.inferencer.infer(file_path)
+        file_type = self.inferencer.detect(file_path)
         for extension in file_type.extensions:
             handler = self.handlers.get(extension)
             if handler:
@@ -450,7 +450,7 @@ def create_file_type_dataframe(directory: Path) -> pd.DataFrame:
     for file_path in directory.rglob("*"):
         if file_path.is_file():
             try:
-                file_type = inferencer.infer(file_path)
+                file_type = inferencer.detect(file_path)
                 data.append({
                     "file": file_path.name,
                     "path": str(file_path),
@@ -481,7 +481,7 @@ inferencer = HybridInferencer()
 async def detect_file_type(file_path: str):
     """API endpoint for file type detection."""
     try:
-        file_type = inferencer.infer(file_path)
+        file_type = inferencer.detect(file_path)
         return {
             "file": file_path,
             "extensions": file_type.extensions,

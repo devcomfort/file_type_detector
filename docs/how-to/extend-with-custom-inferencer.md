@@ -4,7 +4,7 @@ This guide shows how to add a new inferencer to the library.
 
 ## 1. Subclass `BaseInferencer`
 
-Every inferencer implements the same `infer` method.
+Every inferencer implements the same `detect` method.
 
 ```python
 from pathlib import Path
@@ -14,7 +14,7 @@ from filetype_detector import BaseInferencer, FileType
 
 
 class MyInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         path_obj = Path(file_path)
 
         if not path_obj.exists():
@@ -31,13 +31,13 @@ You do not need to register a backend if direct construction is enough.
 
 ```python
 inferencer = MyInferencer()
-ft = inferencer.infer("sample.dat")
+ft = inferencer.detect("sample.dat")
 '.custom' in ft.extensions  # True
 ```
 
-## 3. Register It in `AutoInferencer`
+## 3. Register It in `UnifiedInferencer`
 
-If you want the new inferencer available through `AutoInferencer`, update the backend type and backend map in `src/filetype_detector/auto_inferencer.py`.
+If you want the new inferencer available through `UnifiedInferencer`, update the backend type and backend map in `src/filetype_detector/unified_inferencer.py`.
 
 ```python
 BackendType = Literal["lexical", "magic", "magika", "hybrid", "custom"]
@@ -58,7 +58,7 @@ Create a dedicated test module that checks:
 - normal inference
 - missing-file behavior
 - directory-path behavior
-- backend registration, if you expose it through `AutoInferencer`
+- backend registration, if you expose it through `UnifiedInferencer`
 
 ## 5. Update Documentation
 

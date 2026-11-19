@@ -106,15 +106,15 @@ If this command works, `libmagic` is properly installed and `MagicInferencer` wi
 
 ### Recommended: HybridInferencer
 
-For most use cases, start with `AutoInferencer(backend="hybrid")` - it provides a single entry point with the same balanced behavior as `HybridInferencer`:
+For most use cases, start with `UnifiedInferencer(backend="hybrid")` - it provides a single entry point with the same balanced behavior as `HybridInferencer`:
 
 Content-based backends require the supplied path to reference an existing file.
 
 ```python
-from filetype_detector import AutoInferencer
+from filetype_detector import UnifiedInferencer
 
-inferencer = AutoInferencer(backend="hybrid")
-file_type = inferencer.infer("document.pdf")
+inferencer = UnifiedInferencer(backend="hybrid")
+file_type = inferencer.detect("document.pdf")
 '.pdf' in file_type.extensions  # True
 ```
 
@@ -126,23 +126,23 @@ You can also use inferencer classes directly:
 from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-file_type = inferencer.infer("document.pdf")
+file_type = inferencer.detect("document.pdf")
 print(file_type.extensions)  # Output: ('.pdf',)
 ```
 
-### Using AutoInferencer
+### Using UnifiedInferencer
 
-For type-safe backend selection, use `AutoInferencer`:
+For type-safe backend selection, use `UnifiedInferencer`:
 
 ```python
-from filetype_detector import AutoInferencer
+from filetype_detector import UnifiedInferencer
 
-magic = AutoInferencer(backend="magic")
-file_type = magic.infer("file_without_ext")
+magic = UnifiedInferencer(backend="magic")
+file_type = magic.detect("file_without_ext")
 print(file_type.extensions)
 ```
 
-See [Examples and Patterns](user-guide.md) for longer examples and [AutoInferencer](api/auto_inferencer.md) for backend selection details.
+See [Examples and Patterns](user-guide.md) for longer examples and [UnifiedInferencer](api/unified_inferencer.md) for backend selection details.
 
 ## Next Steps
 

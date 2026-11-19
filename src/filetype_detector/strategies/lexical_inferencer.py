@@ -1,8 +1,8 @@
 """Provides inferencer implementation that infers extensions from path strings only."""
 
-from ..core import BaseInferencer, FileType
-from typing import Union
 from pathlib import Path
+
+from ..core import BaseInferencer, FileType
 
 
 class LexicalInferencer(BaseInferencer):
@@ -20,12 +20,12 @@ class LexicalInferencer(BaseInferencer):
     Examples
     --------
     >>> inferencer = LexicalInferencer()
-    >>> ft = inferencer.infer("document.pdf")
+    >>> ft = inferencer.detect("document.pdf")
     >>> '.pdf' in ft.extensions
     True
     """
 
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Path | str) -> FileType:
         """Extract extension from file path and return FileType.
 
         Parameters
@@ -46,7 +46,7 @@ class LexicalInferencer(BaseInferencer):
         Examples
         --------
         >>> inferencer = LexicalInferencer()
-        >>> ft = inferencer.infer('document.pdf')
+        >>> ft = inferencer.detect('document.pdf')
         >>> ft.extensions
         ('.pdf',)
         """

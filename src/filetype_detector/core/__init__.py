@@ -9,7 +9,7 @@ library:
   all inference strategies must implement.
 """
 
-from .file_type import FileType
 from .base_inferencer import BaseInferencer
+from .file_type import FileType
 
-__all__ = ["FileType", "BaseInferencer"]
+__all__ = ["BaseInferencer", "FileType"]

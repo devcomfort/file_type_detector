@@ -6,13 +6,13 @@
 
 <div class="grid cards compact" markdown="1">
 
-- __AutoInferencer__
+- __UnifiedInferencer__
 
 	---
 
 	Unified entry point for backend selection.
 
-	[Open API page](../api/auto_inferencer.md)
+	[Open API page](../api/unified_inferencer.md)
 
 - __BaseInferencer__
 
@@ -54,6 +54,13 @@
 
 	[Open API page](../api/hybrid_inferencer.md)
 
+- __TikaInferencer__
+
+	---
+
+	Apache Tika in a long-lived JVM; OS-independent labels.
+
+	[Open API page](../api/tika_inferencer.md)
 </div>
 
 ## Support Pages

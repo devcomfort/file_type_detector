@@ -25,7 +25,7 @@ class HybridInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> FileType`
+### `detect(file_path: Union[Path, str]) -> FileType`
 
 Infer the file format using a hybrid two-stage approach.
 
@@ -52,15 +52,15 @@ from pathlib import Path
 inferencer = HybridInferencer()
 
 # Text file: Magic detects text/plain, Magika refines to .py
-ft = inferencer.infer('script.py')
+ft = inferencer.detect('script.py')
 '.py' in ft.extensions   # True
 
 # Binary file: Magic result only
-ft = inferencer.infer('document.pdf')
+ft = inferencer.detect('document.pdf')
 '.pdf' in ft.extensions  # True
 
 # JSON data in a .txt file
-ft = inferencer.infer('data.txt')  # Magika may return .json
+ft = inferencer.detect('data.txt')  # Magika may return .json
 ```
 
 ## Inference Flow
@@ -94,11 +94,11 @@ from filetype_detector import HybridInferencer
 inferencer = HybridInferencer()
 
 # Text file: automatically uses Magika
-ft = inferencer.infer("script.py")
+ft = inferencer.detect("script.py")
 '.py' in ft.extensions   # True
 
 # Binary file: uses Magic only
-ft = inferencer.infer("document.pdf")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions  # True
 ```
 
@@ -115,7 +115,7 @@ files = [
 ]
 
 for file_path in files:
-    ft = inferencer.infer(file_path)
+    ft = inferencer.detect(file_path)
     print(f"{file_path}: {ft.extensions}")
 ```
 
@@ -127,7 +127,7 @@ from filetype_detector import HybridInferencer
 inferencer = HybridInferencer()
 
 try:
-    extension = inferencer.infer("nonexistent.pdf")
+    extension = inferencer.detect("nonexistent.pdf")
 except FileNotFoundError:
     print("File not found")
 except ValueError:

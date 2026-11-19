@@ -8,7 +8,7 @@
 
 	---
 
-	Decide between lexical, magic, magika, and hybrid based on workload.
+	Decide between lexical, magic, magika, tika, and hybrid based on workload.
 
 	[Open guide](choose-an-inferencer.md)
 
@@ -24,7 +24,7 @@
 
 	---
 
-	Add a new inferencer implementation and expose it through AutoInferencer if needed.
+	Add a new inferencer implementation and expose it through UnifiedInferencer if needed.
 
 	[Open guide](extend-with-custom-inferencer.md)
 

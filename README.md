@@ -18,7 +18,7 @@ methodology, latest workflow artifact, and reproduction commands.
 
 ## Features
 
-- **Multiple Inference Methods**: Choose from lexical, magic-based, AI-powered, or hybrid inference strategies
+- **Multiple Inference Methods**: Choose from lexical, magic-based, AI-powered, Apache Tika, or hybrid inference strategies
 - **Type-Safe API**: Type hints and type-safe inference method selection
 - **Flexible Input**: Supports both `Path` objects and string paths
 - **Performance Optimized**: Hybrid inference combines Magic and Magika when it improves the result
@@ -118,26 +118,26 @@ If the command works, `libmagic` is properly installed.
 
 ## Quick Start
 
-**Recommended**: Use `AutoInferencer` with `backend="hybrid"` for the best balance of performance and accuracy:
+**Recommended**: Use `UnifiedInferencer` with `backend="hybrid"` for the best balance of performance and accuracy:
 
 Content-based backends require the supplied path to reference an existing file.
 
 ```python
-from filetype_detector import AutoInferencer
+from filetype_detector import UnifiedInferencer
 
-inferencer = AutoInferencer(backend="hybrid")
-ft = inferencer.infer("document.pdf")
+inferencer = UnifiedInferencer(backend="hybrid")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions   # True
 ft.mime_types             # ('application/pdf',)
 ```
 
-All `infer()` methods return a `FileType` instance. See [FileType](#filetype) for details.
+All `detect()` methods return a `FileType` instance. See [FileType](#filetype) for details.
 
 For more examples and usage patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
 
 ## FileType
 
-`infer()`가 반환하는 `FileType`은 frozen dataclass로, 확장자와 MIME 타입을 함께 보관한다.
+`detect()`가 반환하는 `FileType`은 frozen dataclass로, 확장자와 MIME 타입을 함께 보관한다.
 
 ```python
 from filetype_detector import FileType
@@ -173,7 +173,7 @@ Choose the right inferencer based on your needs:
 
 ### Recommendation
 
-**For most use cases**: Use `AutoInferencer(backend="hybrid")` - it delegates to `HybridInferencer`, which automatically uses Magic for binary files and Magika for text files.
+**For most use cases**: Use `UnifiedInferencer(backend="hybrid")` - it delegates to `HybridInferencer`, which automatically uses Magic for binary files and Magika for text files.
 
 See [Choosing an Inferencer](#choosing-an-inferencer) for a full decision guide and known limitations per inferencer.
 
@@ -187,10 +187,10 @@ Fastest method - extracts file extensions directly from paths without reading fi
 from filetype_detector import LexicalInferencer
 
 inferencer = LexicalInferencer()
-ft = inferencer.infer("document.pdf")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions   # True
 
-inferencer.infer("file_without_ext")  # Raises ValueError
+inferencer.detect("file_without_ext")  # Raises ValueError
 ```
 
 ### MagicInferencer
@@ -201,7 +201,7 @@ Uses `python-magic` (libmagic) to detect file types based on magic numbers and f
 from filetype_detector import MagicInferencer
 
 inferencer = MagicInferencer()
-ft = inferencer.infer("file.dat")   # reads file content, ignores extension
+ft = inferencer.detect("file.dat")   # reads file content, ignores extension
 ft.extensions                        # e.g. ('.pdf',) even if the name says .dat
 ft.mime_types                        # e.g. ('application/pdf',)
 ```
@@ -216,11 +216,11 @@ AI-powered detection with confidence scores. Especially effective for text files
 from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
-ft = inferencer.infer("script.py")
+ft = inferencer.detect("script.py")
 '.py' in ft.extensions   # True
 
-# infer_with_score returns (str, float), not FileType
-extension, score = inferencer.infer_with_score("data.json")  # ('.json', 0.98)
+# detect_with_score returns (str, float), not FileType
+extension, score = inferencer.detect_with_score("data.json")  # ('.json', 0.98)
 ```
 
 ### HybridInferencer
@@ -233,15 +233,15 @@ from filetype_detector import HybridInferencer
 inferencer = HybridInferencer()
 
 # Text file: Magic detects text/plain, then Magika refines to .py
-ft = inferencer.infer("script.py")
+ft = inferencer.detect("script.py")
 '.py' in ft.extensions   # True
 
 # Binary file: Magic result is used directly, Magika is skipped
-ft = inferencer.infer("document.pdf")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions  # True
 ```
 
-If you want the same behavior through the unified interface, use `AutoInferencer(backend="hybrid")`.
+If you want the same behavior through the unified interface, use `UnifiedInferencer(backend="hybrid")`.
 
 **System Requirements**: Requires `libmagic` system library. See [Installation](#installation) section.
 
@@ -266,9 +266,9 @@ If you want the same behavior through the unified interface, use `AutoInferencer
 | CI 파이프라인 등 이미 정제된 파일 | `LexicalInferencer` |
 | 확장자 없는 파일, 잘못된 확장자 검증 | `MagicInferencer` |
 | `.py` / `.json` / `.csv` 등 텍스트 세분화 | `MagikaInferencer` |
-| 신뢰도 점수(`infer_with_score`)가 필요할 때 | `MagikaInferencer` |
+| 신뢰도 점수(`detect_with_score`)가 필요할 때 | `MagikaInferencer` |
 | 업로드 파일 등 무엇이 올지 모를 때 | `HybridInferencer` |
-| 단일 진입점으로 backend만 교체하고 싶을 때 | `AutoInferencer` |
+| 단일 진입점으로 backend만 교체하고 싶을 때 | `UnifiedInferencer` |
 
 ## Known Limitations
 
@@ -306,7 +306,7 @@ ZIP 기반 포맷(HWPX, ODF 등)과 Compound Document 포맷은 Magic으로만 �
 
 - Tutorial: [Getting Started](https://devcomfort-labs.github.io/file_type_detector/getting-started/)
 - How-to Guides: choosing an inferencer, bulk processing, and extending the library
-- Reference: API pages for `AutoInferencer`, `BaseInferencer`, and each inferencer
+- Reference: API pages for `UnifiedInferencer`, `BaseInferencer`, and each inferencer
 - Explanation: inference strategy trade-offs and architecture notes
 
 For detailed usage examples, error handling, and advanced patterns, see the [documentation site](https://devcomfort-labs.github.io/file_type_detector/).
@@ -350,7 +350,7 @@ local collection and aggregation commands.
 Delegation correctness:
 
 ```bash
-rye run python -m pytest tests/test_auto_inferencer.py -v
+rye run python -m pytest tests/test_unified_inferencer.py -v
 ```
 
 Inferencer control flow, errors, and fallbacks:
@@ -388,7 +388,7 @@ from filetype_detector import FileType
 
 class BaseInferencer(ABC):
     @abstractmethod
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         """Infer file type from path. Returns a FileType instance."""
         raise NotImplementedError
 ```
@@ -403,7 +403,7 @@ from typing import Union
 from pathlib import Path
 
 class CustomInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         # Your custom logic here
         return FileType.from_extension(".custom")
 ```

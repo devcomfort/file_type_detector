@@ -10,13 +10,13 @@ This is especially important for `MagikaInferencer` and `HybridInferencer`, beca
 ```python
 from pathlib import Path
 
-from filetype_detector import AutoInferencer, FileType
+from filetype_detector import UnifiedInferencer, FileType
 
-inferencer = AutoInferencer(backend="hybrid")
+inferencer = UnifiedInferencer(backend="hybrid")
 
 for file_path in Path("./documents").rglob("*"):
     if file_path.is_file():
-        ft = inferencer.infer(file_path)
+        ft = inferencer.detect(file_path)
         print(file_path, ft.extensions)
 ```
 
@@ -27,16 +27,16 @@ Batch jobs should usually continue when one file fails.
 ```python
 from pathlib import Path
 
-from filetype_detector import AutoInferencer, FileType
+from filetype_detector import UnifiedInferencer, FileType
 
 
 def detect_many(file_paths: list[Path]) -> dict[str, FileType]:
-    inferencer = AutoInferencer(backend="hybrid")
+    inferencer = UnifiedInferencer(backend="hybrid")
     results: dict[str, FileType] = {}
 
     for file_path in file_paths:
         try:
-            results[str(file_path)] = inferencer.infer(file_path)
+            results[str(file_path)] = inferencer.detect(file_path)
         except Exception as exc:
             results[str(file_path)] = FileType(extensions=(f"ERROR: {exc}",), mime_types=())
 
@@ -51,11 +51,11 @@ Use `Path.rglob()` when you want recursive detection.
 from collections import Counter
 from pathlib import Path
 
-from filetype_detector import AutoInferencer
+from filetype_detector import UnifiedInferencer
 
 
 def scan_directory(directory: Path) -> dict[str, int]:
-    inferencer = AutoInferencer(backend="hybrid")
+    inferencer = UnifiedInferencer(backend="hybrid")
     counts: Counter[str] = Counter()
 
     for file_path in directory.rglob("*"):
@@ -63,7 +63,7 @@ def scan_directory(directory: Path) -> dict[str, int]:
             continue
 
         try:
-            ft = inferencer.infer(file_path)
+            ft = inferencer.detect(file_path)
             ext = ft.extensions[0] if ft.extensions else "unknown"
             counts[ext] += 1
         except Exception:
@@ -81,13 +81,13 @@ Start simple first, then benchmark before you add concurrency.
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from filetype_detector import AutoInferencer, FileType
+from filetype_detector import UnifiedInferencer, FileType
 
 
 def detect_type(file_path: Path) -> tuple[str, FileType | str]:
-    inferencer = AutoInferencer(backend="hybrid")
+    inferencer = UnifiedInferencer(backend="hybrid")
     try:
-        return (str(file_path), inferencer.infer(file_path))
+        return (str(file_path), inferencer.detect(file_path))
     except Exception as exc:
         return (str(file_path), f"ERROR: {exc}")
 

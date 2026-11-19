@@ -7,7 +7,7 @@
 
 <div class="hero__meta">
 	<span class="hero__pill">Hybrid by default</span>
-	<span class="hero__pill">Single `AutoInferencer` entry point</span>
+	<span class="hero__pill">Single `UnifiedInferencer` entry point</span>
 	<span class="hero__pill">Reference + guides + explanations</span>
 </div>
 
@@ -42,7 +42,7 @@
 
 	---
 
-	Look up exact API behavior for AutoInferencer, BaseInferencer, and each concrete inferencer.
+	Look up exact API behavior for UnifiedInferencer, BaseInferencer, and each concrete inferencer.
 
 	[Open reference overview](reference/index.md)
 
@@ -50,7 +50,7 @@
 
 	---
 
-	Understand the trade-offs behind lexical, magic, magika, and hybrid detection.
+	Understand the trade-offs behind lexical, magic, magika, tika, and hybrid detection.
 
 	[Open explanation overview](explanation/index.md)
 
@@ -61,10 +61,10 @@
 Content-based backends require the supplied path to reference an existing file.
 
 ```python
-from filetype_detector import AutoInferencer
+from filetype_detector import UnifiedInferencer
 
-inferencer = AutoInferencer(backend="hybrid")
-file_type = inferencer.infer("document.pdf")
+inferencer = UnifiedInferencer(backend="hybrid")
+file_type = inferencer.detect("document.pdf")
 '.pdf' in file_type.extensions  # True
 ```
 
@@ -94,7 +94,7 @@ file_type = inferencer.infer("document.pdf")
 
 	---
 
-	Start with `AutoInferencer(backend="hybrid")`.
+	Start with `UnifiedInferencer(backend="hybrid")`.
 
 </div>
 

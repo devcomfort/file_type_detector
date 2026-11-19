@@ -15,7 +15,7 @@ All inferencers inherit from `BaseInferencer`, which defines the common interfac
 ```python
 class BaseInferencer(ABC):
     @abstractmethod
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         """Infer a file type and return extensions with MIME types."""
         raise NotImplementedError
 ```
@@ -31,6 +31,7 @@ class BaseInferencer(ABC):
 2. **MagicInferencer**: Content-based using libmagic
 3. **MagikaInferencer**: AI-powered detection
 4. **HybridInferencer**: Hybrid two-stage approach
+5. **TikaInferencer**: Pinned Apache Tika in a long-lived JVM process (OS-independent labels)
 
 ## Design Patterns
 
@@ -40,8 +41,8 @@ The library implements the Strategy pattern, allowing clients to choose inferenc
 
 ```python
 # Strategy selection
-strategy = AutoInferencer(backend=backend)
-result = strategy.infer(file_path)
+strategy = UnifiedInferencer(backend=backend)
+result = strategy.detect(file_path)
 ```
 
 ### Template Method Pattern
@@ -57,7 +58,7 @@ result = strategy.infer(file_path)
 filetype_detector/
 ├── __init__.py
 ├── __main__.py             # Lazy launcher for the terminal UI
-├── auto_inferencer.py      # Unified backend selector
+├── unified_inferencer.py      # Unified backend selector
 ├── demo.py                 # Textual file browser and strategy comparison
 ├── core/
 │   ├── base_inferencer.py  # Abstract interface and path validation
@@ -115,12 +116,12 @@ To add a custom inferencer:
 from filetype_detector import BaseInferencer, FileType
 
 class CustomInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         # Build the shared result type so every strategy has the same contract.
         return FileType.from_extension(".custom")
 ```
 
-2. **Register in `AutoInferencer`** (optional):
+2. **Register in `UnifiedInferencer`** (optional):
 ```python
 from .my_inferencer import CustomInferencer
 
@@ -166,8 +167,8 @@ This ensures:
 
 ### Return Types
 
-All `infer()` implementations return `FileType`, which carries `extensions`
-and `mime_types` tuples. `MagikaInferencer.infer_with_score()` is the one
+All `detect()` implementations return `FileType`, which carries `extensions`
+and `mime_types` tuples. `MagikaInferencer.detect_with_score()` is the one
 specialized helper that returns `tuple[str, float]`.
 
 ## Performance Considerations
@@ -185,12 +186,12 @@ All inferencers are designed to be reused:
 # Good - reuse instance
 inferencer = MagicInferencer()
 for file in files:
-    file_type = inferencer.infer(file)
+    file_type = inferencer.detect(file)
 
 # Bad - creates new instance each time
 for file in files:
     inferencer = MagicInferencer()  # Don't do this
-    file_type = inferencer.infer(file)
+    file_type = inferencer.detect(file)
 ```
 
 ### Hybrid Optimization
@@ -223,7 +224,7 @@ tests/
 The architecture supports future enhancements:
 
 1. **New Inferencers**: Easy to add via `BaseInferencer`
-2. **New Strategies**: Can add new backends to `AutoInferencer`
+2. **New Strategies**: Can add new backends to `UnifiedInferencer`
 3. **Configuration**: Type system supports config-based selection
 4. **Caching**: Can add caching layer without changing interfaces
 

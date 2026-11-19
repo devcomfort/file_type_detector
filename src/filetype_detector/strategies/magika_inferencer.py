@@ -1,10 +1,11 @@
 """Provides Magika-based inferencer implementation."""
 
-from ..core import BaseInferencer, FileType
-from typing import Union, Tuple
-from pathlib import Path
 import mimetypes
+from pathlib import Path
+
 from magika import Magika, PredictionMode
+
+from ..core import BaseInferencer, FileType
 
 
 class MagikaInferencer(BaseInferencer):
@@ -19,13 +20,13 @@ class MagikaInferencer(BaseInferencer):
     Inputs file content into a deep learning model to predict file type along with
     confidence score. Based on learned features rather than fixed rules, so it excels
     at distinguishing detailed types of text-based files.
-    ``infer`` returns a :class:`FileType`, while ``infer_with_score`` returns an
+    ``infer`` returns a :class:`FileType`, while ``detect_with_score`` returns an
     extension and confidence score.
 
     Examples
     --------
     >>> inferencer = MagikaInferencer()
-    >>> ft = inferencer.infer('script.py')
+    >>> ft = inferencer.detect('script.py')
     >>> '.py' in ft.extensions
     True
     """
@@ -57,11 +58,11 @@ class MagikaInferencer(BaseInferencer):
             self._magika = Magika(prediction_mode=self._prediction_mode)
         return self._magika
 
-    def infer_with_score(
+    def detect_with_score(
         self,
-        file_path: Union[Path, str],
+        file_path: Path | str,
         prediction_mode: PredictionMode | None = None,
-    ) -> Tuple[str, float]:
+    ) -> tuple[str, float]:
         """Return extension and confidence score together.
 
         Parameters
@@ -88,7 +89,7 @@ class MagikaInferencer(BaseInferencer):
         Examples
         --------
         >>> inferencer = MagikaInferencer()
-        >>> extension, score = inferencer.infer_with_score('document.pdf')
+        >>> extension, score = inferencer.detect_with_score('document.pdf')
         >>> print(extension, score)
         .pdf 0.99
         """
@@ -106,9 +107,9 @@ class MagikaInferencer(BaseInferencer):
             score = result.prediction.score
             return (extension, score)
         except Exception as e:
-            raise RuntimeError(f"Failed to analyze file {path_obj}: {str(e)}") from e
+            raise RuntimeError(f"Failed to analyze file {path_obj}: {e!s}") from e
 
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Path | str) -> FileType:
         """Infer file type using Magika model and return FileType.
 
         Parameters
@@ -133,7 +134,7 @@ class MagikaInferencer(BaseInferencer):
         Examples
         --------
         >>> inferencer = MagikaInferencer()
-        >>> ft = inferencer.infer('document.pdf')
+        >>> ft = inferencer.detect('document.pdf')
         >>> '.pdf' in ft.extensions
         True
         """
@@ -155,4 +156,4 @@ class MagikaInferencer(BaseInferencer):
 
             return FileType(extensions=tuple(normalized_exts), mime_types=mime_types)
         except Exception as e:
-            raise RuntimeError(f"Failed to analyze file {path_obj}: {str(e)}") from e
+            raise RuntimeError(f"Failed to analyze file {path_obj}: {e!s}") from e

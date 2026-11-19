@@ -16,7 +16,7 @@ class TestLexicalInferencer:
         ],
     )
     def test_infer_with_string_path(self, filename, expected_ext):
-        result = LexicalInferencer().infer(filename)
+        result = LexicalInferencer().detect(filename)
         assert expected_ext in result.extensions
 
     @pytest.mark.parametrize(
@@ -27,13 +27,13 @@ class TestLexicalInferencer:
         ],
     )
     def test_infer_with_path_object(self, filename, expected_ext):
-        result = LexicalInferencer().infer(Path(filename))
+        result = LexicalInferencer().detect(Path(filename))
         assert expected_ext in result.extensions
 
     @pytest.mark.parametrize("filename", ["no_extension", "file_without_ext"])
     def test_infer_no_extension(self, filename):
         with pytest.raises(ValueError, match="No extension found"):
-            LexicalInferencer().infer(filename)
+            LexicalInferencer().detect(filename)
 
     @pytest.mark.parametrize(
         "filename, expected_ext",
@@ -44,7 +44,7 @@ class TestLexicalInferencer:
         ],
     )
     def test_infer_case_insensitive(self, filename, expected_ext):
-        result = LexicalInferencer().infer(filename)
+        result = LexicalInferencer().detect(filename)
         assert expected_ext in result.extensions
 
     @pytest.mark.parametrize(
@@ -55,7 +55,7 @@ class TestLexicalInferencer:
         ],
     )
     def test_infer_multiple_dots(self, filename, expected_ext):
-        result = LexicalInferencer().infer(filename)
+        result = LexicalInferencer().detect(filename)
         assert expected_ext in result.extensions
 
     @pytest.mark.parametrize(
@@ -66,15 +66,15 @@ class TestLexicalInferencer:
         ],
     )
     def test_infer_with_path_separators(self, path):
-        result = LexicalInferencer().infer(path)
+        result = LexicalInferencer().detect(path)
         assert result.extensions[0] in (".pdf", ".txt")
 
     @pytest.mark.parametrize("filename", ["", Path("")])
     def test_infer_empty_string(self, filename):
         with pytest.raises(ValueError, match="No extension found"):
-            LexicalInferencer().infer(filename)
+            LexicalInferencer().detect(filename)
 
     @pytest.mark.parametrize("filename", [".hidden", ".gitignore"])
     def test_infer_dot_only(self, filename):
         with pytest.raises(ValueError, match="No extension found"):
-            LexicalInferencer().infer(filename)
+            LexicalInferencer().detect(filename)

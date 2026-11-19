@@ -19,7 +19,7 @@ class LexicalInferencer(BaseInferencer):
 
 ## Methods
 
-### `infer(file_path: Union[Path, str]) -> FileType`
+### `detect(file_path: Union[Path, str]) -> FileType`
 
 Infer the file format from the file path.
 
@@ -40,15 +40,15 @@ from pathlib import Path
 inferencer = LexicalInferencer()
 
 # String path
-ft = inferencer.infer('document.pdf')
+ft = inferencer.detect('document.pdf')
 '.pdf' in ft.extensions  # True
 
 # Path object
-ft = inferencer.infer(Path('data.txt'))
+ft = inferencer.detect(Path('data.txt'))
 '.txt' in ft.extensions  # True
 
 # No extension
-inferencer.infer('no_extension')  # Raises ValueError
+inferencer.detect('no_extension')  # Raises ValueError
 ```
 
 ## Usage Examples
@@ -59,7 +59,7 @@ inferencer.infer('no_extension')  # Raises ValueError
 from filetype_detector import LexicalInferencer
 
 inferencer = LexicalInferencer()
-ft = inferencer.infer("document.pdf")
+ft = inferencer.detect("document.pdf")
 '.pdf' in ft.extensions  # True
 ft.mime_types             # ('application/pdf',)
 ```
@@ -70,8 +70,8 @@ The inferencer automatically converts extensions to lowercase:
 
 ```python
 inferencer = LexicalInferencer()
-ft1 = inferencer.infer("FILE.PDF")
-ft2 = inferencer.infer("file.pdf")
+ft1 = inferencer.detect("FILE.PDF")
+ft2 = inferencer.detect("file.pdf")
 '.pdf' in ft1.extensions  # True
 '.pdf' in ft2.extensions  # True
 ```
@@ -82,7 +82,7 @@ When filenames contain multiple dots, returns the last extension:
 
 ```python
 inferencer = LexicalInferencer()
-ft1 = inferencer.infer("file.tar.gz")
+ft1 = inferencer.detect("file.tar.gz")
 '.gz' in ft1.extensions   # True
 ```
 
@@ -94,12 +94,12 @@ Paths without a suffix are invalid lexical inputs:
 inferencer = LexicalInferencer()
 
 try:
-    inferencer.infer("no_extension")
+    inferencer.detect("no_extension")
 except ValueError:
     print("No extension detected")
 
 try:
-    inferencer.infer(".hidden")
+    inferencer.detect(".hidden")
 except ValueError:
     print("No extension detected")
 ```
@@ -141,7 +141,7 @@ extension.
 inferencer = LexicalInferencer()
 
 try:
-    file_type = inferencer.infer("file_without_ext")
+    file_type = inferencer.detect("file_without_ext")
 except ValueError as error:
     print(error)
 else:

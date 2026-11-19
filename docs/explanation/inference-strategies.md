@@ -44,15 +44,25 @@ So the hybrid strategy does this:
 
 This keeps binary detection fast while improving text detection when it matters.
 
-## `AutoInferencer`
+## `TikaInferencer`
 
-`AutoInferencer` does not add a new detection algorithm.
+`TikaInferencer` uses a pinned Apache Tika build instead of libmagic and the
+host MIME database. It exists because a pinned build returns the same MIME and
+extension labels on Linux, macOS, and Windows, so the labels do not drift with
+the operating system. It requires Java 11+ and the pinned JAR.
+
+Choose it when identical labels across operating systems matter more than the
+extra Java and JAR setup.
+
+## `UnifiedInferencer`
+
+`UnifiedInferencer` does not add a new detection algorithm.
 Its job is to make backend selection uniform.
 Instead of importing a different class for each strategy, callers can keep one public entry point and switch behavior with `backend`.
 
 ## Practical Takeaway
 
-Choose `lexical` when names are reliable, `magic` when content validation matters, `magika` when text precision matters, and `hybrid` when you want one strong default for mixed workloads.
+Choose `lexical` when names are reliable, `magic` when content validation matters, `magika` when text precision matters, `tika` when identical labels across operating systems matter, and `hybrid` when you want one strong default for mixed workloads.
 
 **Why Hybrid is the recommended default**: it preserves Magic's content result unless text or an ambiguous MIME makes Magika useful, then falls back when Magika has no result. The [backend conformance report](../reference/backend-conformance.md) verifies that control flow against reviewed facts for each supported runtime.
 

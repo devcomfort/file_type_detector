@@ -10,7 +10,7 @@ from filetype_detector import BaseInferencer
 
 ### Description
 
-The `BaseInferencer` class provides a common interface for all inferencer implementations. It defines the abstract `infer` method that must be implemented by subclasses.
+The `BaseInferencer` class provides a common interface for all inferencer implementations. It defines the abstract `detect` method that must be implemented by subclasses.
 
 ### Class Definition
 
@@ -21,7 +21,7 @@ class BaseInferencer(ABC):
 
 ### Methods
 
-#### `infer(file_path: Union[Path, str]) -> FileType`
+#### `detect(file_path: Union[Path, str]) -> FileType`
 
 Abstract method that must be implemented by all inferencer subclasses.
 
@@ -45,14 +45,14 @@ from typing import Union
 from pathlib import Path
 
 class CustomInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         # Custom implementation
         return FileType.from_extension(".custom")
 ```
 
 ### Creating Custom Inferencers
 
-To create a custom inferencer, subclass `BaseInferencer` and implement the `infer` method:
+To create a custom inferencer, subclass `BaseInferencer` and implement the `detect` method:
 
 ```python
 from filetype_detector import BaseInferencer, FileType
@@ -62,7 +62,7 @@ from pathlib import Path
 class MyCustomInferencer(BaseInferencer):
     """Custom inferencer implementation."""
     
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         """Infer file type using custom logic."""
         path_obj = Path(file_path)
         

@@ -121,7 +121,7 @@ mkdocs build  # Build static site
 Use numpy-style docstrings:
 
 ```python
-def infer(self, file_path: Union[Path, str]) -> FileType:
+def detect(self, file_path: Union[Path, str]) -> FileType:
     """Infer the file format from a path.
 
     Parameters
@@ -144,7 +144,7 @@ def infer(self, file_path: Union[Path, str]) -> FileType:
 ### Naming Conventions
 
 - Classes: `PascalCase` (e.g., `MagicInferencer`)
-- Functions/Methods: `snake_case` (e.g., `infer`)
+- Functions/Methods: `snake_case` (e.g., `detect`)
 - Constants and registries: `UPPER_SNAKE_CASE` (private registries may use a leading underscore, e.g., `_BACKEND_MAP`)
 
 ## Adding New Features
@@ -156,14 +156,14 @@ def infer(self, file_path: Union[Path, str]) -> FileType:
 from filetype_detector import BaseInferencer, FileType
 
 class MyInferencer(BaseInferencer):
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Union[Path, str]) -> FileType:
         # Return the common result type used by every inferencer.
         return FileType.from_extension(".ext")
 ```
 
-2. **Register in `auto_inferencer.py`** (optional):
+2. **Register in `unified_inferencer.py`** (optional):
 ```python
-# In auto_inferencer.py
+# In unified_inferencer.py
 from .my_inferencer import MyInferencer
 
 BackendType = Literal["lexical", "magic", "magika", "hybrid", "my_inferencer"]
@@ -201,10 +201,10 @@ Follow existing test patterns:
 
 Example:
 ```python
-def test_infer_accepts_string_path(sample_text_file):
+def test_detect_accepts_string_path(sample_text_file):
     inferencer = MagicInferencer()
 
-    file_type = inferencer.infer(str(sample_text_file))
+    file_type = inferencer.detect(str(sample_text_file))
 
     assert ".txt" in file_type.extensions
 ```

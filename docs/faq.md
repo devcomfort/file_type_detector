@@ -33,7 +33,7 @@ Yes. You can chain inferencers or use them sequentially. See [Examples and Patte
 
 ### Why does Magika return a list sometimes?
 
-Magika can report multiple extensions. `MagikaInferencer.infer()` normalizes all of them into `FileType.extensions`; `infer_with_score()` returns the first extension with its confidence score.
+Magika can report multiple extensions. `MagikaInferencer.detect()` normalizes all of them into `FileType.extensions`; `detect_with_score()` returns the first extension with its confidence score.
 
 ### Can I get confidence scores?
 
@@ -43,10 +43,10 @@ Yes, but only with `MagikaInferencer` directly:
 from filetype_detector import MagikaInferencer
 
 inferencer = MagikaInferencer()
-extension, score = inferencer.infer_with_score("file.py")
+extension, score = inferencer.detect_with_score("file.py")
 ```
 
-Note: `AutoInferencer(backend="magika")` doesn't support scores.
+Note: `UnifiedInferencer(backend="magika")` doesn't support scores.
 
 ### What happens if detection fails?
 

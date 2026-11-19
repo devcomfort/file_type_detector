@@ -6,9 +6,10 @@ import json
 import subprocess
 import sys
 from hashlib import sha256
-import pytest
-from types import ModuleType
 from pathlib import Path
+from types import ModuleType
+
+import pytest
 
 from scripts.conformance.collector import collect_observation
 from scripts.conformance.types import (
@@ -260,7 +261,7 @@ def test_collect_observation_preserves_backend_failure_without_fallback(
     requested_backends: list[str] = []
 
     class FailingInferencer:
-        def infer(self, path: Path) -> object:
+        def detect(self, path: Path) -> object:
             raise RuntimeError("native backend unavailable")
 
     def failing_backend(name: str) -> FailingInferencer:
@@ -309,7 +310,7 @@ def test_collect_observation_classifies_empty_output_as_no_result(
     )
 
     class EmptyInferencer:
-        def infer(self, path: Path) -> FileType:
+        def detect(self, path: Path) -> FileType:
             return FileType()
 
     monkeypatch.setattr(

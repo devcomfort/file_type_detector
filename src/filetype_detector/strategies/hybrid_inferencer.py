@@ -7,11 +7,12 @@ files with specific MIME types while achieving finer classification for files
 where Magic produces generic results.
 """
 
-from ..core import BaseInferencer, FileType
-from typing import Union
 from pathlib import Path
+
 import magic
 from magika import Magika, PredictionMode
+
+from ..core import BaseInferencer, FileType
 
 MAGIKA_CONFIDENCE_THRESHOLD = 0.5
 """Minimum Magika confidence score to accept its result over Magic's."""
@@ -42,7 +43,7 @@ class HybridInferencer(BaseInferencer):
     Examples
     --------
     >>> inferencer = HybridInferencer()
-    >>> ft = inferencer.infer('document.pdf')
+    >>> ft = inferencer.detect('document.pdf')
     >>> '.pdf' in ft.extensions
     True
     """
@@ -67,7 +68,7 @@ class HybridInferencer(BaseInferencer):
             self._magika = Magika(prediction_mode=PredictionMode.MEDIUM_CONFIDENCE)
         return self._magika
 
-    def infer(self, file_path: Union[Path, str]) -> FileType:
+    def detect(self, file_path: Path | str) -> FileType:
         """Infer file type using hybrid strategy.
 
         The strategy works as follows:
@@ -105,7 +106,7 @@ class HybridInferencer(BaseInferencer):
         Examples
         --------
         >>> inferencer = HybridInferencer()
-        >>> ft = inferencer.infer('document.pdf')
+        >>> ft = inferencer.detect('document.pdf')
         >>> '.pdf' in ft.extensions
         True
         """

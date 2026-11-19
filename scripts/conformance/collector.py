@@ -64,7 +64,7 @@ def collect_observation(
         inferencer = _inferencer_for_backend(backend)
         with stage_probe(record, root=root) as probe:
             probe_name = probe.name
-            result = inferencer.infer(probe)
+            result = inferencer.detect(probe)
     except Exception as error:
         return _error_observation(
             record=record,

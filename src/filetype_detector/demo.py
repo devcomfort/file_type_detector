@@ -13,11 +13,11 @@ from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
-from textual.worker import get_current_worker
 from textual.widgets import DataTable, Footer, Header, Input, Static
+from textual.worker import get_current_worker
 
-from .auto_inferencer import AutoInferencer, BackendType
 from .core import FileType
+from .unified_inferencer import BackendType, UnifiedInferencer
 
 _DEFAULT_LIMIT = 1_000
 _MIN_SCAN_ENTRIES = 1_000
@@ -109,7 +109,7 @@ class DefaultInferenceRunner:
     """Lazily reuse inferencers while serializing access to their models."""
 
     def __init__(self) -> None:
-        self._inferencers: dict[BackendType, AutoInferencer] = {}
+        self._inferencers: dict[BackendType, UnifiedInferencer] = {}
         self._lock = threading.Lock()
 
     def __call__(self, path: Path) -> tuple[StrategyResult, ...]:
@@ -119,12 +119,12 @@ class DefaultInferenceRunner:
                 try:
                     inferencer = self._inferencers.get(backend)
                     if inferencer is None:
-                        inferencer = AutoInferencer(backend)
+                        inferencer = UnifiedInferencer(backend)
                         self._inferencers[backend] = inferencer
                     results.append(
                         StrategyResult(
                             backend=backend,
-                            file_type=inferencer.infer(path),
+                            file_type=inferencer.detect(path),
                         )
                     )
                 except Exception as error:
