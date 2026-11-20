@@ -78,7 +78,8 @@ python -m scripts.conformance.tika_compare \
 - Tika가 정상 처리한 **605개에서는 세 OS의 원시 MIME과 내장 확장자가 완전히 같았다.** `content`·`named`·`wrong_pdf`·`wrong_txt` 네 모드 모두 같다. 이 값은 OS 간 일치도이며 형식 정확도가 아니다.
 - libmagic 차이는 **Tika 실패 조건이 아니다.** 이 실험의 libmagic은 러너별 배포판이 달라(`541`·`548`·`532`) 버전 차이와 OS 차이가 섞여 있다. 같은 수치로 OS 의존성만 분리할 수 없고, Python `mimetypes` 확장자 차이는 호스트 MIME 데이터베이스 차이다.
 - 당시 전체 실패는 `sample-bplist` 1건 때문이었다. 커밋된 파일은 `bplist00` 뒤에 NUL 20바이트만 붙인 28바이트 스텁으로, `plistlib`도 `InvalidFileException`으로 거부했다. Tika의 `BPListDetector`는 세 OS 모두 같은 `IOException: problem parsing root`를 냈으므로 OS별 차이가 아니라 입력 결함이었다.
-- 2026-11-20에 `scripts/generators/text_formats.py::_bplist`가 `plistlib.dumps(..., FMT_BINARY)`의 58바이트 출력을 만들도록 고쳐 `tests/fixtures/sample.bplist`를 재생성했다. `plistlib` 왕복과 TikaProbe 네 모드 `ok`(`application/x-bplist`)를 확인했고, 후보 레코드의 `sha256`을 갱신하고 `format_validity.status`를 `verified`로 올렸다. 세 OS 재측정은 이 커밋이 트리거하는 워크플로 실행으로 확인한다.
+- 2026-11-20에 `scripts/generators/text_formats.py::_bplist`가 `plistlib.dumps(..., FMT_BINARY)`의 58바이트 출력을 만들도록 고쳐 `tests/fixtures/sample.bplist`를 재생성했다. 후보 레코드의 `sha256`을 갱신하고 `format_validity.status`를 `verified`로 올렸다. 재측정 실행(run `44708770769`)은 네 잡 모두 성공했고 보고서는 `passed=true`, `cross_os_verified=true`, 비교불가 0건을 기록했다.
 - 검토 라벨 호환은 `content` 30/51, `named` 33/51, `wrong_pdf` 27/51, `wrong_txt` 27/51이고 같은 조건의 libmagic `content`는 29/51이다. 별칭 정규화 없는 원시 문자열 비교이며 정확도가 아니다. `named`가 더 높은 것은 파일명 힌트의 영향이다.
 
 <!-- 2026-11-19: 첫 성공적 3-OS 실행 결과를 기록했다. 판정은 실패로 유지하며, 실패 원인이 OS 차이가 아니라 검토 대기 샘플 1건임을 구분해 남긴다. -->
+<!-- 2026-11-20: sample-bplist를 유효한 바이너리 plist로 재생성한 뒤 재측정(run 44708770769)에서 게이트가 통과했다. 위 표와 판정 행은 2026-11-19 실행 값이다. -->
