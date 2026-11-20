@@ -1,5 +1,7 @@
 """Text format generators."""
 
+import plistlib
+
 from .base import BaseGenerator
 from . import register
 
@@ -67,7 +69,8 @@ class TextFormatGenerator(BaseGenerator):
             "sgml": self._sgml,
             "pgp": self._pgp,
         }
-        return generators[ext]().encode("utf-8")
+        content = generators[ext]()
+        return content if isinstance(content, bytes) else content.encode("utf-8")
 
     def _txt(self) -> str:
         return "Hello, World!\n"
@@ -120,8 +123,10 @@ class TextFormatGenerator(BaseGenerator):
     def _plist(self) -> str:
         return '<?xml version="1.0"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>Name</key><string>Sample</string></dict></plist>'
 
-    def _bplist(self) -> str:
-        return "bplist00" + "\x00" * 20
+    def _bplist(self) -> bytes:
+        # A parseable binary plist: plistlib round-trips it and Tika's
+        # BPListDetector reads it without raising IOException.
+        return plistlib.dumps({"name": "sample"}, fmt=plistlib.FMT_BINARY)
 
     def _lock(self) -> str:
         return "# This file is automatically @generated.\nversion = 3\n"

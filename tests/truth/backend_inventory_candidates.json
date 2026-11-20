@@ -2841,7 +2841,7 @@
     {
       "id": "sample-bplist",
       "fixture": "tests/fixtures/sample.bplist",
-      "sha256": "5ef41ca666c21162ca1e98a0f39845f9133a1efa65c533c866e74ecc1499c25f",
+      "sha256": "f24532721f6dfe6b9ada6639363c6ccb2b7a7fb2c4d8b0b6436be83b500d4cb0",
       "probe_extension": ".bplist",
       "ground_truth": {
         "mime_types": [
@@ -2855,7 +2855,7 @@
       "provenance": "Generated from format specification (minimal valid content)",
       "ground_truth_review": {
         "status": "excluded",
-        "reason": "quarantined pending format validity: independent subtype parser validation not yet executed"
+        "reason": "not promoted: MIME and extension authority evidence and content identifiability still pending review"
       },
       "backends": [
         "lexical",
@@ -2870,10 +2870,11 @@
         "tier": "exact-byte"
       },
       "format_validity": {
-        "status": "needs_review",
-        "validator": "pending",
+        "status": "verified",
+        "validator": "python plistlib",
         "evidence": [
-          "independent parser validation not yet executed"
+          "plistlib.loads parses the fixture and returns {'name': 'sample'}",
+          "TikaProbe returns ok with mime application/x-bplist in all four modes (2026-11-20)"
         ]
       },
       "content_identifiability": null

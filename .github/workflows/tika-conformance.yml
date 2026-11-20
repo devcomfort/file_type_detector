@@ -8,12 +8,18 @@ on:
       - "scripts/conformance/tika_*.py"
       - "scripts/conformance/TikaProbe.java"
       - "tests/conformance/test_tika_*.py"
+      - "tests/fixtures/**"
+      - "tests/truth/**"
+      - "scripts/generators/**"
   pull_request:
     paths:
       - ".github/workflows/tika-conformance.yml"
       - "scripts/conformance/tika_*.py"
       - "scripts/conformance/TikaProbe.java"
       - "tests/conformance/test_tika_*.py"
+      - "tests/fixtures/**"
+      - "tests/truth/**"
+      - "scripts/generators/**"
 
 permissions:
   contents: read
