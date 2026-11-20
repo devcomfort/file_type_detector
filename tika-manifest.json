@@ -1,0 +1,25 @@
+{
+  "schema": "filetype-detector/tika-manifest/v1",
+  "description": "Single source of truth for the pinned Apache Tika backend. Update tika.version, tika.jar_url and tika.jar_sha512 together; the Python loader and the install scripts both read this file.",
+  "tika": {
+    "version": "3.3.3",
+    "jar_url": "https://repo.maven.apache.org/maven2/org/apache/tika/tika-app/3.3.3/tika-app-3.3.3.jar",
+    "jar_url_template": "https://repo.maven.apache.org/maven2/org/apache/tika/tika-app/{version}/tika-app-{version}.jar",
+    "jar_sha512": "3c6e62e864e32af234832ec6d928bbc58692d3ddd60564cd8c80dee7e161653d6efcba373b6cc9468c778010bea92bdee5ca75ab24f01923480bec1b29b573fd",
+    "jar_filename": "tika-app-3.3.3.jar",
+    "probe_file": "TikaDetect.java",
+    "java_options": [
+      "-Dfile.encoding=UTF-8",
+      "-Duser.language=en",
+      "-Duser.country=US",
+      "-Duser.timezone=UTC"
+    ]
+  },
+  "java": {
+    "manager": "jabba",
+    "min_major": 11,
+    "install_version": "temurin@~11",
+    "install_version_notes": "jabba alias form: 'temurin@~11' installs the newest Java 11 build; 'temurin@=11.0.29' pins an exact patch build. Pass --java-version to the install scripts to override."
+  },
+  "cache_dir": "~/.cache/filetype-detector"
+}

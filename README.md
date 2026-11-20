@@ -124,19 +124,35 @@ labels do not drift between operating systems. It needs two things that
 `pip install` does not provide:
 
 1. **Java 11 or newer** on `PATH` (`java -version` should work).
-2. **The pinned `tika-app-3.3.3.jar`**. Download it once before the first
-   `detect()` call:
+2. **The pinned `tika-app-3.3.3.jar`**.
 
-   ```python
-   from filetype_detector import TikaInferencer
+The pinned versions, JAR URL, SHA-512, and Java options live in
+[`tika-manifest.json`](tika-manifest.json) at the repository root — update that
+file to move the pin; the Python loader and the setup scripts both read it.
 
-   TikaInferencer.download_jar()  # fetches from Maven Central, verifies SHA-512
-   ```
+**Easiest setup**: run the OS script, which installs Java via
+[jabba](https://github.com/Jabba-Team/jabba) when needed, downloads the JAR,
+and verifies its SHA-512:
 
-   The JAR is stored at `~/.cache/filetype-detector/tika-app-3.3.3.jar` and
-   reused. To use your own copy, set the `TIKA_JAR` environment variable or
-   pass `jar_path=` to the constructor. The SHA-512 of the JAR is checked
-   against a pinned value on every run; a mismatched JAR is refused.
+```bash
+scripts/install-tika-tools-linux.sh install    # or -macos.sh, -windows.ps1
+scripts/install-tika-tools-linux.sh check      # verify Java + JAR
+scripts/install-tika-tools-linux.sh update     # converge to manifest versions
+scripts/install-tika-tools-linux.sh remove     # remove the downloaded JAR
+```
+
+**Or from Python**, download the JAR once before the first `detect()` call:
+
+```python
+from filetype_detector import TikaInferencer
+
+TikaInferencer.download_jar()  # fetches from Maven Central, verifies SHA-512
+```
+
+The JAR is stored at `~/.cache/filetype-detector/tika-app-3.3.3.jar` and
+reused. To use your own copy, set the `TIKA_JAR` environment variable or
+pass `jar_path=` to the constructor. The SHA-512 of the JAR is checked
+against a pinned value on every run; a mismatched JAR is refused.
 
 `detect()` raises `FileNotFoundError` if the JAR is missing and `RuntimeError`
 if Java is not installed. No automatic download happens at detection time:

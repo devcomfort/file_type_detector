@@ -5,9 +5,9 @@ on Linux, macOS, and Windows. Detection runs in a long-lived JVM process that
 this class starts lazily on the first :meth:`detect` call and keeps for reuse,
 so the JVM startup cost is paid once.
 """
-
 import base64
 import hashlib
+import json
 import os
 import subprocess
 import threading
@@ -17,31 +17,60 @@ from typing import Self
 
 from ..core import BaseInferencer, FileType
 
-TIKA_VERSION = "3.3.3"
-"""Pinned Apache Tika version; identical labels require an identical JAR."""
-
-TIKA_SHA512 = (
-    "3c6e62e864e32af234832ec6d928bbc58692d3ddd60564cd8c80dee7e161653d6efc"
-    "ba373b6cc9468c778010bea92bdee5ca75ab24f01923480bec1b29b573fd"
-)
-"""SHA-512 of the pinned ``tika-app-3.3.3.jar`` from Maven Central."""
-
-TIKA_URL = (
-    "https://repo.maven.apache.org/maven2/org/apache/tika/tika-app/"
-    f"{TIKA_VERSION}/tika-app-{TIKA_VERSION}.jar"
-)
-"""Maven Central URL for the pinned JAR."""
-
 _ENV_JAR = "TIKA_JAR"
-_DEFAULT_JAR = Path.home() / ".cache" / "filetype-detector" / f"tika-app-{TIKA_VERSION}.jar"
+_ENV_MANIFEST = "FILETYPE_TIKA_MANIFEST"
+_MANIFEST_NAME = "tika-manifest.json"
+_DEFAULT_CACHE_DIR = Path.home() / ".cache" / "filetype-detector"
 _PROBE = Path(__file__).with_name("TikaDetect.java")
 
-_JAVA_OPTIONS = (
-    "-Dfile.encoding=UTF-8",
-    "-Duser.language=en",
-    "-Duser.country=US",
-    "-Duser.timezone=UTC",
-)
+
+def _manifest_candidates() -> list[Path]:
+    """Ordered manifest locations: env override, repo root, packaged copy."""
+    candidates: list[Path] = []
+    env_value = os.environ.get(_ENV_MANIFEST)
+    if env_value:
+        candidates.append(Path(env_value))
+    for parent in Path(__file__).resolve().parents:
+        candidates.append(parent / _MANIFEST_NAME)
+    candidates.append(Path(__file__).with_name("tika_manifest.json"))
+    return candidates
+
+
+def _load_manifest() -> dict:
+    """Read the Tika manifest once per process.
+
+    The repository root ``tika-manifest.json`` is the canonical file; a copy
+    ships inside the package so installed wheels work without the repo.
+    """
+    for candidate in _manifest_candidates():
+        if candidate.is_file():
+            try:
+                return json.loads(candidate.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid Tika manifest: {candidate}") from e
+    searched = ", ".join(str(p) for p in _manifest_candidates())
+    raise FileNotFoundError(f"Tika manifest not found; searched: {searched}")
+
+
+_MANIFEST = _load_manifest()
+_TIKA = _MANIFEST["tika"]
+_JAVA = _MANIFEST["java"]
+
+TIKA_VERSION = _TIKA["version"]
+"""Pinned Apache Tika version; identical labels require an identical JAR."""
+
+TIKA_SHA512 = _TIKA["jar_sha512"]
+"""SHA-512 of the pinned ``tika-app-<version>.jar`` from Maven Central."""
+
+TIKA_URL = _TIKA["jar_url"]
+"""Maven Central URL for the pinned JAR."""
+
+MIN_JAVA_MAJOR = _JAVA["min_major"]
+"""Minimum Java major version required to run the probe."""
+
+_DEFAULT_JAR = _DEFAULT_CACHE_DIR / _TIKA["jar_filename"]
+
+_JAVA_OPTIONS = tuple(_TIKA["java_options"])
 
 
 class TikaInferencer(BaseInferencer):
@@ -75,7 +104,9 @@ class TikaInferencer(BaseInferencer):
 
     Notes
     -----
-    Requires Java 11+ on ``PATH``. The JAR is downloaded once via
+    Requires Java 11+ on ``PATH``. The pinned version, JAR URL, and SHA-512
+    are read from ``tika-manifest.json`` (repo root, packaged copy, or the
+    ``FILETYPE_TIKA_MANIFEST`` override). The JAR is downloaded once via
     :meth:`download_jar` and reused; nothing is downloaded at import time.
     """
 

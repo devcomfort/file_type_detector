@@ -16,6 +16,11 @@ from filetype_detector import TikaInferencer
   `~/.cache/filetype-detector/tika-app-3.3.3.jar`. Verify or fetch it once with
   `TikaInferencer.download_jar()`; the SHA-512 is checked before first use.
 
+The pinned version, JAR URL, and SHA-512 are read from `tika-manifest.json`
+at the repository root (or the `FILETYPE_TIKA_MANIFEST` override). The
+`scripts/install-tika-tools-{linux,macos}.sh` and `-windows.ps1` helpers
+install Java via jabba and fetch the verified JAR.
+
 ## Basic Usage
 
 ```python

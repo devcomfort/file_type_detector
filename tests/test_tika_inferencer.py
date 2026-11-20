@@ -11,10 +11,24 @@ from pathlib import Path
 
 import pytest
 
+from filetype_detector.strategies import tika_inferencer
 from filetype_detector.strategies.tika_inferencer import (
     TIKA_SHA512,
     TikaInferencer,
 )
+
+
+class TestManifestSync:
+    """The packaged manifest must stay identical to the repo-root manifest."""
+
+    def test_packaged_manifest_matches_root(self) -> None:
+        strategies_dir = Path(tika_inferencer.__file__).resolve().parent
+        repo_root = strategies_dir.parents[2]
+        root_manifest = repo_root / "tika-manifest.json"
+        if not root_manifest.is_file():
+            pytest.skip("repo-root manifest absent (installed package)")
+        packaged = strategies_dir / "tika_manifest.json"
+        assert packaged.read_bytes() == root_manifest.read_bytes()
 
 
 class TestJarResolution:
